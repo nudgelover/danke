@@ -83,11 +83,30 @@ public class JspController {
 
         return "general/error";
     }
+
+    @RequestMapping("/faq")
+    public String faq(Model model) throws Exception {
+        model.addAttribute("center", "general/faq");
+        return "index";
+    }
+
+    @RequestMapping("/pricing")
+    public String pricing(Model model) throws Exception {
+        model.addAttribute("center", "general/pricing");
+        return "index";
+    }
     @RequestMapping("/invoice")
     public String invoice(Model model) throws Exception {
         model.addAttribute("center", "general/invoice");
         return "index";
     }
+
+    @RequestMapping("/wizard")
+    public String wizard(Model model) throws Exception {
+        model.addAttribute("center", "general/wizard");
+        return "index";
+    }
+
     @RequestMapping("/overview")
     public String overview(Model model) throws Exception {
         model.addAttribute("center", "profile/overview");

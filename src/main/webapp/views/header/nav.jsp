@@ -84,19 +84,19 @@
                   <h3 class="fw-bold mb-5">General</h3>
                   <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="/faq">FAQ</a>
+                      <a class="menu-link ps-0 py-2" href="/faq">FAQ@</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="/pricing">Pricing</a>
+                      <a class="menu-link ps-0 py-2" href="/pricing">Pricing@</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="/invoice">Invoice</a>
+                      <a class="menu-link ps-0 py-2" href="/invoice">Invoice@</a>
                     </li>
                     <li class="menu-item">
                       <a class="menu-link ps-0 py-2" href="/login">Login@</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="/wizard">Wizard</a>
+                      <a class="menu-link ps-0 py-2" href="/wizard">Wizard@</a>
                     </li>
                     <li class="menu-item">
                       <a class="menu-link ps-0 py-2" href="/errorpage">Error@</a>
