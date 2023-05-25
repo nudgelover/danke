@@ -1,6 +1,6 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
-<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+<link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <!--end::Vendor Stylesheets-->
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
@@ -25,14 +25,10 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/calendar" class="btn btn-active-accent active fw-bold">Calendar</a>
-                <a href="/private" class="btn btn-active-accent fw-bold ms-3">Private Chat</a>
-                <a href="/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
-                <a href="/drawer" class="btn btn-active-accent fw-bold ms-3">Drawer Chat</a>
-                <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
-                <a href="/shop1" class="btn btn-active-accent fw-bold ms-3">Shop 1</a>
-                <a href="/shop2" class="btn btn-active-accent fw-bold ms-3">Shop 2</a>
-                <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
+                <a href="/digicam/anc" class="btn btn-active-accent fw-bold">Notice</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">Calendar</a>
+                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi member</a>
             </div>
             <!--end::Nav-->
         </div>

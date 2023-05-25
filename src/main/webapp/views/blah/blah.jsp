@@ -1,3 +1,31 @@
+<!--begin::Vendor Stylesheets(used for this page only)-->
+<link rel="canonical" href="https://preview.keenthemes.com/start-html-pro"/>
+<link rel="shortcut icon" href="/assets/media/logos/favicon.ico"/>
+<!--begin::Fonts(mandatory for all pages)-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
+<!--end::Fonts-->
+<!--begin::Vendor Stylesheets(used for this page only)-->
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<!--end::Vendor Stylesheets-->
+<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+<!--end::Global Stylesheets Bundle-->
+<!--begin::Javascript-->
+<script>var hostUrl = "/assets/";</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+<!--end::Global Javascript Bundle-->
+<!--begin::Vendors Javascript(used for this page only)-->
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<!--end::Vendors Javascript-->
+<!--begin::Custom Javascript(used for this page only)-->
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+<!--end::Custom Javascript-->
+<!--end::Javascript-->
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -11,7 +39,7 @@
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
-                        <a href="../dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a href="/" class="text-muted text-hover-primary">Home</a>
                     </li>
                     <li class="breadcrumb-item">Profile</li>
                     <li class="breadcrumb-item text-dark">Overview</li>
@@ -1602,4 +1630,3 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-<!--begin::Javascript-->

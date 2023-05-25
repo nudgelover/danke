@@ -23,4 +23,23 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login(Model model) throws Exception {
+
+        return "login";
+    }
+
+    @RequestMapping("/register")
+    public String register(Model model) throws Exception {
+        model.addAttribute("center", "register");
+        return "index";
+    }
+
+    @RequestMapping("/settings")
+    public String setting(Model model) throws Exception {
+        model.addAttribute("center", "settings");
+        return "index";
+    }
+
+
 }

@@ -6,26 +6,18 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Account</h3>
+                <h3 class="text-dark fw-bold my-1">Register</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
                         <a href="/" class="text-muted text-hover-primary">Home</a>
                     </li>
-                    <li class="breadcrumb-item">Profile</li>
-                    <li class="breadcrumb-item text-dark">Account</li>
+                    <li class="breadcrumb-item text-dark">Register</li>
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
-            <!--begin::Nav-->
-            <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/overview" class="btn btn-active-accent fw-bold">Overview</a>
-                <a href="/account" class="btn btn-active-accent active fw-bold ms-3">Account</a>
-                <a href="/settings" class="btn btn-active-accent fw-bold ms-3">Settings</a>
-            </div>
-            <!--end::Nav-->
         </div>
     </div>
     <!--end::toolbar-->
