@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface StdnMapper extends KBMapper<String, Stdn> {
+    public void updatePwd(Stdn stdn) throws Exception;
+
+    public void updateAdm(Stdn stdn) throws Exception;
 }
