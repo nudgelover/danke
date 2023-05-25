@@ -10,29 +10,25 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Drawer Chat</h3>
+                <h3 class="text-dark fw-bold my-1">Digi Members</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
                         <a href="../dist/index.html" class="text-muted text-hover-primary">Home</a>
                     </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Drawer Chat</li>
+                    <li class="breadcrumb-item">Dashboard</li>
+                    <li class="breadcrumb-item text-dark">Digi Members</li>
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/calendar" class="btn btn-active-accent fw-bold">Calendar</a>
-                <a href="/private" class="btn btn-active-accent fw-bold ms-3">Private Chat</a>
-                <a href="/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
-                <a href="/drawer" class="btn btn-active-accent active fw-bold ms-3">Drawer Chat</a>
-                <a href="/inbox" class="btn btn-active-accent  fw-bold ms-3">Inbox</a>
-                <a href="/shop1" class="btn btn-active-accent fw-bold ms-3">Shop 1</a>
-                <a href="/shop2" class="btn btn-active-accent fw-bold ms-3">Shop 2</a>
-                <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
+                <a href="/digicam/notice" class="btn btn-active-accent fw-bold">Notice</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent  fw-bold">Calendar</a>
+                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
+                <a href="/digicam/member" class="btn btn-active-accent active fw-bold ms-3">Digi members</a>
             </div>
             <!--end::Nav-->
         </div>

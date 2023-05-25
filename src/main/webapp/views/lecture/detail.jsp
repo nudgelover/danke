@@ -1,5 +1,5 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
 
 <!--begin::Main-->
@@ -25,14 +25,11 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/calendar" class="btn btn-active-accent  fw-bold">Calendar</a>
-                <a href="/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>
-                <a href="/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
-                <a href="/drawer" class="btn btn-active-accent fw-bold ms-3">Drawer Chat</a>
+                <a href="/invoice" class="btn btn-active-accent fw-bold ms-3">Invoice</a>
                 <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
                 <a href="/shop1" class="btn btn-active-accent fw-bold ms-3">Shop 1</a>
                 <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
-                <a href="/product" class="btn btn-active-accent active fw-bold ms-3">Shop Product</a>
+                <a href="/product" class="btn btn-active-accent active active fw-bold ms-3">Shop Product</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -52,7 +49,7 @@
                     <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-lg-column flex-xxl-row">
                         <!--begin::Image-->
                         <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
-                             style="background-image: url('assets/media/products/12.png')"></div>
+                             style="background-image: url('/assets/media/products/12.png')"></div>
                         <!--end::Image-->
                         <!--begin::Card-->
                         <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
@@ -401,12 +398,12 @@
 
 
 <!--begin::Vendors Javascript(used for this page only)-->
-<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
-<script src="assets/js/custom/apps/shop.js"></script>
-<script src="assets/js/custom/widgets.js"></script>
-<script src="assets/js/custom/apps/chat/chat.js"></script>
-<script src="assets/js/custom/utilities/modals/users-search.js"></script>
+<script src="/assets/js/custom/apps/shop.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->

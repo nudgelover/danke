@@ -25,12 +25,11 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/faq" class="btn btn-active-accent fw-bold">FAQ</a>
-                <a href="/pricing" class="btn btn-active-accent fw-bold ms-3">Pricing</a>
                 <a href="/invoice" class="btn btn-active-accent active fw-bold ms-3">Invoice</a>
-                <a href="/login" class="btn btn-active-accent fw-bold ms-3">Login</a>
-                <a href="/wizard" class="btn btn-active-accent fw-bold ms-3">Wizard</a>
-                <a href="/errorpage" class="btn btn-active-accent fw-bold ms-3">Error</a>
+                <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
+                <a href="/shop1" class="btn btn-active-accent fw-bold ms-3">Shop 1</a>
+                <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
+                <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
             </div>
             <!--end::Nav-->
         </div>

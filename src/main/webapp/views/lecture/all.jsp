@@ -1,5 +1,5 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
 
 
@@ -18,7 +18,7 @@
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
-                        <a href="../dist/index.html" class="text-muted text-hover-primary">Home</a>
+                        <a href="/" class="text-muted text-hover-primary">Home</a>
                     </li>
                     <li class="breadcrumb-item">Apps</li>
                     <li class="breadcrumb-item text-dark">Shop 1</li>
@@ -28,13 +28,10 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/calendar" class="btn btn-active-accent  fw-bold">Calendar</a>
-                <a href="/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>
-                <a href="/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
-                <a href="/drawer" class="btn btn-active-accent fw-bold ms-3">Drawer Chat</a>
+                <a href="/invoice" class="btn btn-active-accent fw-bold ms-3">Invoice</a>
                 <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
                 <a href="/shop1" class="btn btn-active-accent active fw-bold ms-3">Shop 1</a>
-                <a href="/shop2" class="btn btn-active-accent fw-bold ms-3">Shop 2</a>
+                <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
                 <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
             </div>
             <!--end::Nav-->
@@ -75,7 +72,7 @@
                                 <!--end::Form-->
                             </div>
                             <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                 style="background-image: url(assets/media/illustrations/sigma-1/2.png);"></div>
+                                 style="background-image: url(/assets/media/illustrations/sigma-1/2.png);"></div>
                         </div>
                     </div>
                     <!--end::Engage Widget 1-->
@@ -97,7 +94,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/1.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/1.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -128,7 +125,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/2.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/2.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -158,7 +155,8 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/3.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="
+                                                /assets/media/products/3.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -203,7 +201,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/4.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/4.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -233,7 +231,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/5.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/5.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -263,7 +261,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/6.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/6.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -307,7 +305,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/7.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/7.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -338,7 +336,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/8.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/8.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -368,7 +366,7 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="assets/media/products/9.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/assets/media/products/9.png" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
                                                 <a href="../dist/apps/shop/product.html"
@@ -406,10 +404,10 @@
 
 
 <!--begin::Vendors Javascript(used for this page only)-->
-<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
-<script src="assets/js/custom/apps/shop.js"></script>
-<script src="assets/js/custom/widgets.js"></script>
-<script src="assets/js/custom/apps/chat/chat.js"></script>
-<script src="assets/js/custom/utilities/modals/users-search.js"></script>
+<script src="/assets/js/custom/apps/shop.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
