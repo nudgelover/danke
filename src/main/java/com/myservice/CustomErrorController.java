@@ -1,4 +1,4 @@
-package com.kbstar;
+package com.myservice;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;

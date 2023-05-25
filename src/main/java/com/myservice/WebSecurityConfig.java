@@ -1,4 +1,4 @@
-package com.kbstar;
+package com.myservice;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="modal bg-white fade" id="kt_mega_menu_modal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content shadow-none">
@@ -36,16 +37,16 @@
                   <h3 class="fw-bold mb-5">Dashboards</h3>
                   <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2 active" href="../dist/index.html">Start</a>
+                      <a class="menu-link ps-0 py-2 active" href="../dist/index">Start</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/layouts/extended.html">Extended</a>
+                      <a class="menu-link ps-0 py-2" href="../dist/layouts/extended">Extended</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/layouts/light.html">Light</a>
+                      <a class="menu-link ps-0 py-2" href="../dist/layouts/light">Light</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/layouts/compact.html">Compact</a>
+                      <a class="menu-link ps-0 py-2" href="../dist/layouts/compact">Compact</a>
                     </li>
                   </ul>
                 </div>
@@ -59,7 +60,8 @@
                       <a class="menu-link ps-0 py-2" href="/private">Private Chat@</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="/group">Group Chat@</a>
+                      <a class="menu-link ps-0 py-2" href="/group">Group Chat@
+                      </a>
                     </li>
                     <li class="menu-item">
                       <a class="menu-link ps-0 py-2" href="/drawer">Drawer Chat@</a>
@@ -82,19 +84,19 @@
                   <h3 class="fw-bold mb-5">General</h3>
                   <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/general/faq.html">FAQ</a>
+                      <a class="menu-link ps-0 py-2" href="/faq">FAQ</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/general/pricing.html">Pricing</a>
+                      <a class="menu-link ps-0 py-2" href="/pricing">Pricing</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/general/invoice.html">Invoice</a>
+                      <a class="menu-link ps-0 py-2" href="/invoice">Invoice</a>
                     </li>
                     <li class="menu-item">
                       <a class="menu-link ps-0 py-2" href="/login">Login@</a>
                     </li>
                     <li class="menu-item">
-                      <a class="menu-link ps-0 py-2" href="../dist/general/wizard.html">Wizard</a>
+                      <a class="menu-link ps-0 py-2" href="/wizard">Wizard</a>
                     </li>
                     <li class="menu-item">
                       <a class="menu-link ps-0 py-2" href="/errorpage">Error@</a>
