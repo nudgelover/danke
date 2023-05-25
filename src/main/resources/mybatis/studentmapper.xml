@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.StdnMapper">
+    <select id="select" parameterType="string" resultType="stdn">
+        SELECT * FROM stdn WHERE ID=#{id}
+    </select>
+    <select id="selectall" resultType="stdn">
+        SELECT * FROM stdn ORDER BY id ASC
+    </select>
+
+    <insert id="insert" parameterType="stdn">
+        INSERT INTO stdn (id, pwd, name, email, contact, sbj1, sbj2, sbj3)
+        VALUES (#{id},#{pwd},#{name},#{email},#{contact},#{sbj1},#{sbj2},#{sbj3})
+    </insert>
+
+    <update id="update" parameterType="stdn">
+        UPDATE stdn SET name=#{name}, email=#{email}
+                      , contact=#{contact}, img=#{img}
+                      , birthday=#{birthday}, sbj1=#{sbj1}
+                      , sbj2=#{sbj2}, sbj3=#{sbj3}
+        WHERE id=#{id}
+    </update>
+    <update id="updatePwd" parameterType="stdn">
+        UPDATE stdn SET pwd=#{pwd}
+        WHERE id=#{id}
+    </update>
+
+
+    <update id="updateAdm" parameterType="stdn">
+        UPDATE stdn SET name=#{name}, email=#{email}
+                      , contact=#{contact}, img=#{img}
+                      , birthday=#{birthday}, is_subsc=#{isSubsc}
+                      , cpn=#{cpn}, is_exit=#{isExit}
+                      , exit_date=#{exitDate}, last_visit=#{lastVisit}
+                      , is_join=#{isJoin}, sbj1=#{sbj1}
+                      , sbj2=#{sbj2}, sbj3=#{sbj3}
+                      , login_error=#{loginError}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM stdn WHERE ID=#{id}
+    </delete>
+</mapper>

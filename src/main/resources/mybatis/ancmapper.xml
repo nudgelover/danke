@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.AncMapper">
+
+    <select id="select" parameterType="Integer" resultType="Anc">
+        SELECT *
+        FROM anc
+        WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="Anc">
+        SELECT *
+        FROM anc
+    </select>
+    <insert id="insert" parameterType="Anc">
+        INSERT INTO anc
+        VALUES (anc_seq.NEXTVAL,#{writer},#{title},#{contents},#{img},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'))
+    </insert>
+    <update id="update" parameterType="Anc">
+        UPDATE anc
+        SET title=#{title}, contents=#{contents}, img=#{img}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM anc
+        WHERE id=#{id}
+    </delete>
+
+    <select id="getpage" resultType="anc">
+        SELECT * FROM anc ORDER BY id DESC
+    </select>
+
+</mapper>

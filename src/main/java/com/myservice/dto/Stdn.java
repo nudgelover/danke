@@ -20,7 +20,7 @@ public class Stdn {
     private String contact;
     private String img;
     private String birthday;
-    private String isSubscribe;
+    private String isSubsc;
     private String cpn;
     private String isExit;
     private String exitDate;
@@ -32,17 +32,56 @@ public class Stdn {
     private String loginError;
 
 
-
     private MultipartFile imgfile;
 
-
-    public Stdn(String id, String pwd, String name, String email, String contact) {
+    //for Register
+    public Stdn(String id, String pwd, String name, String email, String contact, String sbj1, String sbj2, String sbj3) {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
         this.email = email;
         this.contact = contact;
+        this.sbj1 = sbj1;
+        this.sbj2 = sbj2;
+        this.sbj3 = sbj3;
     }
 
+    //for stdn Update
+    public Stdn(String id, String name, String email, String contact, String img, String birthday, String sbj1, String sbj2, String sbj3) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.contact = contact;
+        this.img = img;
+        this.birthday = birthday;
+        this.sbj1 = sbj1;
+        this.sbj2 = sbj2;
+        this.sbj3 = sbj3;
+    }
 
+    //for Pwd Update
+    public Stdn(String id, String pwd) {
+        this.id = id;
+        this.pwd = pwd;
+    }
+
+    //for Adm Update
+    public Stdn(String id, String name, String email, String contact, String img, String birthday, String isSubsc, String cpn, String isExit, String exitDate, String lastVisit, String isJoin, String sbj1, String sbj2, String sbj3, String loginError) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.contact = contact;
+        this.img = img;
+        this.birthday = birthday;
+        this.isSubsc = isSubsc;
+        this.cpn = cpn;
+        this.isExit = isExit;
+        this.exitDate = exitDate;
+        this.lastVisit = lastVisit;
+        this.isJoin = isJoin;
+        this.sbj1 = sbj1;
+        this.sbj2 = sbj2;
+        this.sbj3 = sbj3;
+        this.loginError = loginError;
+    }
 }

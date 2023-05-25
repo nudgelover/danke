@@ -37,4 +37,12 @@ public class StdnService implements KBService<String, Stdn> {
     public List<Stdn> get() throws Exception {
         return mapper.selectall();
     }
+
+    public void updatePwd(Stdn stdn) throws Exception{
+        mapper.updatePwd(stdn);
+    }
+
+    public void updateAdm(Stdn stdn) throws Exception{
+        mapper.updateAdm(stdn);
+    }
 }
