@@ -9,15 +9,17 @@
         FROM anc
         WHERE id=#{id}
     </select>
-    <select id="selectall" resultType="Anc">
+    <select id="selectall" resultType="anc">
         SELECT *
         FROM anc
     </select>
-    <insert id="insert" parameterType="Anc">
-        INSERT INTO anc
+
+    <insert id="insert" parameterType="anc">
+        INSERT INTO anc (id, writer, title, contents, img, rdate)
         VALUES (anc_seq.NEXTVAL,#{writer},#{title},#{contents},#{img},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'))
     </insert>
-    <update id="update" parameterType="Anc">
+
+    <update id="update" parameterType="anc">
         UPDATE anc
         SET title=#{title}, contents=#{contents}, img=#{img}
         WHERE id=#{id}

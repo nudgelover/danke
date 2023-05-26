@@ -1,13 +1,13 @@
 package com.myservice.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
-@ToString
-
 public class Lec {
     private Integer id;
     private String admId;
@@ -26,5 +26,24 @@ public class Lec {
     private String delDate;
     private Integer hit;
 
-    //private MultipartFile imgfile;
+    public Lec(Integer id, String admId, Integer lecCode, String title, String teacher, String topic, String target, String rdate, String length, double rating, Integer price, String img, double discRate, String isDelete, String delDate, Integer hit) {
+        this.id = id;
+        this.admId = admId;
+        this.lecCode = lecCode;
+        this.title = title;
+        this.teacher = teacher;
+        this.topic = topic;
+        this.target = target;
+        this.rdate = rdate;
+        this.length = length;
+        this.rating = rating;
+        this.price = price;
+        this.img = img;
+        this.discRate = discRate;
+        this.isDelete = isDelete;
+        this.delDate = delDate;
+        this.hit = hit;
+    }
+
+    private MultipartFile imgfile;
 }

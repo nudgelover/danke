@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.BlahMapper">
+
+    <select id="getMyBlah" parameterType="String" resultType="Blah">
+        SELECT *
+        FROM blah
+        WHERE stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Blah">
+        SELECT *
+        FROM blah
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Blah">
+        SELECT *
+        FROM blah
+    </select>
+
+    <insert id="insert" parameterType="Blah">
+        INSERT INTO blah (id, stdn_id, contents, rdate, likes)
+        VALUES (blah_seq.NEXTVAL,#{stdnId},#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),0)
+    </insert>
+
+    <update id="update" parameterType="Blah">
+        UPDATE blah
+        SET contents=#{contents}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateLikes" parameterType="Blah">
+        UPDATE blah
+        SET likes=#{likes}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM blah
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

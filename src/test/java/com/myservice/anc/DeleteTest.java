@@ -1,7 +1,7 @@
 package com.myservice.anc;
 
 
-import com.myservice.service.StdnService;
+import com.myservice.service.AncService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DeleteTest {
 
     @Autowired
-    StdnService service;
+    AncService service;
     @Test
     void contextLoads() {
         try {
-            service.remove("id003");
+            service.remove(1);
             log.info("remove OK--------------------------------");
             service.get();
         } catch (Exception e) {
-            log.info("register error-----------------------------");
+            log.info("remove error-----------------------------");
         }
     }
 

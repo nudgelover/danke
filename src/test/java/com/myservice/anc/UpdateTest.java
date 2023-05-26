@@ -1,8 +1,7 @@
 package com.myservice.anc;
 
-
-import com.myservice.dto.Stdn;
-import com.myservice.service.StdnService;
+import com.myservice.dto.Anc;
+import com.myservice.service.AncService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    StdnService service;
+    AncService service;
 
     @Test
     void contextLoads() {
-        Stdn obj = new Stdn("id001", "박선미", "id001@digicam.com", "01011111111","id001.jpg","1990/10/13", "JAVA", "C++", "C#");
+        Anc obj = new Anc(101,"adm1", "테스트", "컨텐츠","img1.jpg","");
 
         try {
             service.modify(obj);
             log.info("update OK--------------------------------");
-            service.get("id001");
+            service.get(101);
         } catch (Exception e) {
             log.info("update error-----------------------------");
         }
