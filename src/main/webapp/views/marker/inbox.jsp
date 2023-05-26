@@ -1,5 +1,5 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 
 
 <!--begin::Main-->
@@ -1301,14 +1301,14 @@
 <!--end::Main-->
 
 <!--begin::Vendors Javascript(used for this page only)-->
-<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
-<script src="assets/js/custom/apps/inbox/inbox.js"></script>
-<script src="assets/js/custom/apps/inbox/lib.js"></script>
-<script src="assets/js/custom/apps/inbox/compose.js"></script>
-<script src="assets/js/custom/widgets.js"></script>
-<script src="assets/js/custom/apps/chat/chat.js"></script>
-<script src="assets/js/custom/utilities/modals/users-search.js"></script>
+<script src="/assets/js/custom/apps/inbox/inbox.js"></script>
+<script src="/assets/js/custom/apps/inbox/lib.js"></script>
+<script src="/assets/js/custom/apps/inbox/compose.js"></script>
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->

@@ -41,7 +41,7 @@
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark fs-3">Campaign Leaders</span>
+                                <span class="card-label fw-bold text-dark fs-3">Campaign Leaders 한국어 테스트</span>
                                 <span class="text-muted mt-2 fw-semibold fs-6">890,344 Sales</span>
                             </h3>
                             <div class="card-toolbar">

@@ -12,16 +12,16 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">JMTGR Detail</h3>
-                <p>JMTGR Detail</p>
+                <h3 class="text-dark fw-bold my-1">NOTICE Detail</h3>
+                <p>NOTICE BOARD Detail</p>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
                         <a href="/" class="text-muted text-hover-primary">Home</a>
                     </li>
-                    <li class="breadcrumb-item">JMTGR</li>
-                    <li class="breadcrumb-item text-dark">DETAIL</li>
+                    <li class="breadcrumb-item">DASHBOARD</li>
+                    <li class="breadcrumb-item text-dark">NOTICE</li>
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
@@ -50,8 +50,7 @@
                             <div class="d-flex flex-wrap gap-2 justify-content-between mb-8">
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <!--begin::Heading-->
-                                    <h2 class="fw-semibold me-3 my-1">JEJU KOOKSU</i>
-                                    </h2>
+                                    <h2 class="fw-semibold me-3 my-1">Welcome to Digi campus</h2>
                                     <!--begin::Heading-->
                                     <!--begin::Badges-->
                                     <span class="badge badge-light-primary my-1 me-2">inbox</span>
@@ -77,7 +76,7 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
+                                                <a href="#" class="fw-bold text-dark text-hover-primary">Admin</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
 																		<svg xmlns="http://www.w3.org/2000/svg"
@@ -367,7 +366,7 @@
                                 <!--begin::Body-->
                                 <div class="d-block">
                                     <!--begin::To-->
-                                    <div class="d-flex align-items-center border-bottom px-8 min-h-50px">
+                                    <div class="d-flex align-items-center border-bottom px-8 min-h-50px marigin">
                                         <!--begin::Input-->
                                         <img width="30px" src="/img/logo.png">
                                         <input type="text" class="form-control border-0" name="compose_to"

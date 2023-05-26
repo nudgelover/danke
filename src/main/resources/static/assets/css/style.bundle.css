@@ -11506,7 +11506,7 @@ textarea.form-control-lg {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity)) !important;
 }
-
+/*jinheekim*/
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
@@ -44151,9 +44151,10 @@ label.rating-label:hover ~ .rating-label > i, label.rating-label:hover ~ .rating
     display: none !important;
   }
 }
+/*jinhee*/
 .bg-white {
   --bs-bg-rgb-color: var(--bs-white-bg-rgb);
-  background-color: #000000 !important;
+  background-color: white !important;
 }
 
 .bg-black {

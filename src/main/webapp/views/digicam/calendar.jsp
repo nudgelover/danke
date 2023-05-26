@@ -25,7 +25,7 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc" class="btn btn-active-accent fw-bold">Notice</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">Notice</a>
                 <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">Calendar</a>
                 <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
                 <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi member</a>

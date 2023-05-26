@@ -13,7 +13,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Shop 1</h3>
+                <h3 class="text-dark fw-bold my-1">JMTGR</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
@@ -28,9 +28,10 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/invoice" class="btn btn-active-accent fw-bold ms-3">Invoice</a>
+                <a href="/marker/add" class="btn btn-active-accent fw-bold ms-3">JMTGR ADD</a>
+                <a href="/marker/all" class="btn btn-active-accent active fw-bold ms-3">JMTGR ALL</a>
+                <a href="/marker/detail" class="btn btn-active-accent fw-bold ms-3">JMTGR DETAIL</a>
                 <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
-                <a href="/shop1" class="btn btn-active-accent active fw-bold ms-3">Shop 1</a>
                 <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
                 <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
             </div>
@@ -49,10 +50,10 @@
                     <div class="card mb-12">
                         <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-primary">
                             <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                                <h1 class="fw-bold text-dark">Search Goods</h1>
-                                <div class="fs-3 mb-8">Get Amazing Gadgets</div>
+                                <h1 class="fw-bold text-dark">Search Place</h1>
+                                <div class="fs-3 mb-8">Get jmtgr place!</div>
                                 <!--begin::Form-->
-                                <form class="d-flex flex-center py-2 px-6 bg-white rounded">
+                                <form class="d-flex flex-center py-2 bg-white px-6 rounded">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                     <span class="svg-icon svg-icon-1 svg-icon-primary">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -67,12 +68,12 @@
 														</span>
                                     <!--end::Svg Icon-->
                                     <input type="text" class="form-control border-0 fw-semibold ps-2 w-xxl-350px"
-                                           placeholder="Search Goods"/>
+                                           placeholder="Search Place"/>
                                 </form>
                                 <!--end::Form-->
                             </div>
                             <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                 style="background-image: url(/assets/media/illustrations/sigma-1/2.png);"></div>
+                                 style="background-image: url(/img/logo2.png);"></div>
                         </div>
                     </div>
                     <!--end::Engage Widget 1-->
@@ -80,7 +81,7 @@
                     <div class="mb-10">
                         <!--begin::Heading-->
                         <div class="d-flex justify-content-between align-items-center mb-7">
-                            <h2 class="fw-bold text-dark fs-2 mb-0">Smart Devices</h2>
+                            <h2 class="fw-bold text-dark fs-2 mb-0">BEST</h2>
                             <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
                         </div>
                         <!--end::Heading-->
@@ -188,7 +189,11 @@
                         <!--begin::Heading-->
                         <div class="d-flex justify-content-between align-items-center mb-7">
                             <h2 class="fw-bold text-dark fs-2 mb-0">Best Wines</h2>
-                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-7">
+                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">Restaurant</a>
+                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">Cafe</a>
+                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">Study Cafe</a>
                         </div>
                         <!--end::Heading-->
                         <!--begin::Products-->

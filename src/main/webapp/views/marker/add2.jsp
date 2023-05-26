@@ -12,10 +12,8 @@
         width: 250px;
         height: 250px;
     }
-
-
 </style>
-<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%--<script>--%>
 
 <%--    let marker_add = {--%>
@@ -44,24 +42,13 @@
         $('#register_btn').click(function (e) {
             e.preventDefault();
 
-            // var divElement = document.getElementById("kt_forms_widget_1_editor");
-            // var detailValue = divElement.textContent.trim();
-
-            var divElement = document.getElementById("kt_forms_widget_1_editor");
-            var htmlContent = divElement.innerHTML;
-
-
-            var trimmedContent = htmlContent.trim(); // 앞뒤 공백 제거
-            var startIndex = trimmedContent.indexOf(">") + 1; // "<" 다음 인덱스부터 시작, 앞부분 삭제
-            var extractedContent = trimmedContent.substring(startIndex);
-            //뒷부분 삭제
-            var modifiedString = extractedContent.replace('</div><div class="ql-clipboard" contenteditable="true" tabindex="-1"></div><div class="ql-tooltip ql-hidden"><a class="ql-preview" rel="noopener noreferrer" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div>', '');
-
-            // console.log(modifiedString);
+            // <div>의 내용을 가져오기
+            var detailContent = $('#kt_docs_ckeditor_document').html();
+            console.log('Detail Content:', detailContent);
 
             // 폼 데이터 생성
             var formData = new FormData($('#marker_form')[0]);
-            formData.append('detail', modifiedString);
+            formData.append('detail', detailContent);
 
             // 입력된 값 출력
             formData.forEach(function (value, key) {
@@ -121,7 +108,7 @@
     </div>
     <!--end::toolbar-->
     <!--begin::Content-->
-    <div class="content fs-6 d-flex flex-column-fluid">
+    <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
         <!--begin::Container-->
         <div class="container-xxl">
             <!--begin::Inbox App - View & Reply -->
@@ -238,30 +225,27 @@
                                                 <option value="1">&#9733;</option>
                                             </select>
                                         </div>
+
                                     </div>
-                                    <div id="kt_docs_ckeditor_balloon">
-                                        <h1>Quick and simple CKEditor 5 Integration</h1>
-                                        <p>Here goes the <a href="#">Minitial content of the editor</a>. Lorem Ipsum is simply dummy text of the <em>printing and typesetting</em> industry.</p>
-                                        <blockquote>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</blockquote>
+
+                                    <div id="kt_docs_ckeditor_document_toolbar"></div>
+                                    <div class="border-gray-500 " id="kt_docs_ckeditor_document" contenteditable="true">
+                                        <h1>Let me introduce jmtgr</h1>
+                                        <h2>recommend menu</h2>
                                         <ul>
+                                            <li>ex) reman : 10000</li>
                                             <li>List item 1</li>
                                             <li>List item 2</li>
                                             <li>List item 3</li>
                                             <li>List item 4</li>
                                         </ul>
-                                        <figure class="image"><img src="/assets/media/stock/600x400/img-1.jpg" alt="CKEditor Demo"/></figure>
-                                        Here goes the <a href="#">Minitial content of the editor</a>. Lorem Ipsum is simply dummy text of the <em>printing and typesetting</em> industry.
-                                        <h1>Easy Media Embeds</h1>
-                                        <figure class="symbol">
-                                            <oembed url="https://www.youtube.com/watch?v=d-pSVf8Xazk"></oembed>
-                                        </figure>
-                                        <p>Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper. Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy nibh euismod tinciduntut laoreet doloremagna aliquam erat volutpat.Ut wisi enim ad minim veniam,quis nostrud exerci tation ullamcorper.</p>
+                                        <p>Reason/ detail</p>
                                     </div>
                                     <div class="d-flex float-end mt-10">
                                         <a href="#" id="register_btn" class="btn btn-primary">Register</a>
                                     </div>
+
                                 </form>
-                                <!--begin::Form-->
 
                             </div>
                         </div>
@@ -276,8 +260,15 @@
     <!--end::Container-->
 </div>
 <!--end::Main-->
+
 <!--end::Main-->
 
+<!--begin::Javascript-->
+<script>var hostUrl = "/assets/";</script>
+<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<script src="/assets/plugins/global/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+<!--end::Global Javascript Bundle-->
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
@@ -285,17 +276,21 @@
 <script src="/assets/js/custom/widgets.js"></script>
 <script src="/assets/js/custom/apps/chat/chat.js"></script>
 <script src="/assets/js/custom/utilities/modals/users-search.js"></script>
-<script src="/assets/plugins/custom/ckeditor/ckeditor-balloon.bundle.js"></script>
+<!--CKEditor Build Bundles:: Only include the relevant bundles accordingly-->
+<script src="/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
 <script>
-    BalloonEditor
-        .create(document.querySelector('#kt_docs_ckeditor_balloon'))
+    DecoupledEditor
+        .create(document.querySelector('#kt_docs_ckeditor_document'))
         .then(editor => {
-            console.log(editor);
+            const toolbarContainer = document.querySelector('#kt_docs_ckeditor_document_toolbar');
+
+            toolbarContainer.appendChild(editor.ui.view.toolbar.element);
         })
         .catch(error => {
             console.error(error);
         });
 </script>
+
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -309,4 +304,5 @@
         }
     }
 </script>
-
+<!--end::Custom Javascript-->
+<!--end::Javascript-->
