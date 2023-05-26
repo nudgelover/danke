@@ -1,6 +1,6 @@
-package com.myservice.ord;
+package com.myservice.test;
 
-import com.myservice.service.TestService;
+import com.myservice.service.SubscService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SelectOneTest {
 
     @Autowired
-    TestService service;
+    SubscService service;
 
     @Test
     void contextLoads() {

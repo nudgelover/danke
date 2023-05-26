@@ -1,8 +1,9 @@
-package com.myservice.ord;
+package com.myservice.subsc;
 
-import com.myservice.dto.Test;
-import com.myservice.service.TestService;
+import com.myservice.dto.Subsc;
+import com.myservice.service.SubscService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,15 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    TestService service;
+    SubscService service;
 
-    @org.junit.jupiter.api.Test
+    @Test
     void contextLoads() {
-        Test obj = new Test(1, "www.google.com", 100, "React");
+        Subsc obj = new Subsc(1, "2023.12.31", "");
+
         try {
             service.modify(obj);
             log.info("update OK--------------------------------");
-            service.get(101);
+            service.get(1);
         } catch (Exception e) {
             log.info("update error-----------------------------");
         }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.TestMapper">
+
+    <select id="getMyTest" parameterType="String" resultType="Test">
+        SELECT t.id, t.stdn_id AS stdnId, t.rdate, t.target
+             , t.score, t.sbj, s.name AS stdnName
+        FROM test t, stdn s
+        WHERE t.stdn_id=s.id
+          AND t.stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Test">
+        SELECT t.id, t.stdn_id AS stdnId, t.rdate, t.target
+             , t.score, t.sbj, s.name AS stdnName
+        FROM test t, stdn s
+        WHERE t.stdn_id=s.id
+        AND t.id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Test">
+        SELECT t.id, t.stdn_id AS stdnId, t.rdate, t.target
+             , t.score, t.sbj, s.name AS stdnName
+        FROM test t, stdn s
+        WHERE t.stdn_id=s.id
+    </select>
+
+    <insert id="insert" parameterType="Test">
+        INSERT INTO test (id, stdn_id, rdate, target, score, sbj)
+        VALUES (test_seq.NEXTVAL,#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),#{target},#{score},#{sbj})
+    </insert>
+
+    <update id="update" parameterType="Test">
+        UPDATE test
+        SET target=#{target}, score=#{score}, sbj=#{sbj}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM test
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

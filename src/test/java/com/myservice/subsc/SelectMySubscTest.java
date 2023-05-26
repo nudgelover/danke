@@ -1,6 +1,6 @@
-package com.myservice.ord;
+package com.myservice.subsc;
 
-import com.myservice.service.TestService;
+import com.myservice.service.SubscService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectOneTest {
+class SelectMySubscTest {
 
     @Autowired
-    TestService service;
+    SubscService service;
 
     @Test
     void contextLoads() {
         try {
-            service.get(101);
+            service.getMySubsc("id001");
         } catch (Exception e) {
-            log.info("select one error-----------------------------");
+            log.info("select stdn error-----------------------------");
             e.printStackTrace();
         }
         }

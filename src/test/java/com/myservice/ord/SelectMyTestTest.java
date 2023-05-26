@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectOneTest {
+class SelectMyTestTest {
 
     @Autowired
     TestService service;
@@ -16,9 +16,9 @@ class SelectOneTest {
     @Test
     void contextLoads() {
         try {
-            service.get(101);
+            service.getMyTest("id001");
         } catch (Exception e) {
-            log.info("select one error-----------------------------");
+            log.info("select stdn error-----------------------------");
             e.printStackTrace();
         }
         }

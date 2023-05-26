@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.PrzMapper">
+
+    <select id="getHolder" parameterType="String" resultType="Prz">
+        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+             , s.name AS stdnName
+        FROM prz p, stdn s
+        WHERE p.stdn_id=s.id
+          AND p.prz=#{prz}
+    </select>
+
+    <select id="getMyPrz" parameterType="String" resultType="Prz">
+        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+             , s.name AS stdnName
+        FROM prz p, stdn s
+        WHERE p.stdn_id=s.id
+          AND p.stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Prz">
+        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+             , s.name AS stdnName
+        FROM prz p, stdn s
+        WHERE p.stdn_id=s.id
+        AND p.id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Prz">
+        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+             , s.name AS stdnName
+        FROM prz p, stdn s
+        WHERE p.stdn_id=s.id
+    </select>
+
+    <insert id="insert" parameterType="Prz">
+        INSERT INTO prz (id, stdn_id, prz, prz_category, rdate)
+        VALUES (prz_seq.NEXTVAL,#{stdnId},#{prz}, #{przCategory},#{rdate})
+    </insert>
+
+    <update id="update" parameterType="Prz">
+        UPDATE prz
+        SET prz=#{prz}, prz_category=#{przCategory}, rdate=#{rdate}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM prz
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

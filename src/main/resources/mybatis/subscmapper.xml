@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.SubscMapper">
+
+    <select id="getMySubsc" parameterType="String" resultType="Subsc">
+        SELECT su.id, su.stdn_id AS stdnId, su.start_date AS startDate
+             , su.end_date AS endDate, su.valid_date AS validDate
+             , st.name AS stdnName
+        FROM subsc su, stdn st
+        WHERE su.stdn_id=st.id
+          AND su.stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Subsc">
+        SELECT su.id, su.stdn_id AS stdnId, su.start_date AS startDate
+             , su.end_date AS endDate, su.valid_date AS validDate
+             , st.name AS stdnName
+        FROM subsc su, stdn st
+        WHERE su.stdn_id=st.id
+        AND su.id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Subsc">
+        SELECT su.id, su.stdn_id AS stdnId, su.start_date AS startDate
+             , su.end_date AS endDate, su.valid_date AS validDate
+             , st.name AS stdnName
+        FROM subsc su, stdn st
+        WHERE su.stdn_id=st.id
+    </select>
+
+    <insert id="insert" parameterType="Subsc">
+        INSERT INTO subsc (id, stdn_id, start_date, end_date, valid_date)
+        VALUES (subsc_seq.NEXTVAL,#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),#{endDate},#{validDate})
+    </insert>
+
+    <update id="update" parameterType="Subsc">
+        UPDATE subsc
+        SET end_date=#{endDate}, valid_date=#{validDate}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM subsc
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

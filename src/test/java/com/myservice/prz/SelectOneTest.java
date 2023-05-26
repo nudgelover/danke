@@ -1,6 +1,6 @@
-package com.myservice.ord;
+package com.myservice.prz;
 
-import com.myservice.service.OrdDetailService;
+import com.myservice.service.PrzService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectMyOrdDetailTest {
+class SelectOneTest {
 
     @Autowired
-    OrdDetailService service;
+    PrzService service;
 
     @Test
     void contextLoads() {
         try {
-            service.getMyOrdDetail("id001");
+            service.get(101);
         } catch (Exception e) {
-            log.info("select stdn error-----------------------------");
+            log.info("select one error-----------------------------");
             e.printStackTrace();
         }
         }

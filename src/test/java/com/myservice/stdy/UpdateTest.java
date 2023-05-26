@@ -1,8 +1,9 @@
-package com.myservice.ord;
+package com.myservice.stdy;
 
-import com.myservice.dto.Test;
-import com.myservice.service.TestService;
+import com.myservice.dto.Stdy;
+import com.myservice.service.StdyService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,15 +12,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    TestService service;
+    StdyService service;
 
-    @org.junit.jupiter.api.Test
+    @Test
     void contextLoads() {
-        Test obj = new Test(1, "www.google.com", 100, "React");
+        Stdy obj = new Stdy(1,"수정내용", "file.txt","org.txt");
+
         try {
             service.modify(obj);
             log.info("update OK--------------------------------");
-            service.get(101);
+            service.get(1);
         } catch (Exception e) {
             log.info("update error-----------------------------");
         }
