@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.OrdMapper">
+
+    <select id="getMyOrd" parameterType="String" resultType="Ord">
+        SELECT *
+        FROM ord
+        WHERE stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Ord">
+        SELECT *
+        FROM ord
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Ord">
+        SELECT *
+        FROM ord
+    </select>
+
+    <insert id="insert" parameterType="Ord">
+        INSERT INTO ord (id, stdn_id, rdate, is_done, ord_price, pay_method, use_cpn)
+        VALUES (ord_seq.NEXTVAL,#{stdnId}, TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),'1',#{ordPrice},#{payMethod},#{useCpn})
+    </insert>
+
+    <update id="update" parameterType="Ord">
+        UPDATE ord
+        SET is_done='2', up_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM ord
+        WHERE id=#{id}
+    </delete>
+
+</mapper>
