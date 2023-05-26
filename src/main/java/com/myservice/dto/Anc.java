@@ -20,21 +20,14 @@ public class Anc {
     private MultipartFile imgfile;
 
     //Without imgfile
-    public Anc(int id, String title, String writer, String contents, String rdate, String img) {
+
+
+    public Anc(int id, String writer, String title, String contents, String img, String rdate) {
         this.id = id;
-        this.title = title;
         this.writer = writer;
+        this.title = title;
         this.contents = contents;
+        this.img = img;
         this.rdate = rdate;
-        this.img = img;
     }
-
-    //Without id, rdate, imgfile(sequence)
-    public Anc(String writer, String title, String contents, String img) {
-        this.writer = writer;
-        this.title = title;
-        this.contents = contents;
-        this.img = img;
-    }
-
 }

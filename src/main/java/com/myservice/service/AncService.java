@@ -17,17 +17,17 @@ public class AncService implements KBService<Integer, Anc> {
 
     @Override
     public void register(Anc anc) throws Exception {
-
+        mapper.insert(anc);
     }
 
     @Override
-    public void remove(Integer integer) throws Exception {
-
+    public void remove(Integer k) throws Exception {
+        mapper.delete(k);
     }
 
     @Override
     public void modify(Anc anc) throws Exception {
-
+        mapper.update(anc);
     }
 
     @Override

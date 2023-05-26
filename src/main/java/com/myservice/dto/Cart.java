@@ -15,12 +15,16 @@ public class Cart {
     private String rdate;
 
 
-//    private String student_name;
-//    private String lecture_title;
-//    private String lecture_topic;
-//    private int lecture_price;
-//    private String lecture_target;
-//    private String lecture_img;
-//    private int cnt;
+    private String stdnName;
+    private String lecTitle;
+    private String lecTopic;
+    private int lecPrice;
+    private String lecTarget;
+    private String lecImg;
+    private int cnt;
 
+    public Cart(String stdnId, Integer lecId) {
+        this.stdnId = stdnId;
+        this.lecId = lecId;
+    }
 }

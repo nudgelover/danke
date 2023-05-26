@@ -43,4 +43,8 @@ public class AttdService implements KBService<Integer, Attd> {
         return mapper.getMyAttd(stdnId);
     }
 
+    public void insertAbsence(Attd attd) throws Exception{
+        mapper.insertAbsence(attd);
+    }
+
 }

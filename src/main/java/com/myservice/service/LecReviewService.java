@@ -47,4 +47,14 @@ public class LecReviewService implements KBService<Integer, LecReview> {
         return mapper.getLecReview(lecId);
     }
 
+    public void updateDelete(LecReview lecReview) throws Exception{
+        mapper.updateDelete(lecReview);
+    }
+
+    public void updateLikes(Integer k) throws Exception{
+        mapper.updateLikes(k);
+    }
+
+
+
 }

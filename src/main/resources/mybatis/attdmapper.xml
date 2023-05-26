@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.AttdMapper">
+
+
+    <select id="getMyAttd" parameterType="String" resultType="Attd">
+        SELECT *
+        FROM attd
+        WHERE stdn_id=#{stdnId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Attd">
+        SELECT *
+        FROM attd
+        WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="Attd">
+        SELECT *
+        FROM attd
+    </select>
+
+    <insert id="insert" parameterType="Attd">
+        INSERT INTO attd (id, stdn_id, rdate, start_time, is_attend)
+        VALUES (attd_seq.NEXTVAL,#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{isAttend})
+    </insert>
+
+    <insert id="insertAbsence" parameterType="Attd">
+        INSERT INTO attd (id, stdn_id, rdate, is_attend)
+        VALUES (attd_seq.NEXTVAL,#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),'0')
+    </insert>
+
+    <update id="update" parameterType="Attd">
+        UPDATE attd
+        SET end_time=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        WHERE stdn_id=#{stdnId}
+        AND rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+        </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM attd
+        WHERE id=#{id}
+    </delete>
+
+
+</mapper>

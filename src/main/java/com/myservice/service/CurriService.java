@@ -43,4 +43,12 @@ public class CurriService implements KBService<Integer, Curri> {
         return mapper.getMyCurri(stdnId);
     }
 
+    public Curri thisCurri(String stdnId,Integer lecId) throws Exception{
+        return mapper.thisCurri(stdnId, lecId);
+    }
+
+    public Integer cntMyCurri(String stdnId) throws Exception{
+        return mapper.cntMyCurri(stdnId);
+    }
+
 }

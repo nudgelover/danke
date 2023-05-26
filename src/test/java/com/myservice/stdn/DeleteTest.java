@@ -20,7 +20,7 @@ class DeleteTest {
             log.info("remove OK--------------------------------");
             service.get();
         } catch (Exception e) {
-            log.info("register error-----------------------------");
+            log.info("remove error-----------------------------");
         }
     }
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.CommMapper">
+
+    <select id="getMyComm" parameterType="String" resultType="Comm">
+        SELECT *
+        FROM comm
+        WHERE stdn_id=#{stdnId}
+    </select>
+
+    <select id="getPostComm" parameterType="Integer" resultType="Comm">
+        SELECT *
+        FROM comm
+        WHERE post_id=#{postId}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Comm">
+        SELECT *
+        FROM comm
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="Comm">
+        SELECT *
+        FROM comm
+    </select>
+
+    <insert id="insert" parameterType="Comm">
+        INSERT INTO comm (id, post_id, content, rdate, stdn_id)
+        VALUES (comm_seq.NEXTVAL,#{postId},#{content},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{stdnId})
+    </insert>
+
+    <update id="update" parameterType="Comm">
+        UPDATE comm
+        SET content=#{content}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM comm
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

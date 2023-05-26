@@ -1,7 +1,6 @@
 package com.myservice.anc;
 
 import com.myservice.service.AncService;
-import com.myservice.service.StdnService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ class SelectTest {
         try {
             service.get();
         } catch (Exception e) {
-            log.info("select one error-----------------------------");
+            log.info("select error-----------------------------");
             e.printStackTrace();
         }
         }

@@ -43,4 +43,9 @@ public class BlahService implements KBService<Integer, Blah> {
         return mapper.getMyBlah(stdnId);
     }
 
+    public void updateLikes(Blah blah) throws Exception{
+        mapper.updateLikes(blah);
+    }
+
+
 }

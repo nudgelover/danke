@@ -39,8 +39,8 @@ public class TestService implements KBService<Integer, Test> {
         return mapper.selectall();
     }
 
-    public List<Test> getMyTest(String studentId) throws Exception{
-        return mapper.getMyTest(studentId);
+    public List<Test> getMyTest(String stdnId) throws Exception{
+        return mapper.getMyTest(stdnId);
     }
 
 }

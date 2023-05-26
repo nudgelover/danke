@@ -15,4 +15,14 @@ public class Attd {
     private String endTime;
     private String isAttend;
 
+    //Insert
+    public Attd(String stdnId, String isAttend) {
+        this.stdnId = stdnId;
+        this.isAttend = isAttend;
+    }
+
+    //Absence Insert, endTime Update
+    public Attd(String stdnId) {
+        this.stdnId = stdnId;
+    }
 }
