@@ -37,10 +37,16 @@ public class DigicamController {
         return "index";
     }
 
-    @RequestMapping("/anc")
-    public String notice(Model model,Integer id) throws Exception {
+    @RequestMapping("/anc/all")
+    public String ancAll(Model model,Integer id) throws Exception {
 
-        model.addAttribute("center", dir+"anc");
+        model.addAttribute("center", dir+"ancAll");
+        return "index";
+    }
+    @RequestMapping("/anc/detail")
+    public String ancDetail(Model model,Integer id) throws Exception {
+
+        model.addAttribute("center", dir+"ancDetail");
         return "index";
     }
 }

@@ -203,6 +203,7 @@ var KTWidgets = function () {
     }    
 
     // Form Widgets
+    // here!!!!!
     var initFormWidget1 = function() {
         var formEl = document.querySelector("#kt_forms_widget_1_form");
         var editorId = 'kt_forms_widget_1_editor';
@@ -218,7 +219,7 @@ var KTWidgets = function () {
                     container: "#kt_forms_widget_1_editor_toolbar"
                 }
             },
-            placeholder: 'What is on your mind ?',
+            // placeholder: 'What is on your mind ?',
             theme: 'snow'
         };
 

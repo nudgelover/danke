@@ -43,7 +43,7 @@
                                             <a class="menu-link ps-0 py-2 active" href="/">Home</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/digicam/anc">Notice</a>
+                                            <a class="menu-link ps-0 py-2" href="/digicam/anc/all">Notice</a>
                                         </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/digicam/calendar">Calendar</a>
@@ -80,7 +80,7 @@
                                     <h3 class="fw-bold mb-5">STUDY</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/study/add">ADD</a>
+                                            <a class="menu-link ps-0 py-2" href="/study/add">ADD ¥ı«œ±‚</a>
                                         </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/study/add2">ADD2</a>
@@ -118,10 +118,10 @@
                                             <a class="menu-link ps-0 py-2" href="/marker/add">add</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/add">all</a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/all">all</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/add">detail</a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/detail">detail</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -1,32 +1,3 @@
-<!--begin::Vendor Stylesheets(used for this page only)-->
-<link rel="canonical" href="https://preview.keenthemes.com/start-html-pro"/>
-<link rel="shortcut icon" href="/assets/media/logos/favicon.ico"/>
-<!--begin::Fonts(mandatory for all pages)-->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
-<!--end::Fonts-->
-<!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-<!--end::Vendor Stylesheets-->
-<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
-<link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
-<!--end::Global Stylesheets Bundle-->
-<!--begin::Javascript-->
-<script>var hostUrl = "/assets/";</script>
-<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-<script src="/assets/plugins/global/plugins.bundle.js"></script>
-<script src="/assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Vendors Javascript(used for this page only)-->
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="/assets/js/custom/widgets.js"></script>
-<script src="/assets/js/custom/apps/chat/chat.js"></script>
-<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
-<!--end::Custom Javascript-->
-<!--end::Javascript-->
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -34,24 +5,24 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Profile Overview</h3>
+                <h3 class="text-dark fw-bold my-1">Private Chat</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
                     <li class="breadcrumb-item">
                         <a href="/" class="text-muted text-hover-primary">Home</a>
                     </li>
-                    <li class="breadcrumb-item">Profile</li>
-                    <li class="breadcrumb-item text-dark">Overview</li>
+                    <li class="breadcrumb-item">Apps</li>
+                    <li class="breadcrumb-item text-dark">Private Chat</li>
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/overview" class="btn btn-active-accent active fw-bold">Overview</a>
-                <a href="/account" class="btn btn-active-accent fw-bold ms-3">Account</a>
-                <a href="/settings" class="btn btn-active-accent fw-bold ms-3">Settings</a>
+                <a href="/blah" class="btn btn-active-accent active fw-bold">Blah Blah</a>
+                <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>
+                <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -63,7 +34,7 @@
         <div class="container-xxl">
             <!--Begin::Row-->
             <div class="row g-5 g-xxl-8">
-                <div class="col-xl-6">
+                <div class="col-xl-12">
                     <!--begin::Feeds Widget 1-->
                     <div class="card mb-5 mb-xxl-8">
                         <!--begin::Body-->
@@ -644,19 +615,22 @@
                             <!--begin::Bottom-->
                             <div class="pt-4">
                                 <!--begin::Image-->
-                                <div class="bgi-no-repeat bgi-size-cover rounded min-h-250px"
-                                     style="background-image:url('/assets/media/stock/900x600/3.jpg');"></div>
-                                <!--end::Image-->
-                                <!--begin::Text-->
-                                <p class="text-gray-800 fs-6 fw-normal pt-5 mb-2">Outlines keep you honest. They stop
-                                    you from indulging in poorly thought-out metaphors about driving and keep you
-                                    focused on the overall structure of your post</p>
-                                <!--end::Text-->
-                                <!--begin::Action-->
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="btn btn-sm btn-color-muted btn-active-light-primary fw-bold">
-                                        <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                        <span class="svg-icon svg-icon-4">
+                                <div class="bgi-no-repeat bgi-size-cover rounded min-h-500px"
+                                     style="background-image:url('https://www.kkday.com/ko/blog/wp-content/uploads/usa_la_disneyland_11.jpg');">
+
+                                </div>
+                            </div>
+                            <!--end::Image-->
+                            <!--begin::Text-->
+                            <p class="text-gray-800 fs-6 fw-normal pt-5 mb-2">Outlines keep you honest. They stop
+                                you from indulging in poorly thought-out metaphors about driving and keep you
+                                focused on the overall structure of your post</p>
+                            <!--end::Text-->
+                            <!--begin::Action-->
+                            <div class="d-flex align-items-center">
+                                <a href="#" class="btn btn-sm btn-color-muted btn-active-light-primary fw-bold">
+                                    <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                                    <span class="svg-icon svg-icon-4">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                                  xmlns="http://www.w3.org/2000/svg">
 																<path opacity="0.3"
@@ -668,73 +642,73 @@
                                                                       fill="currentColor"/>
 															</svg>
 														</span>
-                                        <!--end::Svg Icon-->24</a>
-                                    <a href="#" class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
-                                        <span class="svg-icon svg-icon-3 pe-1">
+                                    <!--end::Svg Icon-->24</a>
+                                <a href="#" class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
+                                    <span class="svg-icon svg-icon-3 pe-1">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                                  xmlns="http://www.w3.org/2000/svg">
 																<path d="M18.3721 4.65439C17.6415 4.23815 16.8052 4 15.9142 4C14.3444 4 12.9339 4.73924 12.003 5.89633C11.0657 4.73913 9.66 4 8.08626 4C7.19611 4 6.35789 4.23746 5.62804 4.65439C4.06148 5.54462 3 7.26056 3 9.24232C3 9.81001 3.08941 10.3491 3.25153 10.8593C4.12155 14.9013 9.69287 20 12.0034 20C14.2502 20 19.875 14.9013 20.7488 10.8593C20.9109 10.3491 21 9.81001 21 9.24232C21.0007 7.26056 19.9383 5.54462 18.3721 4.65439Z"
                                                                       fill="currentColor"/>
 															</svg>
 														</span>
-                                        <!--end::Svg Icon-->75</a>
-                                </div>
-                                <!--end::Action-->
+                                    <!--end::Svg Icon-->75</a>
                             </div>
-                            <!--end::Bottom-->
-                            <!--begin::Separator-->
-                            <div class="separator mt-2"></div>
-                            <!--end::Separator-->
-                            <!--begin::Editor-->
-                            <form class="position-relative py-4 d-flex align-items-center pb-5">
+                            <!--end::Action-->
+                        </div>
+                        <!--end::Bottom-->
+                        <!--begin::Separator-->
+                        <div class="separator mt-2"></div>
+                        <!--end::Separator-->
+                        <!--begin::Editor-->
+                        <form class="position-relative py-4 d-flex align-items-center pb-5">
                                 <textarea data-kt-autosize="true"
                                           class="form-control min-h-auto border-0 p-0 pe-10 resize-none" rows="1"
                                           placeholder="Reply..."></textarea>
-                                <div class="position-absolute top-0 end-0 mt-2 me-n3">
+                            <div class="position-absolute top-0 end-0 mt-2 me-n3">
 														<span class="btn btn-icon btn-sm btn-active-color-primary">
 															<i class="fas fa-paperclip fs-6"></i>
 														</span>
-                                    <span class="btn btn-icon btn-sm btn-active-color-primary">
+                                <span class="btn btn-icon btn-sm btn-active-color-primary">
 															<i class="fas fa-map-marker-alt fs-6"></i>
 														</span>
-                                </div>
-                            </form>
-                            <!--edit::Editor-->
-                        </div>
-                        <!--end::Body-->
+                            </div>
+                        </form>
+                        <!--edit::Editor-->
                     </div>
-                    <!--end::Feeds Widget 3-->
-                    <!--begin::Feeds Widget 4-->
-                    <div class="card mb-0 mb-xxl-8">
-                        <!--begin::Body-->
-                        <div class="card-body pb-0">
-                            <!--begin::Container-->
-                            <div class="">
-                                <!--begin::Header-->
-                                <div class="d-flex align-items-center pb-4">
-                                    <!--begin::Symbol-->
-                                    <div class="symbol symbol-45px symbol-light me-5">
+                    <!--end::Body-->
+                </div>
+                <!--end::Feeds Widget 3-->
+                <!--begin::Feeds Widget 4-->
+                <div class="card mb-0 mb-xxl-8">
+                    <!--begin::Body-->
+                    <div class="card-body pb-0">
+                        <!--begin::Container-->
+                        <div class="">
+                            <!--begin::Header-->
+                            <div class="d-flex align-items-center pb-4">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-45px symbol-light me-5">
 															<span class="symbol-label align-items-end">
 																<img alt="Logo"
                                                                      src="/assets/media/svg/avatars/018-girl-9.svg"
                                                                      class="mh-40px"/>
 															</span>
-                                    </div>
-                                    <!--end::Symbol-->
-                                    <!--begin::Info-->
-                                    <div class="d-flex flex-column flex-grow-1">
-                                        <a href="#" class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">Grace
-                                            Logan</a>
-                                        <span class="text-muted fw-semibold">Yestarday at 5:06 PM</span>
-                                    </div>
-                                    <!--end::Info-->
-                                    <!--begin::Dropdown-->
-                                    <button type="button"
-                                            class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                        <span class="svg-icon svg-icon-1">
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Info-->
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <a href="#" class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">Grace
+                                        Logan</a>
+                                    <span class="text-muted fw-semibold">Yestarday at 5:06 PM</span>
+                                </div>
+                                <!--end::Info-->
+                                <!--begin::Dropdown-->
+                                <button type="button"
+                                        class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                                    <span class="svg-icon svg-icon-1">
 																<svg xmlns="http://www.w3.org/2000/svg" width="24px"
                                                                      height="24px" viewBox="0 0 24 24">
 																	<g stroke="none" stroke-width="1" fill="none"
@@ -750,66 +724,66 @@
 																	</g>
 																</svg>
 															</span>
-                                        <!--end::Svg Icon-->
-                                    </button>
-                                    <!--begin::Menu-->
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-200px"
-                                         data-kt-menu="true">
-                                        <div class="menu-item px-3">
-                                            <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Manage</div>
-                                        </div>
-                                        <div class="separator mb-3 opacity-75"></div>
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3">Add User</a>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3">Add Role</a>
-                                        </div>
-                                        <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                             data-kt-menu-placement="right-start" data-kt-menu-flip="left-start, top">
-                                            <a href="#" class="menu-link px-3">
-                                                <span class="menu-title">Add Group</span>
-                                                <span class="menu-arrow"></span>
-                                            </a>
-                                            <div class="menu-sub menu-sub-dropdown w-200px py-4">
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">Admin Group</a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">Staff Group</a>
-                                                </div>
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3">Member Group</a>
-                                                </div>
+                                    <!--end::Svg Icon-->
+                                </button>
+                                <!--begin::Menu-->
+                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-200px"
+                                     data-kt-menu="true">
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Manage</div>
+                                    </div>
+                                    <div class="separator mb-3 opacity-75"></div>
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">Add User</a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">Add Role</a>
+                                    </div>
+                                    <div class="menu-item px-3" data-kt-menu-trigger="hover"
+                                         data-kt-menu-placement="right-start" data-kt-menu-flip="left-start, top">
+                                        <a href="#" class="menu-link px-3">
+                                            <span class="menu-title">Add Group</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="menu-sub menu-sub-dropdown w-200px py-4">
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">Admin Group</a>
                                             </div>
-                                        </div>
-                                        <div class="menu-item px-3">
-                                            <a href="#" class="menu-link px-3">Reports</a>
-                                        </div>
-                                        <div class="separator mt-3 opacity-75"></div>
-                                        <div class="menu-item px-3">
-                                            <div class="menu-content px-3 py-3">
-                                                <a class="btn btn-primary fw-semibold btn-sm px-4" href="#">Create
-                                                    New</a>
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">Staff Group</a>
+                                            </div>
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3">Member Group</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end::Menu-->
-                                    <!--end::Dropdown-->
+                                    <div class="menu-item px-3">
+                                        <a href="#" class="menu-link px-3">Reports</a>
+                                    </div>
+                                    <div class="separator mt-3 opacity-75"></div>
+                                    <div class="menu-item px-3">
+                                        <div class="menu-content px-3 py-3">
+                                            <a class="btn btn-primary fw-semibold btn-sm px-4" href="#">Create
+                                                New</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--end::Header-->
-                                <!--begin::Body-->
-                                <div>
-                                    <!--begin::Text-->
-                                    <p class="text-gray-800 fs-6 fw-normal">Outlines keep you honest. They stop you from
-                                        indulging in poorly thought-out metaphors about driving and keep you focused on
-                                        the overall structure of your post</p>
-                                    <!--end::Text-->
-                                    <!--begin::Action-->
-                                    <div class="d-flex align-items-center">
-                                        <a href="#" class="btn btn-sm btn-color-muted btn-active-light-primary fw-bold">
-                                            <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
-                                            <span class="svg-icon svg-icon-3 pe-2">
+                                <!--end::Menu-->
+                                <!--end::Dropdown-->
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                            <div>
+                                <!--begin::Text-->
+                                <p class="text-gray-800 fs-6 fw-normal">Outlines keep you honest. They stop you from
+                                    indulging in poorly thought-out metaphors about driving and keep you focused on
+                                    the overall structure of your post</p>
+                                <!--end::Text-->
+                                <!--begin::Action-->
+                                <div class="d-flex align-items-center">
+                                    <a href="#" class="btn btn-sm btn-color-muted btn-active-light-primary fw-bold">
+                                        <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
+                                        <span class="svg-icon svg-icon-3 pe-2">
 																<svg width="24" height="24" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg">
 																	<path opacity="0.3"
@@ -821,812 +795,115 @@
                                                                           fill="currentColor"/>
 																</svg>
 															</span>
-                                            <!--end::Svg Icon-->24</a>
-                                        <a href="#" class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
-                                            <span class="svg-icon svg-icon-3 pe-1">
+                                        <!--end::Svg Icon-->24</a>
+                                    <a href="#" class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
+                                        <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
+                                        <span class="svg-icon svg-icon-3 pe-1">
 																<svg width="24" height="24" viewBox="0 0 24 24"
                                                                      fill="none" xmlns="http://www.w3.org/2000/svg">
 																	<path d="M18.3721 4.65439C17.6415 4.23815 16.8052 4 15.9142 4C14.3444 4 12.9339 4.73924 12.003 5.89633C11.0657 4.73913 9.66 4 8.08626 4C7.19611 4 6.35789 4.23746 5.62804 4.65439C4.06148 5.54462 3 7.26056 3 9.24232C3 9.81001 3.08941 10.3491 3.25153 10.8593C4.12155 14.9013 9.69287 20 12.0034 20C14.2502 20 19.875 14.9013 20.7488 10.8593C20.9109 10.3491 21 9.81001 21 9.24232C21.0007 7.26056 19.9383 5.54462 18.3721 4.65439Z"
                                                                           fill="currentColor"/>
 																</svg>
 															</span>
-                                            <!--end::Svg Icon-->75</a>
-                                    </div>
-                                    <!--end::Action-->
-                                    <!--begin::Item-->
-                                    <div class="d-flex py-5">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-40px me-5">
+                                        <!--end::Svg Icon-->75</a>
+                                </div>
+                                <!--end::Action-->
+                                <!--begin::Item-->
+                                <div class="d-flex py-5">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-40px me-5">
 																<span class="symbol-label bg-light align-items-end">
 																	<img alt="Logo"
                                                                          src="/assets/media/svg/avatars/009-boy-4.svg"
                                                                          class="mh-35px"/>
 																</span>
-                                        </div>
-                                        <!--end::Symbol-->
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-column flex-row-fluid">
                                         <!--begin::Info-->
-                                        <div class="d-flex flex-column flex-row-fluid">
-                                            <!--begin::Info-->
-                                            <div class="d-flex align-items-center flex-wrap">
-                                                <a href="#"
-                                                   class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">Mr.
-                                                    Anderson</a>
-                                                <span class="text-muted fw-normal flex-grow-1 fs-7">1 Day ago</span>
-                                                <a href="#"
-                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>
-                                            </div>
-                                            <span class="text-gray-800 fs-7 fw-normal pt-1">Long before you sit dow to put digital pen to paper you need to make sure you have to sit down and write.</span>
-                                            <!--end::Info-->
+                                        <div class="d-flex align-items-center flex-wrap">
+                                            <a href="#"
+                                               class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">Mr.
+                                                Anderson</a>
+                                            <span class="text-muted fw-normal flex-grow-1 fs-7">1 Day ago</span>
+                                            <a href="#"
+                                               class="text-muted text-hover-primary fw-normal fs-7">Reply</a>
                                         </div>
+                                        <span class="text-gray-800 fs-7 fw-normal pt-1">Long before you sit dow to put digital pen to paper you need to make sure you have to sit down and write.</span>
                                         <!--end::Info-->
                                     </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="d-flex">
-                                        <!--begin::Symbol-->
-                                        <div class="symbol symbol-40px me-5">
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::Item-->
+                                <!--begin::Item-->
+                                <div class="d-flex">
+                                    <!--begin::Symbol-->
+                                    <div class="symbol symbol-40px me-5">
 																<span class="symbol-label bg-light align-items-end">
 																	<img alt="Logo"
                                                                          src="/assets/media/svg/avatars/003-girl-1.svg"
                                                                          class="mh-35px"/>
 																</span>
-                                        </div>
-                                        <!--end::Symbol-->
+                                    </div>
+                                    <!--end::Symbol-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-column flex-row-fluid">
                                         <!--begin::Info-->
-                                        <div class="d-flex flex-column flex-row-fluid">
-                                            <!--begin::Info-->
-                                            <div class="d-flex align-items-center flex-wrap">
-                                                <a href="#"
-                                                   class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">Mrs.
-                                                    Anderson</a>
-                                                <span class="text-muted fw-normal flex-grow-1 fs-7">2 Days ago</span>
-                                                <a href="#"
-                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>
-                                            </div>
-                                            <span class="text-gray-800 fs-7 fw-normal pt-1">Long before you sit down to put digital pen to paper</span>
-                                            <!--end::Info-->
+                                        <div class="d-flex align-items-center flex-wrap">
+                                            <a href="#"
+                                               class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">Mrs.
+                                                Anderson</a>
+                                            <span class="text-muted fw-normal flex-grow-1 fs-7">2 Days ago</span>
+                                            <a href="#"
+                                               class="text-muted text-hover-primary fw-normal fs-7">Reply</a>
                                         </div>
+                                        <span class="text-gray-800 fs-7 fw-normal pt-1">Long before you sit down to put digital pen to paper</span>
                                         <!--end::Info-->
                                     </div>
-                                    <!--end::Item-->
+                                    <!--end::Info-->
                                 </div>
-                                <!--end::Body-->
+                                <!--end::Item-->
                             </div>
-                            <!--end::Container-->
-                            <!--begin::Separator-->
-                            <div class="separator mt-5"></div>
-                            <!--end::Separator-->
-                            <!--begin::Editor-->
-                            <form class="position-relative py-4 d-flex align-items-center pb-5">
+                            <!--end::Body-->
+                        </div>
+                        <!--end::Container-->
+                        <!--begin::Separator-->
+                        <div class="separator mt-5"></div>
+                        <!--end::Separator-->
+                        <!--begin::Editor-->
+                        <form class="position-relative py-4 d-flex align-items-center pb-5">
                                 <textarea data-kt-autosize="true"
                                           class="form-control min-h-auto border-0 p-0 pe-10 resize-none" rows="1"
                                           placeholder="Reply..."></textarea>
-                                <div class="position-absolute top-0 end-0 mt-2 me-n3">
+                            <div class="position-absolute top-0 end-0 mt-2 me-n3">
 														<span class="btn btn-icon btn-sm btn-active-color-primary">
 															<i class="fas fa-paperclip fs-6"></i>
 														</span>
-                                    <span class="btn btn-icon btn-sm btn-active-color-primary">
+                                <span class="btn btn-icon btn-sm btn-active-color-primary">
 															<i class="fas fa-map-marker-alt fs-6"></i>
 														</span>
-                                </div>
-                            </form>
-                            <!--edit::Editor-->
-                        </div>
-                        <!--end::Body-->
+                            </div>
+                        </form>
+                        <!--edit::Editor-->
                     </div>
-                    <!--end::Feeds Widget 4-->
+                    <!--end::Body-->
                 </div>
-                <div class="col-xl-6">
-                    <!--begin::Table Widget 3-->
-                    <div class="card mb-5 mb-xxl-8">
-                        <!--begin::Header-->
-                        <div class="card-header align-items-center border-0 mt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="fw-bold text-dark fs-3">My Agents</span>
-                                <span class="text-muted mt-2 fw-semibold fs-6">More than 400+ new members</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                <!--begin::Dropdown-->
-                                <button type="button"
-                                        class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                        data-kt-menu-trigger="hover" data-kt-menu-placement="bottom-end">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                    <span class="svg-icon svg-icon-1">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24px"
-                                                                 height="24px" viewBox="0 0 24 24">
-																<g stroke="none" stroke-width="1" fill="none"
-                                                                   fill-rule="evenodd">
-																	<rect x="5" y="5" width="5" height="5" rx="1"
-                                                                          fill="currentColor"/>
-																	<rect x="14" y="5" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																	<rect x="5" y="14" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																	<rect x="14" y="14" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																</g>
-															</svg>
-														</span>
-                                    <!--end::Svg Icon-->
-                                </button>
-                                <!--begin::Menu-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-200px"
-                                     data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Manage</div>
-                                    </div>
-                                    <div class="separator mb-3 opacity-75"></div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Add User</a>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Add Role</a>
-                                    </div>
-                                    <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                         data-kt-menu-placement="right-start" data-kt-menu-flip="left-start, top">
-                                        <a href="#" class="menu-link px-3">
-                                            <span class="menu-title">Add Group</span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="menu-sub menu-sub-dropdown w-200px py-4">
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Admin Group</a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Staff Group</a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Member Group</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Reports</a>
-                                    </div>
-                                    <div class="separator mt-3 opacity-75"></div>
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content px-3 py-3">
-                                            <a class="btn btn-primary fw-semibold btn-sm px-4" href="#">Create New</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Menu-->
-                                <!--end::Dropdown-->
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <div class="table-responsive">
-                                <table class="table table-borderless align-middle mb-0">
-                                    <thead>
-                                    <tr>
-                                        <th class="p-0 w-50px"></th>
-                                        <th class="p-0 min-w-150px"></th>
-                                        <th class="p-0 min-w-150px"></th>
-                                        <th class="p-0 min-w-70px"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="symbol symbol-55px me-2 mt-1">
-																		<span class="symbol-label align-items-end">
-																			<img alt="icon"
-                                                                                 src="/assets/media/svg/avatars/001-boy.svg"
-                                                                                 class="mh-40px"/>
-																		</span>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Brad
-                                                Simmons</a>
-                                            <span class="text-muted fw-semibold d-block mt-1">Movie Creator</span>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-twitter btn-sm me-3">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-icon btn-facebook btn-sm">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-active-primary btn-sm">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                <span class="svg-icon svg-icon-4">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<rect opacity="0.5" x="18" y="13"
-                                                                                      width="13" height="2" rx="1"
-                                                                                      transform="rotate(-180 18 13)"
-                                                                                      fill="currentColor"/>
-																				<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="symbol symbol-55px me-2 mt-1">
-																		<span class="symbol-label align-items-end">
-																			<img alt="icon"
-                                                                                 src="/assets/media/svg/avatars/018-girl-9.svg"
-                                                                                 class="mh-40px"/>
-																		</span>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Jessie
-                                                Clarcson</a>
-                                            <span class="text-muted fw-semibold d-block mt-1">HTML, CSS Coding</span>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-twitter btn-sm me-3">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-icon btn-facebook btn-sm">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-active-primary btn-sm">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                <span class="svg-icon svg-icon-4">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<rect opacity="0.5" x="18" y="13"
-                                                                                      width="13" height="2" rx="1"
-                                                                                      transform="rotate(-180 18 13)"
-                                                                                      fill="currentColor"/>
-																				<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="symbol symbol-55px me-2 mt-1">
-																		<span class="symbol-label align-items-end">
-																			<img alt="icon"
-                                                                                 src="/assets/media/svg/avatars/047-girl-25.svg"
-                                                                                 class="mh-40px"/>
-																		</span>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Lebron
-                                                Wayde</a>
-                                            <span class="text-muted fw-semibold d-block mt-1">ReactJS Developer</span>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-twitter btn-sm me-3">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-icon btn-facebook btn-sm">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-active-primary btn-sm">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                <span class="svg-icon svg-icon-4">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<rect opacity="0.5" x="18" y="13"
-                                                                                      width="13" height="2" rx="1"
-                                                                                      transform="rotate(-180 18 13)"
-                                                                                      fill="currentColor"/>
-																				<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="symbol symbol-55px me-2 mt-1">
-																		<span class="symbol-label align-items-end">
-																			<img alt="icon"
-                                                                                 src="/assets/media/svg/avatars/043-boy-18.svg"
-                                                                                 class="mh-40px"/>
-																		</span>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <a href="#" class="text-dark fw-bold text-hover-primary fs-6">Kevin
-                                                Leonard</a>
-                                            <span class="text-muted fw-semibold d-block mt-1">Amazing Templates</span>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-twitter btn-sm me-3">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-icon btn-facebook btn-sm">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-end pe-0">
-                                            <a href="#" class="btn btn-icon btn-bg-light btn-active-primary btn-sm">
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                <span class="svg-icon svg-icon-4">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<rect opacity="0.5" x="18" y="13"
-                                                                                      width="13" height="2" rx="1"
-                                                                                      transform="rotate(-180 18 13)"
-                                                                                      fill="currentColor"/>
-																				<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!--end::Table-->
-                        </div>
-                        <!--end: Card Body-->
-                    </div>
-                    <!--end::Table Widget 3-->
-                    <!--begin::Mixed Widget 1-->
-                    <div class="card mb-5 mb-xxl-8">
-                        <!--begin::Header-->
-                        <div class="card-header border-0 pt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-dark fs-3">My Bestsellers</span>
-                                <span class="text-muted mt-2 fw-semibold fs-6">More than 400+ new members</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                <ul class="nav nav-pills nav-pills-sm nav-light">
-                                    <li class="nav-item">
-                                        <a class="nav-link btn btn-active-light btn-color-muted py-2 px-4 active fw-bold me-2"
-                                           data-bs-toggle="tab" href="#kt_tab_pane_1_1">Week</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link btn btn-active-light btn-color-muted py-2 px-4 fw-bold me-2"
-                                           data-bs-toggle="tab" href="#kt_tab_pane_1_2">Month</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body p-0 pb-13 mt-n3">
-                            <div class="tab-content mt-5" id="myTabTables1">
-                                <!--begin::Tap pane-->
-                                <div class="tab-pane fade show active" id="kt_tab_pane_1_1" role="tabpanel"
-                                     aria-labelledby="kt_tab_pane_1_1">
-                                    <div class="d-flex flex-column">
-                                        <!--begin::Chart-->
-                                        <div class="flex-grow-1">
-                                            <div id="kt_mixed_widget_1_chart" style="height: 150px"></div>
-                                        </div>
-                                        <!--end::Chart-->
-                                        <!--begin::Items-->
-                                        <div class="mt-5 px-9">
-                                            <!--begin::Item-->
-                                            <div class="d-flex flex-stack mb-6">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/brand-logos/plurk.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">Pipeline
-                                                            Theme</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+82$</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Item-->
-                                            <!--begin::Widget Item-->
-                                            <div class="d-flex flex-stack mb-6">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/brand-logos/telegram.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">ThumbsUp
-                                                            HTML</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+280$
-                                                </div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Widget Item-->
-                                            <!--begin::Widget Item-->
-                                            <div class="d-flex flex-stack">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/misc/puzzle.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">Finder
-                                                            Admin</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+4500$
-                                                </div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Widget Item-->
-                                        </div>
-                                        <!--end::Widget Items-->
-                                    </div>
-                                </div>
-                                <!--end::Tap pane-->
-                                <!--begin::Tap pane-->
-                                <div class="tab-pane fade" id="kt_tab_pane_1_2" role="tabpanel"
-                                     aria-labelledby="kt_tab_pane_1_1">
-                                    <div class="d-flex flex-column">
-                                        <!--begin::Chart-->
-                                        <div class="flex-grow-1">
-                                            <div id="kt_mixed_widget_2_chart" style="height: 150px"></div>
-                                        </div>
-                                        <!--end::Chart-->
-                                        <!--begin::Items-->
-                                        <div class="mt-5 px-9">
-                                            <!--begin::Widget Item-->
-                                            <div class="d-flex flex-stack mb-6">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/brand-logos/telegram.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">ThumbsUp
-                                                            HTML</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+280$
-                                                </div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Widget Item-->
-                                            <!--begin::Item-->
-                                            <div class="d-flex flex-stack mb-6">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/brand-logos/plurk.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">Pipeline
-                                                            Theme</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+82$</div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Item-->
-                                            <!--begin::Widget Item-->
-                                            <div class="d-flex flex-stack">
-                                                <!--begin::Section-->
-                                                <div class="d-flex align-items-center me-2">
-                                                    <!--begin::Symbol-->
-                                                    <div class="symbol symbol-50px symbol-light me-5">
-																			<span class="symbol-label">
-																				<img src="/assets/media/svg/misc/puzzle.svg"
-                                                                                     alt="" class="mw-75"/>
-																			</span>
-                                                    </div>
-                                                    <!--end::Symbol-->
-                                                    <!--begin::Title-->
-                                                    <div>
-                                                        <a href="#"
-                                                           class="fs-6 text-gray-800 text-hover-primary fw-bold">Finder
-                                                            Admin</a>
-                                                        <div class="fs-7 text-muted fw-semibold mt-1">Most Successful
-                                                            Fellas
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Title-->
-                                                </div>
-                                                <!--end::Section-->
-                                                <!--begin::Label-->
-                                                <div class="bg-light rounded fw-bold text-gray-600 py-2 px-3">+4500$
-                                                </div>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Widget Item-->
-                                        </div>
-                                        <!--end::Widget Items-->
-                                    </div>
-                                </div>
-                                <!--end::Tap pane-->
-                            </div>
-                        </div>
-                    </div>
-                    <!--end::Mixed Widget 1-->
-                    <!--begin::List Widget 2-->
-                    <div class="card mb-5 mb-xxl-8">
-                        <!--begin::Header-->
-                        <div class="card-header align-items-center border-0 mt-5">
-                            <h3 class="card-title align-items-start flex-column">
-                                <span class="fw-bold text-dark fs-3">My Competitors</span>
-                                <span class="text-muted mt-2 fw-semibold fs-6">More than 400+ new members</span>
-                            </h3>
-                            <div class="card-toolbar">
-                                <!--begin::Dropdown-->
-                                <button type="button"
-                                        class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                    <span class="svg-icon svg-icon-1">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24px"
-                                                                 height="24px" viewBox="0 0 24 24">
-																<g stroke="none" stroke-width="1" fill="none"
-                                                                   fill-rule="evenodd">
-																	<rect x="5" y="5" width="5" height="5" rx="1"
-                                                                          fill="currentColor"/>
-																	<rect x="14" y="5" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																	<rect x="5" y="14" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																	<rect x="14" y="14" width="5" height="5" rx="1"
-                                                                          fill="currentColor" opacity="0.3"/>
-																</g>
-															</svg>
-														</span>
-                                    <!--end::Svg Icon-->
-                                </button>
-                                <!--begin::Menu-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-200px"
-                                     data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content fs-6 text-dark fw-bold px-3 py-4">Manage</div>
-                                    </div>
-                                    <div class="separator mb-3 opacity-75"></div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Add User</a>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Add Role</a>
-                                    </div>
-                                    <div class="menu-item px-3" data-kt-menu-trigger="hover"
-                                         data-kt-menu-placement="right-start" data-kt-menu-flip="left-start, top">
-                                        <a href="#" class="menu-link px-3">
-                                            <span class="menu-title">Add Group</span>
-                                            <span class="menu-arrow"></span>
-                                        </a>
-                                        <div class="menu-sub menu-sub-dropdown w-200px py-4">
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Admin Group</a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Staff Group</a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3">Member Group</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <a href="#" class="menu-link px-3">Reports</a>
-                                    </div>
-                                    <div class="separator mt-3 opacity-75"></div>
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content px-3 py-3">
-                                            <a class="btn btn-primary fw-semibold btn-sm px-4" href="#">Create New</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end::Menu-->
-                                <!--end::Dropdown-->
-                            </div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
-                        <div class="card-body pt-4">
-                            <!--begin::Item-->
-                            <div class="d-flex mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <img src="/assets/media/stock/600x400/img-17.jpg" alt="" class="mw-100"/>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-wrap flex-grow-1 mt-n2 mt-lg-n1">
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pe-3">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Cup &
-                                            Green</a>
-                                        <span class="text-muted fw-semibold fs-7 my-1">Study the highway types</span>
-                                        <span class="text-muted fw-semibold fs-7">Created by:
-															<span class="text-info fw-semibold">CoreTeam</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="text-end py-lg-0 py-2">
-                                        <span class="text-gray-800 fw-bold fs-3">24,900</span>
-                                        <span class="text-muted fs-7 fw-bold d-block">votes</span>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin: Item-->
-                            <div class="d-flex mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <img src="/assets/media/stock/600x400/img-10.jpg" alt="" class="mw-100"/>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-wrap flex-grow-1 mt-n2 mt-lg-n1">
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pe-3">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Yellow
-                                            Background</a>
-                                        <span class="text-muted fw-semibold fs-7 my-1">Study the highway types</span>
-                                        <span class="text-muted fw-semibold fs-7">Created by:
-															<span class="text-info fw-semibold">KeenThemes</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="text-end py-lg-0 py-2">
-                                        <span class="text-gray-800 fw-bold fs-3">70,380</span>
-                                        <span class="text-muted fs-7 fw-bold d-block">votes</span>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end: Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex mb-7">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <img src="/assets/media/stock/600x400/img-1.jpg" alt="" class="mw-100"/>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-wrap flex-grow-1 mt-n2 mt-lg-n1">
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pe-3">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Nike &
-                                            Blue</a>
-                                        <span class="text-muted fw-semibold fs-7 my-1">Study the highway types</span>
-                                        <span class="text-muted fw-semibold fs-7">Created by:
-															<span class="text-info fw-semibold">Invision Inc.</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="text-end py-lg-0 py-2">
-                                        <span class="text-gray-800 fw-bold fs-3">24,200</span>
-                                        <span class="text-muted fs-7 fw-bold d-block">votes</span>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                            <!--begin::Item-->
-                            <div class="d-flex">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-60px symbol-2by3 me-4">
-                                    <img src="/assets/media/stock/600x400/img-9.jpg" alt="" class="mw-100"/>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Section-->
-                                <div class="d-flex align-items-center flex-wrap flex-grow-1 mt-n2 mt-lg-n1">
-                                    <!--begin::Title-->
-                                    <div class="d-flex flex-column flex-grow-1 my-lg-0 my-2 pe-3">
-                                        <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">Desserts
-                                            platter</a>
-                                        <span class="text-muted fw-semibold fs-7 my-1">Study the highway types</span>
-                                        <span class="text-muted fw-semibold fs-7">Created by:
-															<span class="text-info fw-semibold">Figma Studio</span></span>
-                                    </div>
-                                    <!--end::Title-->
-                                    <!--begin::Info-->
-                                    <div class="text-end py-lg-0 py-2">
-                                        <span class="text-gray-800 fw-bold fs-3">36,450</span>
-                                        <span class="text-muted fs-7 fw-bold d-block">votes</span>
-                                    </div>
-                                    <!--end::Info-->
-                                </div>
-                                <!--end::Section-->
-                            </div>
-                            <!--end::Item-->
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::List Widget 2-->
-                </div>
+                <!--end::Feeds Widget 4-->
+                <!--end::List Widget 2-->
             </div>
-            <!--End::Row-->
         </div>
-        <!--end::Container-->
+        <!--End::Row-->
     </div>
     <!--end::Content-->
 </div>
 <!--end::Main-->
+
+
+<!--begin::Vendors Javascript(used for this page only)-->
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<!--end::Vendors Javascript-->
+<!--begin::Custom Javascript(used for this page only)-->
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>

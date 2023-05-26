@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!--begin::Header-->
 <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header"
      data-kt-sticky-offset="{default: '200px', lg: '300px'}">
@@ -25,7 +26,7 @@
             <!--end::Mega Menu Toggler-->
             <!--begin::Logo-->
             <a href="/">
-                <img alt="Logo" src="/assets/media/logos/logo-default.svg" class="h-30px"/>
+                <img alt="Logo" src="/img/logo3.png" class="h-60px"/>
             </a>
             <!--end::Logo-->
         </div>
@@ -310,8 +311,7 @@
             </div>
             <div class="ms-1 ms-lg-6">
                 <!--begin::Dropdown-->
-                <a href="/"><span>light/dark</span>
-                </a>
+                <button class="toggle-button" onclick="lightDarkMode()">light/dark</button>
             </div>
 
 
