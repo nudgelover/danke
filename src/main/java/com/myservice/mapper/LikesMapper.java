@@ -12,5 +12,7 @@ import java.util.List;
 public interface LikesMapper extends KBMapper<Integer, Likes> {
     public List<Likes> getMyLikes(String stdnId) throws Exception;
 
-    public List<Likes> getPostLikes(Integer postId) throws Exception;
+    public List<Likes> getPostLikes(Integer postId, String board) throws Exception;
+
+    public Likes getThisLikes(Integer postId, String stdnId, String board) throws Exception;
 }

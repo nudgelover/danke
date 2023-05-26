@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.MrkMapper">
+
+    <select id="select" parameterType="Integer" resultType="mrk">
+        SELECT *
+        FROM mrk
+        WHERE id=#{id}
+    </select>
+
+    <select id="getKeyword" parameterType="String" resultType="mrk">
+        SELECT *
+        FROM mrk
+        WHERE keyword=UPPER(#{keyword})
+    </select>
+
+    <select id="getMyMrk" parameterType="String" resultType="mrk">
+        SELECT *
+        FROM mrk
+        WHERE writer=#{writer}
+    </select>
+
+    <select id="selectall" resultType="mrk">
+        SELECT *
+        FROM mrk
+    </select>
+
+    <select id="getRecent" resultType="mrk">
+        <![CDATA[
+    SELECT *
+    FROM (
+        SELECT *
+        FROM mrk
+        ORDER BY id DESC
+    )
+    WHERE ROWNUM <= 5
+    ]]>
+    </select>
+
+    <insert id="insert" parameterType="mrk">
+        INSERT INTO mrk
+            (id, writer, lat, lng, img, rating, detail, keyword, title, rdate)
+        VALUES (mrk_seq.NEXTVAL,#{writer},#{lat},#{lng}
+        ,#{img},#{rating},#{detail},#{keyword},#{title},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'))
+    </insert>
+
+    <update id="update" parameterType="mrk">
+        UPDATE mrk SET lat=#{lat}, lng=#{lng}, img=#{img}
+                      , rating=#{rating}, detail=#{detail}
+                      , keyword=#{keyword}, title=#{title}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM mrk WHERE id=#{id}
+    </delete>
+
+</mapper>

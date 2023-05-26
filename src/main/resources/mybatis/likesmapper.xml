@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.LikesMapper">
+
+    <select id="getThisLikes" parameterType="map" resultType="Likes">
+        SELECT *
+        FROM likes
+        WHERE post_id=#{postId}
+        AND stdn_id=#{stdnId}
+        AND board=#{board}
+    </select>
+
+    <select id="getMyLikes" parameterType="String" resultType="Likes">
+        SELECT *
+        FROM likes
+        WHERE stdn_id=#{stdnId}
+    </select>
+
+    <select id="getPostLikes" parameterType="map" resultType="Likes">
+        SELECT *
+        FROM likes
+        WHERE post_id=#{postId}
+        AND board=#{board}
+    </select>
+
+    <select id="select" parameterType="Integer" resultType="Likes">
+        SELECT *
+        FROM likes
+        WHERE like_id=#{likeId}
+    </select>
+
+    <select id="selectall" resultType="Likes">
+        SELECT *
+        FROM likes
+    </select>
+
+    <insert id="insert" parameterType="Likes">
+        INSERT INTO likes (like_id, post_id, stdn_id, board)
+        VALUES (likes_seq.NEXTVAL,#{postId},#{stdnId},#{board})
+    </insert>
+
+    <!-- 사실상 쓸 일 없음 update-->
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM likes
+        WHERE like_id=#{likeId}
+    </delete>
+
+</mapper>

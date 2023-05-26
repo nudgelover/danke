@@ -39,12 +39,16 @@ public class LikesService implements KBService<Integer, Likes> {
         return mapper.selectall();
     }
 
-    public List<Likes> getMyLikes(String stdnId) throws Exception{
+    public List<Likes> getMyLikes(String stdnId) throws Exception {
         return mapper.getMyLikes(stdnId);
     }
 
-    public List<Likes> getPostLikes(Integer postId) throws Exception{
-        return mapper.getPostLikes(postId);
+    public List<Likes> getPostLikes(Integer postId, String board) throws Exception {
+        return mapper.getPostLikes(postId, board);
+    }
+
+    public Likes getThisLikes(Integer postId, String stdnId, String board) throws Exception {
+        return mapper.getThisLikes(postId, stdnId, board);
     }
 
 }

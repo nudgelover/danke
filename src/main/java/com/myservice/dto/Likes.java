@@ -13,4 +13,11 @@ public class Likes {
     private String stdnId;
     private String board;
 
+
+    //Insert
+    public Likes(int postId, String stdnId, String board) {
+        this.postId = postId;
+        this.stdnId = stdnId;
+        this.board = board;
+    }
 }
