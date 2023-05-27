@@ -1,7 +1,8 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!--end::Head-->
 
@@ -53,6 +54,8 @@
                                 <h1 class="fw-bold text-dark">Search Place</h1>
                                 <div class="fs-3 mb-8">Get jmtgr place!</div>
                                 <!--begin::Form-->
+
+
                                 <form class="d-flex flex-center py-2 bg-white px-6 rounded">
                                     <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                                     <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -88,6 +91,7 @@
                         <!--begin::Products-->
                         <div class="row g-5 g-xxl-8">
                             <!--begin::Product-->
+                            <c:forEach var="c" items="${marker}">
                             <div class="col-md-4 col-xxl-4 col-lg-12">
                                 <!--begin::Card-->
                                 <div class="card shadow-none">
@@ -95,22 +99,22 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/1.png" alt="" class="mw-100 w-200px"/>
+                                                <img class="h-250px" src="/uimg/${c.img}" alt="" class="mw-100 w-200px"/>
                                             </div>
                                             <div class="overlay-layer">
+                                                <a href="/marker/detail?id=${c.id}"
+                                                   class="btn fw-bold btn-sm btn-light-primary me-2">Quick View</a>
                                                 <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
+                                                   class="btn fw-bold btn-sm btn-light-primary">JJIM</a>
                                             </div>
                                         </div>
                                         <!--end::Image-->
                                         <!--begin::Details-->
                                         <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Smart
-                                                Watches</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
+                                            <a href="/marker/detail?id=${c.id}"
+                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">
+                                                    ${c.title}</a>
+                                            <span class="fs-6">RATING ${c.rating}</span>
                                         </div>
                                         <!--end::Details-->
                                     </div>
@@ -118,68 +122,8 @@
                                 <!--end::Card-->
                             </div>
                             <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/2.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Headphones</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="
-                                                /assets/media/products/3.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Smart
-                                                Drones</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
+
+                            </c:forEach>
                         </div>
                         <!--end::Products-->
                     </div>
