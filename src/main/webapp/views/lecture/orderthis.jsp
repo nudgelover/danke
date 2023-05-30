@@ -6,35 +6,85 @@
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
+<style>
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    ul li img {
+        width: 200px;
+    }
+</style>
 
 <script>
     let order_selected = {
         init: function(){
+            $('#pay_btn').attr('disabled', true);
+            $('#pay_btn').click(function(){
+                order_selected.send();
+            });
+
+            let rawData = $('#ord_price').html();
+            let trimmed = rawData.replace(/,/g, "");
+            let ordPrice = trimmed.match(/\d+/g);
+            $('#ordPrice').val(ordPrice);
+
+
 
             $('#apply_btn').click(function(){
+                let cpnId = $('input[type="radio"]:checked').val();
+                $('#cpnId').val(cpnId);
                 let selected_cpn = $('input[type="radio"]:checked').data('name');
                 $('#selected_title').val(selected_cpn);
 
                 let cpn_id=$('input[type="radio"]:checked').val();
                 let benefit_amount = $('#benefit_' + cpn_id).data('value');
+                let intbenefit = Math.floor(benefit_amount);
 
                 function numberWithCommas(number) {
                     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 }
 
-                let formattedBenefit = numberWithCommas(benefit_amount);
+                let formattedBenefit = numberWithCommas(intbenefit);
                 $('#benefit').text('-KRW' + formattedBenefit);
+                $('#useCpn').val(intbenefit);
 
                 let total_amount = $('#ord_price').data('value');
                 let final_price = (total_amount - benefit_amount);
                 let formattedFinal = numberWithCommas(final_price);
                 $('#final_price').text('KRW' + formattedFinal);
                 $('#final_order').html('KRW' + formattedFinal);
+                $('#ordPrice').val(final_price);
+
 
                 $('#my_coupon').modal('hide');
-
             })
 
+            $('input[name="payment"]').change(function () {
+                let payMethod = $('input[name="payment"]:checked').val()
+                $('#payMethod').val(payMethod);
+
+                let checkednum=$('input[name="payment"]:checked').length;
+                if(checkednum==1){
+                    $('#pay_btn').attr('disabled', false);
+                }
+            });
+        },
+        send: function(){
+
+            $('#pay_form').attr({
+                'action': '/lecture/paythis',
+                'method': 'post'
+            });
+
+            $('#pay_form').submit();
         }
     }
     $(function () {
@@ -164,6 +214,29 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-borderless">
+                                            <thead>
+                                            <tr class="border-bottom-1 border-bottom-gray-100 fw-bold text-muted fs-6 text-uppercase">
+                                                <th class="pt-10 pb-10 ps-0"><img src="/assets/media/icons/duotune/general/gen043.svg"/>
+                                                    Payment</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div class="flex-container">
+                                                        <ul>
+                                                            <li><input class="form-check-input" type="radio" name="payment" id="card" value="1"/>CARD</li>
+                                                            <li><input class="form-check-input" type="radio" name="payment" id="kakao" value="2"/>KAKAO</li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                                 <div class="col-md-3 border-start-md ps-md-10 pt-md-10 text-end">
                                     <!--begin::Total Amount-->
@@ -177,9 +250,16 @@
                                     <div class="fs-2x fw-bold text-danger" id="final_order"></div>
                                     <div class="text-muted fw-semibold mb-16">BEST PRICE</div>
                                     <div>
-                                        <button type="button" class="btn btn-primary fw-bold" style="width: fit-content"
-                                        >Proceed to Pay
-                                        </button>
+                                        <form id="pay_form">
+                                            <input type="text" id="lecId" name="lecId" value="${lec.id}">
+                                            <input type="text" id="payMethod" name="payMethod">
+                                            <input type="text" id="cpnId" name="cpnId" value="0">
+                                            <input type="text" id="useCpn" name="useCpn" value="0">
+                                            <input type="text" id="ordPrice" name="ordPrice">
+                                            <button type="button" class="btn btn-primary fw-bold" id="pay_btn" style="width: fit-content"
+                                            >Proceed to Pay
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
 

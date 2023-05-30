@@ -131,9 +131,9 @@ public class LectureController {
 
     @RequestMapping("/pay")
     public String pay(@RequestParam List<Integer> lecId, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
-        //  주문에 필요한 것들
+        //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
         // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
-        // 2. ord_detail insert ( 각 강의별로 생성 ) : 각 강의 lecId 필요, 방금 insert한 ord Id 필요
+        // 2. ord_detail insert ( 각 강의별로 생성 ) : for문을 돌려 (각 강의 lecId 필요) 방금 insert한 ord Id 필요
         // 3. cart delete : 각 강의 lecId로 for문 돌려 remove
         // 4. cpn update : 사용여부 '1'
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
@@ -159,6 +159,37 @@ public class LectureController {
             int cartId = cart.getId();
             cartService.remove(cartId);
         }
+        log.info("여기"+cpnId);
+        if( cpnId != 0) {
+            Cpn cpn = (Cpn) cpnService.get(cpnId);
+            cpnService.modify(cpn);
+        }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping("/paythis")
+    public String paythis(Integer lecId, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
+        //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
+        // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
+        // 2. ord_detail insert ( 각 강의별로 생성 ) : 각 강의 lecId 필요, 방금 insert한 ord Id 필요
+        // 3. cart delete : 각 강의 lecId로 for문 돌려 remove XXXXXXXX 바로구매는 카트에서 안 지워요~~~
+        // 4. cpn update : 사용여부 '1'
+        Stdn stdn = (Stdn) session.getAttribute("loginStdn");
+        String stdnId = stdn.getId();
+
+        log.info("여기"+ord.toString());
+        ord.setStdnId(stdnId);
+        ordService.register(ord);
+        int ordId = ord.getId();
+
+        log.info("여기"+lecId.toString());
+        OrdDetail ordDetail = new OrdDetail();
+        ordDetail.setOrdId(ordId);
+        ordDetail.setLecId(lecId);
+        log.info("여기"+ordDetail.toString());
+        ordDetailService.register(ordDetail);
+
         log.info("여기"+cpnId);
         if( cpnId != 0) {
             Cpn cpn = (Cpn) cpnService.get(cpnId);
