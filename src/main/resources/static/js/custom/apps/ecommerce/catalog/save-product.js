@@ -290,7 +290,7 @@ var KTAppEcommerceSaveProduct = function () {
                             }
                         }
                     },
-                    'sku': {
+                    'sku1': {
                         validators: {
                             notEmpty: {
                                 message: 'SKU is required'
