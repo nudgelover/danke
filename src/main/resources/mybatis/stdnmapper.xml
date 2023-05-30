@@ -4,36 +4,59 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.StdnMapper">
     <select id="select" parameterType="string" resultType="stdn">
-        SELECT * FROM stdn WHERE ID=#{id}
+        SELECT id, pwd, name, email, contact, img, birthday, is_subsc AS isSubsc
+             , cpn, is_exit AS isExit, exit_date AS exitDate, last_visit AS lastVisit
+             , is_join AS isJoin, sbj1, sbj2, sbj3, login_error AS loginError
+        FROM stdn
+        WHERE ID=#{id}
     </select>
     <select id="selectall" resultType="stdn">
-        SELECT * FROM stdn ORDER BY id ASC
+        SELECT id, pwd, name, email, contact, img, birthday, is_subsc AS isSubsc
+             , cpn, is_exit AS isExit, exit_date AS exitDate, last_visit AS lastVisit
+             , is_join AS isJoin, sbj1, sbj2, sbj3, login_error AS loginError
+        FROM stdn
+        ORDER BY id ASC
     </select>
 
+    <!--가입 시, 값이 지정되어 있지 않으면 update오류 나기 때문에
+     쿠폰, 로그인 오류와 같은 칼럼은 값'0'으로
+     img는 'default.jpg'-->
     <insert id="insert" parameterType="stdn">
-        INSERT INTO stdn (id, pwd, name, email, contact, sbj1, sbj2, sbj3)
-        VALUES (#{id},#{pwd},#{name},#{email},#{contact},#{sbj1},#{sbj2},#{sbj3})
+        INSERT INTO stdn (id, pwd, name, email, contact, img, birthday
+                    , cpn, last_visit, sbj1, sbj2, sbj3,login_error)
+        VALUES (#{id},#{pwd},#{name},#{email},#{contact},'default.jpg',#{birthday}
+                ,'0',TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{sbj1},#{sbj2},#{sbj3},'0')
     </insert>
 
+    <!--stdn본인 수정-->
     <update id="update" parameterType="stdn">
         UPDATE stdn SET name=#{name}, email=#{email}
                       , contact=#{contact}, img=#{img}
-                      , birthday=#{birthday}, sbj1=#{sbj1}
+                      , birthday=#{birthday}, is_subsc=#{isSubsc}
+                      , cpn=#{cpn},last_visit=#{lastVisit}
+                      , is_join=#{isJoin}, sbj1=#{sbj1}
                       , sbj2=#{sbj2}, sbj3=#{sbj3}
+                      , login_error=#{loginError}
         WHERE id=#{id}
     </update>
+
+    <!--비밀번호 암호화 처리 때문에 Update 따로 뺌-->
     <update id="updatePwd" parameterType="stdn">
         UPDATE stdn SET pwd=#{pwd}
         WHERE id=#{id}
     </update>
 
+    <!--exitDate이 null인 채로 Update column에 들어있으면 setNull 에러라 따로 뺌-->
+    <update id="updateExit" parameterType="stdn">
+        UPDATE stdn SET is_exit='1', exit_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        WHERE id=#{id}
+    </update>
 
     <update id="updateAdm" parameterType="stdn">
         UPDATE stdn SET name=#{name}, email=#{email}
                       , contact=#{contact}, img=#{img}
                       , birthday=#{birthday}, is_subsc=#{isSubsc}
-                      , cpn=#{cpn}, is_exit=#{isExit}
-                      , exit_date=#{exitDate}, last_visit=#{lastVisit}
+                      , cpn=#{cpn},last_visit=#{lastVisit}
                       , is_join=#{isJoin}, sbj1=#{sbj1}
                       , sbj2=#{sbj2}, sbj3=#{sbj3}
                       , login_error=#{loginError}

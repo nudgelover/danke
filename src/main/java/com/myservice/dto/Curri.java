@@ -28,7 +28,6 @@ public class Curri {
     public Curri(String stdnId, Integer lecId, String isOpen) {
         this.stdnId = stdnId;
         this.lecId = lecId;
-        this.isOpen = isOpen;
     }
 
     //Update

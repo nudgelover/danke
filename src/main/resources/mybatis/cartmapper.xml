@@ -5,8 +5,9 @@
 <mapper namespace="com.myservice.mapper.CartMapper">
 
     <select id="thisCart" parameterType="map" resultType="Cart">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate
-             , s.name AS stdnName, l.title As lecTitle
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate
+             , s.name AS stdnName, l.teacher AS lecTeacher
+             , l.title As lecTitle, l.disc_rate AS lecDiscRate
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
         FROM cart c, stdn s, lec l
@@ -17,8 +18,9 @@
     </select>
 
     <select id="select" parameterType="Integer" resultType="Cart">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate
-             , s.name AS stdnName, l.title As lecTitle
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate
+             , s.name AS stdnName, l.teacher AS lecTeacher
+             , l.title As lecTitle, l.disc_rate AS lecDiscRate
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
         FROM cart c, stdn s, lec l
@@ -27,14 +29,16 @@
           AND c.id = #{id}
     </select>
     <select id="getMyCart" parameterType="String" resultType="Cart">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate
-             , s.name AS stdnName, l.title As lecTitle
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate
+             , s.name AS stdnName, l.teacher AS lecTeacher
+             , l.title As lecTitle, l.disc_rate AS lecDiscRate
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
         FROM cart c, stdn s, lec l
         WHERE c.stdn_id = s.id
           AND c.lec_id = l.id
           AND c.stdn_id=#{stdnId}
+        ORDER BY c.id DESC
     </select>
 
     <select id="cntMyCart" parameterType="String" resultType="Integer">
@@ -44,8 +48,9 @@
     </select>
 
     <select id="selectall" resultType="Cart">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate
-             , s.name AS stdnName, l.title As lecTitle
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate
+             , s.name AS stdnName, l.teacher AS lecTeacher
+             , l.title As lecTitle, l.disc_rate AS lecDiscRate
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
         FROM cart c, stdn s, lec l

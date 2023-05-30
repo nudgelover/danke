@@ -5,7 +5,7 @@
 <mapper namespace="com.myservice.mapper.CurriMapper">
 
     <select id="thisCurri" parameterType="map" resultType="Curri">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate, c.is_open
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate, c.is_open AS isOpen
              , s.name AS stdnName, l.title As lecTitle
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
@@ -17,7 +17,7 @@
     </select>
 
     <select id="select" parameterType="Integer" resultType="Curri">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate, c.is_open
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate, c.is_open AS isOpen
              , s.name AS stdnName, l.title As lecTitle
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
@@ -27,7 +27,7 @@
           AND c.id = #{id}
     </select>
     <select id="getMyCurri" parameterType="String" resultType="Curri">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate, c.is_open
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate, c.is_open AS isOpen
              , s.name AS stdnName, l.title As lecTitle
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
@@ -44,7 +44,7 @@
     </select>
 
     <select id="selectall" resultType="Curri">
-        SELECT c.id, c.stdn_id, c.lec_id, c.rdate, c.is_open
+        SELECT c.id, c.stdn_id AS stdnId, c.lec_id AS lecId, c.rdate, c.is_open AS isOpen
              , s.name AS stdnName, l.title As lecTitle
              , l.topic AS lecTopic, l.price AS lecPrice
              , l.target AS lecTarget, l.img AS lecImg
@@ -55,7 +55,7 @@
 
     <insert id="insert" parameterType="Curri">
         INSERT INTO curri (id, stdn_id, lec_id, rdate, is_open)
-        VALUES (curri_seq.NEXTVAL, #{stdnId}, #{lecId},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), #{isOpen})
+        VALUES (curri_seq.NEXTVAL, #{stdnId}, #{lecId},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), '1')
     </insert>
 
     <update id="update" parameterType="Curri">

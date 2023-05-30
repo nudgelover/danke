@@ -1,23 +1,23 @@
-package com.myservice.cart;
+package com.myservice.test;
 
-import com.myservice.service.CartService;
+import com.myservice.service.TestService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectMyCartTest {
+class SelectMyTestTest {
 
     @Autowired
-    CartService service;
-    @Test
-    void contextLoads() {
+    TestService service;
+
+    @org.junit.jupiter.api.Test
+        void contextLoads() {
         try {
-            service.getMyCart("12345");
+            service.getMyTest("id001");
         } catch (Exception e) {
-            log.info("select one error-----------------------------");
+            log.info("select stdn error-----------------------------");
             e.printStackTrace();
         }
         }

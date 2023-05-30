@@ -16,7 +16,7 @@ class SelectStdnTest {
     @Test
     void contextLoads() {
         try {
-            service.getMyCpn("id001");
+            service.getMyCpn("12345");
         } catch (Exception e) {
             log.info("select stdn error-----------------------------");
             e.printStackTrace();

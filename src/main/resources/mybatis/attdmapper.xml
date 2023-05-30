@@ -6,18 +6,21 @@
 
 
     <select id="getMyAttd" parameterType="String" resultType="Attd">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, start_time AS startTime
+             , end_time AS endTime, is_attend AS isAttend
         FROM attd
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Attd">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, start_time AS startTime
+             , end_time AS endTime, is_attend AS isAttend
         FROM attd
         WHERE id=#{id}
     </select>
     <select id="selectall" resultType="Attd">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, start_time AS startTime
+             , end_time AS endTime, is_attend AS isAttend
         FROM attd
     </select>
 

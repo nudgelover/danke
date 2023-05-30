@@ -5,7 +5,7 @@
 <mapper namespace="com.myservice.mapper.PrzMapper">
 
     <select id="getHolder" parameterType="String" resultType="Prz">
-        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+        SELECT p.id, p.stdn_id AS stdnId, p.prz, p.prz_category AS przCategory, p.rdate
              , s.name AS stdnName
         FROM prz p, stdn s
         WHERE p.stdn_id=s.id
@@ -13,7 +13,7 @@
     </select>
 
     <select id="getMyPrz" parameterType="String" resultType="Prz">
-        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+        SELECT p.id, p.stdn_id AS stdnId, p.prz, p.prz_category AS przCategory, p.rdate
              , s.name AS stdnName
         FROM prz p, stdn s
         WHERE p.stdn_id=s.id
@@ -21,7 +21,7 @@
     </select>
 
     <select id="select" parameterType="Integer" resultType="Prz">
-        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+        SELECT p.id, p.stdn_id AS stdnId, p.prz, p.prz_category AS przCategory, p.rdate
              , s.name AS stdnName
         FROM prz p, stdn s
         WHERE p.stdn_id=s.id
@@ -29,7 +29,7 @@
     </select>
 
     <select id="selectall" resultType="Prz">
-        SELECT p.id, p.stdn_id, p.prz, p.prz_category, p.rdate
+        SELECT p.id, p.stdn_id AS stdnId, p.prz, p.prz_category AS przCategory, p.rdate
              , s.name AS stdnName
         FROM prz p, stdn s
         WHERE p.stdn_id=s.id

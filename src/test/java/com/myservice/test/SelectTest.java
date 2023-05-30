@@ -1,8 +1,7 @@
 package com.myservice.test;
 
-import com.myservice.service.SubscService;
+import com.myservice.service.TestService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,9 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SelectTest {
 
     @Autowired
-    SubscService service;
+    TestService service;
 
-    @Test
+    @org.junit.jupiter.api.Test
     void contextLoads() {
         try {
             service.get();

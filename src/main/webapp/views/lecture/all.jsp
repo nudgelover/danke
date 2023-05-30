@@ -1,38 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-<!--end::Vendor Stylesheets-->
 
 
-<!--end::Head-->
+<style>
+    #lec_container {
+        margin-bottom: 30px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.cart_btn').on('click', function () {
+            let stdnId = '${loginStdn.id}';
+            let lecId = $(this).prop('id').substring(9);
+            let cartModal = $('#cart_modal_' + lecId);
+
+            $.ajax({
+                url: '/cartimpl',
+                data: { stdnId: stdnId, lecId: lecId },
+                success: function (result) {
+                    if (result === 0) {
+                        let modal = new bootstrap.Modal(cartModal)
+                        $('#cart_msg_' + lecId).html('Sorry, Already in Your List!');
+                        modal.show()
+                    } else if (result === 1) {
+                        let modal = new bootstrap.Modal(cartModal)
+                        $('#cart_msg_' + lecId).html('Added to Your List!');
+                        modal.show()
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
 
 <!--begin::Main-->
+
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Shop 1</h3>
-                <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Shop 1</li>
-                </ul>
-                <!--end::Breadcrumb-->
+                <h3 class="text-dark fw-bold my-1">View All Course</h3>
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/invoice" class="btn btn-active-accent fw-bold ms-3">Invoice</a>
-                <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
-                <a href="/shop1" class="btn btn-active-accent active fw-bold ms-3">Shop 1</a>
-                <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
-                <a href="/product" class="btn btn-active-accent fw-bold ms-3">Shop Product</a>
+                <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">View All Course</a>
+                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course List</a>
+                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Curriculum</a>
+                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">My Cart</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -80,13 +105,11 @@
                     <div class="mb-10">
                         <!--begin::Heading-->
                         <div class="d-flex justify-content-between align-items-center mb-7">
-                            <h2 class="fw-bold text-dark fs-2 mb-0">Smart Devices</h2>
                             <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
                         </div>
-                        <!--end::Heading-->
-                        <!--begin::Products-->
-                        <div class="row g-5 g-xxl-8">
+                        <div id="lec_container" class="row g-5 g-xxl-8">
                             <!--begin::Product-->
+                            <c:forEach var="obj" items="${cpage.getList()}">
                             <div class="col-md-4 col-xxl-4 col-lg-12">
                                 <!--begin::Card-->
                                 <div class="card shadow-none">
@@ -94,304 +117,77 @@
                                         <!--begin::Image-->
                                         <div class="overlay rounded overflow-hidden">
                                             <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/1.png" alt="" class="mw-100 w-200px"/>
+                                                <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
                                             </div>
                                             <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
+                                                <a href="#" id="curri_btn"
+                                                   class="btn fw-bold btn-sm btn-light-primary me-2">Add Curri</a>
+                                                <a href="/lecture/orderthis?id=${obj.id}"
+                                                   class="btn fw-bold btn-sm btn-light-primary" style="margin-right: 7px;">Order</a>
+                                                <button id="cart_btn_${obj.id}"
+                                                   class="btn fw-bold btn-sm btn-light-primary me-2 cart_btn">Cart</button>
                                             </div>
                                         </div>
                                         <!--end::Image-->
                                         <!--begin::Details-->
                                         <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Smart
-                                                Watches</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
+                                            <a href="/lecture/detail?id=${obj.id}" class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
+                                            <span class="fs-6">${obj.teacher}<br>
+                                                <c:choose>
+                                                    <c:when test="${obj.discRate == 0}">
+                                                        <fmt:formatNumber value="${obj.price}" type="number" pattern="KRW###,###"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+
+                                                        <span style="text-decoration: line-through;"><fmt:formatNumber value="${obj.price}" type="number" pattern="KRW###,###"/></span>
+                                                        <fmt:formatNumber value="${obj.price * (100 - obj.discRate)/100}" type="number" pattern="KRW###,###"/></p>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </span>
                                         </div>
+
+
                                         <!--end::Details-->
                                     </div>
                                 </div>
                                 <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/2.png" alt="" class="mw-100 w-200px"/>
+
+                                <!--Cart Modal-->
+                                <div class="modal fade" tabindex="-1" id="cart_modal_${obj.id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">${obj.title}</h3>
+
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                                                    <span class="svg-icon svg-icon-1"></span>
+                                                </div>
+                                                <!--end::Close-->
                                             </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
+
+                                            <div class="modal-body">
+                                                <img src="/assets/media/products/${obj.img}" alt="" class="mw-100"/>
+                                                <a href="/lecture/detail?id=${obj.id}"
+                                                class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
+                                                <span class="fs-6">${obj.teacher}<br>
+                                                        ${obj.price}</span>
+                                                <p id="cart_msg_${obj.id}"></p>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">CONTINUE</button>
+                                                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-primary">GO TO CAR</a>
                                             </div>
                                         </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Headphones</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
                                     </div>
                                 </div>
-                                <!--end::Card-->
+                                <!--Modal End-->
                             </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="
-                                                /assets/media/products/3.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Smart
-                                                Drones</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
+                            </c:forEach>
                         </div>
-                        <!--end::Products-->
+                        <jsp:include page="../page.jsp"/>
                     </div>
-                    <!--end::Section-->
-                    <!--begin::Section-->
-                    <div class="mb-10">
-                        <!--begin::Heading-->
-                        <div class="d-flex justify-content-between align-items-center mb-7">
-                            <h2 class="fw-bold text-dark fs-2 mb-0">Best Wines</h2>
-                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
-                        </div>
-                        <!--end::Heading-->
-                        <!--begin::Products-->
-                        <div class="row g-5 g-xxl-8">
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-xxl-4 col-lg-12">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/4.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Jerry Kane</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/5.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Shiraz</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/6.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Chardonnay</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                        </div>
-                        <!--end::Products-->
-                    </div>
-                    <!--end::Section-->
-                    <!--begin::Section-->
-                    <div class="mb-0">
-                        <!--begin::Heading-->
-                        <div class="d-flex justify-content-between align-items-center mb-7">
-                            <h2 class="fw-bold text-dark fs-2 mb-0">Popular Jackets</h2>
-                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
-                        </div>
-                        <!--end::Heading-->
-                        <!--begin::Products-->
-                        <div class="row g-5 g-xxl-8">
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-xxl-4 col-lg-12">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/7.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Tommy Hilfiger</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Smart
-                                                Watches</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/8.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Hugo Boss</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                            <!--begin::Product-->
-                            <div class="col-md-4 col-lg-12 col-xxl-4">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/assets/media/products/9.png" alt="" class="mw-100 w-200px"/>
-                                            </div>
-                                            <div class="overlay-layer">
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-primary me-2">Quick View</a>
-                                                <a href="../dist/apps/shop/product.html"
-                                                   class="btn fw-bold btn-sm btn-light-primary">Purchase</a>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="../dist/apps/shop/product.html"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">Armani</a>
-                                            <span class="fs-6">Outlines keep poorly thought</span>
-                                        </div>
-                                        <!--end::Details-->
-                                    </div>
-                                </div>
-                                <!--end::Card-->
-                            </div>
-                            <!--end::Product-->
-                        </div>
-                        <!--end::Products-->
-                    </div>
-                    <!--end::Section-->
                 </div>
             </div>
             <!--end::Card-->
@@ -401,6 +197,7 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
+
 
 
 <!--begin::Vendors Javascript(used for this page only)-->

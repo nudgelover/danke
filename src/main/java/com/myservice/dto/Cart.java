@@ -16,9 +16,11 @@ public class Cart {
 
 
     private String stdnName;
+    private String lecTeacher;
     private String lecTitle;
     private String lecTopic;
     private int lecPrice;
+    private int lecDiscRate;
     private String lecTarget;
     private String lecImg;
     private int cnt;

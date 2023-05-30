@@ -5,25 +5,33 @@
 <mapper namespace="com.myservice.mapper.LecReviewMapper">
 
     <select id="getMyLecReview" parameterType="String" resultType="lecReview">
-        SELECT *
+        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
+             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
+             , up_review AS upReview, likes
         FROM lec_review
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="getLecReview" parameterType="Integer" resultType="lecReview">
-        SELECT *
+        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
+             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
+             , up_review AS upReview, likes
         FROM lec_review
         WHERE lec_id=#{lec_id}
     </select>
 
     <select id="select" parameterType="Integer" resultType="lecReview">
-        SELECT *
+        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
+             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
+             , up_review AS upReview, likes
         FROM lec_review
         WHERE id=#{id}
     </select>
 
     <select id="selectall" resultType="lecReview">
-        SELECT *
+        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
+             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
+             , up_review AS upReview, likes
         FROM lec_review
     </select>
 

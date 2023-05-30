@@ -590,7 +590,8 @@ License: For each use you must have a valid license purchased only from above li
     <!--end::Svg Icon-->
 </div>
 <!--end::Scrolltop-->
-
+<!--JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!--begin::Javascript-->
 <script>var hostUrl = "/assets/";</script>
 <!--begin::Global Javascript Bundle(mandatory for all pages)-->

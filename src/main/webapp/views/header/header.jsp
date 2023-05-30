@@ -299,6 +299,25 @@
                 <!--end::Dropdown-->
             </div>
             <!--end::Notifications-->
+            <c:choose>
+                <c:when test="${loginStdn!=null}">
+                    <div class="ms-1 ms-lg-6">
+                        <!--begin::Dropdown-->
+                        <a href="/logout"><span>Logout</span>
+                        </a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="ms-1 ms-lg-6">
+                        <a href="/login"><span>Login</span>
+                        </a>
+                    </div>
+                    <div class="ms-1 ms-lg-6">
+                        <a href="/register"><span>Register</span>
+                        </a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <div class="ms-1 ms-lg-6">
                 <!--begin::Dropdown-->
                 <a href="/login"><span>Login</span>

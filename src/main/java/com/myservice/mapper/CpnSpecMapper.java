@@ -1,14 +1,13 @@
 package com.myservice.mapper;
 
-import com.myservice.dto.Cpn;
+import com.myservice.dto.CpnSpec;
 import com.myservice.frame.KBMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+
 
 @Mapper
 @Repository
-public interface CpnMapper extends KBMapper<Integer, Cpn> {
-    public List<Cpn> getMyCpn(String stdnId) throws Exception;
+public interface CpnSpecMapper extends KBMapper<Integer, CpnSpec> {
 }

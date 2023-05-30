@@ -1,6 +1,6 @@
-package com.myservice.cart;
+package com.myservice.cpnSpec;
 
-import com.myservice.service.CartService;
+import com.myservice.service.CpnSpecService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectMyCartTest {
+class SelectTest {
 
     @Autowired
-    CartService service;
+    CpnSpecService service;
+
     @Test
     void contextLoads() {
         try {
-            service.getMyCart("12345");
+            service.get();
         } catch (Exception e) {
-            log.info("select one error-----------------------------");
+            log.info("select error-----------------------------");
             e.printStackTrace();
         }
         }

@@ -5,30 +5,40 @@
 <mapper namespace="com.myservice.mapper.CpnMapper">
 
     <select id="select" parameterType="Integer" resultType="Cpn">
-        SELECT *
-        FROM cpn
-        WHERE id=#{id}
+        SELECT c.id, c.spec_id AS specId, c.stdn_id AS stdnId, c.give_date AS giveDate
+             , c.valid_date AS validDate, c.is_used AS isUsed
+             , cs.title AS cpnTitle, cs.fixed AS fixed, cs.percent AS percent
+        FROM cpn c, cpn_spec cs
+        WHERE c.spec_id=cs.id
+        AND c.id=#{id}
     </select>
 
     <select id="getMyCpn" parameterType="String" resultType="Cpn">
-        SELECT *
-        FROM cpn
-        WHERE stdn_id=#{stdnId}
+        SELECT c.id, c.spec_id AS specId, c.stdn_id AS stdnId, c.give_date AS giveDate
+             , c.valid_date AS validDate, c.is_used AS isUsed
+             , cs.title AS cpnTitle, cs.fixed AS fixed, cs.percent AS percent
+        FROM cpn c, cpn_spec cs
+        WHERE c.spec_id=cs.id
+        AND c.is_used='0'
+        AND c.stdn_id=#{stdnId}
     </select>
 
     <select id="selectall" resultType="Cpn">
-        SELECT *
-        FROM cpn
+        SELECT c.id, c.spec_id AS specId, c.stdn_id AS stdnId, c.give_date AS giveDate
+             , c.valid_date AS validDate, c.is_used AS isUsed
+             , cs.title AS cpnTitle, cs.fixed AS fixed, cs.percent AS percent
+        FROM cpn c, cpn_spec cs
+        WHERE c.spec_id=cs.id
     </select>
 
     <insert id="insert" parameterType="Cpn">
-        INSERT INTO cpn (id, stdn_id, give_date, valid_date, is_used)
-        VALUES (cpn_seq.NEXTVAL,#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),#{validDate},'0')
+        INSERT INTO cpn (id, spec_id, stdn_id, give_date, valid_date, is_used)
+        VALUES (cpn_seq.NEXTVAL,#{specId},#{stdnId},TO_CHAR(SYSDATE,'yyyy.MM.dd'),#{validDate},'0')
     </insert>
 
     <update id="update" parameterType="Cpn">
         UPDATE cpn
-        SET is_used=#{isUsed}
+        SET is_used='1'
         WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">
