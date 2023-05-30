@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -8,22 +9,14 @@
                 <!--begin::Title-->
                 <h3 class="text-dark fw-bold my-1">Settings</h3>
                 <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="../dist/index.html" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Profile</li>
-                    <li class="breadcrumb-item text-dark">Settings</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/overview" class="btn btn-active-accent fw-bold">Overview</a>
-                <a href="/account" class="btn btn-active-accent active fw-bold ms-3">Account</a>
-                <a href="/settings" class="btn btn-active-accent fw-bold ms-3">Settings</a>
+                <a href="mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
+                <a href="#" class="btn btn-active-accent fw-bold">비밀번호 변경</a>
+                <a href="#" class="btn btn-active-accent fw-bold ms-3">QR코드발급</a>
+                <a href="/settings" class="btn btn-active-accent active fw-bold ms-3">settings</a>
             </div>
             <!--end::Nav-->
         </div>

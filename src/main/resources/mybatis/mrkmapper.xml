@@ -25,6 +25,7 @@
     <select id="selectall" resultType="mrk">
         SELECT *
         FROM mrk
+        ORDER BY id DESC
     </select>
 
     <select id="getRecent" resultType="mrk">
@@ -56,5 +57,11 @@
     <delete id="delete" parameterType="Integer">
         DELETE FROM mrk WHERE id=#{id}
     </delete>
+
+
+    <select id="getpage" resultType="mrk">
+        SELECT * FROM mrk ORDER BY id DESC
+    </select>
+
 
 </mapper>

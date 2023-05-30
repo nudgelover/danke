@@ -189,6 +189,29 @@
 
 <script>
     var dropImg;
+    //
+    <%--function setDropImg() {--%>
+    <%--    var existingImgSrc = '/uimg/${marker.img}'; // 기존 이미지의 URL 또는 경로--%>
+    <%--    var existingImgAlt = '${marker.img}'; // 기존 이미지의 대체 텍스트--%>
+    <%--    // 이미지 엘리먼트 생성--%>
+    <%--    var img = document.createElement('img');--%>
+    <%--    img.src = existingImgSrc;--%>
+    <%--    img.alt = existingImgAlt;--%>
+
+    <%--    // Dropzone에 이미지 엘리먼트 추가--%>
+    <%--    var dropzone = document.getElementById('kt_dropzonejs_example_1');--%>
+    <%--    dropzone.innerHTML = '';--%>
+    <%--    dropzone.appendChild(img);--%>
+
+    <%--    // dropImg 변수에 이미지 파일 할당--%>
+
+    <%--    dropImg = dataURLtoFile(existingImgSrc, existingImgAlt);--%>
+
+    <%--    // 폼 데이터 생성--%>
+    <%--    var formData = new FormData($('#marker_form')[0]);--%>
+    <%--    formData.append('imgfile', dropImg);--%>
+
+    <%--}--%>
 
     function dataURLtoFile(dataurl, filename) {
         var arr = dataurl.split(','),
@@ -203,6 +226,7 @@
     }
 
     $(document).ready(function () {
+        // setDropImg();
         $('#register_btn').click(function (e) {
             const title = document.getElementById('title').value;
             const lat = document.getElementById('lat').value;
@@ -221,10 +245,7 @@
                 alert('상세설명을 더 입력해주세요.');
                 return;
             }
-            if (!dropImg) {
-                alert('이미지를 등록해주세요')
-                return;
-            }
+
 
             // <div>의 내용을 가져오기 ckeditor
             var detailContent = $('#kt_docs_ckeditor_document').html();
@@ -249,15 +270,15 @@
 
             // 서버로 데이터 전송
             $.ajax({
-                url        : '/marker/addimpl',
+                url        : '/marker/editimpl',
                 method     : 'POST',
                 data       : formData,
                 processData: false,
                 contentType: false,
                 success    : function (response) {
                     console.log('Data submitted successfully');
-                    // console.log(response);
-                    window.location.href = '/marker/all';
+                    console.log(response);
+                    window.location.href = '/marker/detail?id=${marker.id}';
                 },
                 error      : function (error) {
                     console.error('Error submitting data:', error);
@@ -266,6 +287,7 @@
         });
     });
 </script>
+
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -273,24 +295,13 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">JMTGR</h3>
+                <h3 class="text-dark fw-bold my-1">JMTGR EDIT</h3>
                 <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Shop 1</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/marker/all" class="btn btn-active-accent fw-bold ms-3">맛집 조회</a>
-                <a href="/marker/add" class="btn btn-active-accent active fw-bold ms-3">맛집 등록</a>
-                <a href="/marker/detail" class="btn btn-active-accent fw-bold ms-3">나의 맛집</a>
+                <a href="/marker/detail?id=${marker.id}" class="btn btn-active-accent fw-bold ms-3">BACK</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -317,6 +328,8 @@
                             <div class="d-flex flex-column px-11">
                                 <!--end::Form-->
                                 <form id="marker_form">
+                                    <input type="hidden" id="id" name="id" value="${marker.id}">
+                                    <input type="hidden" id="img" name="img" value="${marker.img}">
                                     <div class="fv-row">
                                         <!--begin::Dropzone-->
                                         <div class="dropzone" id="kt_dropzonejs_example_1">
@@ -331,8 +344,7 @@
                                                         Drop files here or
                                                         click
                                                         to upload.</h3>
-                                                    <span class="fs-7 fw-semibold text-gray-400">Upload up to 10 files</span>
-                                                    <span class="fs-7 fw-semibold text-gray-400">파일 1개만 올릴 수 있게 변경, 이미지 파일만 올릴 수 있도록 제한, 이미지 없을 시 alert</span>
+                                                    <span class="fs-7 fw-semibold text-gray-400">기존 업로드 하신 파일은 ${marker.img}입니다
                                                 </div>
                                                 <!--end::Info-->
                                             </div>
@@ -353,7 +365,7 @@
 
                                                 <div class="form-check form-check-custom form-check-solid me-10">
                                                     <input class="form-check-input" type="radio" value="R"
-                                                           name="keyword" checked/>
+                                                           name="keyword"/>
                                                     <div class="form-check-label">
                                                         Restaurant
                                                     </div>
@@ -427,24 +439,24 @@
                                     <div class="d-flex mt-10">
                                         <div style="padding-right: 10px" class="form-floating mb-7 col-sm-4">
                                             <input type="text" class="form-control" name="title" id="title"
-                                            />
+                                                   value="${marker.title}"/>
                                             <label for="title">title</label>
                                         </div>
 
                                         <div style="padding: 0 10px" class="form-floating mb-7 col-sm-4">
                                             <input type="number" class="form-control" name="lat" id="lat"
-                                            />
+                                                   value="${marker.lat}"/>
                                             <label for="lat">Lat</label>
                                         </div>
                                         <div style="padding-left: 10px" class="form-floating mb-7 col-sm-4">
                                             <input type="number" class="form-control" name="lng" id="lng"
-                                            />
+                                                   value="${marker.lng}"/>
                                             <label for="lat">Lng</label>
                                         </div>
 
                                     </div>
                                     <div class="d-flex justify-content-center mt-10">
-                                        <p>별점을 클릭해주세요🖱️➡️</p>
+                                        <p>별점을 클릭해주세요🖱️➡️ 기존 별점 x.0기준임 db에 따라 바꿔주기: ${marker.rating}</p>
                                         <div class="rating mb-10">
                                             <!--begin::Star 1-->
                                             <label class="rating-label" for="kt_rating_input_1">
@@ -455,7 +467,7 @@
           fill="currentColor"></path></svg>
                                                 </span>
                                             </label>
-                                            <input class="rating-input" name="rating" value="1" type="radio"
+                                            <input class="rating-input" name="rating" value="1.0" type="radio"
                                                    id="kt_rating_input_1"/>
                                             <!--end::Star 1-->
 
@@ -467,7 +479,7 @@
     <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
           fill="currentColor"></path></svg></span>
                                             </label>
-                                            <input class="rating-input" name="rating" value="2" type="radio"
+                                            <input class="rating-input" name="rating" value="2.0" type="radio"
                                                    id="kt_rating_input_2"/>
                                             <!--end::Star 2-->
 
@@ -479,7 +491,7 @@
     <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
           fill="currentColor"></path></svg></span>
                                             </label>
-                                            <input class="rating-input" name="rating" value="3" type="radio"
+                                            <input class="rating-input" name="rating" value="3.0" type="radio"
                                                    id="kt_rating_input_3"/>
                                             <!--end::Star 3-->
 
@@ -491,7 +503,7 @@
     <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
           fill="currentColor"></path></svg></span>
                                             </label>
-                                            <input class="rating-input" name="rating" value="4" type="radio"
+                                            <input class="rating-input" name="rating" value="4.0" type="radio"
                                                    id="kt_rating_input_4"/>
                                             <!--end::Star 4-->
 
@@ -503,20 +515,15 @@
     <path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
           fill="currentColor"></path></svg></span>
                                             </label>
-                                            <input class="rating-input" name="rating" value="5" type="radio"
-                                                   id="kt_rating_input_5" checked/>
+                                            <input class="rating-input" name="rating" value="5.0" type="radio"
+                                                   id="kt_rating_input_5"/>
                                             <!--end::Star 5-->
                                         </div>
                                     </div>
 
                                     <div id="kt_docs_ckeditor_document_toolbar"></div>
                                     <div class="border-gray-500 " id="kt_docs_ckeditor_document" contenteditable="true">
-                                        <h1>성수역 맛집에 대한 상세 설명을 적어주세요✍️ </h1>
-                                        <h3>1. 추천 메뉴</h3>
-                                        <ul>
-                                            <li>ex) 라면 : 3000원</li>
-                                        </ul>
-                                        <h3>2. 추천 이유👏</h3>
+                                        ${marker.detail}
                                     </div>
                                     <div class="d-flex float-end mt-10">
                                         <a href="#" id="register_btn" class="btn btn-primary">Register</a>
@@ -822,4 +829,30 @@
             }
         }
     });
+</script>
+
+
+<script>
+
+    let selectedKeyword = "${marker.keyword}";
+    let keywordOptions = document.querySelectorAll('input[name="keyword"]');
+
+    Array.from(keywordOptions).forEach(function (option) {
+        if (option.value === selectedKeyword) {
+            // 기존 회원이 선택한 옵션과 일치하는 옵션을 선택합니다.
+            option.checked = true;
+        }
+    });
+
+
+    let selectedRating = "${marker.rating}";
+    let RatingOptions = document.querySelectorAll('input.rating-input');
+
+    RatingOptions.forEach(function (option) {
+        if (option.value === selectedRating) {
+            option.checked = true;
+        }
+    });
+
+
 </script>

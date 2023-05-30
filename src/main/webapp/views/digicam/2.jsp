@@ -102,26 +102,22 @@
                                         <col style="width: 20%;">
                                     </colgroup>
                                     <tbody style="text-align: center">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Title</th>
-                                        <th>Writer</th>
-                                        <th>Date</th>
-                                    </tr>
-
-
                                     <c:forEach var="obj" items="${apage.getList()}">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Title</th>
+                                            <th>Writer</th>
+                                            <th>Date</th>
+                                        </tr>
                                         <tr style="cursor: pointer" onmouseover="changeColor(this)"
                                             onmouseout="restoreColor(this)"
-                                            onclick="window.location.href='/digicam/anc/detail?id=${obj.id}'">
+                                            onclick="window.location.href='/digicam/anc/detail'">
                                             <td>${obj.id}</td>
                                             <td style="text-align: left;">${obj.title}</td>
                                             <td>${obj.writer}</td>
                                             <td>${obj.rdate}</td>
                                         </tr>
                                     </c:forEach>
-
-
                                     </tbody>
                                 </table>
                             </div>
@@ -147,12 +143,12 @@
                                         <c:choose>
                                             <c:when test="${apage.getPageNum() == page}">
                                                 <li class="active">
-                                                    <a href="/digicam/anc/all?pageNo=${page}">${page}</a>
+                                                    <a href="/digicam/anc/all?pageNo=${page}">${page }</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li>
-                                                    <a href="/digicam/anc/all?pageNo=${page}">${page}</a>
+                                                    <a href="/digicam/anc/all?pageNo=${page}">${page }</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -176,15 +172,16 @@
                             <!-- pagination end -->
                         </div>
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::Layout-->
+                <!--end::Card-->
             </div>
-            <!--end::Page Layout-->
+            <!--end::Layout-->
         </div>
-        <!--end::Container-->
+        <!--end::Page Layout-->
     </div>
-    <!--end::Content-->
+    <!--end::Container-->
+</div>
+<!--end::Content-->
 </div>
 <!--end::Main-->
 

@@ -109,10 +109,6 @@ public class JspController {
 
 
 
-    @RequestMapping("/mypage")
-    public String mypage(Model model) throws Exception {
-        return "header/mypage";
-    }
 
     @RequestMapping("/compose")
     public String compose(Model model) throws Exception {

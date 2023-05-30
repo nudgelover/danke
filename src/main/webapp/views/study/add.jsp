@@ -1,3 +1,6 @@
+<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+
+
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -59,61 +62,35 @@
                         </div>
                         <!--end::Form row-->
                         <!--begin::Form row-->
-                        <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">Language</label>
-                            <div class="col-lg-9">
-                                <select class="form-select form-select-lg form-select-solid" data-control="select2"
-                                        data-placeholder="Select Language...">
-                                    <option value="id">Bahasa Indonesia - Indonesian</option>
-                                    <option value="msa">Bahasa Melayu - Malay</option>
-                                    <option value="ca">Català - Catalan</option>
-                                    <option value="cs">Čeština - Czech</option>
-                                    <option value="da">Dansk - Danish</option>
-                                    <option value="de">Deutsch - German</option>
-                                    <option value="en" selected="selected">English</option>
-                                    <option value="en-gb">English UK - British English</option>
-                                    <option value="es">Español - Spanish</option>
-                                    <option value="eu">Euskara - Basque (beta)</option>
-                                    <option value="fil">Filipino</option>
-                                    <option value="fr">Français - French</option>
-                                    <option value="ga">Gaeilge - Irish (beta)</option>
-                                    <option value="gl">Galego - Galician (beta)</option>
-                                    <option value="hr">Hrvatski - Croatian</option>
-                                    <option value="it">Italiano - Italian</option>
-                                    <option value="hu">Magyar - Hungarian</option>
-                                    <option value="nl">Nederlands - Dutch</option>
-                                    <option value="no">Norsk - Norwegian</option>
-                                    <option value="pl">Polski - Polish</option>
-                                    <option value="pt">Português - Portuguese</option>
-                                    <option value="ro">Română - Romanian</option>
-                                    <option value="sk">Slovenčina - Slovak</option>
-                                    <option value="fi">Suomi - Finnish</option>
-                                    <option value="sv">Svenska - Swedish</option>
-                                    <option value="vi">Tiếng Việt - Vietnamese</option>
-                                    <option value="tr">Türkçe - Turkish</option>
-                                    <option value="el">Ελληνικά - Greek</option>
-                                    <option value="bg">Български език - Bulgarian</option>
-                                    <option value="ru">Русский - Russian</option>
-                                    <option value="sr">Српски - Serbian</option>
-                                    <option value="uk">Українська мова - Ukrainian</option>
-                                    <option value="he">עִבְרִית - Hebrew</option>
-                                    <option value="ur">اردو - Urdu (beta)</option>
-                                    <option value="ar">العربية - Arabic</option>
-                                    <option value="fa">فارسی - Persian</option>
-                                    <option value="mr">मराठी - Marathi</option>
-                                    <option value="hi">हिन्दी - Hindi</option>
-                                    <option value="bn">বাংলা - Bangla</option>
-                                    <option value="gu">ગુજરાતી - Gujarati</option>
-                                    <option value="ta">தமிழ் - Tamil</option>
-                                    <option value="kn">ಕನ್ನಡ - Kannada</option>
-                                    <option value="th">ภาษาไทย - Thai</option>
-                                    <option value="ko">한국어 - Korean</option>
-                                    <option value="ja">日本語 - Japanese</option>
-                                    <option value="zh-cn">简体中文 - Simplified Chinese</option>
-                                    <option value="zh-tw">繁體中文 - Traditional Chinese</option>
-                                </select>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="kt_td_picker_linked_1_input" class="form-label">Study time</label>
+                                <div class="input-group log-event" id="kt_td_picker_linked_1"
+                                     data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                    <input id="kt_td_picker_linked_1_input" type="text" class="form-control"
+                                           data-td-target="#kt_td_picker_linked_1"/>
+                                    <span class="input-group-text" data-td-target="#kt_td_picker_linked_1"
+                                          data-td-toggle="datetimepicker">
+                <span class="fa-solid fa-calendar"></span>
+            </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="kt_td_picker_linked_2_input" class="form-label">To</label>
+                                <div class="input-group log-event" id="kt_td_picker_linked_2"
+                                     data-td-target-input="nearest" data-td-target-toggle="nearest">
+                                    <input id="kt_td_picker_linked_2_input" type="text" class="form-control"
+                                           data-td-target="#kt_td_picker_linked_2"/>
+                                    <span class="input-group-text" data-td-target="#kt_td_picker_linked_2"
+                                          data-td-toggle="datetimepicker">
+                <span class="fa-solid fa-calendar"></span>
+            </span>
+                                </div>
                             </div>
                         </div>
+
+
                         <!--end::Form row-->
                         <!--begin::Form row-->
                         <div class="row mb-8">
@@ -370,14 +347,33 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-
-
-<!--begin::Javascript-->
-<script>var hostUrl = "/assets/";</script>
-<!--begin::Global Javascript Bundle(mandatory for all pages)-->
+<%--캘린더 스크립트--%>
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
-<script src="/assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
+<script>
+    const linkedPicker1Element = document.getElementById("kt_td_picker_linked_1");
+    const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element);
+    const linked2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_linked_2"), {
+        useCurrent: false,
+    });
+
+    //using event listeners
+    linkedPicker1Element.addEventListener(tempusDominus.Namespace.events.change, (e) => {
+        linked2.updateOptions({
+            restrictions: {
+                minDate: e.detail.date,
+            },
+        });
+    });
+
+    //using subscribe method
+    const subscription = linked2.subscribe(tempusDominus.Namespace.events.change, (e) => {
+        linked1.updateOptions({
+            restrictions: {
+                maxDate: e.date,
+            },
+        });
+    });
+</script>
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->
@@ -385,8 +381,7 @@
 <script src="/assets/js/custom/widgets.js"></script>
 <script src="/assets/js/custom/apps/chat/chat.js"></script>
 <script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+
+
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
-</body>
-<!--end::Body-->
-</html>

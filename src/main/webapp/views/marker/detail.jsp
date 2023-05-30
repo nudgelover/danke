@@ -1,7 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
+<style>
+    .markerImg {
+        width: 100%;
+        padding: 5% 20%;
 
+    }
+</style>
 <!--end::Head-->
 
 <!--begin::Main-->
@@ -12,15 +20,15 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">JMTGR Detail</h3>
-                <p>JMTGR Detail</p>
+                <h3 class="text-dark fw-bold my-1">맛집 상세</h3>
+                <p>카카오톡으로 공유하시면, 위치를 공유하실 수 있습니다.</p>
                 <!--end::Title-->
 
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Back</a>
+                <a href="/marker/all" class="btn btn-active-accent active fw-bold">Back</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -52,8 +60,8 @@
                                     <!--end::Badges-->
                                 </div>
                                 <div class="d-flex align-items-center flex-wrap gap-2">
-                                    <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Edit</a>
-                                    <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Delete</a>
+                                    <a href="/marker/edit?id=${marker.id}" class="btn btn-active-accent active fw-bold">Edit</a>
+                                    <a href="/marker/delete?id=${marker.id}" class="btn btn-active-accent active fw-bold">Delete</a>
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -73,7 +81,8 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
+                                                <a href="#"
+                                                   class="fw-bold text-dark text-hover-primary">${marker.writer}</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
 																		<svg xmlns="http://www.w3.org/2000/svg"
@@ -87,12 +96,6 @@
                                                 <span class="text-muted fw-bold">1 day ago</span>
                                             </div>
                                             <!--end::Author details-->
-                                            <!--begin::Preview message-->
-                                            <div class="text-muted fw-semibold mw-450px d-none"
-                                                 data-kt-inbox-message="preview">With resrpect, i must disagree with
-                                                Mr.Zinsser. We all know the most part of important part....
-                                            </div>
-                                            <!--end::Preview message-->
                                         </div>
                                     </div>
                                     <!--end::Author-->
@@ -141,12 +144,11 @@
                                                 <img style="width:20px; height: 20px"
                                                      src="  https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png">
                                             </a>
-                                            <a href="#" id="shareKt"
-                                               class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Kakao Talk">
-                                                <img style="width:25px; height: 25px"
-                                                     src="https://blog.kakaocdn.net/dn/bpOv6u/btru1akOJSk/SWmLX4oJKrYWo03MiKDRhK/img.png">
 
+
+                                            <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2">
+                                                <img style="width:20px; height: 20px" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                                     alt="카카오톡 공유 보내기 버튼"/>
                                             </a>
                                         </div>
                                     </div>
@@ -156,7 +158,7 @@
                                 <!--begin::Message content-->
                                 <div class="collapse fade show" data-kt-inbox-message="message">
                                     <div class="py-5">
-                                        <img src="/uimg/${marker.img}">
+                                        <img class="markerImg" src="/uimg/${marker.img}">
 
                                         ${marker.detail}
                                     </div>
@@ -234,118 +236,8 @@
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Message header-->
-                                <!--begin::Message content-->
-                                <div class="collapse fade" data-kt-inbox-message="message">
-                                    <div class="py-5">
-                                        <p>Hi Bob,</p>
-                                        <p>With resrpect, i must disagree with Mr.Zinsser. We all know the most part of
-                                            important part of any article is the title.Without a compelleing title, your
-                                            reader won't even get to the first sentence.After the title, however, the
-                                            first few sentences of your article are certainly the most important
-                                            part.</p>
-                                        <p>Jornalists call this critical, introductory section the "Lede," and when
-                                            bridge properly executed, it's the that carries your reader from an headine
-                                            try at attention-grabbing to the body of your blog post, if you want to get
-                                            it right on of these 10 clever ways to omen your next blog posr with a
-                                            bang</p>
-                                        <p>Best regards,</p>
-                                        <p class="mb-0">Jason Muller</p>
-                                    </div>
-                                </div>
-                                <!--end::Message content-->
                             </div>
                             <!--end::Message accordion-->
-                            <div class="separator my-6"></div>
-                            <!--begin::Message accordion-->
-                            <div data-kt-inbox-message="message_wrapper">
-                                <!--begin::Message header-->
-                                <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
-                                     data-kt-inbox-message="header">
-                                    <!--begin::Author-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-50 me-4">
-                                            <span class="symbol-label"
-                                                  style="background-image:url(/img/logo.png);"></span>
-                                        </div>
-                                        <!--end::Avatar-->
-                                        <div class="pe-5">
-                                            <!--begin::Author details-->
-                                            <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
-                                                <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
-                                                <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
-																		<svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24px" height="24px"
-                                                                             viewBox="0 0 24 24" version="1.1">
-																			<circle fill="currentColor" cx="12" cy="12"
-                                                                                    r="8"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">2 days ago</span>
-                                            </div>
-                                            <!--end::Author details-->
-                                            <!--begin::Message details-->
-                                            <div class="d-none" data-kt-inbox-message="details">
-                                                <span class="text-muted fw-semibold">to me</span>
-                                                <!--begin::Menu toggle-->
-                                                <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                   data-kt-menu-placement="bottom-start">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                    <span class="svg-icon svg-icon-5 m-0">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                    <!--end::Svg Icon-->
-                                                </a>
-                                                <!--end::Menu toggle-->
-                                            </div>
-                                            <!--end::Message details-->
-                                            <!--begin::Preview message-->
-                                            <div class="text-dark fw-semibold mw-450px"
-                                                 data-kt-inbox-message="preview">Jornalists call this critical,
-                                                introductory section the "Lede," and when bridge properly executed....
-                                            </div>
-                                            <!--end::Preview message-->
-                                        </div>
-                                    </div>
-                                    <!--end::Author-->
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center flex-wrap gap-2">
-                                        <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">24 Jun 2023, 5:20 pm</span>
-                                        <!--end::Date-->
-                                    </div>
-                                    <!--end::Actions-->
-                                </div>
-                                <!--end::Message header-->
-                                <!--begin::Message content-->
-                                <div class="collapse fade" data-kt-inbox-message="message">
-                                    <div class="py-5">
-                                        <p>Hi Bob,</p>
-                                        <p>With resrpect, i must disagree with Mr.Zinsser. We all know the most part of
-                                            important part of any article is the title.Without a compelleing title, your
-                                            reader won't even get to the first sentence.After the title, however, the
-                                            first few sentences of your article are certainly the most important
-                                            part.</p>
-                                        <p>Jornalists call this critical, introductory section the "Lede," and when
-                                            bridge properly executed, it's the that carries your reader from an headine
-                                            try at attention-grabbing to the body of your blog post, if you want to get
-                                            it right on of these 10 clever ways to omen your next blog posr with a
-                                            bang</p>
-                                        <p>Best regards,</p>
-                                        <p class="mb-0">Jason Muller</p>
-                                    </div>
-                                </div>
-                                <!--end::Message content-->
-                            </div>
-                            <!--end::Message accordion-->
-
                             <div class="separator my-6"></div>
 
                             <!--begin::Form-->
@@ -401,15 +293,45 @@
     })
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+        integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+        crossorigin="anonymous"></script>
 <script>
-    Kakao.init('발급받은 JavaScript 키');
+    Kakao.init('bdeaed76dc8de3e2c25b24d04c468b43'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+<script>
+    Kakao.Share.createDefaultButton({
+        container   : '#kakaotalk-sharing-btn',
+        objectType  : 'location',
+        address     : '${marker.title}',
+        addressTitle: '${marker.title} ',
+        content     : {
+            title      : '디지캠퍼스와 함께하는 맛집 공유',
+            description: `오늘의 점심은 '${marker.title}' 어때요?`,
+            imageUrl   :
+                '/uimg/${marker.img}'
+            ,
+            link: {
+                // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+                // 추후 수정예정
 
-    const btnShareKs = document.querySelector('#shareKt');
-
-    btnShareKs.addEventListener('click', () => {
-        Kakao.Story.share({
-            url : 'www.daum.net',
-            text: '카카오스토리로 공유 합니다.'
-        });
-    })
+                mobileWebUrl: 'http://127.0.0.1/marker/detail?id=${marker.id}',
+                webUrl      : 'http://127.0.0.1/marker/detail?id=${marker.id}',
+            },
+        },
+        social      : {
+            // 추후 수정 예정. 좋아요, 댓글 개수
+            likeCount   : 286,
+            commentCount: 45,
+        },
+        buttons     : [
+            {
+                title: '웹으로 보기',
+                link : {
+                    mobileWebUrl: 'http://127.0.0.1/marker/detail?id=${marker.id}',
+                    webUrl      : 'http://127.0.0.1/marker/detail?id=${marker.id}',
+                },
+            },
+        ],
+    });
 </script>

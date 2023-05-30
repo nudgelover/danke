@@ -1,5 +1,7 @@
 package com.myservice.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Mrk;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.MrkMapper;
@@ -50,5 +52,13 @@ public class MrkService implements KBService<Integer, Mrk> {
     public List<Mrk> getRecent(){
         return mapper.getRecent();
     }
+
+
+    public Page<Mrk> getPage(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 6); // 3: 한화면에 출력되는 개수
+        return mapper.getpage();
+    }
+
+
 
 }
