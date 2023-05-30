@@ -42,6 +42,10 @@ public class StdnService implements KBService<String, Stdn> {
         mapper.updatePwd(stdn);
     }
 
+    public void updateExit(Stdn stdn) throws Exception{
+        mapper.updateExit(stdn);
+    }
+
     public void updateAdm(Stdn stdn) throws Exception{
         mapper.updateAdm(stdn);
     }

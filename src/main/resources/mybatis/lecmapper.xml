@@ -5,12 +5,18 @@
 <mapper namespace="com.myservice.mapper.LecMapper">
 
     <select id="select" parameterType="Integer" resultType="Lec">
-        SELECT *
+        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
+             , topic, target, rdate, length, rating, price, img
+             , disc_rate AS discRate, is_delete AS isDelete
+             , del_date AS delDate, hit
         FROM lec
         WHERE id=#{id}
     </select>
     <select id="selectall" resultType="Lec">
-        SELECT *
+        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
+             , topic, target, rdate, length, rating, price, img
+             , disc_rate AS discRate, is_delete AS isDelete
+             , del_date AS delDate, hit
         FROM lec
     </select>
     <insert id="insert" parameterType="Lec">
@@ -60,7 +66,11 @@
     </select>
 
     <select id="getpage" resultType="lec">
-        SELECT * FROM lec ORDER BY id DESC
+        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
+             , topic, target, rdate, length, rating, price, img
+             , disc_rate AS discRate, is_delete AS isDelete
+             , del_date AS delDate, hit
+        FROM lec ORDER BY id DESC
     </select>
 
 </mapper>

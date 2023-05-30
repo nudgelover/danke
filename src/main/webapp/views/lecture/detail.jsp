@@ -1,35 +1,27 @@
-<!--begin::Vendor Stylesheets(used for this page only)-->
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-<!--end::Vendor Stylesheets-->
+
 
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Product</h3>
+                <h3 class="text-dark fw-bold my-1">Course Detail</h3>
                 <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Shop Product</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
-            <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/invoice" class="btn btn-active-accent fw-bold ms-3">Invoice</a>
-                <a href="/inbox" class="btn btn-active-accent fw-bold ms-3">Inbox</a>
-                <a href="/shop1" class="btn btn-active-accent fw-bold ms-3">Shop 1</a>
-                <a href="/shop2" class="btn btn-active-accent  fw-bold ms-3">Shop 2</a>
-                <a href="/product" class="btn btn-active-accent active active fw-bold ms-3">Shop Product</a>
+                <a href="/lecture/all" class="btn btn-active-accent fw-bold ms-3">View All Course</a>
+                <a href="javascripte:void(0)" class="btn btn-active-accent active active fw-bold ms-3">Course Detail</a>
+                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course List</a>
+                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Curriculum</a>
+                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">My Cart</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -46,44 +38,58 @@
                 <!--begin::Card-->
                 <div class="card mb-5 mb-xxl-8">
                     <!--begin::Card Body-->
-                    <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-lg-column flex-xxl-row">
+                    <div class="card-body d-flex p-12 flex-column flex-md-row flex-lg-column flex-xxl-row">
                         <!--begin::Image-->
-                        <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
-                             style="background-image: url('/assets/media/products/12.png')"></div>
+                        <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-900px mx-auto"
+                             style="background-image: url('/uimg/${lec.img}');  background-size: cover; border-top-left-radius: 10px; border-bottom-left-radius: 10px"></div>
                         <!--end::Image-->
                         <!--begin::Card-->
                         <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
                             <!--begin::Card Body-->
-                            <div class="card-body bg-light px-12 py-10">
-                                <h3 class="fw-bold fs-1 mb-1">
-                                    <a href="#" class="text-gray-800">Nike True Balance</a>
+                            <div class="card-body bg-light px-12 py-10 " style="border-top-right-radius: 30px;border-bottom-right-radius: 30px;">
+                                <h3 class="fw-bold fs-1 mb-1" style="padding-top: 15px;">
+                                    <a href="#" class="text-gray-800">${lec.title}</a>
                                 </h3>
-                                <div class="text-primary fs-3 mb-9">$ 399.99</div>
-                                <div class="fs-7 mb-8">Outlines keep you honest. They stop you from indulging in poorly
-                                    ought out metaphorsy about driving and keep you focused one the overall structure of
-                                    your post
+                                <div class="text-primary fs-3 mb-9" style="font-weight: 700;">
+                                    <c:choose>
+                                        <c:when test="${lec.discRate == 0}">
+                                            <fmt:formatNumber value="${lec.price}" type="number" pattern = "KRW###,###"/></div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="text-primary fs-3 mb-9" style="font-weight: 400; text-decoration: line-through;">
+                                            <fmt:formatNumber value="${lec.price}" type="number" pattern = "KRW###,###"/>
+                                            </span>
+                                            <fmt:formatNumber value="${lec.price * (100 - lec.discRate)/100}" type="number" pattern="KRW###,###"/></p>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                <div class="fs-7 mb-8">This is a course about ${lec.topic} and has received a rating
+                                    of ${lec.rating} out of 5 stars.<br>
+                                    The total duration of this course is ${lec.length} hours, and it will be taught
+                                    by instructor ${lec.teacher}.<br>
+                                    For more information <a href="http://${lec.target}">Click Here</a>
                                 </div>
                                 <!--begin::Info-->
                                 <table class="table table-borderless align-middle fw-semibold">
                                     <tr>
-                                        <td class="text-gray-600 ps-0">Shoes Brand</td>
-                                        <td class="text-dark pe-0">Nike</td>
+                                        <td class="text-gray-600 ps-0">Teacher</td>
+                                        <td class="text-dark pe-0">${lec.teacher}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-gray-600 ps-0">SKU</td>
-                                        <td class="text-dark pe-0">NF3535</td>
+                                        <td class="text-gray-600 ps-0">Area</td>
+                                        <td class="text-dark pe-0">${lec.topic}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-gray-600 ps-0">Color</td>
-                                        <td class="text-dark pe-0">White</td>
+                                        <td class="text-gray-600 ps-0">Duration</td>
+                                        <td class="text-dark pe-0">${lec.length}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-gray-600 ps-0">Collection</td>
-                                        <td class="text-dark pe-0">2020 Spring</td>
+                                        <td class="text-gray-600 ps-0">Rating</td>
+                                        <td class="text-dark pe-0">${lec.rating}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-gray-600 ps-0">In Stock</td>
-                                        <td class="text-dark pe-0">280</td>
+                                        <td class="text-gray-600 ps-0">Enrolled</td>
+                                        <td class="text-dark pe-0">${lec.hit}</td>
                                     </tr>
                                 </table>
                                 <!--end::Info-->

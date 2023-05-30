@@ -5,19 +5,25 @@
 <mapper namespace="com.myservice.mapper.OrdMapper">
 
     <select id="getMyOrd" parameterType="String" resultType="Ord">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
+             , ord_price AS ordPrice, pay_method AS payMethod
+             , up_date AS upDate, use_cpn AS useCpn
         FROM ord
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Ord">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
+             , ord_price AS ordPrice, pay_method AS payMethod
+             , up_date AS upDate, use_cpn AS useCpn
         FROM ord
         WHERE id=#{id}
     </select>
 
     <select id="selectall" resultType="Ord">
-        SELECT *
+        SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
+             , ord_price AS ordPrice, pay_method AS payMethod
+             , up_date AS upDate, use_cpn AS useCpn
         FROM ord
     </select>
 

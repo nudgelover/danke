@@ -39,7 +39,7 @@ public class CpnService implements KBService<Integer, Cpn> {
         return mapper.selectall();
     }
 
-    public List<CpnMapper> getMyCpn(String stdnId) throws Exception{
+    public List<Cpn> getMyCpn(String stdnId) throws Exception{
         return mapper.getMyCpn(stdnId);
     }
 

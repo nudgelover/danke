@@ -5,25 +5,25 @@
 <mapper namespace="com.myservice.mapper.CommMapper">
 
     <select id="getMyComm" parameterType="String" resultType="Comm">
-        SELECT *
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="getPostComm" parameterType="Integer" resultType="Comm">
-        SELECT *
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
         WHERE post_id=#{postId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Comm">
-        SELECT *
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
         WHERE id=#{id}
     </select>
 
     <select id="selectall" resultType="Comm">
-        SELECT *
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
     </select>
 

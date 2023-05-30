@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.CpnSpecMapper">
+
+    <select id="select" parameterType="Integer" resultType="CpnSpec">
+        SELECT id, title, fixed, percent
+        FROM cpn_spec
+        WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="CpnSpec">
+        SELECT id, title, fixed, percent
+        FROM cpn_spec
+    </select>
+
+    <insert id="insert" parameterType="CpnSpec">
+        INSERT INTO cpn_spec (id, title, fixed, percent)
+        VALUES (cpn_spec_seq.NEXTVAL,#{title},#{fixed},#{percent})
+    </insert>
+
+    <update id="update" parameterType="CpnSpec">
+        UPDATE cpn_spec
+        SET fixed=#{fixed}, percent=#{percent}
+        WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM cpn_spec
+        WHERE id=#{id}
+    </delete>
+
+
+</mapper>

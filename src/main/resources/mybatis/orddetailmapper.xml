@@ -5,7 +5,7 @@
 <mapper namespace="com.myservice.mapper.OrdDetailMapper">
 
     <select id="getMyOrdDetail" parameterType="String" resultType="OrdDetail">
-        SELECT od.id, od.lec_id, od.ord_id, od.stdy_hour
+        SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
              , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
@@ -17,7 +17,7 @@
     </select>
 
     <select id="select" parameterType="Integer" resultType="OrdDetail">
-        SELECT od.id, od.lec_id, od.ord_id, od.stdy_hour
+        SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
              , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
@@ -29,7 +29,7 @@
     </select>
 
     <select id="selectall" resultType="OrdDetail">
-        SELECT od.id, od.lec_id, od.ord_id, od.stdy_hour
+        SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
              , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName

@@ -298,23 +298,25 @@
                 <!--end::Dropdown-->
             </div>
             <!--end::Notifications-->
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <a href="/login"><span>Login</span>
-                </a>
-            </div>
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <a href="/register"><span>Register</span>
-                </a>
-            </div>
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <a href="/"><span>light/dark</span>
-                </a>
-            </div>
-
-
+            <c:choose>
+                <c:when test="${loginStdn!=null}">
+                    <div class="ms-1 ms-lg-6">
+                        <!--begin::Dropdown-->
+                        <a href="/logout"><span>Logout</span>
+                        </a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="ms-1 ms-lg-6">
+                        <a href="/login"><span>Login</span>
+                        </a>
+                    </div>
+                    <div class="ms-1 ms-lg-6">
+                        <a href="/register"><span>Register</span>
+                        </a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
             <!--begin::Aside Toggler-->
             <!--end::Aside Toggler-->
             <!--begin::Sidebar Toggler-->

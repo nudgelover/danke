@@ -5,7 +5,8 @@
 <mapper namespace="com.myservice.mapper.LikesMapper">
 
     <select id="getThisLikes" parameterType="map" resultType="Likes">
-        SELECT *
+        SELECT like_id AS likeId, post_id AS postId
+             , stdn_id AS stdnId, board
         FROM likes
         WHERE post_id=#{postId}
         AND stdn_id=#{stdnId}
@@ -13,26 +14,30 @@
     </select>
 
     <select id="getMyLikes" parameterType="String" resultType="Likes">
-        SELECT *
+        SELECT like_id AS likeId, post_id AS postId
+             , stdn_id AS stdnId, board
         FROM likes
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="getPostLikes" parameterType="map" resultType="Likes">
-        SELECT *
+        SELECT like_id AS likeId, post_id AS postId
+             , stdn_id AS stdnId, board
         FROM likes
         WHERE post_id=#{postId}
         AND board=#{board}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Likes">
-        SELECT *
+        SELECT like_id AS likeId, post_id AS postId
+             , stdn_id AS stdnId, board
         FROM likes
         WHERE like_id=#{likeId}
     </select>
 
     <select id="selectall" resultType="Likes">
-        SELECT *
+        SELECT like_id AS likeId, post_id AS postId
+             , stdn_id AS stdnId, board
         FROM likes
     </select>
 

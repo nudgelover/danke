@@ -1,6 +1,6 @@
-package com.myservice.test;
+package com.myservice.cpnSpec;
 
-import com.myservice.service.SubscService;
+import com.myservice.service.CpnSpecService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +8,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectMySubscTest {
+class DeleteTest {
 
     @Autowired
-    SubscService service;
+    CpnSpecService service;
 
     @Test
     void contextLoads() {
         try {
-            service.getMySubsc("id001");
+            service.remove(1004);
+            log.info("remove OK--------------------------------");
+            service.get();
         } catch (Exception e) {
-            log.info("select stdn error-----------------------------");
-            e.printStackTrace();
-        }
+            log.info("remove error-----------------------------");
         }
     }
 
+}

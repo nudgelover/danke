@@ -1,7 +1,7 @@
-package com.myservice.cpn;
+package com.myservice.cpnSpec;
 
-import com.myservice.dto.Cpn;
-import com.myservice.service.CpnService;
+import com.myservice.dto.CpnSpec;
+import com.myservice.service.CpnSpecService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class InsertTest {
 
     @Autowired
-    CpnService service;
+    CpnSpecService service;
 
     @Test
     void contextLoads() {
-        Cpn obj = new Cpn(1000,"id001", "2023.06.01");
-        Cpn obj2 = new Cpn(1000,"id001", "2023.07.01");
-        Cpn obj3 = new Cpn(1001,"id001", "2024.01.01");
-        Cpn obj4 = new Cpn(1001,"id002", "2023.06.01");
+        CpnSpec obj = new CpnSpec("누적수강생 10만기념 쿠폰",0, 25);
+        CpnSpec obj2 = new CpnSpec("누적수강생 10만기념 쿠폰",30000, 0);
 
         try {
-            service.register(obj4);
+            service.register(obj2);
             log.info("register OK--------------------------------");
         } catch (Exception e)  {
             e.printStackTrace();

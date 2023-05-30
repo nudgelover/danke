@@ -5,12 +5,12 @@
 <mapper namespace="com.myservice.mapper.AncMapper">
 
     <select id="select" parameterType="Integer" resultType="Anc">
-        SELECT *
+        SELECT id, writer, title, contents, img, rdate
         FROM anc
         WHERE id=#{id}
     </select>
     <select id="selectall" resultType="anc">
-        SELECT *
+        SELECT id, writer, title, contents, img, rdate
         FROM anc
     </select>
 
