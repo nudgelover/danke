@@ -15,15 +15,6 @@
                 <h3 class="text-dark fw-bold my-1">NOTICE Detail</h3>
                 <p>NOTICE BOARD Detail</p>
                 <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">DASHBOARD</li>
-                    <li class="breadcrumb-item text-dark">NOTICE</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
@@ -76,7 +67,8 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">Admin</a>
+                                                <a href="#"
+                                                   class="fw-bold text-dark text-hover-primary">${anc.writer}</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
 																		<svg xmlns="http://www.w3.org/2000/svg"
@@ -90,19 +82,13 @@
                                                 <span class="text-muted fw-bold">1 day ago</span>
                                             </div>
                                             <!--end::Author details-->
-                                            <!--begin::Preview message-->
-                                            <div class="text-muted fw-semibold mw-450px d-none"
-                                                 data-kt-inbox-message="preview">With resrpect, i must disagree with
-                                                Mr.Zinsser. We all know the most part of important part....
-                                            </div>
-                                            <!--end::Preview message-->
                                         </div>
                                     </div>
                                     <!--end::Author-->
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">19 Aug 2023, 2:40 pm</span>
+                                        <span class="fw-semibold text-muted text-end me-3">${anc.rdate}</span>
                                         <!--end::Date-->
                                         <div class="d-flex">
                                             <!--begin::Star-->
@@ -159,19 +145,7 @@
                                 <!--begin::Message content-->
                                 <div class="collapse fade show" data-kt-inbox-message="message">
                                     <div class="py-5">
-                                        <p>Hi Bob,</p>
-                                        <p>With resrpect, i must disagree with Mr.Zinsser. We all know the most part of
-                                            important part of any article is the title.Without a compelleing title, your
-                                            reader won't even get to the first sentence.After the title, however, the
-                                            first few sentences of your article are certainly the most important
-                                            part.</p>
-                                        <p>Jornalists call this critical, introductory section the "Lede," and when
-                                            bridge properly executed, it's the that carries your reader from an headine
-                                            try at attention-grabbing to the body of your blog post, if you want to get
-                                            it right on of these 10 clever ways to omen your next blog posr with a
-                                            bang</p>
-                                        <p>Best regards,</p>
-                                        <p class="mb-0">Jason Muller</p>
+                                        <p>${anc.contents}</p>
                                     </div>
                                 </div>
                                 <!--end::Message content-->

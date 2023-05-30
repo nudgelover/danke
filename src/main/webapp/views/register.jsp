@@ -1,156 +1,3 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<style>
-    input[type="number"]::-webkit-outer-spin-button,
-    input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type="text"]:focus,
-    input[type="password"]:focus,
-    input[type="number"]:focus,
-    input[type="email"]:focus {
-        background-color: rgba(213, 249, 232, 0.9);
-    }
-
-    .form-floating {
-        width: 33%;
-        display: inline-block;
-    }
-
-</style>
-<script>
-    let register_form = {
-        init: function () {
-            $('#register_btn').attr('disabled', true);
-            $('#register_btn').click(function () {
-
-                register_form.send();
-            });
-            $('#contact').keyup(function () {
-                let id = $('#id').val();
-                let pwd = $('#pwd').val();
-                let name = $('#name').val();
-                let email = $('#email').val();
-                let contact = $('#contact').val();
-
-                if (id.length >= 5 && pwd != '' && name != '' && email != '' && contact != '') {
-                    $('#register_btn').attr('disabled', false);
-                }
-            });
-            $('#id').keyup(function () {
-                let txt_id = $('#id').val();
-                if (txt_id.length <= 4) {
-                    $("#id").css("border-bottom", "3px solid #20D489");
-                    $('#check_id').text('The ID must be at least Five Characters long.');
-                    return;
-                } else {
-                    $.ajax({
-                        url: '/checkid',
-                        data: {id: txt_id},
-                        success: function (result) {
-                            if (result == 0) {
-                                $("#id").css("border-bottom", "none");
-                                $('#check_id').text('Available');
-                            } else {
-                                $('#check_id').text('Already in Use');
-                            }
-                        }
-                    });
-                }
-            });
-            $('#pwd2').blur(function () {
-                let pwd = $('#pwd').val();
-                let pwd2 = $('#pwd2').val();
-
-                if (pwd == '' && pwd2 == '') {
-                    $("#pwd").css("border-bottom", "3px solid #20D489");
-                    $("#pwd2").css("border-bottom", "3px solid #20D489");
-                    $('#check_pwd').text('Enter Password');
-                } else if (pwd !== pwd2) {
-                    $("#pwd2").css("border-bottom", "3px solid #20D489");
-                    $('#check_pwd').text('Password Error');
-                } else {
-                    $("#pwd2").css("border-bottom", "none");
-                    $('#check_pwd').text('Correct Password');
-                }
-            });
-
-            var maxSelection = 3;
-            $('input[type="checkbox"]').change(function () {
-                var selectedCount = $('input[type="checkbox"]:checked').length;
-                if (selectedCount >= maxSelection) {
-                    $('input[type="checkbox"]:not(:checked)').prop('disabled', true);
-                } else {
-                    $('input[type="checkbox"]').prop('disabled', false);
-                }
-            });
-        },
-        send: function () {
-            let id = $('#id').val();
-            let pwd = $('#pwd').val();
-            let name = $('#name').val();
-            let email = $('#email').val();
-            let contact = $('#contact').val();
-
-
-            if (id.length <= 4) {
-                $("#id").css("border-bottom", "1px solid #f5a425");
-                $('#check_id').text('The ID must be at least Five Characters long.');
-                $('#id').focus();
-                return;
-            }
-            if (id.length > 5) {
-                $('#check_id').text('');
-            }
-            if (pwd == '') {
-                $('#pwd').focus();
-                return;
-            }
-            if (name == '') {
-                $('#name').focus();
-                return;
-            }
-            if (email == '') {
-                $('#email').focus();
-                return;
-            }
-            if (contact == '') {
-                $('#contact').focus();
-            }
-
-            var selectedCount = $('input[type="checkbox"]:checked').length;
-            if (selectedCount !== 3) {
-                return
-            }
-
-            let subject = new Array();
-            $('input[type="checkbox"]:checked').each(function () {
-                subject.push(this.value);
-            });
-            $('#sbj').val(subject);
-
-
-            let date = new Array();
-            $('select[name=date_of_birth]:selected').each(function (){
-                date.push(this.value);
-            });
-            $('#date_of_birth').val(date);
-
-            $('#register_form').attr({
-                'action': '/registerimpl',
-                'method': 'post'
-            });
-            $('#register_form').submit();
-        }
-    };
-
-    $(function () {
-        register_form.init();
-    });
-</script>
-
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -161,6 +8,14 @@
                 <!--begin::Title-->
                 <h3 class="text-dark fw-bold my-1">Register</h3>
                 <!--end::Title-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
+                    <li class="breadcrumb-item">
+                        <a href="/" class="text-muted text-hover-primary">Home</a>
+                    </li>
+                    <li class="breadcrumb-item text-dark">Register</li>
+                </ul>
+                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
         </div>
@@ -173,7 +28,7 @@
             <!--begin::Profile Account-->
             <div class="card">
                 <!--begin::Form-->
-                <form class="form d-flex flex-center" id="register_form">
+                <form class="form d-flex flex-center">
                     <div class="card-body mw-800px py-20">
                         <!--begin::Form row-->
                         <div class="row mb-8">

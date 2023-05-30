@@ -56,6 +56,11 @@ public class MainController {
         model.addAttribute("center", "settings");
         return "index";
     }
+    @RequestMapping("/mypage")
+    public String mypage(Model model) throws Exception {
+        model.addAttribute("center", "mypage");
+        return "index";
+    }
 
     @RequestMapping("/loginimpl")
     public String loginimpl(Model model, String id, String pwd, HttpSession session) throws Exception {

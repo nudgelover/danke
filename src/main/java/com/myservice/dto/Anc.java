@@ -22,6 +22,13 @@ public class Anc {
     //Without imgfile
 
 
+    public Anc(String writer, String title, String contents, String img) {
+        this.writer = writer;
+        this.title = title;
+        this.contents = contents;
+        this.img = img;
+    }
+
     public Anc(int id, String writer, String title, String contents, String img, String rdate) {
         this.id = id;
         this.writer = writer;

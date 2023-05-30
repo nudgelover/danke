@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -5,7 +7,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Private Chat</h3>
+                <h3 class="text-dark fw-bold my-1">Blah Blah</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">

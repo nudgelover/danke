@@ -1,5 +1,6 @@
 package com.myservice.mapper;
 
+import com.github.pagehelper.Page;
 import com.myservice.dto.Mrk;
 import com.myservice.dto.MrkSearch;
 import com.myservice.frame.KBMapper;
@@ -18,5 +19,8 @@ public interface MrkMapper extends KBMapper<Integer, Mrk> {
     public List<Mrk> getRecent();
 
     public List<Mrk> search(MrkSearch ms);
+
+    public Page<Mrk> getpage() throws Exception;
+
 
 }
