@@ -127,4 +127,11 @@ public class JspController {
         model.addAttribute("center", "general/reply");
         return "index";
     }
+
+    @RequestMapping("/success")
+    public String success(Model model) throws Exception {
+        model.addAttribute("center", "success");
+        return "index";
+    }
+
 }

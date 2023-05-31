@@ -3,12 +3,24 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.OrdDetailMapper">
+    <select id="getByOrd" parameterType="Integer" resultType="OrdDetail">
+        SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
+             , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
+             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
+        FROM ord_detail od, ord o, lec l, stdn s
+        WHERE od.ord_id=o.id
+          AND od.lec_id=l.id
+          AND o.stdn_id=s.id
+          AND od.ord_id=#{ordId}
+    </select>
+
 
     <select id="getMyOrdDetail" parameterType="String" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -20,7 +32,7 @@
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -32,7 +44,7 @@
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id

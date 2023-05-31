@@ -142,7 +142,8 @@ public class LectureController {
         log.info("여기"+ord.toString());
         ord.setStdnId(stdnId);
         ordService.register(ord);
-        int ordId = ord.getId();
+        Integer ordId = ordService.getLastOrdId();
+        Integer ordPrice=ord.getOrdPrice();
 
         log.info("여기"+lecId.toString());
         for(Integer lecid:lecId){
@@ -165,7 +166,10 @@ public class LectureController {
             cpnService.modify(cpn);
         }
 
-        return "redirect:/";
+        model.addAttribute("ordId", ordId);
+        model.addAttribute("ordPrice", ordPrice);
+        model.addAttribute("center", dir+"success");
+        return "index";
     }
 
     @RequestMapping("/paythis")
@@ -181,7 +185,8 @@ public class LectureController {
         log.info("여기"+ord.toString());
         ord.setStdnId(stdnId);
         ordService.register(ord);
-        int ordId = ord.getId();
+        Integer ordId = ordService.getLastOrdId();
+        Integer ordPrice=ord.getOrdPrice();
 
         log.info("여기"+lecId.toString());
         OrdDetail ordDetail = new OrdDetail();
@@ -195,8 +200,18 @@ public class LectureController {
             Cpn cpn = (Cpn) cpnService.get(cpnId);
             cpnService.modify(cpn);
         }
+        model.addAttribute("ordId", ordId);
+        model.addAttribute("ordPrice", ordPrice);
+        model.addAttribute("center", dir+"success");
+        return "index";
+    }
 
-        return "redirect:/";
+    @RequestMapping("/orddetail")
+    public String orddetail(Model model, Integer id) throws Exception {
+        Lec lec = lecService.get(id);
+        model.addAttribute("lec",lec);
+        model.addAttribute("center", dir+"orddetail");
+        return "index";
     }
 
 }

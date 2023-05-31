@@ -43,4 +43,7 @@ public class OrdService implements KBService<Integer, Ord> {
         return mapper.getMyOrd(stdnId);
     }
 
+    public Integer getLastOrdId() throws Exception{
+        return mapper.getLastOrdId();
+    }
 }

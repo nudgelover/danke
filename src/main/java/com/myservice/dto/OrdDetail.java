@@ -19,6 +19,7 @@ public class OrdDetail {
     private String lecTitle;
     private String lecTeacher;
     private String lecTopic;
+    private Integer lecPrice;
     private String lecTarget;
     private String lecLength;
     private String img;

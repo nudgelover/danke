@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface OrdMapper extends KBMapper<Integer, Ord> {
     public List<Ord> getMyOrd(String stdnId) throws Exception;
+
+    public Integer getLastOrdId() throws Exception;
 }

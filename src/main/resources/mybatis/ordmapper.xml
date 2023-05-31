@@ -3,11 +3,14 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.OrdMapper">
+    <select id="getLastOrdId" resultType="Integer">
+        SELECT ord_seq.CURRVAL FROM dual
+    </select>
 
     <select id="getMyOrd" parameterType="String" resultType="Ord">
         SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
              , ord_price AS ordPrice, pay_method AS payMethod
-             , up_date AS upDate, use_cpn AS useCpn
+             , upd_date AS updDate, use_cpn AS useCpn
         FROM ord
         WHERE stdn_id=#{stdnId}
     </select>
@@ -15,7 +18,7 @@
     <select id="select" parameterType="Integer" resultType="Ord">
         SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
              , ord_price AS ordPrice, pay_method AS payMethod
-             , up_date AS upDate, use_cpn AS useCpn
+             , upd_date AS updDate, use_cpn AS useCpn
         FROM ord
         WHERE id=#{id}
     </select>
@@ -23,7 +26,7 @@
     <select id="selectall" resultType="Ord">
         SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
              , ord_price AS ordPrice, pay_method AS payMethod
-             , up_date AS upDate, use_cpn AS useCpn
+             , upd_date AS updDate, use_cpn AS useCpn
         FROM ord
     </select>
 
@@ -34,7 +37,7 @@
 
     <update id="update" parameterType="Ord">
         UPDATE ord
-        SET is_done='2', up_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        SET is_done='2', upd_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
         WHERE id=#{id}
     </update>
 
@@ -43,5 +46,7 @@
         FROM ord
         WHERE id=#{id}
     </delete>
+
+
 
 </mapper>

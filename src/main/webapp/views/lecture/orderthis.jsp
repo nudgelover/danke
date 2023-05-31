@@ -39,12 +39,12 @@
 
 
             $('#apply_btn').click(function(){
-                let cpnId = $('input[type="radio"]:checked').val();
+                let cpnId = $('input[type="radio"][name="cpn_no"]:checked').val();
                 $('#cpnId').val(cpnId);
-                let selected_cpn = $('input[type="radio"]:checked').data('name');
+                let selected_cpn = $('input[type="radio"][name="cpn_no"]:checked').data('name');
                 $('#selected_title').val(selected_cpn);
 
-                let cpn_id=$('input[type="radio"]:checked').val();
+                let cpn_id=$('input[type="radio"][name="cpn_no"]:checked').val();
                 let benefit_amount = $('#benefit_' + cpn_id).data('value');
                 let intbenefit = Math.floor(benefit_amount);
 
@@ -251,11 +251,11 @@
                                     <div class="text-muted fw-semibold mb-16">BEST PRICE</div>
                                     <div>
                                         <form id="pay_form">
-                                            <input type="text" id="lecId" name="lecId" value="${lec.id}">
-                                            <input type="text" id="payMethod" name="payMethod">
-                                            <input type="text" id="cpnId" name="cpnId" value="0">
-                                            <input type="text" id="useCpn" name="useCpn" value="0">
-                                            <input type="text" id="ordPrice" name="ordPrice">
+                                            <input type="hidden" id="lecId" name="lecId" value="${lec.id}">
+                                            <input type="hidden" id="payMethod" name="payMethod">
+                                            <input type="hidden" id="cpnId" name="cpnId" value="0">
+                                            <input type="hidden" id="useCpn" name="useCpn" value="0">
+                                            <input type="hidden" id="ordPrice" name="ordPrice">
                                             <button type="button" class="btn btn-primary fw-bold" id="pay_btn" style="width: fit-content"
                                             >Proceed to Pay
                                             </button>

@@ -14,7 +14,7 @@
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
-                <a href="#" class="btn btn-active-accent fw-bold">비밀번호 변경</a>
+                <a href="/settings/pwd?id=${loginStdn.id}" class="btn btn-active-accent fw-bold">비밀번호 변경</a>
                 <a href="#" class="btn btn-active-accent fw-bold ms-3">QR코드발급</a>
                 <a href="/settings" class="btn btn-active-accent active fw-bold ms-3">settings</a>
             </div>
