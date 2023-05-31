@@ -1,6 +1,6 @@
 package com.myservice.ordDetail;
 
-import com.myservice.service.OrdService;
+import com.myservice.service.OrdDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DeleteTest {
 
     @Autowired
-    OrdService service;
+    OrdDetailService service;
     @Test
     void contextLoads() {
         try {
-            service.remove(201);
+            service.remove(101);
             log.info("remove OK--------------------------------");
             service.get();
         } catch (Exception e) {

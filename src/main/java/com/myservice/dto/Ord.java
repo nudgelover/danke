@@ -15,8 +15,10 @@ public class Ord {
     private String isDone;
     private int ordPrice;
     private String payMethod;
-    private String upDate;
+    private String updDate;
     private int useCpn;
+
+    private Integer ordId;
 
     //Insert
     public Ord(String stdnId, int ordPrice, String payMethod, int useCpn) {

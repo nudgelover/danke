@@ -8,6 +8,7 @@ import com.myservice.service.CurriService;
 import com.myservice.service.StdnService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -23,6 +24,10 @@ public class RestController {
 
     @Autowired
     CurriService curriService;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
 
     @RequestMapping("/checkid")
     public Object checkid(String id) throws Exception {
@@ -61,6 +66,16 @@ public class RestController {
         if(curriService.thisCurri(stdnId, lecId) == null){
             result = 1;
             curriService.register(curri);
+        }
+        return result;
+    }
+
+    @RequestMapping("/pwdconfirm")
+    public Object pwdconfirm(String id,String pwd) throws Exception {
+        int result = 0;
+        Stdn stdn= (Stdn) stdnService.get(id);
+        if(!encoder.matches(pwd, stdn.getPwd())){
+            result=1;
         }
         return result;
     }

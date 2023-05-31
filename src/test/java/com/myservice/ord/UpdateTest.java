@@ -1,7 +1,7 @@
 package com.myservice.ord;
 
-import com.myservice.dto.Test;
-import com.myservice.service.TestService;
+import com.myservice.dto.Ord;
+import com.myservice.service.OrdService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,15 +11,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    TestService service;
+    OrdService service;
 
     @org.junit.jupiter.api.Test
     void contextLoads() {
-        Test obj = new Test(1, "www.google.com", 100, "React");
+        Ord obj = new Ord(301);
         try {
             service.modify(obj);
             log.info("update OK--------------------------------");
-            service.get(101);
+            service.get(301);
         } catch (Exception e) {
             log.info("update error-----------------------------");
         }

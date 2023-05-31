@@ -1,6 +1,8 @@
 package com.myservice.ordDetail;
 
 import com.myservice.dto.Ord;
+import com.myservice.dto.OrdDetail;
+import com.myservice.service.OrdDetailService;
 import com.myservice.service.OrdService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,11 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    OrdService service;
+    OrdDetailService service;
 
     @Test
     void contextLoads() {
-        Ord obj = new Ord(101);
+        OrdDetail obj = new OrdDetail(101,"60m");
         try {
             service.modify(obj);
             log.info("update OK--------------------------------");

@@ -32,6 +32,16 @@
                 order_selected.send();
             });
 
+            $('input[name="payment"]').change(function () {
+                let payMethod = $('input[name="payment"]:checked').val()
+                $('#payMethod').val(payMethod);
+
+                let checkednum=$('input[name="payment"]:checked').length;
+                if(checkednum==1){
+                    $('#pay_btn').attr('disabled', false);
+                }
+            });
+
             let sum_disc = 0;
             $('.disc_price').each(function() {
                 sum_disc += parseInt($(this).data('ord'));
@@ -49,48 +59,47 @@
 
             $('#modal_btn').click(function(){
                 $('.modal-benefit').each(function () {
-
-                    if($(this).data('value') <= 100){
-                        let percent = $(this).data('value');
+                    let percent = $(this).data('value');
+                    if (percent <= 100) {
                         let modal_final = sum_disc * percent / 100;
                         let formatted_final = numberWithCommas(modal_final);
                         $(this).text('-KRW'+formatted_final);
-                        $(this).data('cal')(modal_final);
+                        let calFunction = $(this).data('cal');
+                        if (typeof calFunction === 'function') {
+                            calFunction(modal_final);
+                        }
                     }
                 });
             });
 
+
             $('#apply_btn').click(function(){
-                let cpnId = $('input[type="radio"]:checked').val();
+                let cpnId = $('input[type="radio"][name="cpnNo"]:checked').val();
                 $('#cpnId').val(cpnId);
-                let selected_cpn = $('input[type="radio"]:checked').data('name');
+
+                let selected_cpn = $('input[type="radio"][name="cpnNo"]:checked').data('name');
                 $('#selected_title').val(selected_cpn);
-                let cpn_id=$('input[type="radio"]:checked').val();
+
+                let cpn_id=$('input[type="radio"][name="cpnNo"]:checked').val();
                 let benefit_amount = $('#benefit_' + cpn_id).text();
-                $('#benefit').text(benefit_amount);
                 let total_amount = $('#ord_price').html().substring(3);
                 let int_total = total_amount.replace(/,/g, "");
                 let benefit_trimmed = benefit_amount.replace(/,/g, "");
                 let benefit_trim = benefit_trimmed.match(/\d+/g);
                 let final_price = parseInt(int_total) - parseInt(benefit_trim);
                 let formattedFinal = numberWithCommas(final_price);
+
+                $('#benefit').text('');
+                $('#final_price').text('');
+                $('#final_order').html('');
+
+                $('#benefit').text(benefit_amount);
                 $('#final_price').text('KRW' + formattedFinal);
                 $('#final_order').html('KRW' + formattedFinal);
                 $('#useCpn').val(benefit_trim);
                 $('#ordPrice').val(final_price);
                 $('#my_coupon').modal('hide');
             });
-
-            $('input[name="payment"]').change(function () {
-                let payMethod = $('input[name="payment"]:checked').val()
-                $('#payMethod').val(payMethod);
-
-                let checkednum=$('input[name="payment"]:checked').length;
-                if(checkednum==1){
-                    $('#pay_btn').attr('disabled', false);
-                }
-            });
-
 
         },
         send: function(){
@@ -175,31 +184,31 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach var="obj" items="${order}">
-                                                    <tr>
-                                                        <td class="fw-bold ps-0">
-                                                            <div class="flex-grow-1 mt-2 me-2" data-bs-toggle="view" style="margin-left: 22px;">
-                                                                <div>
-                                                                    <input type="hidden" class="lecId" id="lecId_${obj.lecId}" name="lecIds" value="${obj.lecId}">
-                                                                    <span class="fw-bold fs-6 me-2">${obj.lecTitle}</span>
-                                                                    <c:choose>
-                                                                        <c:when test="${obj.lecDiscRate != 0}">
-                                                                            <span class="badge badge-light-danger">sale</span>
-                                                                        </c:when>
-                                                                    </c:choose>
-                                                                </div>
-                                                                <div class="mt-2">
-                                                                    <span class="text-gray-400">${obj.lecTeacher} | ${obj.lecTopic} </span>
-                                                                </div>
+                                            <c:forEach var="obj" items="${order}">
+                                                <tr>
+                                                    <td class="fw-bold ps-0">
+                                                        <div class="flex-grow-1 mt-2 me-2" data-bs-toggle="view" style="margin-left: 22px;">
+                                                            <div>
+                                                                <input type="text" class="lecId" id="lecId_${obj.lecId}" name="lecIds" value="${obj.lecId}">
+                                                                <span class="fw-bold fs-6 me-2">${obj.lecTitle}</span>
+                                                                <c:choose>
+                                                                    <c:when test="${obj.lecDiscRate != 0}">
+                                                                        <span class="badge badge-light-danger">sale</span>
+                                                                    </c:when>
+                                                                </c:choose>
                                                             </div>
-                                                        </td>
-                                                        <td class="text-end">
-                                                            <fmt:formatNumber value="${obj.lecPrice}" type="number" pattern="KRW###,###"/></td>
-                                                        <td class="text-end text-danger" style="font-weight: 600">${obj.lecDiscRate}%</td>
-                                                        <td class="pe-0 fs-6 fw-bold text-end disc_price" id="${obj.id}" data-ord="${obj.lecPrice * (100 - obj.lecDiscRate)/100}">
-                                                            <fmt:formatNumber value="${obj.lecPrice * (100 - obj.lecDiscRate)/100}" type="number" pattern="KRW###,###"/></td>
-                                                    </tr>
-                                                </c:forEach>
+                                                            <div class="mt-2">
+                                                                <span class="text-gray-400">${obj.lecTeacher} | ${obj.lecTopic} </span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <fmt:formatNumber value="${obj.lecPrice}" type="number" pattern="KRW###,###"/></td>
+                                                    <td class="text-end text-danger" style="font-weight: 600">${obj.lecDiscRate}%</td>
+                                                    <td class="pe-0 fs-6 fw-bold text-end disc_price" id="${obj.id}" data-ord="${obj.lecPrice * (100 - obj.lecDiscRate)/100}">
+                                                        <fmt:formatNumber value="${obj.lecPrice * (100 - obj.lecDiscRate)/100}" type="number" pattern="KRW###,###"/></td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
@@ -226,7 +235,7 @@
                                                 <td class="text-end">
                                                     <div class="flex-container">
                                                         <button type="button" class="btn btn-light-primary fw-bold fs-6 me-3 px-6 my-1"
-                                                             id="modal_btn"   data-bs-toggle="modal" data-bs-target="#my_coupon">
+                                                                id="modal_btn"   data-bs-toggle="modal" data-bs-target="#my_coupon">
                                                             My Coupon
                                                         </button>
                                                     </div>
@@ -271,11 +280,11 @@
                                     <div class="text-muted fw-semibold mb-16">BEST PRICE</div>
                                     <div>
                                         <form id="pay_form">
-                                            <input type="hidden" id="lecId" name="lecId">
-                                            <input type="hidden" id="payMethod" name="payMethod">
-                                            <input type="hidden" id="cpnId" name="cpnId" value="0">
-                                            <input type="hidden" id="useCpn" name="useCpn" value="0">
-                                            <input type="hidden" id="ordPrice" name="ordPrice">
+                                            <input type="text" id="lecId" name="lecId">
+                                            <input type="text" id="payMethod" name="payMethod">
+                                            <input type="text" id="cpnId" name="cpnId" value="0">
+                                            <input type="text" id="useCpn" name="useCpn" value="0">
+                                            <input type="text" id="ordPrice" name="ordPrice">
                                             <button type="button" class="btn btn-primary fw-bold" id="pay_btn" style="width: fit-content"
                                             >Proceed to Pay
                                             </button>
@@ -376,7 +385,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
