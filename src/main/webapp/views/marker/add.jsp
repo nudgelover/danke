@@ -230,15 +230,9 @@
             var detailContent = $('#kt_docs_ckeditor_document').html();
             // console.log('Detail Content:', detailContent);
 
-
-            //파일 업로드 이름 수정  base64-> 기존 이름
-            var base64 = $('.dz-image img')[0].src;
-            var filename = $('.dz-image img')[0].alt;
-            var file = dataURLtoFile(base64, filename)
             // 폼 데이터 생성
             var formData = new FormData($('#marker_form')[0]);
             formData.append('detail', detailContent);
-            // formData.append('imgfile', file);
             formData.append('imgfile', dropImg);
 
             // 입력된 값 출력
@@ -339,7 +333,7 @@
                                         </div>
                                         <!--end::Dropzone-->
                                     </div>
-                                    <input type="hidden" id="writer" name="writer" value="writer">
+                                    <input type="hidden" id="writer" name="writer" value="${loginStdn.id}">
                                     <!--end::Input group-->
                                     <!--begin::Row-->
                                     <div class="row col-12 mt-10 mb-10 " data-kt-buttons="true"

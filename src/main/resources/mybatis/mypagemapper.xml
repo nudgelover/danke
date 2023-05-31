@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.MyPageMapper">
+<!--    <select id="select" parameterType="string" resultType="mypage">-->
+<!--        SELECT id, pwd, name, email, contact, img, birthday, is_subsc AS isSubsc-->
+<!--             , cpn, is_exit AS isExit, exit_date AS exitDate, last_visit AS lastVisit-->
+<!--             , is_join AS isJoin, sbj1, sbj2, sbj3, login_error AS loginError-->
+<!--        FROM stdn-->
+<!--        WHERE ID=#{id}-->
+<!--    </select>-->
+    <select id="selectall" resultType="mypage">
+        SELECT s.id,
+               s.name,
+               s.email,
+               s.contact,
+               s.img,
+               s.birthday,
+               m.mbti,
+               m.comdate,
+               m.digidate,
+               m.rdate,
+               m.detail,
+               m.insta,
+               m.facebook
+        FROM stdn s
+                 JOIN mypage m ON s.id = m.id
+    </select>
+
+    <insert id="insert" parameterType="mypage">
+        INSERT INTO mypage (id, mbti, comdate, digidate, rdate, detail, insta, facebook)
+        VALUES (#{id}, #{mbti}, #{comdate, jdbcType=DATE}, #{digidate}, SYSDATE, #{detail}, #{insta}, #{facebook})
+    </insert>
+
+
+
+    <!--    &lt;!&ndash;stdn본인 수정&ndash;&gt;-->
+<!--    <update id="update" parameterType="stdn">-->
+<!--        UPDATE stdn SET name=#{name}, email=#{email}-->
+<!--                      , contact=#{contact}, img=#{img}-->
+<!--                      , birthday=#{birthday}, is_subsc=#{isSubsc}-->
+<!--                      , cpn=#{cpn},last_visit=#{lastVisit}-->
+<!--                      , is_join=#{isJoin}, sbj1=#{sbj1}-->
+<!--                      , sbj2=#{sbj2}, sbj3=#{sbj3}-->
+<!--                      , login_error=#{loginError}-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;비밀번호 암호화 처리 때문에 Update 따로 뺌&ndash;&gt;-->
+<!--    <update id="updatePwd" parameterType="stdn">-->
+<!--        UPDATE stdn SET pwd=#{pwd}-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;exitDate이 null인 채로 Update column에 들어있으면 setNull 에러라 따로 뺌&ndash;&gt;-->
+<!--    <update id="updateExit" parameterType="stdn">-->
+<!--        UPDATE stdn SET is_exit='1', exit_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
+
+<!--    <update id="updateAdm" parameterType="stdn">-->
+<!--        UPDATE stdn SET name=#{name}, email=#{email}-->
+<!--                      , contact=#{contact}, img=#{img}-->
+<!--                      , birthday=#{birthday}, is_subsc=#{isSubsc}-->
+<!--                      , cpn=#{cpn},last_visit=#{lastVisit}-->
+<!--                      , is_join=#{isJoin}, sbj1=#{sbj1}-->
+<!--                      , sbj2=#{sbj2}, sbj3=#{sbj3}-->
+<!--                      , login_error=#{loginError}-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
+
+<!--    <delete id="delete" parameterType="string">-->
+<!--        DELETE FROM stdn WHERE ID=#{id}-->
+<!--    </delete>-->
+
+
+    <select id="getGrade" parameterType="String" resultType="mypage">
+        SELECT s.id,
+               s.name,
+               s.email,
+               s.contact,
+               s.img,
+               s.birthday,
+               m.mbti,
+               m.comdate,
+               m.digidate,
+               m.rdate,
+               m.detail,
+               m.insta,
+               m.facebook
+        FROM stdn s
+                 JOIN mypage m ON s.id = m.id
+        WHERE m.digidate = #{digidate}
+    </select>
+</mapper>

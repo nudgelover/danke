@@ -2,7 +2,10 @@ package com.myservice.controller;
 
 
 import com.myservice.dto.Mrk;
+import com.myservice.dto.MyPage;
+import com.myservice.dto.Stdn;
 import com.myservice.service.MrkService;
+import com.myservice.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,19 +26,21 @@ public class AjaxImplController {
 
     @Autowired
     MrkService mrkService;
+    @Autowired
+    MyPageService myPageService;
 
     @RequestMapping("/markers")
     public Object markers(String keyword) throws Exception {
-        log.info("오냐"+keyword);
+        log.info("오냐" + keyword);
         List<Mrk> list = null;
         try {
             list = mrkService.getKeyword(keyword);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception("시스템 장애: ER0003");
         }
 
         JSONArray ja = new JSONArray();
-        for(Mrk obj:list){
+        for (Mrk obj : list) {
             JSONObject jo = new JSONObject();
             jo.put("id", obj.getId());
             jo.put("writer", obj.getWriter());
@@ -50,5 +55,31 @@ public class AjaxImplController {
         return ja;
     }
 
+    @RequestMapping("/getGrade")
+    public Object selectMember(String digidate) throws Exception {
+        List<MyPage> list = null;
 
+        try {
+            list = myPageService.getGrade(digidate);
+        } catch (Exception e) {
+            throw new Exception("시스템 장애: ER0003");
+        }
+
+        JSONArray ja = new JSONArray();
+        for (MyPage obj : list) {
+            JSONObject jo = new JSONObject();
+            jo.put("id", obj.getId());
+            jo.put("name", obj.getName());
+            jo.put("img", obj.getImg());
+            jo.put("birthday",obj.getBirthday());
+            jo.put("insta",obj.getInsta());
+            jo.put("facebook", obj.getFacebook());
+            jo.put("contact",obj.getContact());
+            jo.put("email", obj.getEmail());
+            jo.put("comdate", obj.getComdate());
+            jo.put("digidate", obj.getDigidate());
+            ja.add(jo);
+        }
+        return ja;
+    }
 }

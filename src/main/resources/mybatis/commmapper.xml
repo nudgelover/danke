@@ -11,11 +11,12 @@
     </select>
 
     <select id="getPostComm" parameterType="Integer" resultType="Comm">
-        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
-        FROM comm
-        WHERE post_id=#{postId}
+        SELECT b.id AS postId, c.id, c.contents, c.rdate, c.stdn_id AS stdnId, s.name as stdnName, s.img as stdnImg
+        FROM blah b
+                 JOIN comm c ON b.id = c.post_id
+                 JOIN stdn s ON c.stdn_id = s.id
+        WHERE b.id = #{postId}
     </select>
-
     <select id="select" parameterType="Integer" resultType="Comm">
         SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm

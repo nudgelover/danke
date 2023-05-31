@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--begin::Header-->
 <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header"
      data-kt-sticky-offset="{default: '200px', lg: '300px'}">
@@ -33,6 +33,9 @@
         <!--end::Left-->
         <!--begin::Right-->
         <div class="d-flex align-items-center">
+
+            <c:choose>
+                <c:when test="${loginStdn!=null}">
             <!--begin::Search-->
             <button class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6" data-bs-toggle="modal"
                     data-bs-target="#kt_header_search_modal" id="kt_header_search_toggle">
@@ -86,7 +89,7 @@
                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold w-300px"
                      data-kt-menu="true">
                     <div class="menu-content fw-semibold d-flex align-items-center bgi-no-repeat bgi-position-y-top rounded-top"
-                         style="background-image:url('assets/media//misc/dropdown-header-bg.jpg')">
+                         style="background-color: whitesmoke">
                         <div class="symbol symbol-45px mx-5 py-5">
 												<span class="symbol-label bg-primary align-items-end">
 													<img alt="Logo" src="/assets/media/svg/avatars/001-boy.svg"
@@ -94,8 +97,10 @@
 												</span>
                         </div>
                         <div class="">
-                            <span class="text-black fw-bold fs-4">Hello, James</span>
-                            <span class="text-black fw-semibold fs-7 d-block">CRM Product Designer</span>
+                            <c:set var="name" value="${loginStdn.name}" />
+                            <c:set var="substring" value="${name.substring(1)}" />
+                            <span class="text-black fw-bold fs-4">HELLO, ${substring}¥‘</span>
+                            <span class="text-black fw-semibold fs-7 d-block">ø¿¥√µµ ø≠¡§∞°µÊ«— «œ∑Á µ«ººø‰!</span>
                         </div>
                     </div>
                     <!--begin::Row-->
@@ -175,23 +180,24 @@
             </div>
             <!--end::User-->
             <!--begin::Notifications-->
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <button class="btn btn-icon btn-sm btn-light-danger fw-bold pulse pulse-danger"
-                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
-                    <span class="position-absolute fs-6">3</span>
-                    <span class="pulse-ring"></span>
-                </button>
-                <!--begin::Menu-->
-                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded fw-semibold menu-title-gray-800 menu-hover-bg menu-state-title-primary w-250px w-md-300px"
-                     data-kt-menu="true">
-                    <div class="menu-item mx-3">
-                        <div class="menu-content fs-6 text-dark fw-bold py-6">4 New Notifications</div>
-                    </div>
-                    <div class="separator mb-3"></div>
-                    <div class="menu-item mx-3">
-                        <a href="#" class="menu-link px-4 py-3">
-                            <div class="symbol symbol-35px">
+
+                    <div class="ms-1 ms-lg-6">
+                        <!--begin::Dropdown-->
+                        <button class="btn btn-icon btn-sm btn-light-danger fw-bold pulse pulse-danger"
+                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="kt_activities_toggle">
+                            <span class="position-absolute fs-6">3</span>
+                            <span class="pulse-ring"></span>
+                        </button>
+                        <!--begin::Menu-->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded fw-semibold menu-title-gray-800 menu-hover-bg menu-state-title-primary w-250px w-md-300px"
+                             data-kt-menu="true">
+                            <div class="menu-item mx-3">
+                                <div class="menu-content fs-6 text-dark fw-bold py-6">4 New Notifications</div>
+                            </div>
+                            <div class="separator mb-3"></div>
+                            <div class="menu-item mx-3">
+                                <a href="#" class="menu-link px-4 py-3">
+                                    <div class="symbol symbol-35px">
 													<span class="symbol-label bg-light-info">
 														<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
 														<span class="svg-icon svg-icon-3 svg-icon-info">
@@ -206,16 +212,16 @@
 														</span>
                                                         <!--end::Svg Icon-->
 													</span>
+                                    </div>
+                                    <div class="ps-4">
+                                        <span class="menu-title fw-semibold mb-1">New Uer Library Added</span>
+                                        <span class="text-muted fw-semibold d-block fs-7">3 Hours ago</span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="ps-4">
-                                <span class="menu-title fw-semibold mb-1">New Uer Library Added</span>
-                                <span class="text-muted fw-semibold d-block fs-7">3 Hours ago</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="menu-item mx-3">
-                        <a href="#" class="menu-link px-4 py-3">
-                            <div class="symbol symbol-35px">
+                            <div class="menu-item mx-3">
+                                <a href="#" class="menu-link px-4 py-3">
+                                    <div class="symbol symbol-35px">
 													<span class="symbol-label bg-light-warning">
 														<!--begin::Svg Icon | path: icons/duotune/communication/com004.svg-->
 														<span class="svg-icon svg-icon-3 svg-icon-warning">
@@ -230,16 +236,16 @@
 														</span>
                                                         <!--end::Svg Icon-->
 													</span>
+                                    </div>
+                                    <div class="ps-4">
+                                        <span class="menu-title fw-semibold mb-1">Clean Microphone</span>
+                                        <span class="text-muted fw-semibold d-block fs-7">5 Hours ago</span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="ps-4">
-                                <span class="menu-title fw-semibold mb-1">Clean Microphone</span>
-                                <span class="text-muted fw-semibold d-block fs-7">5 Hours ago</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="menu-item mx-3">
-                        <a href="#" class="menu-link px-4 py-3">
-                            <div class="symbol symbol-35px">
+                            <div class="menu-item mx-3">
+                                <a href="#" class="menu-link px-4 py-3">
+                                    <div class="symbol symbol-35px">
 													<span class="symbol-label bg-light-primary">
 														<!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
 														<span class="svg-icon svg-icon-3 svg-icon-primary">
@@ -256,16 +262,16 @@
 														</span>
                                                         <!--end::Svg Icon-->
 													</span>
+                                    </div>
+                                    <div class="ps-4">
+                                        <span class="menu-title fw-semibold mb-1">Quick Chat Created</span>
+                                        <span class="text-muted fw-semibold d-block fs-7">A Day ago</span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="ps-4">
-                                <span class="menu-title fw-semibold mb-1">Quick Chat Created</span>
-                                <span class="text-muted fw-semibold d-block fs-7">A Day ago</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="menu-item mx-3">
-                        <a href="#" class="menu-link px-4 py-3">
-                            <div class="symbol symbol-35px">
+                            <div class="menu-item mx-3">
+                                <a href="#" class="menu-link px-4 py-3">
+                                    <div class="symbol symbol-35px">
 													<span class="symbol-label bg-light-danger">
 														<!--begin::Svg Icon | path: icons/duotune/coding/cod008.svg-->
 														<span class="svg-icon svg-icon-3 svg-icon-danger">
@@ -280,31 +286,23 @@
 														</span>
                                                         <!--end::Svg Icon-->
 													</span>
+                                    </div>
+                                    <div class="ps-4">
+                                        <span class="menu-title fw-semibold mb-1">32 New Attachements</span>
+                                        <span class="text-muted fw-semibold d-block fs-7">2 Day ago</span>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="ps-4">
-                                <span class="menu-title fw-semibold mb-1">32 New Attachements</span>
-                                <span class="text-muted fw-semibold d-block fs-7">2 Day ago</span>
+                            <div class="separator mt-3"></div>
+                            <div class="menu-item mx-2">
+                                <div class="menu-content py-5">
+                                    <a href="#" class="btn btn-primary fw-bold me-2 px-5">Report</a>
+                                    <a href="#" class="btn btn-light fw-bold px-5">Reset</a>
+                                </div>
                             </div>
-                        </a>
-                    </div>
-                    <div class="separator mt-3"></div>
-                    <div class="menu-item mx-2">
-                        <div class="menu-content py-5">
-                            <a href="#" class="btn btn-primary fw-bold me-2 px-5">Report</a>
-                            <a href="#" class="btn btn-light fw-bold px-5">Reset</a>
                         </div>
-                    </div>
-                </div>
-                <!--end::Menu-->
-                <!--end::Dropdown-->
-            </div>
-            <!--end::Notifications-->
-            <c:choose>
-                <c:when test="${loginStdn!=null}">
-                    <div class="ms-1 ms-lg-6">
-                        <!--begin::Dropdown-->
-                        <a href="/logout"><span>Logout</span>
-                        </a>
+                        <!--end::Menu-->
+                        <!--end::Dropdown-->
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -318,16 +316,27 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <a href="/login"><span>Login</span>
-                </a>
-            </div>
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <a href="/register"><span>Register</span>
-                </a>
-            </div>
+
+            <!--end::Notifications-->
+<%--            <c:choose>--%>
+<%--                <c:when test="${loginStdn!=null}">--%>
+<%--                    <div class="ms-1 ms-lg-6">--%>
+<%--                        <!--begin::Dropdown-->--%>
+<%--                        <a href="/logout"><span>Logout</span>--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                    <div class="ms-1 ms-lg-6">--%>
+<%--                        <a href="/login"><span>Login</span>--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                    <div class="ms-1 ms-lg-6">--%>
+<%--                        <a href="/register"><span>Register</span>--%>
+<%--                        </a>--%>
+<%--                    </div>--%>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
             <div class="ms-1 ms-lg-6">
                 <!--begin::Dropdown-->
                 <button class="toggle-button" onclick="lightDarkMode()">light/dark</button>

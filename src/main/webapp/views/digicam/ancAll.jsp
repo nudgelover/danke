@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
@@ -31,17 +32,9 @@
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
                 <h3 class="text-dark fw-bold my-1">NOTICE</h3>
-                <p>NOTICE BOARD</p>
+                <p>검색기능 미구현</p>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">DASHBOARD</li>
-                    <li class="breadcrumb-item text-dark">NOTICE</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
@@ -110,11 +103,11 @@
                                     </tr>
 
 
-                                    <c:forEach var="obj" items="${apage.getList()}">
+                                    <c:forEach var="obj" items="${apage.getList()}" varStatus="status">
                                         <tr style="cursor: pointer" onmouseover="changeColor(this)"
                                             onmouseout="restoreColor(this)"
                                             onclick="window.location.href='/digicam/anc/detail?id=${obj.id}'">
-                                            <td>${obj.id}</td>
+                                            <td>${status.index + 1}</td>
                                             <td style="text-align: left;">${obj.title}</td>
                                             <td>${obj.writer}</td>
                                             <td>${obj.rdate}</td>
@@ -132,12 +125,13 @@
                                     <c:choose>
                                         <c:when test="${apage.getPrePage() != 0}">
                                             <li>
-                                                <a href="/digicam/anc/all?pageNo=${apage.getPrePage()}">Previous</a>
+                                                <a href="/digicam/anc/all?pageNo=${apage.getPrePage()}"
+                                                   class="btn btn-light"><</a>
                                             </li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="disabled">
-                                                <a href="#">Previous</a>
+                                            <li>
+                                                <a href="#" class="btn btn-bg-light btn-color-secondary"><</a>
                                             </li>
                                         </c:otherwise>
                                     </c:choose>
@@ -146,13 +140,15 @@
                                                end="${apage.getNavigateLastPage() }" var="page">
                                         <c:choose>
                                             <c:when test="${apage.getPageNum() == page}">
-                                                <li class="active">
-                                                    <a href="/digicam/anc/all?pageNo=${page}">${page}</a>
+                                                <li>
+                                                    <a href="/digicam/anc/all?pageNo=${page}"
+                                                       class="btn btn-bg-light btn-color-primary">${page }</a>
                                                 </li>
                                             </c:when>
                                             <c:otherwise>
                                                 <li>
-                                                    <a href="/digicam/anc/all?pageNo=${page}">${page}</a>
+                                                    <a href="/digicam/anc/all?pageNo=${page}"
+                                                       class="btn btn-active-light-secondary">${page }</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -161,12 +157,13 @@
                                     <c:choose>
                                         <c:when test="${apage.getNextPage() != 0}">
                                             <li>
-                                                <a href="/digicam/anc/all?pageNo=${apage.getNextPage()}">Next</a>
+                                                <a href="/digicam/anc/all?pageNo=${apage.getNextPage()}"
+                                                   class="btn btn-light">></a>
                                             </li>
                                         </c:when>
                                         <c:otherwise>
-                                            <li class="disabled">
-                                                <a href="#">Next</a>
+                                            <li>
+                                                <a href="#" class="btn btn-bg-light btn-color-secondary">></a>
                                             </li>
                                         </c:otherwise>
                                     </c:choose>

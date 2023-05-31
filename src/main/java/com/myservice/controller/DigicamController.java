@@ -3,7 +3,11 @@ package com.myservice.controller;
 import com.github.pagehelper.PageInfo;
 import com.myservice.dto.Anc;
 import com.myservice.dto.Mrk;
+import com.myservice.dto.MyPage;
+import com.myservice.dto.Stdn;
 import com.myservice.service.AncService;
+import com.myservice.service.MyPageService;
+import com.myservice.service.StdnService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,17 +30,27 @@ public class DigicamController {
 
     @Autowired
     AncService ancService;
+    @Autowired
+    StdnService stdnService;
 
+    @Autowired
+    MyPageService myPageService;
     @RequestMapping("/detail")
     public String detail(Model model, Integer id) throws Exception {
-//        model.addAttribute("center", dir+"detail");
-//        아직 페이지 없음
+        model.addAttribute("center", dir+"detail");
         return "index";
     }
 
     @RequestMapping("/member")
-    public String member(Model model, Integer id) throws Exception {
+    public String member(Model model, MyPage myPage) throws Exception {
+        List<MyPage> list = null;
+        try {
+            list = myPageService.get();
 
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        model.addAttribute("studentList", list);
         model.addAttribute("center", dir + "member");
         return "index";
     }
@@ -71,8 +85,6 @@ public class DigicamController {
         model.addAttribute("center", dir + "ancDetail");
         return "index";
     }
-
-
 
 
 }
