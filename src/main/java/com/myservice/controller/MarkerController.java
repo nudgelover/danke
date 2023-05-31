@@ -2,6 +2,7 @@ package com.myservice.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.myservice.dto.Mrk;
+import com.myservice.dto.Stdn;
 import com.myservice.service.MrkService;
 import com.myservice.utill.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,12 +41,12 @@ public class MarkerController {
 
     @RequestMapping("/addimpl")
     public String addimpl(Model model, Mrk mrk, HttpSession session) throws Exception {
-//        Student loginStudent = (Student) session.getAttribute("loginStudent");
+//        Stdn loginStudent = (Stdn) session.getAttribute("loginStudent");
         MultipartFile mf = mrk.getImgfile();
         String img = mf.getOriginalFilename();
 
         mrk.setImg(img);
-//        marker.setWriter(loginStudent.getId());
+
         try {
             mrkService.register(mrk);
             FileUploadUtil.saveFile(mf, imgpath);
@@ -100,7 +101,10 @@ public class MarkerController {
     public String editimpl(Model model, Mrk mrk) throws Exception {
         // id를 사용하여 해당 marker 정보를 가져옴
         MultipartFile mf = mrk.getImgfile();
-        String img = mf.getOriginalFilename();
+        String img = "";
+        if(mf != null) {
+            img = mf.getOriginalFilename();
+        }
 
         int markerId = mrk.getId();
         log.info(markerId+"이거");

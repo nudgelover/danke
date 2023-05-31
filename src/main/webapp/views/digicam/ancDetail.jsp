@@ -1,7 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
-
+<style>
+    #ancimg{
+        width: 100%;
+        padding: 3% 10%;
+    }
+</style>
 <!--end::Head-->
 
 <!--begin::Main-->
@@ -130,12 +136,10 @@
                                                 <img style="width:20px; height: 20px"
                                                      src="  https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png">
                                             </a>
-                                            <a href="#" id="shareKt"
-                                               class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Kakao Talk">
-                                                <img style="width:25px; height: 25px"
-                                                     src="https://blog.kakaocdn.net/dn/bpOv6u/btru1akOJSk/SWmLX4oJKrYWo03MiKDRhK/img.png">
 
+                                            <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2">
+                                                <img style="width:20px; height: 20px" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                                     alt="카카오톡 공유 보내기 버튼"/>
                                             </a>
                                         </div>
                                     </div>
@@ -145,6 +149,7 @@
                                 <!--begin::Message content-->
                                 <div class="collapse fade show" data-kt-inbox-message="message">
                                     <div class="py-5">
+                                        <img id="ancimg" src="/uimg/${anc.img}">
                                         <p>${anc.contents}</p>
                                     </div>
                                 </div>
@@ -205,8 +210,7 @@
                                             <!--end::Message details-->
                                             <!--begin::Preview message-->
                                             <div class="text-dark fw-semibold mw-450px"
-                                                 data-kt-inbox-message="preview">Jornalists call this critical,
-                                                introductory section the "Lede," and when bridge properly executed....
+                                                 data-kt-inbox-message="preview">공지사항은 댓글이 필요할까유??
                                             </div>
                                             <!--end::Preview message-->
                                         </div>
@@ -221,115 +225,6 @@
                                     <!--end::Actions-->
                                 </div>
                                 <!--end::Message header-->
-                                <!--begin::Message content-->
-                                <div class="collapse fade" data-kt-inbox-message="message">
-                                    <div class="py-5">
-                                        <p>Hi Bob,</p>
-                                        <p>With resrpect, i must disagree with Mr.Zinsser. We all know the most part of
-                                            important part of any article is the title.Without a compelleing title, your
-                                            reader won't even get to the first sentence.After the title, however, the
-                                            first few sentences of your article are certainly the most important
-                                            part.</p>
-                                        <p>Jornalists call this critical, introductory section the "Lede," and when
-                                            bridge properly executed, it's the that carries your reader from an headine
-                                            try at attention-grabbing to the body of your blog post, if you want to get
-                                            it right on of these 10 clever ways to omen your next blog posr with a
-                                            bang</p>
-                                        <p>Best regards,</p>
-                                        <p class="mb-0">Jason Muller</p>
-                                    </div>
-                                </div>
-                                <!--end::Message content-->
-                            </div>
-                            <!--end::Message accordion-->
-                            <div class="separator my-6"></div>
-                            <!--begin::Message accordion-->
-                            <div data-kt-inbox-message="message_wrapper">
-                                <!--begin::Message header-->
-                                <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
-                                     data-kt-inbox-message="header">
-                                    <!--begin::Author-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-50 me-4">
-                                            <span class="symbol-label"
-                                                  style="background-image:url(/img/logo.png);"></span>
-                                        </div>
-                                        <!--end::Avatar-->
-                                        <div class="pe-5">
-                                            <!--begin::Author details-->
-                                            <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
-                                                <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
-                                                <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
-																		<svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24px" height="24px"
-                                                                             viewBox="0 0 24 24" version="1.1">
-																			<circle fill="currentColor" cx="12" cy="12"
-                                                                                    r="8"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">2 days ago</span>
-                                            </div>
-                                            <!--end::Author details-->
-                                            <!--begin::Message details-->
-                                            <div class="d-none" data-kt-inbox-message="details">
-                                                <span class="text-muted fw-semibold">to me</span>
-                                                <!--begin::Menu toggle-->
-                                                <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                   data-kt-menu-placement="bottom-start">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                    <span class="svg-icon svg-icon-5 m-0">
-																			<svg width="24" height="24"
-                                                                                 viewBox="0 0 24 24" fill="none"
-                                                                                 xmlns="http://www.w3.org/2000/svg">
-																				<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                                                      fill="currentColor"/>
-																			</svg>
-																		</span>
-                                                    <!--end::Svg Icon-->
-                                                </a>
-                                                <!--end::Menu toggle-->
-                                            </div>
-                                            <!--end::Message details-->
-                                            <!--begin::Preview message-->
-                                            <div class="text-dark fw-semibold mw-450px"
-                                                 data-kt-inbox-message="preview">Jornalists call this critical,
-                                                introductory section the "Lede," and when bridge properly executed....
-                                            </div>
-                                            <!--end::Preview message-->
-                                        </div>
-                                    </div>
-                                    <!--end::Author-->
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center flex-wrap gap-2">
-                                        <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">24 Jun 2023, 5:20 pm</span>
-                                        <!--end::Date-->
-                                    </div>
-                                    <!--end::Actions-->
-                                </div>
-                                <!--end::Message header-->
-                                <!--begin::Message content-->
-                                <div class="collapse fade" data-kt-inbox-message="message">
-                                    <div class="py-5">
-                                        <p>Hi Bob,</p>
-                                        <p>With resrpect, i must disagree with Mr.Zinsser. We all know the most part of
-                                            important part of any article is the title.Without a compelleing title, your
-                                            reader won't even get to the first sentence.After the title, however, the
-                                            first few sentences of your article are certainly the most important
-                                            part.</p>
-                                        <p>Jornalists call this critical, introductory section the "Lede," and when
-                                            bridge properly executed, it's the that carries your reader from an headine
-                                            try at attention-grabbing to the body of your blog post, if you want to get
-                                            it right on of these 10 clever ways to omen your next blog posr with a
-                                            bang</p>
-                                        <p>Best regards,</p>
-                                        <p class="mb-0">Jason Muller</p>
-                                    </div>
-                                </div>
-                                <!--end::Message content-->
                             </div>
                             <!--end::Message accordion-->
 
@@ -342,9 +237,10 @@
                                     <!--begin::To-->
                                     <div class="d-flex align-items-center border-bottom px-8 min-h-50px marigin">
                                         <!--begin::Input-->
-                                        <img width="30px" src="/img/logo.png">
+                                        <img width="30px" src="/uimg/${loginStdn.img}">
+                                        <input type="text" name="id" value="${loginStdn.id}">
                                         <input type="text" class="form-control border-0" name="compose_to"
-                                               placeholder="comment..."/>
+                                               name="contents" placeholder="comment..."/>
                                         <a href="#" class="btn btn-primary">Send</a>
 
                                         <!--end::Input-->
@@ -400,3 +296,43 @@
         });
     })
 </script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+        integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+        crossorigin="anonymous"></script>
+<script>
+    Kakao.init('bdeaed76dc8de3e2c25b24d04c468b43'); // 사용하려는 앱의 JavaScript 키 입력
+</script>
+<script>
+    Kakao.Share.createDefaultButton({
+        container: '#kakaotalk-sharing-btn',
+        objectType: 'feed',
+        content: {
+            title: 'DIGI CAMPUS 공지사항',
+            description: '${anc.title}',
+            imageUrl:
+                'https://www.cuonet.com/data/file/rev_gui/2948886887_MA3tdzUv_840685b760fe4a4462c1c3ec820feceb6a0c0832.png',
+            link: {
+                mobileWebUrl: 'https://developers.kakao.com',
+                webUrl: 'https://developers.kakao.com',
+            },
+        },
+        buttons: [
+            {
+                title: '웹으로 이동',
+                link: {
+                    mobileWebUrl: 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                    webUrl      : 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                },
+            },
+            {
+                title: '앱으로 이동',
+                link: {
+                    mobileWebUrl: 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                    webUrl      : 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                },
+            },
+        ],
+    });
+</script>
+
+

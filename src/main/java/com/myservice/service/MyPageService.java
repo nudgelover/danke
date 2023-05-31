@@ -1,5 +1,6 @@
 package com.myservice.service;
 
+import com.myservice.dto.Cart;
 import com.myservice.dto.MyPage;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.MyPageMapper;
@@ -27,6 +28,7 @@ public class MyPageService implements KBService<String, MyPage> {
     public void modify(MyPage mypage) throws Exception {
         mapper.update(mypage);
     }
+
     @Override
     public MyPage get(String s) throws Exception {
         return mapper.select(s);
@@ -35,5 +37,10 @@ public class MyPageService implements KBService<String, MyPage> {
     @Override
     public List<MyPage> get() throws Exception {
         return mapper.selectall();
+    }
+
+
+    public List<MyPage> getGrade(String digidate) {
+        return mapper.getGrade(digidate);
     }
 }

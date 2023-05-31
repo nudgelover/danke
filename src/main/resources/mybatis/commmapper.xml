@@ -5,36 +5,38 @@
 <mapper namespace="com.myservice.mapper.CommMapper">
 
     <select id="getMyComm" parameterType="String" resultType="Comm">
-        SELECT id, post_id AS postId, contents, rdate, stdn_id AS stdnId
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
         WHERE stdn_id=#{stdnId}
     </select>
 
     <select id="getPostComm" parameterType="Integer" resultType="Comm">
-        SELECT id, post_id AS postId, contents, rdate, stdn_id AS stdnId
-        FROM comm
-        WHERE post_id=#{postId}
+        SELECT b.id AS postId, c.id, c.contents, c.rdate, c.stdn_id AS stdnId, s.name as stdnName, s.img as stdnImg
+        FROM blah b
+                 JOIN comm c ON b.id = c.post_id
+                 JOIN stdn s ON c.stdn_id = s.id
+        WHERE b.id = #{postId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Comm">
-        SELECT id, post_id AS postId, contents, rdate, stdn_id AS stdnId
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
         WHERE id=#{id}
     </select>
 
     <select id="selectall" resultType="Comm">
-        SELECT id, post_id AS postId, contents, rdate, stdn_id AS stdnId
+        SELECT id, post_id AS postId, content, rdate, stdn_id AS stdnId
         FROM comm
     </select>
 
     <insert id="insert" parameterType="Comm">
-        INSERT INTO comm (id, post_id, contents, rdate, stdn_id)
-        VALUES (comm_seq.NEXTVAL,#{postId},#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{stdnId})
+        INSERT INTO comm (id, post_id, content, rdate, stdn_id)
+        VALUES (comm_seq.NEXTVAL,#{postId},#{content},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{stdnId})
     </insert>
 
     <update id="update" parameterType="Comm">
         UPDATE comm
-        SET contents=#{contents}
+        SET content=#{content}
         WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">

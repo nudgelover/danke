@@ -2,6 +2,8 @@ package com.myservice.dto;
 
 import lombok.*;
 
+import java.security.PrivateKey;
+
 
 @Getter
 @Setter
@@ -14,6 +16,8 @@ public class Comm {
     private String contents;
     private String rdate;
     private String stdnId;
+    private String stdnName;
+    private String stdnImg;
 
     //Insert
     public Comm(int postId, String contents, String stdnId) {

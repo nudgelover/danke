@@ -226,6 +226,8 @@
     }
 
     $(document).ready(function () {
+        console.log($('.dz-image img')[0])
+
         // setDropImg();
         $('#register_btn').click(function (e) {
             const title = document.getElementById('title').value;
@@ -253,13 +255,12 @@
 
 
             //파일 업로드 이름 수정  base64-> 기존 이름
-            var base64 = $('.dz-image img')[0].src;
-            var filename = $('.dz-image img')[0].alt;
-            var file = dataURLtoFile(base64, filename)
+
             // 폼 데이터 생성
             var formData = new FormData($('#marker_form')[0]);
             formData.append('detail', detailContent);
             // formData.append('imgfile', file);
+            if(dropImg)
             formData.append('imgfile', dropImg);
 
             // 입력된 값 출력

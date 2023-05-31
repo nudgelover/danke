@@ -17,8 +17,15 @@
     </select>
 
     <select id="selectall" resultType="Blah">
-        SELECT id, stdn_id AS stdnId, contents, rdate, likes
-        FROM blah
+        SELECT s.name,
+               s.img,
+               m.stdn_id AS stdnId,
+               m.id,
+               m.contents,
+               m.rdate
+        FROM stdn s
+                 JOIN blah m ON s.id = m.stdn_id
+        ORDER BY m.id DESC
     </select>
 
     <insert id="insert" parameterType="Blah">
