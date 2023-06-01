@@ -62,7 +62,7 @@
                                         <span class="text-info" style="font-weight: 700; font-size: small">주문번호</span>
                                     </div>
                                     <div>
-                                        <a href="/lecture/orddetail?=${ordId}"><span class="text-active-gray-900" style="font-size: larger">${ordId}</span></a>
+                                        <a href="/lecture/orddetail?id=${ordId}"><span class="text-active-gray-900" style="font-size: larger">${ordId}</span></a>
                                     </div>
                                 </div>
                                 <div style="flex: 1;margin-left: 75px;">

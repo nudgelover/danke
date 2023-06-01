@@ -22,7 +22,7 @@
 
             $.ajax({
                 url: '/cartimpl',
-                data: { stdnId: stdnId, lecId: lecId },
+                data: {stdnId: stdnId, lecId: lecId},
                 success: function (result) {
                     if (result === 0) {
                         let modal = new bootstrap.Modal(cartModal)
@@ -40,7 +40,6 @@
 </script>
 
 
-
 <!--begin::Main-->
 
 <div class="d-flex flex-column flex-column-fluid">
@@ -55,8 +54,10 @@
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">View All Course</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course List</a>
-                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Curriculum</a>
+                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course
+                    List</a>
+                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My
+                    Curriculum</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">My Cart</a>
             </div>
             <!--end::Nav-->
@@ -110,80 +111,97 @@
                         <div id="lec_container" class="row g-5 g-xxl-8">
                             <!--begin::Product-->
                             <c:forEach var="obj" items="${cpage.getList()}">
-                            <div class="col-md-4 col-xxl-4 col-lg-12">
-                                <!--begin::Card-->
-                                <div class="card shadow-none">
-                                    <div class="card-body p-0">
-                                        <!--begin::Image-->
-                                        <div class="overlay rounded overflow-hidden">
-                                            <div class="overlay-wrapper rounded bg-light text-center">
-                                                <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
+                                <div class="col-md-4 col-xxl-4 col-lg-12">
+                                    <!--begin::Card-->
+                                    <div class="card shadow-none">
+                                        <div class="card-body p-0">
+                                            <!--begin::Image-->
+                                            <div class="overlay rounded overflow-hidden">
+                                                <div class="overlay-wrapper rounded bg-light text-center">
+                                                    <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
+                                                </div>
+                                                <div class="overlay-layer align-items-end justify-content-center">
+                                                    <div class="py-5">
+                                                        <a href="#" id="curri_btn"
+                                                           class="btn fw-bold btn-sm btn-light-primary me-2">Add
+                                                            Curri</a>
+                                                        <a href="/lecture/orderthis?id=${obj.id}"
+                                                           class="btn fw-bold btn-sm btn-light-primary"
+                                                           style="margin-right: 7px;">Order</a>
+                                                        <button id="cart_btn_${obj.id}"
+                                                                class="btn fw-bold btn-sm btn-light-primary me-2 cart_btn">
+                                                            Cart
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="overlay-layer">
-                                                <a href="#" id="curri_btn"
-                                                   class="btn fw-bold btn-sm btn-light-primary me-2">Add Curri</a>
-                                                <a href="/lecture/orderthis?id=${obj.id}"
-                                                   class="btn fw-bold btn-sm btn-light-primary" style="margin-right: 7px;">Order</a>
-                                                <button id="cart_btn_${obj.id}"
-                                                   class="btn fw-bold btn-sm btn-light-primary me-2 cart_btn">Cart</button>
-                                            </div>
-                                        </div>
-                                        <!--end::Image-->
-                                        <!--begin::Details-->
-                                        <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                            <a href="/lecture/detail?id=${obj.id}" class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
-                                            <span class="fs-6">${obj.teacher}<br>
+                                            <!--end::Image-->
+                                            <!--begin::Details-->
+                                            <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
+                                                <a href="/lecture/detail?id=${obj.id}"
+                                                   class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
+                                                <span class="fs-6">${obj.teacher}<br>
                                                 <c:choose>
                                                     <c:when test="${obj.discRate == 0}">
-                                                        <fmt:formatNumber value="${obj.price}" type="number" pattern="KRW###,###"/>
+                                                        <span class="text-gray-800 fw-bold fs-6">
+                                                        <fmt:formatNumber value="${obj.price}" type="number"
+                                                                          pattern="###,###원"/>
+                                                            </span>
                                                     </c:when>
                                                     <c:otherwise>
-
-                                                        <span style="text-decoration: line-through;"><fmt:formatNumber value="${obj.price}" type="number" pattern="KRW###,###"/></span>
-                                                        <fmt:formatNumber value="${obj.price * (100 - obj.discRate)/100}" type="number" pattern="KRW###,###"/></p>
-                                                    </c:otherwise>
+                                                        <span style="text-decoration: line-through;"><fmt:formatNumber
+                                                                value="${obj.price}" type="number"
+                                                                pattern="###,###원"/></span>
+                                                        <span class="text-success fw-bold fs-6"><fmt:formatNumber
+                                                                value="${obj.price * (100 - obj.discRate)/100}"
+                                                                type="number" pattern="###,###원"/></span>
+                                                            </c:otherwise>
                                                 </c:choose>
-                                            </span>
+                                                <br><span class="badge badge-light-primary">누적수강생 ${obj.hit}명</span>
+                                            </div>
+
+
+                                            <!--end::Details-->
                                         </div>
-
-
-                                        <!--end::Details-->
                                     </div>
-                                </div>
-                                <!--end::Card-->
+                                    <!--end::Card-->
 
-                                <!--Cart Modal-->
-                                <div class="modal fade" tabindex="-1" id="cart_modal_${obj.id}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title">${obj.title}</h3>
+                                    <!--Cart Modal-->
+                                    <div class="modal fade" tabindex="-1" id="cart_modal_${obj.id}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title">${obj.title}</h3>
 
-                                                <!--begin::Close-->
-                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                                                    <span class="svg-icon svg-icon-1"></span>
+                                                    <!--begin::Close-->
+                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                         data-bs-dismiss="modal" aria-label="Close">
+                                                        <span class="svg-icon svg-icon-1"></span>
+                                                    </div>
+                                                    <!--end::Close-->
                                                 </div>
-                                                <!--end::Close-->
-                                            </div>
 
-                                            <div class="modal-body">
-                                                <img src="/assets/media/products/${obj.img}" alt="" class="mw-100"/>
-                                                <a href="/lecture/detail?id=${obj.id}"
-                                                class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
-                                                <span class="fs-6">${obj.teacher}<br>
-                                                        ${obj.price}</span>
-                                                <p id="cart_msg_${obj.id}"></p>
-                                            </div>
+                                                <div class="modal-body">
+                                                    <img src="/assets/media/products/${obj.img}" alt="" class="mw-100"/>
+                                                    <a href="/lecture/detail?id=${obj.id}"
+                                                       class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
+                                                    <span class="fs-6">${obj.teacher}<br>
+                                                            ${obj.price}</span>
+                                                    <p id="cart_msg_${obj.id}"></p>
+                                                </div>
 
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">CONTINUE</button>
-                                                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-primary">GO TO CAR</a>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                                        CONTINUE
+                                                    </button>
+                                                    <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-primary">GO
+                                                        TO CAR</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--Modal End-->
                                 </div>
-                                <!--Modal End-->
-                            </div>
                             </c:forEach>
                         </div>
                         <jsp:include page="../page.jsp"/>
@@ -197,7 +215,6 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-
 
 
 <!--begin::Vendors Javascript(used for this page only)-->

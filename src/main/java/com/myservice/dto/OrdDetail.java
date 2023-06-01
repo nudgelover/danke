@@ -14,12 +14,14 @@ public class OrdDetail {
     private Integer lecId;
     private int ordId;
     private String stdyHour;
+    private Integer discRate;
+    private Integer price;
+
 
     private String lecCode;
     private String lecTitle;
     private String lecTeacher;
     private String lecTopic;
-    private Integer lecPrice;
     private String lecTarget;
     private String lecLength;
     private String img;

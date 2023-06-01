@@ -110,6 +110,23 @@
             });
             $('#lecId').val(lecIds);
 
+
+            let discRates = new Array();
+
+            $('input[name="discRates"]').each(function () {
+                discRates.push(this.value);
+            });
+            $('#discRate').val(discRates);
+
+
+            let prices = new Array();
+
+            $('input[name="prices"]').each(function () {
+                prices.push(this.value);
+            });
+            $('#price').val(prices);
+
+
             $('#pay_form').attr({
                 'action': '/lecture/pay',
                 'method': 'post'
@@ -189,7 +206,7 @@
                                                     <td class="fw-bold ps-0">
                                                         <div class="flex-grow-1 mt-2 me-2" data-bs-toggle="view" style="margin-left: 22px;">
                                                             <div>
-                                                                <input type="text" class="lecId" id="lecId_${obj.lecId}" name="lecIds" value="${obj.lecId}">
+                                                                <input type="hidden" class="lecId" id="lecId_${obj.lecId}" name="lecIds" value="${obj.lecId}">
                                                                 <span class="fw-bold fs-6 me-2">${obj.lecTitle}</span>
                                                                 <c:choose>
                                                                     <c:when test="${obj.lecDiscRate != 0}">
@@ -203,9 +220,11 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-end">
+                                                        <input type="hidden" class="price" id="price_${obj.lecId}" name="prices" value="${obj.lecPrice}">
                                                         <fmt:formatNumber value="${obj.lecPrice}" type="number" pattern="KRW###,###"/></td>
                                                     <td class="text-end text-danger" style="font-weight: 600">${obj.lecDiscRate}%</td>
                                                     <td class="pe-0 fs-6 fw-bold text-end disc_price" id="${obj.id}" data-ord="${obj.lecPrice * (100 - obj.lecDiscRate)/100}">
+                                                        <input type="hidden" class="discRate" id="discRate_${obj.lecId}" name="discRates" value="${obj.lecDiscRate}">
                                                         <fmt:formatNumber value="${obj.lecPrice * (100 - obj.lecDiscRate)/100}" type="number" pattern="KRW###,###"/></td>
                                                 </tr>
                                             </c:forEach>
@@ -280,11 +299,13 @@
                                     <div class="text-muted fw-semibold mb-16">BEST PRICE</div>
                                     <div>
                                         <form id="pay_form">
-                                            <input type="text" id="lecId" name="lecId">
-                                            <input type="text" id="payMethod" name="payMethod">
-                                            <input type="text" id="cpnId" name="cpnId" value="0">
-                                            <input type="text" id="useCpn" name="useCpn" value="0">
-                                            <input type="text" id="ordPrice" name="ordPrice">
+                                            <input type="hidden" id="lecId" name="lecId">
+                                            <input type="hidden" id="discRate" name="discRate">
+                                            <input type="hidden" id="price" name="price">
+                                            <input type="hidden" id="payMethod" name="payMethod">
+                                            <input type="hidden" id="cpnId" name="cpnId" value="0">
+                                            <input type="hidden" id="useCpn" name="useCpn" value="0">
+                                            <input type="hidden" id="ordPrice" name="ordPrice">
                                             <button type="button" class="btn btn-primary fw-bold" id="pay_btn" style="width: fit-content"
                                             >Proceed to Pay
                                             </button>
