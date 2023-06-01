@@ -252,6 +252,8 @@
                                     <div>
                                         <form id="pay_form">
                                             <input type="hidden" id="lecId" name="lecId" value="${lec.id}">
+                                            <input type="hidden" id="price" name="price" value="${lec.price}">
+                                            <input type="hidden" id="discRate" name="discRate" value="${lec.discRate}">
                                             <input type="hidden" id="payMethod" name="payMethod">
                                             <input type="hidden" id="cpnId" name="cpnId" value="0">
                                             <input type="hidden" id="useCpn" name="useCpn" value="0">

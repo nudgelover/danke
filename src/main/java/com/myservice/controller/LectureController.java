@@ -130,12 +130,19 @@ public class LectureController {
     }
 
     @RequestMapping("/pay")
-    public String pay(@RequestParam List<Integer> lecId, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
+    public String pay(@RequestParam List<Integer> lecId, @RequestParam List<Integer> price, @RequestParam List<Integer> discRate, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
         //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
         // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
         // 2. ord_detail insert ( 각 강의별로 생성 ) : for문을 돌려 (각 강의 lecId 필요) 방금 insert한 ord Id 필요
         // 3. cart delete : 각 강의 lecId로 for문 돌려 remove
         // 4. cpn update : 사용여부 '1'
+        //수정 사항 발생: 주문번호로 과거 주문 상세 내역 조회 시, 구매시점 가격 및 할인 정보를 남기지 않아 join해오면 오차가 있음
+        //결과: ord_detail에 price, disc_rate column을 추가하여 구매시점 가격 및 할인 정보 insert
+        //controller에서 할 사항: 화면에서 forEach로 나열된 각 요소들을 Jquery .each로  Array에 담아 전송하면 List로 빼내어 for문 안에서
+        //ord_detail에 각 List의 index값에 해당하는 values들을 set Attribute해준 뒤, register
+        //단일 상품 바로 구매하는 url paythis도 수정 예정
+        // 5. lec table의 hit column: 수강생 수 update
+
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
 
@@ -145,12 +152,21 @@ public class LectureController {
         Integer ordId = ordService.getLastOrdId();
         Integer ordPrice=ord.getOrdPrice();
 
-        log.info("여기"+lecId.toString());
-        for(Integer lecid:lecId){
+        log.info("여기lecId여기"+lecId.toString());
+        log.info("discRate여기"+discRate.toString());
+        log.info("여기price여기"+price.toString());
+
+        for(int i=0;i <lecId.size();i++) {
             OrdDetail ordDetail = new OrdDetail();
+            Lec lec = lecService.get(lecId.get(i));
+            int hit = lec.getHit();
+            lec.setHit(hit+1);
+            lecService.modify(lec);
+            ordDetail.setLecId(lecId.get(i));
+            ordDetail.setPrice(price.get(i));
+            ordDetail.setDiscRate(discRate.get(i));
             ordDetail.setOrdId(ordId);
-            ordDetail.setLecId(lecid);
-            log.info("여기"+ordDetail.toString());
+            log.info("여기" + ordDetail.toString());
             ordDetailService.register(ordDetail);
         }
 
@@ -173,12 +189,13 @@ public class LectureController {
     }
 
     @RequestMapping("/paythis")
-    public String paythis(Integer lecId, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
+    public String paythis(Integer lecId, Integer price, Integer discRate, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
         //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
         // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
         // 2. ord_detail insert ( 각 강의별로 생성 ) : 각 강의 lecId 필요, 방금 insert한 ord Id 필요
         // 3. cart delete : 각 강의 lecId로 for문 돌려 remove XXXXXXXX 바로구매는 카트에서 안 지워요~~~
         // 4. cpn update : 사용여부 '1'
+
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
 
@@ -189,9 +206,18 @@ public class LectureController {
         Integer ordPrice=ord.getOrdPrice();
 
         log.info("여기"+lecId.toString());
+        Lec lec = lecService.get(lecId);
+        log.info("-------------------------------------------------------------------------------");
+        int hit = lec.getHit();
+        log.info("-------------------------------------------------------------------------------");
+        lec.setHit(hit+1);
+        log.info("-------------------------------------------------------------------------------");
+        lecService.modify(lec);
         OrdDetail ordDetail = new OrdDetail();
         ordDetail.setOrdId(ordId);
         ordDetail.setLecId(lecId);
+        ordDetail.setPrice(price);
+        ordDetail.setDiscRate(discRate);
         log.info("여기"+ordDetail.toString());
         ordDetailService.register(ordDetail);
 
@@ -208,8 +234,13 @@ public class LectureController {
 
     @RequestMapping("/orddetail")
     public String orddetail(Model model, Integer id) throws Exception {
-        Lec lec = lecService.get(id);
-        model.addAttribute("lec",lec);
+        log.info("여기아이디"+id);
+        Ord ord = (Ord) ordService.get(id);
+        log.info("여기Ord잇다"+ord.toString());
+        List<OrdDetail> list = new ArrayList<>();
+        list =  ordDetailService.getByOrd(id);
+        model.addAttribute("ord",ord);
+        model.addAttribute("list", list);
         model.addAttribute("center", dir+"orddetail");
         return "index";
     }

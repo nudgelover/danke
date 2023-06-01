@@ -5,9 +5,10 @@
 <mapper namespace="com.myservice.mapper.OrdDetailMapper">
     <select id="getByOrd" parameterType="Integer" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -18,9 +19,10 @@
 
     <select id="getMyOrdDetail" parameterType="String" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -30,9 +32,10 @@
 
     <select id="select" parameterType="Integer" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -42,9 +45,10 @@
 
     <select id="selectall" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, l.price AS lecPrice, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
@@ -52,8 +56,8 @@
     </select>
 
     <insert id="insert" parameterType="OrdDetail">
-        INSERT INTO ord_detail (id, lec_id, ord_id, stdy_hour)
-        VALUES (ord_detail_seq.NEXTVAL,#{lecId}, #{ordId},'0')
+        INSERT INTO ord_detail (id, lec_id, ord_id, stdy_hour, disc_rate, price)
+        VALUES (ord_detail_seq.NEXTVAL,#{lecId}, #{ordId},'0', #{discRate}, #{price})
     </insert>
 
     <update id="update" parameterType="OrdDetail">
