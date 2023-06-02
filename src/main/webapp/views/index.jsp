@@ -17,6 +17,9 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="ko" data-bs-theme-mode="light">
 <!--begin::Head-->
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
     <base href=""/>
     <title>DIGI CAMPUS</title>
     <meta charset="utf-8"/>
@@ -66,6 +69,13 @@ License: For each use you must have a valid license purchased only from above li
         }
     });
 </script>
+<style>
+    html body{
+        font-family: 'Gothic A1', sans-serif;
+        font-family: 'Nanum Gothic', sans-serif;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+</style>
 <!--end::Theme mode setup on page load-->
 <!--begin::Main-->
 <!--begin::Root-->

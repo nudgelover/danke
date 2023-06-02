@@ -16,4 +16,6 @@ public interface LecReviewMapper extends KBMapper<Integer, LecReview> {
     public void updateDelete(LecReview lecReview) throws Exception;
 
     public void updateLikes(Integer k) throws Exception;
+
+    public Integer cntLecReview(Integer lecId) throws Exception;
 }

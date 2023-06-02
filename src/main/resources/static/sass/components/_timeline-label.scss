@@ -6,7 +6,7 @@
 .timeline-label {
 	position: relative;
 
-    $label-width: 50px;
+	$label-width: 100%; /* Adjust the width as per your requirement */
 
 	&:before {
 		content: '';
@@ -18,16 +18,15 @@
 		background-color: var(--#{$prefix}gray-200);
 	}
 
-	// 
 	.timeline-item {
 		display: flex;
-        align-items: flex-start;
+		align-items: flex-start;
 		position: relative;
 		margin-bottom: 1.7rem;
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.timeline-label {
@@ -36,6 +35,8 @@
 		position: relative;
 		color: var(--#{$prefix}gray-800);
 	}
+}
+
 
 	.timeline-badge {
 		flex-shrink: 0;
@@ -65,4 +66,4 @@
 	.timeline-content {
 		flex-grow: 1;
 	}
-}
+

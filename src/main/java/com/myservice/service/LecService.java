@@ -50,4 +50,8 @@ public class LecService implements KBService<Integer, Lec> {
     public List<Lec> search(LecSearch ls) throws Exception{
         return mapper.search(ls);
     }
+
+    public List<Lec> getRank() throws Exception{
+        return mapper.getRank();
+    }
 }

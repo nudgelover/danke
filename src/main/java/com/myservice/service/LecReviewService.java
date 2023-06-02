@@ -55,6 +55,9 @@ public class LecReviewService implements KBService<Integer, LecReview> {
         mapper.updateLikes(k);
     }
 
+    public Integer cntLecReview(Integer lecId) throws Exception{
+        return mapper.cntLecReview(lecId);
+    }
 
 
 }

@@ -42720,7 +42720,7 @@ code:not([class*=language-]) {
 .timeline-label:before {
   content: "";
   position: absolute;
-  left: 51px;
+  left: 50%;
   width: 3px;
   top: 0;
   bottom: 0;
@@ -42736,7 +42736,7 @@ code:not([class*=language-]) {
   margin-bottom: 0;
 }
 .timeline-label .timeline-label {
-  width: 50px;
+  width: 50%;
   flex-shrink: 0;
   position: relative;
   color: var(--bs-gray-800);
@@ -42765,7 +42765,7 @@ code:not([class*=language-]) {
   background-color: var(--bs-gray-200);
 }
 .timeline-label .timeline-content {
-  flex-grow: 1;
+  flex-grow: 0;
 }
 
 .overlay {
@@ -42780,7 +42780,7 @@ code:not([class*=language-]) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--bs-overlay-bg);
+  background-color: rgba(0, 0, 0, 0.8);
   transition: all 0.3s ease;
   opacity: 0;
 }

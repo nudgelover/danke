@@ -23,7 +23,10 @@ public class LecReview {
     private String upReview;
     private int likes;
 
+    private Integer cnt;
+    private String stdnImg;
     private MultipartFile imgfile;
+
 
     //Insert
     public LecReview(Integer lecId, String stdnId, String title, String contents, double rating, String img, String upReview) {

@@ -37,7 +37,7 @@
 
     <update id="update" parameterType="Ord">
         UPDATE ord
-        SET is_done='2', upd_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        SET is_done='0', upd_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
         WHERE id=#{id}
     </update>
 

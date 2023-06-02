@@ -39,6 +39,12 @@ public class LectureController {
     @Autowired
     OrdDetailService ordDetailService;
 
+    @Autowired
+    LecReviewService lecReviewService;
+
+    @Autowired
+    CurriService curriService;
+
     @RequestMapping("/all")
     public String all(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Lec> p;
@@ -48,6 +54,9 @@ public class LectureController {
             e.printStackTrace();
             throw new Exception();
         }
+        List <Lec> rank = lecService.getRank();
+
+        model.addAttribute("rank", rank);
         model.addAttribute("target","lecture");
         model.addAttribute("cpage",p);
         model.addAttribute("center",dir+"all");
@@ -56,8 +65,12 @@ public class LectureController {
 
     @RequestMapping("/detail")
     public String detail(Model model, Integer id) throws Exception {
+        int cnt = lecReviewService.cntLecReview(id);
+        List<LecReview> list = lecReviewService.getLecReview(id);
         Lec lec = lecService.get(id);
+        model.addAttribute("list", list);
         model.addAttribute("lec",lec);
+        model.addAttribute("cnt", cnt);
         model.addAttribute("center", dir+"detail");
         return "index";
     }
@@ -207,11 +220,8 @@ public class LectureController {
 
         log.info("여기"+lecId.toString());
         Lec lec = lecService.get(lecId);
-        log.info("-------------------------------------------------------------------------------");
         int hit = lec.getHit();
-        log.info("-------------------------------------------------------------------------------");
         lec.setHit(hit+1);
-        log.info("-------------------------------------------------------------------------------");
         lecService.modify(lec);
         OrdDetail ordDetail = new OrdDetail();
         ordDetail.setOrdId(ordId);
@@ -242,6 +252,14 @@ public class LectureController {
         model.addAttribute("ord",ord);
         model.addAttribute("list", list);
         model.addAttribute("center", dir+"orddetail");
+        return "index";
+    }
+
+    @RequestMapping("/curri")
+    public String curri(Model model, String id) throws Exception {
+        List<Curri> list = curriService.getMyCurri(id);
+        model.addAttribute("curri",list);
+        model.addAttribute("center", dir+"curri");
         return "index";
     }
 

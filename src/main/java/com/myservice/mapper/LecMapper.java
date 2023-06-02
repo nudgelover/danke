@@ -17,4 +17,5 @@ public interface LecMapper extends KBMapper<Integer, Lec> {
 
     public List<Lec> search(LecSearch ls) throws Exception;
 
+    public List<Lec> getRank() throws Exception;
 }

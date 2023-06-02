@@ -3,34 +3,62 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.LecMapper">
+    <select id="getRank" resultType="Lec">
+        SELECT *
+        FROM (
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher
+        , l.topic, l.target, l.rdate, l.length, l.price, l.img
+        , l.disc_rate AS discRate, l.is_delete AS isDelete
+        , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
+        FROM lec l
+        LEFT JOIN lec_review lr ON l.id = lr.lec_id
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
+        , l.topic, l.target, l.rdate, l.length, l.price, l.img
+        , l.disc_rate, l.is_delete, l.del_date, l.hit
+        ORDER BY l.hit DESC
+        )
+        WHERE ROWNUM &lt;= 9
+    </select>
+
 
     <select id="select" parameterType="Integer" resultType="Lec">
-        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
-             , topic, target, rdate, length, rating, price, img
-             , disc_rate AS discRate, is_delete AS isDelete
-             , del_date AS delDate, hit
-        FROM lec
-        WHERE id=#{id}
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher
+             , l.topic, l.target, l.rdate, l.length, l.price, l.img
+             , l.disc_rate AS discRate, l.is_delete AS isDelete
+             , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id
+        WHERE l.id=#{id}
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
+               , l.topic, l.target, l.rdate, l.length, l.price, l.img
+               , l.disc_rate, l.is_delete, l.del_date, l.hit
     </select>
+
     <select id="selectall" resultType="Lec">
-        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
-             , topic, target, rdate, length, rating, price, img
-             , disc_rate AS discRate, is_delete AS isDelete
-             , del_date AS delDate, hit
-        FROM lec
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher
+             , l.topic, l.target, l.rdate, l.length, l.price, l.img
+             , l.disc_rate AS discRate, l.is_delete AS isDelete
+             , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
+               , l.topic, l.target, l.rdate, l.length, l.price, l.img
+               , l.disc_rate, l.is_delete, l.del_date, l.hit
+        ORDER BY l.id DESC
     </select>
+
     <insert id="insert" parameterType="Lec">
         INSERT INTO lec (id, adm_id, lec_code, title, teacher, topic, target
-                        , rdate, length, rating, price, img, disc_rate, is_delete, del_date, hit)
+                        , rdate, length, price, img, disc_rate, is_delete, del_date, hit)
         VALUES (lec_seq.NEXTVAL, #{admId},#{lecCode}, #{title}, #{teacher}, #{topic}
-               , #{target}, TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), #{length}, 0, #{price}, #{img}, 0
+               , #{target}, TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), #{length}, #{price}, #{img}, 0
                , '0', null, 0)
     </insert>
     <!--    초기 insert시 별점, 할인률, 삭제여부 0, 삭제날짜 0, 수강생수 0으로 설정함.-->
     <update id="update" parameterType="Lec">
         UPDATE lec
         SET lec_code=#{lecCode}, title=#{title}, teacher=#{teacher}, topic=#{topic}, target=#{target}
-          , rdate = TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), length=#{length}, rating=#{rating}, price=#{price}
+          , rdate = TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'), length=#{length}, price=#{price}
           , img=#{img}, disc_rate=#{discRate}, is_delete=#{isDelete}, del_date=#{delDate, jdbcType=NULL}, hit=#{hit}
         WHERE id=#{id}
     </update>
@@ -66,11 +94,17 @@
     </select>
 
     <select id="getpage" resultType="lec">
-        SELECT id, adm_id AS admId, lec_code AS lecCode, title, teacher
-             , topic, target, rdate, length, rating, price, img
-             , disc_rate AS discRate, is_delete AS isDelete
-             , del_date AS delDate, hit
-        FROM lec ORDER BY id DESC
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher,
+               l.topic, l.target, l.rdate, l.length, l.price, l.img,
+               l.disc_rate AS discRate, l.is_delete AS isDelete,
+               l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
+               SUM(lr.rating)/COUNT(lr.id) AS rating
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
+                 l.topic, l.target, l.rdate, l.length, l.price, l.img,
+                 l.disc_rate, l.is_delete, l.del_date, l.hit
+        ORDER BY l.id DESC
     </select>
 
 </mapper>

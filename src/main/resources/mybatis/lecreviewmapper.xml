@@ -3,36 +3,52 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.LecReviewMapper">
+    <select id="cntLecReview" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(id) AS cnt
+        FROM lec_review
+        WHERE lec_id=#{lecId}
+    </select>
+
+
+    <select id="cntLecReview" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(id) AS cnt
+        FROM lec_review
+        WHERE lec_id=#{lecId}
+    </select>
 
     <select id="getMyLecReview" parameterType="String" resultType="lecReview">
-        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
-             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
-             , up_review AS upReview, likes
-        FROM lec_review
-        WHERE stdn_id=#{stdnId}
+        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
+             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
+             , l.up_review AS upReview, l.likes, s.img AS stdnImg
+        FROM lec_review l, stdn s
+        WHERE l.stdn_id=s.id
+        AND stdn_id=#{stdnId}
     </select>
 
     <select id="getLecReview" parameterType="Integer" resultType="lecReview">
-        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
-             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
-             , up_review AS upReview, likes
-        FROM lec_review
-        WHERE lec_id=#{lec_id}
+        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
+             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
+             , l.up_review AS upReview, l.likes, s.img AS stdnImg
+        FROM lec_review l, stdn s
+        WHERE l.stdn_id=s.id
+        AND lec_id=#{lec_id}
     </select>
 
     <select id="select" parameterType="Integer" resultType="lecReview">
-        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
-             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
-             , up_review AS upReview, likes
-        FROM lec_review
-        WHERE id=#{id}
+        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
+             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
+             , l.up_review AS upReview, l.likes, s.img AS stdnImg
+        FROM lec_review l, stdn s
+        WHERE l.stdn_id=s.id
+        AND id=#{id}
     </select>
 
     <select id="selectall" resultType="lecReview">
-        SELECT id, lec_id AS lecId, stdn_id AS stdnId, title, contents
-             , rdate, rating, img, is_delete AS isDelete, del_date AS delDate
-             , up_review AS upReview, likes
-        FROM lec_review
+        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
+             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
+             , l.up_review AS upReview, l.likes, s.img AS stdnImg
+        FROM lec_review l, stdn s
+        WHERE l.stdn_id=s.id
     </select>
 
     <insert id="insert" parameterType="lecReview">

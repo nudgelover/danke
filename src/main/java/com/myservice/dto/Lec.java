@@ -18,13 +18,15 @@ public class Lec {
     private String target;
     private String rdate;
     private String length;
-    private double rating;
     private Integer price;
     private String img;
     private Integer discRate;
     private String isDelete;
     private String delDate;
     private Integer hit;
+
+    private Integer cnt;
+    private double rating;
 
     public Lec(Integer id, String admId, Integer lecCode, String title, String teacher, String topic, String target, String rdate, String length, double rating, Integer price, String img, Integer discRate, String isDelete, String delDate, Integer hit) {
         this.id = id;
