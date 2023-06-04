@@ -30,14 +30,14 @@
 
     <!--stdn본인 수정-->
     <update id="update" parameterType="stdn">
-        UPDATE stdn SET name=#{name}, email=#{email}
-                      , contact=#{contact}, img=#{img}
-                      , birthday=#{birthday}, is_subsc=#{isSubsc}
-                      , cpn=#{cpn},last_visit=#{lastVisit}
-                      , is_join=#{isJoin}, sbj1=#{sbj1}
-                      , sbj2=#{sbj2}, sbj3=#{sbj3}
-                      , login_error=#{loginError}
-        WHERE id=#{id}
+        UPDATE stdn
+        SET email=#{email}
+          , contact=#{contact}
+          , img=#{img}
+          , sbj1=#{sbj1}
+          , sbj2=#{sbj2}
+          , sbj3=#{sbj3}
+        WHERE id = #{id}
     </update>
 
     <!--비밀번호 암호화 처리 때문에 Update 따로 뺌-->

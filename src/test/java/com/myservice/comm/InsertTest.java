@@ -19,7 +19,7 @@ class InsertTest {
         Comm obj = new Comm(101,"comment1","id001");
         Comm obj2 = new Comm(101,"comment2","id001");
         Comm obj3 = new Comm(201,"comment3","id001");
-        Comm obj4 = new Comm(101,"comment4","id002");
+        Comm obj4 = new Comm(14,"comment","id001");
         try {
             service.register(obj4);
             log.info("register OK--------------------------------");

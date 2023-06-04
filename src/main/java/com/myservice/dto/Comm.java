@@ -19,6 +19,7 @@ public class Comm {
     private String stdnName;
     private String stdnImg;
 
+
     //Insert
     public Comm(int postId, String contents, String stdnId) {
         this.postId = postId;
@@ -31,4 +32,6 @@ public class Comm {
         this.id = id;
         this.contents = contents;
     }
+
+
 }

@@ -32,4 +32,14 @@ public class MyPage {
         this.insta = insta;
         this.facebook = facebook;
     }
+
+    public MyPage(String id, String mbti, String comdate, String digidate, String detail, String insta, String facebook) {
+        this.id = id;
+        this.mbti = mbti;
+        this.comdate = comdate;
+        this.digidate = digidate;
+        this.detail = detail;
+        this.insta = insta;
+        this.facebook = facebook;
+    }
 }

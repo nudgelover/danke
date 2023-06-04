@@ -103,7 +103,7 @@
                     </div>
                     <!--begin::Row-->
                     <div class="row row-cols-2 g-0">
-                        <a href="/mypage"
+                        <a href="/mypage?id=${loginStdn.id}"
                            class="border-bottom border-end text-center py-10 btn btn-active-color-primary rounded-0">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-3x me-n1">
