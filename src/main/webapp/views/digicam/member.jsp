@@ -211,7 +211,7 @@
                             </div>
                             <!--end::Wrapper-->
                             <!--begin::Name-->
-                            <a href="/digicam/mypage?id=${obj.id}"
+                            <a href="/mypage?id=${obj.id}"
                                class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${obj.name}</a>
                             <!--end::Name-->
                             <!--begin::Position-->

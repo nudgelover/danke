@@ -19,6 +19,7 @@ public class Blah {
     private String rdate;
     private int likes;
     private List<Comm> commList;
+    private int commentCount;
 
     // Getter and Setter methods for other fields
 
@@ -36,6 +37,11 @@ public class Blah {
         }
         commList.add(comm);
     }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commList != null ? commList.size() : 0;
+    }
+
     //insert
     public Blah(String stdnId, String contents) {
         this.stdnId = stdnId;
@@ -49,8 +55,9 @@ public class Blah {
     }
 
     //like Update
-    public Blah(int id, int likes) {
+    public Blah(int id) {
         this.id = id;
-        this.likes = likes;
     }
+
+
 }

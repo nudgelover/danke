@@ -1,7 +1,9 @@
-package com.myservice.stdn;
+package com.myservice.mypage;
 
 
+import com.myservice.dto.MyPage;
 import com.myservice.dto.Stdn;
+import com.myservice.service.MyPageService;
 import com.myservice.service.StdnService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,11 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class UpdateTest {
 
     @Autowired
-    StdnService service;
+    MyPageService service;
 
     @Test
     void contextLoads() {
-        Stdn obj = new Stdn("id001", "kim@naver.com","2.jpg","1990/10/13", "JAVA", "C++", "C#");
+        MyPage obj = new MyPage("id001", "ISTJ","2023-05-01","20220201", "TEST", "NO", "NO");
 
         try {
             service.modify(obj);

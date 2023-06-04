@@ -2,48 +2,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
-    #register_btn {
+    #add_comm, #register_btn {
         margin-right: 10px;
         font-weight: bold;
-    }
-
-    .bi-trash {
-        color: gray; /* Set the default color to gray */
-        transition: color 0.3s; /* Add a smooth transition effect */
-    }
-
-    .bi-trash:hover {
-        color: #20D489; /* Change the color to red on hover */
     }
 
 
 </style>
 <script>
     $(document).ready(function () {
-
             function checkEditorContent() {
                 const quillContent = $('.ql-editor').html().trim();
                 // console.log(quillContent);
                 if (quillContent === '<p><br></p>') {
                     // ql-editor is empty
                     $('#register_btn').css('cursor', 'default');
-                    $('#register_btn').css('transition', 'color 0.3s');
                     $('#register_btn').css('color', '#6c757d');
                 } else {
                     // ql-editor has content
                     $('#register_btn').css('cursor', 'pointer');
-                    $('#register_btn').css('transition', 'color 0.3s');
                     $('#register_btn').css('color', '#20D489');
                 }
             }
 
+            function commContent() {
+                const contents = document.getElementById("commcontents").value;
 
+                if (contents === '' || contents == null) {
+                    // ql-editor is empty
+                    $('#add_comm').css('cursor', 'default');
+                    $('#add_comm').css('color', '#6c757d');
+                } else {
+                    // ql-editor has content
+                    $('#add_comm').css('cursor', 'pointer');
+                    $('#add_comm').css('color', '#20D489');
+                }
+            }
+
+            commContent();
+
+            // Call checkEditorContent on page load
             checkEditorContent();
-
+            commContent();
 
             // Call checkEditorContent when the content changes
             $('.ql-editor').on('keyup', checkEditorContent);
-
+            $('#commcontents').on('keyup', commContent);
 
             $('#register_btn').click(function (e) {
                 //content 글자 제한 하기, 아무내용 없을때 게시 버튼 비활성화.    수정 삭제버튼
@@ -74,7 +78,7 @@
                 formData.append('contents', outerDiv.innerHTML);
                 // 입력된 값 출력
                 formData.forEach(function (value, key) {
-                    console.log('Input:', key, value);
+                    // console.log('Input:', key, value);
                 });
 
 
@@ -95,18 +99,15 @@
                 });
             });
 
-            $('[id^="add_comm_"]').on('click', function () {
-                const postId = $(this).closest('form').find('input[name="postId"]').val();
-                // console.log(postId+'postid')
-                const contents = $(this).closest('form').find('textarea[name="contents"]').val();
-                // console.log(contents+'contents')
 
+            $('#add_comm').on('click', function () {
+                const contents = document.getElementById("commcontents").value
                 if (contents == '' || contents == null) {
                     $('#kt_modal_1_alert').modal('show');
-                    return;
+                    return
                 }
-
-                var formData = new FormData($('#comm_from_' + postId)[0]);
+                // Create a new FormData object
+                var formData = new FormData($('#comm_from')[0]);
 
 
                 formData.forEach(function (value, key) {
@@ -129,18 +130,11 @@
                 });
             });
 
-            $('[id^="likeButton_"]').click(function (e) {
-                e.preventDefault();
-                const path = $(this).find('path');
-                // const currentColor = $(this).css('color');
-
-                if (path.attr('fill') === 'currentColor') {
-                    path.attr('fill', 'red');
-                } else {
-                    path.attr('fill', 'currentColor');
-                }
+            $('#del_com').on('click', function () {
+                alert('h1');
+                var id = $(this).data('comid');
+                location.href = "/blah/deletecom?id=" + id;
             });
-
         }
     )
     ;
@@ -155,15 +149,15 @@
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
                 <h3 class="text-dark fw-bold my-1">Blah Blah</h3>
-                <%--                <p>대댓글 미구현</p>--%>
-                <%--                <p>editor에 사진올리는 기능도 있는데.. DB를 col로 바꿔야한다 </p>--%>
+                <p>트위터 5분지나면 수정 안됨 ^^ 그래서 안만들거임~ ㅎㅎ 혹은 마이페이지에서..</p>
+                <p>댓글 추가 삭제기능 수정기능 X</p>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/blah" class="btn btn-active-accent active fw-bold">Blah Blah</a>
-                <a href="/myblah" class="btn btn-active-accent fw-bold ms-3">MY Blah</a>
+                <a href="/myblah" class="btn btn-active-accent active fw-bold">Blah Blah</a>
                 <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>
                 <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
             </div>
@@ -217,7 +211,6 @@
                                         <button class="ql-bold"></button>
                                         <button class="ql-italic"></button>
                                         <button class="ql-underline"></button>
-                                        <button class="ql-image"></button>
                                         <button class="ql-clean"></button>
 
 
@@ -255,15 +248,18 @@
 
                                     <div class="d-flex flex-column flex-grow-1">
                                         <a href="/digicam/mypage?id=${obj.stdnId}"
-                                           class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">
-                                                ${obj.name} <span
-                                                style="color: gray;font-weight: 200">@ ${obj.stdnId}</span>
-                                        </a>
+                                           class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">${obj.name}(${obj.stdnId})</a>
                                         <span class="text-muted fw-semibold">${obj.rdate}</span>
                                     </div>
                                     <c:if test="${obj.stdnId == loginStdn.id}">
-                                        <i class="bi-trash" class="btn btn-active-accent active fw-bold"
-                                           data-bs-toggle="modal" data-bs-target="#kt_modal_1_${obj.id}"></i>
+                                        <a href="#" class="btn btn-active-accent active fw-bold"
+                                           onclick="showEditForm('${obj.id}')">Edit</a>
+
+
+                                        <a style="margin-left: 10px" href="#"
+                                           class="btn btn-active-accent active fw-bold"
+                                           data-bs-toggle="modal" data-bs-target="#kt_modal_1_${obj.id}"
+                                        >Delete</a>
                                     </c:if>
                                     <!--end::Info-->
                                 </div>
@@ -275,8 +271,7 @@
                                     <!--end::Text-->
                                     <!--begin::Action-->
                                     <div class="d-flex align-items-center">
-                                        <a href="#" data-bs-toggle="modal"
-                                           data-bs-target="#kt_modal_scrollable_2_${obj.id}"
+                                        <a href="#"
                                            class="btn btn-sm btn-color-muted btn-active-light-primary fw-bold">
                                             <!--begin::Svg Icon | path: icons/duotune/communication/com012.svg-->
                                             <span class="svg-icon svg-icon-3 pe-2">
@@ -293,7 +288,7 @@
 														</span>
                                                 ${obj.commentCount}
                                         </a>
-                                        <a href="#" id="likeButton_${obj.id}"
+                                        <a href="#"
                                            class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
                                             <span class="svg-icon svg-icon-3 pe-1">
@@ -307,174 +302,81 @@
                                     </div>
                                     <!--end::Action-->
                                 </div>
-                                    <%--전체댓글 모달--%>
-                                <div class="modal fade" tabindex="-1" id="kt_modal_scrollable_2_${obj.id}">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">전체 댓글 보기${obj.id}</h5>
-
-                                                <!--begin::Close-->
-                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                     data-bs-dismiss="modal" aria-label="Close">
-                                                    <span class="svg-icon svg-icon-2x"></span>
-                                                </div>
-                                                <!--end::Close-->
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <c:forEach var="comment" items="${obj.commList}" varStatus="status">
-                                                    <div class="d-flex py-5">
-                                                        <!--begin::Symbol-->
-                                                        <div class="symbol symbol-40px me-5">
-            <span class="symbol-label bg-light align-items-end">
-                <img alt="Logo" src="/uimg/${comment.stdnImg}" class="mh-35px"/>
-            </span>
-                                                        </div>
-                                                        <!--end::Symbol-->
-                                                        <!--begin::Info-->
-                                                        <div class="d-flex flex-column flex-row-fluid">
-                                                            <!--begin::Info-->
-                                                            <div class="d-flex align-items-center flex-wrap">
-                                                                <a href="#"
-                                                                   class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">${comment.stdnName}</a>
-                                                                <span class="text-muted fw-normal flex-grow-1 fs-7">${comment.rdate}</span>
-                                                                    <%--                                                <a href="#"--%>
-                                                                    <%--                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>--%>
-                                                                <c:if test="${comment.stdnId == loginStdn.id}">
-                                                                    <a style="margin-left: 10px" href="#"
-                                                                       class="text-muted text-hover-primary fw-normal fs-7"
-                                                                       data-bs-toggle="modal"
-                                                                       data-bs-target="#kt_modal_1_com_${comment.id}"
-                                                                    >Delete</a>
-                                                                </c:if>
-                                                            </div>
-                                                            <span class="text-gray-800 fs-7 fw-normal pt-1">${comment.contents}</span>
-                                                            <!--end::Info-->
-                                                        </div>
-                                                        <!--end::Info-->
-                                                    </div>
-                                                    <div class="modal fade" tabindex="-1"
-                                                         id="kt_modal_1_com_${comment.id}">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h3 class="modal-title">Warning⚠️</h3>
-
-                                                                    <!--begin::Close-->
-                                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                                         data-bs-dismiss="modal" aria-label="Close">
-                                                                        <span class="svg-icon svg-icon-1"></span>
-                                                                    </div>
-                                                                    <!--end::Close-->
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    <p>댓글을 정말로 삭제하시겠습니까?</p>
-                                                                </div>
-
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light"
-                                                                            data-bs-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                    <a href="/blah/deletecom?id=${comment.id}"
-                                                                       class="btn btn-light">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <!--end::Body-->
                                 <!--begin::Separator-->
                                 <div class="separator pt-4"></div>
                                 <!-- ... 이전 코드 생략 ... -->
                                 <!--begin::Comment-->
-                                <c:forEach var="comment" items="${obj.commList}" varStatus="status">
-                                    <c:if test="${status.index < 2}">
-                                        <div class="d-flex py-5">
-                                            <!--begin::Symbol-->
-                                            <div class="symbol symbol-40px me-5">
+                                <c:forEach var="comment" items="${obj.commList}">
+                                    <div class="d-flex py-5">
+                                        <!--begin::Symbol-->
+                                        <div class="symbol symbol-40px me-5">
             <span class="symbol-label bg-light align-items-end">
                 <img alt="Logo" src="/uimg/${comment.stdnImg}" class="mh-35px"/>
             </span>
-                                            </div>
-                                            <!--end::Symbol-->
+                                        </div>
+                                        <!--end::Symbol-->
+                                        <!--begin::Info-->
+                                        <div class="d-flex flex-column flex-row-fluid">
                                             <!--begin::Info-->
-                                            <div class="d-flex flex-column flex-row-fluid">
-                                                <!--begin::Info-->
-                                                <div class="d-flex align-items-center flex-wrap">
-                                                    <a href="#"
-                                                       class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">${comment.stdnName}</a>
-                                                    <span class="text-muted fw-normal flex-grow-1 fs-7">${comment.rdate}</span>
-                                                        <%--                                                <a href="#"--%>
-                                                        <%--                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>--%>
-                                                    <c:if test="${comment.stdnId == loginStdn.id}">
-                                                        <a style="margin-left: 10px" href="#"
-                                                           class="text-muted text-hover-primary fw-normal fs-7"
-                                                           data-bs-toggle="modal"
-                                                           data-bs-target="#kt_modal_1_com_${comment.id}"
-                                                        >Delete</a>
-                                                    </c:if>
-                                                </div>
-                                                <span class="text-gray-800 fs-7 fw-normal pt-1">${comment.contents}</span>
-                                                <!--end::Info-->
+                                            <div class="d-flex align-items-center flex-wrap">
+                                                <a href="#"
+                                                   class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold pe-6">${comment.stdnName}</a>
+                                                <span class="text-muted fw-normal flex-grow-1 fs-7">${comment.rdate}</span>
+                                                <a href="#"
+                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>
+                                                    <%--                                                <a style="margin-left: 10px" href="#"--%>
+                                                    <%--                                                   class="text-muted text-hover-primary fw-normal fs-7"--%>
+                                                    <%--&lt;%&ndash;                                                   data-bs-toggle="modal"&ndash;%&gt;--%>
+                                                    <%--&lt;%&ndash;                                                   data-bs-target="#kt_modal_1_com_${comment.id}"&ndash;%&gt;--%>
+                                                    <%--                                                >Delete</a>--%>
                                             </div>
+                                            <span class="text-gray-800 fs-7 fw-normal pt-1">${comment.contents}</span>
                                             <!--end::Info-->
                                         </div>
-                                        <div class="modal fade" tabindex="-1" id="kt_modal_1_com_${comment.id}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h3 class="modal-title">Warning⚠️</h3>
+                                        <!--end::Info-->
+                                    </div>
+                                    <%--                                    <div class="modal fade" tabindex="-1" id="kt_modal_1_com_${comment.id}">--%>
+                                    <%--                                        <div class="modal-dialog">--%>
+                                    <%--                                            <div class="modal-content">--%>
+                                    <%--                                                <div class="modal-header">--%>
+                                    <%--                                                    <h3 class="modal-title">Warning⚠️</h3>--%>
 
-                                                        <!--begin::Close-->
-                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                             data-bs-dismiss="modal" aria-label="Close">
-                                                            <span class="svg-icon svg-icon-1"></span>
-                                                        </div>
-                                                        <!--end::Close-->
-                                                    </div>
+                                    <%--                                                    <!--begin::Close-->--%>
+                                    <%--                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"--%>
+                                    <%--                                                         data-bs-dismiss="modal" aria-label="Close">--%>
+                                    <%--                                                        <span class="svg-icon svg-icon-1"></span>--%>
+                                    <%--                                                    </div>--%>
+                                    <%--                                                    <!--end::Close-->--%>
+                                    <%--                                                </div>--%>
 
-                                                    <div class="modal-body">
-                                                        <p>댓글을 정말로 삭제하시겠습니까?</p>
-                                                    </div>
+                                    <%--                                                <div class="modal-body">--%>
+                                    <%--                                                    <p>정말로 삭제하시겠습니까?</p>--%>
+                                    <%--                                                </div>--%>
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-light"
-                                                                data-bs-dismiss="modal">
-                                                            Close
-                                                        </button>
-                                                        <a href="/blah/deletecom?id=${comment.id}"
-                                                           class="btn btn-light">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:if>
+                                    <%--                                                <div class="modal-footer">--%>
+                                    <%--                                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">--%>
+                                    <%--                                                        Close--%>
+                                    <%--                                                    </button>--%>
+                                    <%--&lt;%&ndash;                                                    <button id="del_com" data-comid="${comment.id}" type="button"&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;                                                            class="btn btn-primary"&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;                                                            data-dismiss="modal">Delete&ndash;%&gt;--%>
+                                    <%--&lt;%&ndash;                                                    </button>&ndash;%&gt;--%>
+                                    <%--                                                </div>--%>
+                                    <%--                                            </div>--%>
+                                    <%--                                        </div>--%>
+                                    <%--                                    </div>--%>
                                 </c:forEach>
                                 <!--end::Separator-->
                                 <!--begin::Editor-->
-                                <form id="comm_from_${obj.id}"
-                                      class="position-relative py-4 d-flex align-items-center pb-5">
+                                <form id="comm_from" class="position-relative py-4 d-flex align-items-center pb-5">
                                     <input type="hidden" name="stdnId" value="${loginStdn.id}">
                                     <input type="hidden" name="postId" value="${obj.id}">
-                                    <textarea id="commcontents${obj.id}" name="contents"
+                                    <textarea id="commcontents" name="contents" data-kt-autosize="true"
                                               class="form-control min-h-auto border-0 p-0 pe-10 resize-none" rows="1"
-                                              placeholder="Reply..." onkeyup="checkTextareaEmpty(${obj.id})"></textarea>
+                                              placeholder="Reply..."></textarea>
                                     <div class="position-absolute top-0 end-0 mt-2 me-n3">
-                                        <span style="color: #6c757d; font-weight: bold"
-                                              id="add_comm_${obj.id}">게시</span>
+                                        <span id="add_comm">게시</span>
                                     </div>
                                 </form>
                                 <!--edit::Editor-->
@@ -498,13 +400,16 @@
                                     </div>
 
                                     <div class="modal-body">
-                                        <p>게시글을 정말로 삭제하시겠습니까?</p>
+                                        <p>게시글을 정말로 삭제하시겠습니까?${obj.id}</p>
                                     </div>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close
                                         </button>
-                                        <a class="btn btn-primary" href="/blah/delete?id=${obj.id}">Delete</a>
+                                        <button id="delete_btn" data-id="${obj.id}" type="button"
+                                                class="btn btn-primary"
+                                                data-dismiss="modal">Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -518,9 +423,8 @@
                 <!--end::List Widget 2-->
             </div>
         </div>
+        <!--End::Row-->
     </div>
-    <!--End::Row-->
-    <%--    </div>--%>
     <!--end::Content-->
 </div>
 <!--end::Main-->
@@ -548,24 +452,7 @@
         </div>
     </div>
 </div>
-<script>
-    // keyup 이벤트 핸들러 함수
-    function checkTextareaEmpty(objId) {
-        var textarea = document.getElementById('commcontents' + objId);
-        var addButton = document.getElementById('add_comm_' + objId);
 
-        if (textarea.value.trim() !== '') {
-            addButton.style.color = '#20D489'; // 입력된 경우 초록색으로 변경
-            addButton.style.transition = 'color 0.3s';
-            addButton.style.cursor = 'pointer';
-        } else {
-            addButton.style.color = '#6c757d'; // 입력되지 않은 경우 회색으로 변경
-            addButton.style.transition = 'color 0.3s';
-        }
-    }
-
-
-</script>
 
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>

@@ -3,13 +3,11 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.MyPageMapper">
-<!--    <select id="select" parameterType="string" resultType="mypage">-->
-<!--        SELECT id, pwd, name, email, contact, img, birthday, is_subsc AS isSubsc-->
-<!--             , cpn, is_exit AS isExit, exit_date AS exitDate, last_visit AS lastVisit-->
-<!--             , is_join AS isJoin, sbj1, sbj2, sbj3, login_error AS loginError-->
-<!--        FROM stdn-->
-<!--        WHERE ID=#{id}-->
-<!--    </select>-->
+    <select id="select" parameterType="string" resultType="mypage">
+        SELECT id, mbti, comdate, digidate, rdate, detail, insta, facebook
+        FROM my_page
+        WHERE ID=#{id}
+    </select>
     <select id="selectall" resultType="mypage">
         SELECT s.id,
                s.name,
@@ -25,27 +23,21 @@
                m.insta,
                m.facebook
         FROM stdn s
-                 JOIN mypage m ON s.id = m.id
+                 JOIN my_page m ON s.id = m.id
     </select>
 
     <insert id="insert" parameterType="mypage">
-        INSERT INTO mypage (id, mbti, comdate, digidate, rdate, detail, insta, facebook)
+        INSERT INTO my_page (id, mbti, comdate, digidate, rdate, detail, insta, facebook)
         VALUES (#{id}, #{mbti}, #{comdate, jdbcType=DATE}, #{digidate}, SYSDATE, #{detail}, #{insta}, #{facebook})
     </insert>
 
-
-
-    <!--    &lt;!&ndash;stdn본인 수정&ndash;&gt;-->
-<!--    <update id="update" parameterType="stdn">-->
-<!--        UPDATE stdn SET name=#{name}, email=#{email}-->
-<!--                      , contact=#{contact}, img=#{img}-->
-<!--                      , birthday=#{birthday}, is_subsc=#{isSubsc}-->
-<!--                      , cpn=#{cpn},last_visit=#{lastVisit}-->
-<!--                      , is_join=#{isJoin}, sbj1=#{sbj1}-->
-<!--                      , sbj2=#{sbj2}, sbj3=#{sbj3}-->
-<!--                      , login_error=#{loginError}-->
-<!--        WHERE id=#{id}-->
-<!--    </update>-->
+        <!--stdn본인 수정-->
+    <update id="update" parameterType="mypage">
+        UPDATE my_page SET mbti=#{mbti}, comdate=#{comdate}
+                      , digidate=#{digidate}, detail=#{detail}
+                      , insta=#{insta}, facebook=#{facebook}
+        WHERE id=#{id}
+    </update>
 
 <!--    &lt;!&ndash;비밀번호 암호화 처리 때문에 Update 따로 뺌&ndash;&gt;-->
 <!--    <update id="updatePwd" parameterType="stdn">-->
@@ -90,7 +82,7 @@
                m.insta,
                m.facebook
         FROM stdn s
-                 JOIN mypage m ON s.id = m.id
+                 JOIN my_page m ON s.id = m.id
         WHERE m.digidate = #{digidate}
     </select>
 </mapper>

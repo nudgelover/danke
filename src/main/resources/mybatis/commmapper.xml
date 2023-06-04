@@ -16,6 +16,7 @@
                  JOIN comm c ON b.id = c.post_id
                  JOIN stdn s ON c.stdn_id = s.id
         WHERE b.id = #{postId}
+        ORDER BY c.rdate DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="Comm">
@@ -30,19 +31,25 @@
     </select>
 
     <insert id="insert" parameterType="Comm">
-        INSERT INTO comm (id, post_id, content, rdate, stdn_id)
-        VALUES (comm_seq.NEXTVAL,#{postId},#{content},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{stdnId})
+        INSERT INTO comm (id, post_id, contents, rdate, stdn_id)
+        VALUES (comm_seq.NEXTVAL,#{postId},#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{stdnId})
     </insert>
 
-    <update id="update" parameterType="Comm">
-        UPDATE comm
-        SET content=#{content}
-        WHERE id=#{id}
-    </update>
+<!--    <update id="update" parameterType="Comm">-->
+<!--        UPDATE comm-->
+<!--        SET content=#{content}-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM comm
         WHERE id=#{id}
     </delete>
+
+    <select id="cntComm" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(id) AS cnt
+        FROM comm
+        WHERE post_id=#{postId}
+    </select>
 
 </mapper>

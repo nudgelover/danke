@@ -1,6 +1,6 @@
-package com.myservice.likes;
+package com.myservice.comm;
 
-import com.myservice.service.LikesService;
+import com.myservice.service.CommService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +8,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class SelectPostTest {
+class CntTest {
 
     @Autowired
-    LikesService service;
+    CommService service;
 
     @Test
     void contextLoads() {
         try {
-            service.getPostLikes(23, "L");
+            service.cntComm(1);
         } catch (Exception e) {
-            log.info("select postLikes error-----------------------------");
+            log.info("select one error-----------------------------");
             e.printStackTrace();
         }
         }

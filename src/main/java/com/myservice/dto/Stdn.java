@@ -50,17 +50,17 @@ public class Stdn {
     }
 
     //for stdn Update
-    public Stdn(String id, String name, String email, String contact, String img, String birthday, String sbj1, String sbj2, String sbj3) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.contact = contact;
-        this.img = img;
-        this.birthday = birthday;
-        this.sbj1 = sbj1;
-        this.sbj2 = sbj2;
-        this.sbj3 = sbj3;
-    }
+//    public Stdn(String id, String name, String email, String contact, String img, String birthday, String sbj1, String sbj2, String sbj3) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.contact = contact;
+//        this.img = img;
+//        this.birthday = birthday;
+//        this.sbj1 = sbj1;
+//        this.sbj2 = sbj2;
+//        this.sbj3 = sbj3;
+//    }
 
     //for Pwd Update
     public Stdn(String id, String pwd) {
@@ -86,5 +86,15 @@ public class Stdn {
         this.sbj2 = sbj2;
         this.sbj3 = sbj3;
         this.loginError = loginError;
+    }
+
+    public Stdn(String id, String email, String contact, String img, String sbj1, String sbj2, String sbj3) {
+        this.id = id;
+        this.email = email;
+        this.contact = contact;
+        this.img = img;
+        this.sbj1 = sbj1;
+        this.sbj2 = sbj2;
+        this.sbj3 = sbj3;
     }
 }

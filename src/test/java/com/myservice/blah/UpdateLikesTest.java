@@ -16,11 +16,11 @@ class UpdateLikesTest {
 
     @Test
     void contextLoads() {
-        Blah obj = new Blah(1, 100);
+        Blah obj = new Blah(23);
         try {
             service.updateLikes(obj);
             log.info("update OK--------------------------------");
-            service.get(1);
+            service.get(23);
         } catch (Exception e) {
             log.info("update error-----------------------------");
         }

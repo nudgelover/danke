@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface CommMapper extends KBMapper<Integer, Comm> {
     public List<Comm> getMyComm(String stdnId) throws Exception;
+    public Integer cntComm(Integer id) throws Exception;
 
     public List<Comm> getPostComm(Integer postId) throws Exception;
 }

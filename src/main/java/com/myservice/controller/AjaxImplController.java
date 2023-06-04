@@ -1,9 +1,9 @@
 package com.myservice.controller;
 
 
-import com.myservice.dto.Mrk;
-import com.myservice.dto.MyPage;
-import com.myservice.dto.Stdn;
+import com.myservice.dto.*;
+import com.myservice.service.BlahService;
+import com.myservice.service.LikesService;
 import com.myservice.service.MrkService;
 import com.myservice.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +28,9 @@ public class AjaxImplController {
     MrkService mrkService;
     @Autowired
     MyPageService myPageService;
+
+    BlahService blahService;
+    LikesService likesService;
 
     @RequestMapping("/markers")
     public Object markers(String keyword) throws Exception {
@@ -81,5 +84,15 @@ public class AjaxImplController {
             ja.add(jo);
         }
         return ja;
+    }
+
+    @RequestMapping("/likeblah")
+    public Object likeblah(Integer postId) throws Exception {
+        Likes likes = null;
+        Blah blah =null;
+        likesService.register(likes);
+        blahService.updateLikes(blah);
+
+        return null;
     }
 }

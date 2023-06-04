@@ -47,4 +47,9 @@ public class CommService implements KBService<Integer, Comm> {
         return mapper.getPostComm(postId);
     }
 
+    public Integer cntComm(Integer postId) throws Exception {
+        return mapper.cntComm(postId);
+    }
+
+
 }

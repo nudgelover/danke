@@ -22,7 +22,8 @@
                m.stdn_id AS stdnId,
                m.id,
                m.contents,
-               m.rdate
+               m.rdate,
+               m.likes
         FROM stdn s
                  JOIN blah m ON s.id = m.stdn_id
         ORDER BY m.id DESC
@@ -41,7 +42,7 @@
 
     <update id="updateLikes" parameterType="Blah">
         UPDATE blah
-        SET likes=#{likes}
+        SET likes=likes+1
         WHERE id=#{id}
     </update>
 
