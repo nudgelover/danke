@@ -43,21 +43,19 @@ public class LecReviewService implements KBService<Integer, LecReview> {
         return mapper.getMyLecReview(stdnId);
     }
 
-    public List<LecReview> getLecReview(Integer lecId) throws Exception{
-        return mapper.getLecReview(lecId);
+    public List<LecReview> getByLecId(Integer lecId) throws Exception{
+        return mapper.getByLecId(lecId);
     }
 
-    public void updateDelete(LecReview lecReview) throws Exception{
-        mapper.updateDelete(lecReview);
+    public List<LecReview>getByLecIdWithLikes(Integer lecId, String stdnId) throws Exception{
+        return mapper.getByLecIdWithLikes(lecId, stdnId);
+    }
+    public void updateDelete(Integer lecReviewId) throws Exception{
+        mapper.updateDelete(lecReviewId);
     }
 
-    public void updateLikes(Integer k) throws Exception{
-        mapper.updateLikes(k);
+    public LecReview getThisLecReview(String stdnId, Integer lecId) throws Exception{
+        return mapper.getThisLecReview(stdnId, lecId);
     }
-
-    public Integer cntLecReview(Integer lecId) throws Exception{
-        return mapper.cntLecReview(lecId);
-    }
-
 
 }

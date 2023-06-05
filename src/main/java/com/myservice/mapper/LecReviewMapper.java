@@ -11,11 +11,11 @@ import java.util.List;
 public interface LecReviewMapper extends KBMapper<Integer, LecReview> {
     public List<LecReview> getMyLecReview(String stdnId) throws Exception;
 
-    public List<LecReview> getLecReview(Integer lecId) throws Exception;
+    public List<LecReview> getByLecId(Integer lecId) throws Exception;
 
-    public void updateDelete(LecReview lecReview) throws Exception;
+    public List<LecReview> getByLecIdWithLikes(Integer lecId, String stdnId) throws Exception;
 
-    public void updateLikes(Integer k) throws Exception;
+    public void updateDelete(Integer lecReviewId) throws Exception;
 
-    public Integer cntLecReview(Integer lecId) throws Exception;
+    public LecReview getThisLecReview(String stdnId, Integer lecId) throws Exception;
 }

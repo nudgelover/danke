@@ -1,7 +1,6 @@
 package com.myservice.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @AllArgsConstructor
@@ -10,6 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 @ToString
 public class ReviewCnt {
-    private int rating;
+    private double rating;
     private int ratingCnt;
 }

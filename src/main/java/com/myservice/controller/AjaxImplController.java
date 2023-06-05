@@ -25,12 +25,13 @@ public class AjaxImplController {
     String imgdir;
 
     @Autowired
+    BlahService blahService;
+    @Autowired
+    LikesService likesService;
+    @Autowired
     MrkService mrkService;
     @Autowired
     MyPageService myPageService;
-
-    BlahService blahService;
-    LikesService likesService;
 
     @RequestMapping("/markers")
     public Object markers(String keyword) throws Exception {

@@ -15,4 +15,6 @@ public interface OrdDetailMapper extends KBMapper<Integer, OrdDetail> {
     public List<OrdDetail>getByOrd(Integer ordId) throws Exception;
 
     public List<OrdDetail> getRank() throws Exception;
+
+    public OrdDetail getThisOrd(Integer lecId, String stdnId) throws Exception;
 }
