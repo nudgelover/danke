@@ -3,7 +3,6 @@ package com.myservice.controller;
 
 import com.myservice.dto.Mrk;
 import com.myservice.dto.MyPage;
-import com.myservice.dto.Stdn;
 import com.myservice.service.MrkService;
 import com.myservice.service.MyPageService;
 import lombok.extern.slf4j.Slf4j;

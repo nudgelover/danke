@@ -38,4 +38,9 @@ public class ReviewCntService implements KBService<Integer, ReviewCnt> {
     public List<ReviewCnt> get() throws Exception {
         return mapper.selectall();
     }
+
+    public List<ReviewCnt> getCntByReview(Integer lecId) throws Exception{
+        return mapper.getCntByReview(lecId);
+    }
 }
+

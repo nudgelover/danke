@@ -12,9 +12,10 @@
         , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
         FROM lec l
         LEFT JOIN lec_review lr ON l.id = lr.lec_id
+              AND lr.is_delete='0'
         GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
         , l.topic, l.target, l.rdate, l.length, l.price, l.img
-        , l.disc_rate, l.is_delete, l.del_date, l.hit
+        , l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id
         ORDER BY l.hit DESC
         )
         WHERE ROWNUM &lt;= 9
@@ -27,23 +28,25 @@
              , l.disc_rate AS discRate, l.is_delete AS isDelete
              , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
         FROM lec l
-                 LEFT JOIN lec_review lr ON l.id = lr.lec_id
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id AND lr.is_delete='0'
         WHERE l.id=#{id}
         GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
                , l.topic, l.target, l.rdate, l.length, l.price, l.img
-               , l.disc_rate, l.is_delete, l.del_date, l.hit
+               , l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id
     </select>
 
     <select id="selectall" resultType="Lec">
-        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher
-             , l.topic, l.target, l.rdate, l.length, l.price, l.img
-             , l.disc_rate AS discRate, l.is_delete AS isDelete
-             , l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt, SUM(lr.rating)/COUNT(lr.id) AS rating
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher,
+               l.topic, l.target, l.rdate, l.length, l.price, l.img,
+               l.disc_rate AS discRate, l.is_delete AS isDelete,
+               l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
+               SUM(lr.rating)/COUNT(lr.id) AS rating
         FROM lec l
                  LEFT JOIN lec_review lr ON l.id = lr.lec_id
-        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher
-               , l.topic, l.target, l.rdate, l.length, l.price, l.img
-               , l.disc_rate, l.is_delete, l.del_date, l.hit
+            AND lr.is_delete='0'
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
+                 l.topic, l.target, l.rdate, l.length, l.price, l.img,
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id
         ORDER BY l.id DESC
     </select>
 
@@ -101,9 +104,10 @@
                SUM(lr.rating)/COUNT(lr.id) AS rating
         FROM lec l
                  LEFT JOIN lec_review lr ON l.id = lr.lec_id
+                 AND lr.is_delete='0'
         GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
                  l.topic, l.target, l.rdate, l.length, l.price, l.img,
-                 l.disc_rate, l.is_delete, l.del_date, l.hit
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id
         ORDER BY l.id DESC
     </select>
 
