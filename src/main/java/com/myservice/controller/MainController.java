@@ -29,6 +29,9 @@ public class MainController {
     @Value("${download.path}")
     String downloadPath;
 
+    @Value("${adminserver}")
+    String adminserver;
+
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -39,6 +42,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
+        model.addAttribute("adminserver", adminserver);
         model.addAttribute("nav", "nav");
         return "index";
     }
@@ -167,8 +171,6 @@ public class MainController {
         return "redirect:/login";
     }
 
-
-
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session) throws Exception {
         if (session != null) {
@@ -176,5 +178,23 @@ public class MainController {
         }
         return "redirect:/";
     }
-
+    @RequestMapping("/toall")
+    public String websocket(Model model){
+        model.addAttribute("adminserver", adminserver);
+        model.addAttribute("center", "toall");
+        return "index";
+    }
+    @RequestMapping("/oneonone")
+    public String oneonone(Model model){
+        model.addAttribute("adminserver", adminserver);
+        model.addAttribute("center", "oneonone");
+        return "index";
+    }
+    @RequestMapping("/chatbot")
+    public String chatbot(Model model){
+        model.addAttribute("adminserver", adminserver);
+        log.info("adminserver={}", adminserver);
+        model.addAttribute("center", "chatbot");
+        return "index";
+    }
 }
