@@ -240,16 +240,7 @@
             <a href="/blah" class="btn btn-active-accent active fw-bold">블라블라로 이동하기</a>
         </div>
 
-        <div class="card mb-5 mb-xxl-8">
-            <!--begin::Body-->
-            <div class="card-body pb-0">
-                <!--begin::Top-->
-                <div style="height: 200px" class="d-flex align-items-center">
 
-
-                </div>
-            </div>
-        </div>
         <c:if test="${student.id == loginStdn.id}">
 
             <!--begin::Feeds Widget 1-->
