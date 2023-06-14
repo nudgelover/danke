@@ -3,6 +3,7 @@ package com.myservice.controller;
 import com.github.pagehelper.PageInfo;
 import com.myservice.dto.*;
 import com.myservice.service.*;
+import com.myservice.utill.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +27,9 @@ public class LectureController {
     @Value("${uploadimgdir}")
     String imgpath;
     String dir = "lecture/";
+
+    @Value("${upload.path}")
+    String uploadPath;
 
     @Autowired
     LecService lecService;
@@ -45,6 +52,9 @@ public class LectureController {
     @Autowired
     CurriService curriService;
 
+    @Autowired
+    ReviewCntService reviewCntService;
+
     @RequestMapping("/all")
     public String all(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Lec> p;
@@ -54,24 +64,31 @@ public class LectureController {
             e.printStackTrace();
             throw new Exception();
         }
-        List <Lec> rank = lecService.getRank();
+        List<Lec> rank = lecService.getRank();
 
         model.addAttribute("rank", rank);
-        model.addAttribute("target","lecture");
-        model.addAttribute("cpage",p);
-        model.addAttribute("center",dir+"all");
+        model.addAttribute("target", "lecture");
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "all");
         return "index";
     }
 
     @RequestMapping("/detail")
-    public String detail(Model model, Integer id) throws Exception {
-        int cnt = lecReviewService.cntLecReview(id);
-        List<LecReview> list = lecReviewService.getLecReview(id);
+    public String detail(Model model, Integer id, String stdnId) throws Exception {
+        List<LecReview> list = new ArrayList<>();
+        if (stdnId == null || stdnId =="") {
+            list = lecReviewService.getByLecId(id);
+        } else {
+            list = lecReviewService.getByLecIdWithLikes(id, stdnId);
+        }
+
         Lec lec = lecService.get(id);
+        List<ReviewCnt> ratingCnt = reviewCntService.getCntByReview(id);
+        log.info("여기"+ ratingCnt.toString());
+        model.addAttribute("ratingCnt", ratingCnt);
         model.addAttribute("list", list);
-        model.addAttribute("lec",lec);
-        model.addAttribute("cnt", cnt);
-        model.addAttribute("center", dir+"detail");
+        model.addAttribute("lec", lec);
+        model.addAttribute("center", dir + "detail");
         return "index";
     }
 
@@ -79,40 +96,40 @@ public class LectureController {
     public String cart(Model model, String id) throws Exception {
         List<Cart> list = cartService.getMyCart(id);
         int cnt = cartService.cntMyCart(id);
-        model.addAttribute("cart",list);
-        model.addAttribute("cnt",cnt);
-        model.addAttribute("center", dir+"cart");
+        model.addAttribute("cart", list);
+        model.addAttribute("cnt", cnt);
+        model.addAttribute("center", dir + "cart");
         return "index";
     }
 
     @RequestMapping("/cartdelete")
-    public String cartdelete(Model model,Integer id, HttpSession session) throws Exception {
+    public String cartdelete(Model model, Integer id, HttpSession session) throws Exception {
 
         cartService.remove(id);
-        if(session != null){
+        if (session != null) {
             Stdn stdn = (Stdn) session.getAttribute("loginStdn");
-            return "redirect:/lecture/cart?id="+stdn.getId();
+            return "redirect:/lecture/cart?id=" + stdn.getId();
         }
         return "redirect:/";
     }
 
     @RequestMapping("/deleteimpl")
-    public String deleteimpl(@RequestParam List<Integer> del_lecs, Model model,HttpSession session) throws Exception {
+    public String deleteimpl(@RequestParam List<Integer> del_lecs, Model model, HttpSession session) throws Exception {
 
         for (int cartId : del_lecs) {
             cartService.remove(cartId);
-            }
-        if(session != null){
+        }
+        if (session != null) {
             Stdn stdn = (Stdn) session.getAttribute("loginStdn");
-            return "redirect:/lecture/cart?id="+stdn.getId();
+            return "redirect:/lecture/cart?id=" + stdn.getId();
         }
         return "redirect:/";
     }
 
     @RequestMapping("/order")
-    public String order(@RequestParam List<Integer> del_lecs, Model model,HttpSession session) throws Exception {
+    public String order(@RequestParam List<Integer> del_lecs, Model model, HttpSession session) throws Exception {
         List<Cart> list = new ArrayList<>();
-        for(int cartId : del_lecs) {
+        for (int cartId : del_lecs) {
             Cart cart = (Cart) cartService.get(cartId);
             list.add(cart);
         }
@@ -122,10 +139,10 @@ public class LectureController {
         String stdnId = stdn.getId();
         List<Cpn> clist = cpnService.getMyCpn(stdnId);
 
-        model.addAttribute("order",list);
-        model.addAttribute("cnt",cnt);
-        model.addAttribute("cpn",clist);
-        model.addAttribute("center", dir+"order");
+        model.addAttribute("order", list);
+        model.addAttribute("cnt", cnt);
+        model.addAttribute("cpn", clist);
+        model.addAttribute("center", dir + "order");
         return "index";
     }
 
@@ -136,9 +153,9 @@ public class LectureController {
         String stdnId = stdn.getId();
         List<Cpn> list = cpnService.getMyCpn(stdnId);
 
-        model.addAttribute("lec",lec);
-        model.addAttribute("cpn",list);
-        model.addAttribute("center", dir+"orderthis");
+        model.addAttribute("lec", lec);
+        model.addAttribute("cpn", list);
+        model.addAttribute("center", dir + "orderthis");
         return "index";
     }
 
@@ -159,21 +176,21 @@ public class LectureController {
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
 
-        log.info("여기"+ord.toString());
+        log.info("여기" + ord.toString());
         ord.setStdnId(stdnId);
         ordService.register(ord);
         Integer ordId = ordService.getLastOrdId();
-        Integer ordPrice=ord.getOrdPrice();
+        Integer ordPrice = ord.getOrdPrice();
 
-        log.info("여기lecId여기"+lecId.toString());
-        log.info("discRate여기"+discRate.toString());
-        log.info("여기price여기"+price.toString());
+        log.info("여기lecId여기" + lecId.toString());
+        log.info("discRate여기" + discRate.toString());
+        log.info("여기price여기" + price.toString());
 
-        for(int i=0;i <lecId.size();i++) {
+        for (int i = 0; i < lecId.size(); i++) {
             OrdDetail ordDetail = new OrdDetail();
             Lec lec = lecService.get(lecId.get(i));
             int hit = lec.getHit();
-            lec.setHit(hit+1);
+            lec.setHit(hit + 1);
             lecService.modify(lec);
             ordDetail.setLecId(lecId.get(i));
             ordDetail.setPrice(price.get(i));
@@ -183,21 +200,21 @@ public class LectureController {
             ordDetailService.register(ordDetail);
         }
 
-        log.info("여기"+lecId.toString());
-        for(Integer lecid : lecId) {
+        log.info("여기" + lecId.toString());
+        for (Integer lecid : lecId) {
             Cart cart = (Cart) cartService.thisCart(lecid, stdnId);
             int cartId = cart.getId();
             cartService.remove(cartId);
         }
-        log.info("여기"+cpnId);
-        if( cpnId != 0) {
+        log.info("여기" + cpnId);
+        if (cpnId != 0) {
             Cpn cpn = (Cpn) cpnService.get(cpnId);
             cpnService.modify(cpn);
         }
 
         model.addAttribute("ordId", ordId);
         model.addAttribute("ordPrice", ordPrice);
-        model.addAttribute("center", dir+"success");
+        model.addAttribute("center", dir + "success");
         return "index";
     }
 
@@ -212,55 +229,81 @@ public class LectureController {
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
 
-        log.info("여기"+ord.toString());
+        log.info("여기" + ord.toString());
         ord.setStdnId(stdnId);
         ordService.register(ord);
         Integer ordId = ordService.getLastOrdId();
-        Integer ordPrice=ord.getOrdPrice();
+        Integer ordPrice = ord.getOrdPrice();
 
-        log.info("여기"+lecId.toString());
+        log.info("여기" + lecId.toString());
         Lec lec = lecService.get(lecId);
         int hit = lec.getHit();
-        lec.setHit(hit+1);
+        lec.setHit(hit + 1);
         lecService.modify(lec);
         OrdDetail ordDetail = new OrdDetail();
         ordDetail.setOrdId(ordId);
         ordDetail.setLecId(lecId);
         ordDetail.setPrice(price);
         ordDetail.setDiscRate(discRate);
-        log.info("여기"+ordDetail.toString());
+        log.info("여기" + ordDetail.toString());
         ordDetailService.register(ordDetail);
 
-        log.info("여기"+cpnId);
-        if( cpnId != 0) {
+        log.info("여기" + cpnId);
+        if (cpnId != 0) {
             Cpn cpn = (Cpn) cpnService.get(cpnId);
             cpnService.modify(cpn);
         }
         model.addAttribute("ordId", ordId);
         model.addAttribute("ordPrice", ordPrice);
-        model.addAttribute("center", dir+"success");
+        model.addAttribute("center", dir + "success");
         return "index";
     }
 
     @RequestMapping("/orddetail")
     public String orddetail(Model model, Integer id) throws Exception {
-        log.info("여기아이디"+id);
+        log.info("여기아이디" + id);
         Ord ord = (Ord) ordService.get(id);
-        log.info("여기Ord잇다"+ord.toString());
+        log.info("여기Ord잇다" + ord.toString());
         List<OrdDetail> list = new ArrayList<>();
-        list =  ordDetailService.getByOrd(id);
-        model.addAttribute("ord",ord);
+        list = ordDetailService.getByOrd(id);
+        model.addAttribute("ord", ord);
         model.addAttribute("list", list);
-        model.addAttribute("center", dir+"orddetail");
+        model.addAttribute("center", dir + "orddetail");
         return "index";
     }
 
     @RequestMapping("/curri")
     public String curri(Model model, String id) throws Exception {
         List<Curri> list = curriService.getMyCurri(id);
-        model.addAttribute("curri",list);
-        model.addAttribute("center", dir+"curri");
+        model.addAttribute("curri", list);
+        model.addAttribute("center", dir + "curri");
         return "index";
     }
 
+    @RequestMapping("/reviewaddimpl")
+    public String reviewaddimpl(LecReview lecReview) throws Exception {
+        log.info("여기" + lecReview.toString());
+        Integer lecId = lecReview.getLecId();
+
+        MultipartFile imgfile = lecReview.getImgfile();
+        String imgOrg = imgfile.getOriginalFilename();
+        log.info("여기" + imgOrg);
+        String img = FileUploadUtil.uploadFile(imgfile, uploadPath);
+        log.info("여기" + img);
+        lecReview.setImg(img);
+        lecReview.setImgOrg(imgOrg);
+        lecReviewService.register(lecReview);
+
+        return "redirect:/lecture/detail?id=" + lecId;
+    }
+
+    @RequestMapping("/reviewdelete")
+    public String reviewdelete(Integer id) throws Exception {
+
+        LecReview lecReview = (LecReview) lecReviewService.get(id);
+        Integer lecId = lecReview.getLecId();
+        lecReviewService.updateDelete(id);
+
+        return "redirect:/lecture/detail?id=" + lecId;
+    }
 }

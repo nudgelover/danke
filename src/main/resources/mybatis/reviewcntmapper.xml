@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.ReviewCntMapper">
+
+    <select id="getCntByReview" parameterType="Integer" resultType="reviewCnt">
+        SELECT scores.rating, COUNT(lr.rating) AS ratingCnt
+        FROM (
+        SELECT 1 AS rating FROM dual UNION ALL
+        SELECT 2 AS rating FROM dual UNION ALL
+        SELECT 3 AS rating FROM dual UNION ALL
+        SELECT 4 AS rating FROM dual UNION ALL
+        SELECT 5 AS rating FROM dual
+        ) scores
+        LEFT JOIN lec_review lr ON lr.lec_id=#{lecId} AND lr.is_delete='0' AND scores.rating = lr.rating
+        WHERE scores.rating >= 1 AND scores.rating &lt;= 5
+        GROUP BY scores.rating
+        ORDER BY scores.rating DESC
+    </select>
+
+</mapper>

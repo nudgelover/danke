@@ -189,7 +189,7 @@
                                                                     </div>
                                                                     <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
                                                                         <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
+                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
                                                                         </div>
                                                                         <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
                                                                             <ul class="icon-tray">
@@ -209,7 +209,7 @@
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}">
+                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
                                                                                         <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
                                                                                     </a>
                                                                                 </li>
@@ -220,7 +220,7 @@
                                                                 <!--end::Image-->
                                                                 <!--begin::Details-->
                                                                 <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}"
+                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
                                                                        class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
                                                                     <span class="fs-6">${rank.teacher}<br>
                                                 <c:choose>
@@ -313,7 +313,7 @@
                                                                     </div>
                                                                     <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
                                                                         <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
+                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
                                                                         </div>
                                                                         <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
                                                                             <ul class="icon-tray">
@@ -333,7 +333,7 @@
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}">
+                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
                                                                                     <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
 
                                                                                     </a>
@@ -345,7 +345,7 @@
                                                                 <!--end::Image-->
                                                                 <!--begin::Details-->
                                                                 <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}"
+                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
                                                                        class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
                                                                     <span class="fs-6">${rank.teacher}<br>
                                                 <c:choose>
@@ -437,7 +437,7 @@
                                                                     </div>
                                                                     <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
                                                                         <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
+                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
                                                                         </div>
                                                                         <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
                                                                             <ul class="icon-tray">
@@ -457,7 +457,7 @@
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}">
+                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
                                                                                     <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
                                                                                     </a>
                                                                                 </li>
@@ -468,7 +468,7 @@
                                                                 <!--end::Image-->
                                                                 <!--begin::Details-->
                                                                 <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}"
+                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
                                                                        class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
                                                                     <span class="fs-6">${rank.teacher}<br>
                                                 <c:choose>
@@ -573,7 +573,7 @@
                                                 </div>
                                                 <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
                                                     <div class="text-start text-white" style="text-align: left">
-                                                        <a href="/lecture/detail?id=${obj.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${obj.title}</a>
+                                                        <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${obj.title}</a>
                                                     </div>
                                                     <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
                                                         <ul class="icon-tray">
@@ -593,7 +593,7 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="/lecture/detail?id=${obj.id}">
+                                                                <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}">
                                                                 <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
                                                                 </a>
                                                             </li>
@@ -604,7 +604,7 @@
                                             <!--end::Image-->
                                             <!--begin::Details-->
                                             <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                <a href="/lecture/detail?id=${obj.id}"
+                                                <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}"
                                                    class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
                                                 <span class="fs-6">${obj.teacher}<br>
                                                 <c:choose>

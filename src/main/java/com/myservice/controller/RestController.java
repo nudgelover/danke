@@ -1,11 +1,7 @@
 package com.myservice.controller;
 
-import com.myservice.dto.Cart;
-import com.myservice.dto.Curri;
-import com.myservice.dto.Stdn;
-import com.myservice.service.CartService;
-import com.myservice.service.CurriService;
-import com.myservice.service.StdnService;
+import com.myservice.dto.*;
+import com.myservice.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,8 +22,16 @@ public class RestController {
     CurriService curriService;
 
     @Autowired
+    OrdDetailService ordDetailService;
+
+    @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    LecReviewService lecReviewService;
+
+    @Autowired
+    LikesService likesService;
 
     @RequestMapping("/checkid")
     public Object checkid(String id) throws Exception {
@@ -76,6 +80,47 @@ public class RestController {
         Stdn stdn= (Stdn) stdnService.get(id);
         if(!encoder.matches(pwd, stdn.getPwd())){
             result=1;
+        }
+        return result;
+    }
+
+    @RequestMapping("/reviewimpl")
+    public Object reviewimpl(String stdnId, Integer lecId) throws Exception {
+        int result = 0;
+        OrdDetail ordDetail = (OrdDetail) ordDetailService.getThisOrd(lecId, stdnId);
+        if(ordDetail==null){
+            result=1;
+        }
+        log.info("여기"+result);
+        return result;
+    }
+
+    @RequestMapping("/reviewaddimpl")
+    public Object reviewaddimpl(String stdnId, Integer lecId) throws Exception {
+        int result = 0;
+        LecReview lecReview = (LecReview) lecReviewService.getThisLecReview(stdnId, lecId);
+        if(lecReview==null){
+            result=1;
+        }
+        log.info("여기"+result);
+        return result;
+    }
+
+    @RequestMapping("/lecreviewlikeaddimpl")
+    public Object lecreviewlikeaddimpl(Integer postId, String stdnId) throws Exception {
+;
+        int result = 0;
+        log.info("여기"+postId);
+        log.info("여기"+stdnId);
+        Likes likes = (Likes) likesService.getThisLikes(postId, stdnId, "R");
+        if(likes==null){
+            result = 1;
+            Likes likesAdd = new Likes(postId, stdnId, "R");
+            likesService.register(likesAdd);
+        } else {
+            log.info("여기"+likes.toString());
+            Integer likeId = likes.getLikeId();
+            likesService.remove(likeId);
         }
         return result;
     }

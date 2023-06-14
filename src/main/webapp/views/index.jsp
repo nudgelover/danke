@@ -14,6 +14,66 @@ Dribbble: www.dribbble.com/keenthemes
 Like: www.facebook.com/keenthemes
 License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
 -->
+
+<style>
+    #scroll-btn {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: cornflowerblue;
+        position: fixed;
+        bottom: 12%;
+        right: 5%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: 2px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+
+    #scroll-btn.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+    #scroll-btn2 {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: cornflowerblue;
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: bold 10px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+
+    #scroll-btn2.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
+    #scroll-btn3 {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: cornflowerblue;
+        position: fixed;
+        bottom: 19%;
+        right: 5%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: bold 10px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+    #scroll-btn3.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+</style>
 <html lang="ko" data-bs-theme-mode="light">
 <!--begin::Head-->
 <head>
@@ -41,7 +101,47 @@ License: For each use you must have a valid license purchased only from above li
     <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script>
+        let chatbtn = {
+            init:function(){
+                const chatbotbox = $('#chatbot_box');
+                const oneononebox = $('#oneonone_box');
+                const toallbox = $('#toall_box');
 
+                const scrollBtn = document.createElement("button");
+                scrollBtn.innerHTML = "chatbot";
+                scrollBtn.setAttribute("id", "scroll-btn");
+                document.body.appendChild(scrollBtn);
+                scrollBtn.classList.add("show");
+                scrollBtn.addEventListener("click", function(){
+                    chatbotbox.toggle();
+                });
+                const scrollBtn2 = document.createElement("button");
+                scrollBtn2.innerHTML = "1:1";
+                scrollBtn2.setAttribute("id", "scroll-btn2");
+                document.body.appendChild(scrollBtn2);
+                scrollBtn2.classList.add("show");
+                scrollBtn2.addEventListener("click", function(){
+                    oneononebox.toggle();
+                });
+
+                const scrollBtn3 = document.createElement("button");
+                scrollBtn3.innerHTML = "공지";
+                scrollBtn3.setAttribute("id", "scroll-btn3");
+                document.body.appendChild(scrollBtn3);
+                scrollBtn3.classList.add("show");
+                scrollBtn3.addEventListener("click", function(){
+                    toallbox.toggle();
+                });
+            }
+        };
+
+        $(function(){
+            chatbtn.init();
+        });
+    </script>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -100,6 +200,9 @@ if (document.documentElement) {
 <!--begin::Main-->
 <!--begin::Root-->
 <div class="d-flex flex-column flex-root">
+    <jsp:include page="oneonone.jsp"/>
+    <jsp:include page="chatbot.jsp"/>
+    <jsp:include page="toall.jsp"/>
     <!--begin::Page-->
     <div class="page d-flex flex-row flex-column-fluid">
         <jsp:include page="sidebar.jsp"/>

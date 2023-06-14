@@ -18,6 +18,7 @@ public class LecReview {
     private String rdate;
     private double rating;
     private String img;
+    private String imgOrg;
     private String isDelete;
     private String delDate;
     private String upReview;
@@ -26,6 +27,7 @@ public class LecReview {
     private Integer cnt;
     private String stdnImg;
     private MultipartFile imgfile;
+    private Integer isLiked;
 
 
     //Insert

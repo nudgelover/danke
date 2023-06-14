@@ -47,8 +47,12 @@ public class OrdDetailService implements KBService<Integer, OrdDetail> {
         return mapper.getRank();
     }
 
-    public List<OrdDetail>getByOrd(Integer ordId) throws Exception{
+    public List<OrdDetail> getByOrd(Integer ordId) throws Exception{
         return mapper.getByOrd(ordId);
+    }
+
+    public OrdDetail getThisOrd(Integer lecId, String stdnId) throws Exception{
+        return mapper.getThisOrd(lecId, stdnId);
     }
 
 }

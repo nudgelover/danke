@@ -220,7 +220,7 @@
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
                                     <div class="form-floating">
                                         <select class="form-control form-control-solid" id="year"
-                                            name="date_of_birth" aria-label="Floating label select example">
+                                                name="date_of_birth" aria-label="Floating label select example">
                                             <option selected>Year</option>
                                             <option value="1970">1970</option>
                                             <option value="1971">1971</option>

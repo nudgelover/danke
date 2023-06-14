@@ -15,7 +15,7 @@ class SelectOneTest {
     @Test
     void contextLoads() {
         try {
-            service.getLecReview(1);
+            service.getByLecId(1);
         } catch (Exception e) {
             log.info("select one error-----------------------------");
             e.printStackTrace();

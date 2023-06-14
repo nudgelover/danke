@@ -25,14 +25,13 @@ public class AjaxImplController {
     String imgdir;
 
     @Autowired
-    MrkService mrkService;
-    @Autowired
-    MyPageService myPageService;
-
-    @Autowired
     BlahService blahService;
     @Autowired
     LikesService likesService;
+    @Autowired
+    MrkService mrkService;
+    @Autowired
+    MyPageService myPageService;
 
 
     @RequestMapping("/markers")
@@ -77,10 +76,10 @@ public class AjaxImplController {
             jo.put("id", obj.getId());
             jo.put("name", obj.getName());
             jo.put("img", obj.getImg());
-            jo.put("birthday", obj.getBirthday());
-            jo.put("insta", obj.getInsta());
+            jo.put("birthday",obj.getBirthday());
+            jo.put("insta",obj.getInsta());
             jo.put("facebook", obj.getFacebook());
-            jo.put("contact", obj.getContact());
+            jo.put("contact",obj.getContact());
             jo.put("email", obj.getEmail());
             jo.put("comdate", obj.getComdate());
             jo.put("digidate", obj.getDigidate());
@@ -100,4 +99,3 @@ public class AjaxImplController {
         return result;
     }
 }
-
