@@ -244,4 +244,16 @@ public class MarkerController {
 
         return "redirect:/marker/detail?id=" + postId;
     }
+
+    @RequestMapping("/delcomm")
+    public String delcomm(Integer id, @RequestParam("postId") Integer postId) throws Exception {
+
+        try {
+            mrkCommService.remove(id);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+
+        return "redirect:/marker/detail?id=" + postId;
+    }
 }

@@ -457,7 +457,7 @@
 
                                     </div>
                                     <div class="d-flex justify-content-center mt-10">
-                                        <p>별점을 클릭해주세요🖱️➡️ 기존 별점 x.0기준임 db에 따라 바꿔주기: ${marker.rating}</p>
+                                        <p>별점을 클릭해주세요🖱️➡️</p>
                                         <div class="rating mb-10">
                                             <!--begin::Star 1-->
                                             <label class="rating-label" for="kt_rating_input_1">

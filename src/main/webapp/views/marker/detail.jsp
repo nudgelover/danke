@@ -46,6 +46,27 @@
                 }
             });
         });
+
+        $('[id^="delete_comm_"]').on('click', function () {
+
+            var commentId = $(this).data("comment-id"); // 삭제할 댓글의 ID  mrkComm.id
+            var postId = ${marker.id} // 해당 게시글의 ID
+
+            // 댓글 삭제 Ajax 요청
+            $.ajax({
+                url: "/marker/delcomm",
+                type: "GET",
+                data: { id: commentId, postId: postId },
+                success: function() {
+                    // 댓글 삭제 성공 후 상세 페이지 리로드
+                    window.location.href = "/marker/detail?id=" + postId;
+                },
+                error: function() {
+                    // 댓글 삭제 실패 처리
+                    alert("댓글 삭제에 실패했습니다.");
+                }
+            });
+        });
     });
 </script>
 <!--begin::Main-->
@@ -56,10 +77,8 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">맛집 상세</h3>
-                <p>카카오톡으로 공유하시면, 위치를 공유하실 수 있습니다.</p>
+                <h3 class="text-dark fw-bold my-1">맛집 상세 <span style="margin-left:10px; color: orange; font-size: 15px">📢 카카오톡</span><span style="color: gray; font-weight: 200; font-size: 15px">으로 공유하시면, 위치를 공유하실 수 있습니다.😉</span></h3>
                 <!--end::Title-->
-
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
@@ -267,7 +286,15 @@
                                         <div class="d-flex align-items-center flex-wrap gap-2">
                                             <!--begin::Date-->
                                             <span class="fw-semibold text-muted text-end me-3">${mrkComm.rdate}</span>
-                                            <!--end::Date-->
+                                            <c:choose>
+                                                <c:when test="${marker.writer == loginStdn.id || mrkComm.stdnId == loginStdn.id}">
+                                                    <a style="margin-left: 10px" href="#"
+                                                       class="text-muted text-hover-primary fw-normal fs-7"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#kt_modal_1_com_${mrkComm.id}"
+                                                    >Delete</a>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <!--end::Actions-->
                                     </div>
@@ -275,6 +302,36 @@
                                 </div>
                                 <!--end::Message accordion-->
                                 <div class="separator my-6"></div>
+
+                                <div class="modal fade" tabindex="-1" id="kt_modal_1_com_${mrkComm.id}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Warning⚠️</h3>
+
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                     data-bs-dismiss="modal" aria-label="Close">
+                                                    <span class="svg-icon svg-icon-1"></span>
+                                                </div>
+                                                <!--end::Close-->
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <p>댓글을 정말로 삭제하시겠습니까?${mrkComm.id}</p>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light"
+                                                        data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <a  id="delete_comm_${mrkComm.id}" href="#"
+                                                    data-comment-id="${mrkComm.id}" class="btn btn-light">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
                             <!--begin::Form-->
                             <form id="kt_inbox_reply_form">
@@ -290,7 +347,6 @@
                                         <input type="text" id="contents" name="contents" class="form-control border-0"
                                                placeholder="comment..."/>
                                         <a href="#" id="add_comm" class="btn btn-primary">Send</a>
-
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Message-->
@@ -325,7 +381,7 @@
             </div>
 
             <div class="modal-body">
-                <p>댓글을 정말로 삭제하시겠습니까?</p>
+                <p>게시글을 정말로 삭제하시겠습니까?</p>
             </div>
 
             <div class="modal-footer">
@@ -406,8 +462,8 @@
                 // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
                 // 추후 수정예정
 
-                mobileWebUrl: 'http://127.0.0.1/marker/detail?id=${marker.id}',
-                webUrl      : 'http://127.0.0.1/marker/detail?id=${marker.id}',
+                mobileWebUrl: 'http://172.16.20.58/marker/detail?id=${marker.id}',
+                webUrl      : 'http://172.16.20.58/marker/detail?id=${marker.id}',
             },
         },
         social      : {
@@ -419,8 +475,8 @@
             {
                 title: '웹으로 보기',
                 link : {
-                    mobileWebUrl: 'http://127.0.0.1/marker/detail?id=${marker.id}',
-                    webUrl      : 'http://127.0.0.1/marker/detail?id=${marker.id}',
+                    mobileWebUrl: 'http://172.16.20.58/marker/detail?id=${marker.id}',
+                    webUrl      : 'http://172.16.20.58/marker/detail?id=${marker.id}',
                 },
             },
         ],
