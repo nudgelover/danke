@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -55,6 +55,9 @@ public class LectureController {
     @Autowired
     ReviewCntService reviewCntService;
 
+    @Autowired
+    SbjDetailService sbjDetailService;
+
     @RequestMapping("/all")
     public String all(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Lec> p;
@@ -66,6 +69,17 @@ public class LectureController {
         }
         List<Lec> rank = lecService.getRank();
 
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
         model.addAttribute("rank", rank);
         model.addAttribute("target", "lecture");
         model.addAttribute("cpage", p);
@@ -81,10 +95,17 @@ public class LectureController {
         } else {
             list = lecReviewService.getByLecIdWithLikes(id, stdnId);
         }
+        Integer bought = 0;
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(id,stdnId);
+        if(ordDetail==null){
+            bought = 1;
+            log.info("여기 산 적없다 bought: "+bought);
+        }
 
         Lec lec = lecService.get(id);
         List<ReviewCnt> ratingCnt = reviewCntService.getCntByReview(id);
         log.info("여기"+ ratingCnt.toString());
+        model.addAttribute("bought", bought);
         model.addAttribute("ratingCnt", ratingCnt);
         model.addAttribute("list", list);
         model.addAttribute("lec", lec);
@@ -103,7 +124,7 @@ public class LectureController {
     }
 
     @RequestMapping("/cartdelete")
-    public String cartdelete(Model model, Integer id, HttpSession session) throws Exception {
+    public String cartdelete(Integer id, HttpSession session) throws Exception {
 
         cartService.remove(id);
         if (session != null) {
@@ -114,7 +135,7 @@ public class LectureController {
     }
 
     @RequestMapping("/deleteimpl")
-    public String deleteimpl(@RequestParam List<Integer> del_lecs, Model model, HttpSession session) throws Exception {
+    public String deleteimpl(@RequestParam List<Integer> del_lecs, HttpSession session) throws Exception {
 
         for (int cartId : del_lecs) {
             cartService.remove(cartId);
@@ -274,28 +295,28 @@ public class LectureController {
 
     @RequestMapping("/curri")
     public String curri(Model model, String id) throws Exception {
-        List<Curri> list = curriService.getMyCurri(id);
+        List<Curri> list = curriService.getMyCurris(id);
         model.addAttribute("curri", list);
         model.addAttribute("center", dir + "curri");
         return "index";
     }
 
-    @RequestMapping("/reviewaddimpl")
-    public String reviewaddimpl(LecReview lecReview) throws Exception {
-        log.info("여기" + lecReview.toString());
-        Integer lecId = lecReview.getLecId();
-
-        MultipartFile imgfile = lecReview.getImgfile();
-        String imgOrg = imgfile.getOriginalFilename();
-        log.info("여기" + imgOrg);
-        String img = FileUploadUtil.uploadFile(imgfile, uploadPath);
-        log.info("여기" + img);
-        lecReview.setImg(img);
-        lecReview.setImgOrg(imgOrg);
-        lecReviewService.register(lecReview);
-
-        return "redirect:/lecture/detail?id=" + lecId;
-    }
+//    @RequestMapping("/reviewaddimpl")
+//    public String reviewaddimpl(LecReview lecReview) throws Exception {
+//        log.info("여기" + lecReview.toString());
+//        Integer lecId = lecReview.getLecId();
+//
+//        MultipartFile imgfile = lecReview.getImgfile();
+//        String imgOrg = imgfile.getOriginalFilename();
+//        log.info("여기" + imgOrg);
+//        String img = FileUploadUtil.uploadFile(imgfile, uploadPath);
+//        log.info("여기" + img);
+//        lecReview.setImg(img);
+//        lecReview.setImgOrg(imgOrg);
+//        lecReviewService.register(lecReview);
+//
+//        return "redirect:/lecture/detail?id=" + lecId;
+//    }
 
     @RequestMapping("/reviewdelete")
     public String reviewdelete(Integer id) throws Exception {
@@ -306,4 +327,50 @@ public class LectureController {
 
         return "redirect:/lecture/detail?id=" + lecId;
     }
+
+    @RequestMapping("/curridel")
+    public String curridel(Integer id, HttpSession session) throws Exception {
+        curriService.remove(id);
+        Stdn stdn = (Stdn) session.getAttribute("loginStdn");
+        return "redirect:/lecture/curri?id=" + stdn.getId();
+    }
+
+    @RequestMapping("/curri/all")
+    public String curriall(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        PageInfo<Curri> p;
+        try {
+            p = new PageInfo<>(curriService.getPage(pageNo), 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+        model.addAttribute("target", "curri");
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "all");
+        return "index";
+    }
+
+    @RequestMapping("/ordhistory")
+    public String ordhistory(Model model, String stdnId) throws Exception {
+
+//        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+//        for(int n = 0; n < sideBig.size(); n++) {
+//            Integer index = sideBig.get(n).getSbjCode();
+//            sideMedium.put(index, sbjDetailService.searchMedium(index));
+//        }
+
+
+        List<Ord> ord = ordService.getMyOrd(stdnId);
+        Map<Integer, List<OrdDetail>> ordDetailByOrd = new HashMap<>();
+        for(int n = 0; n < ord.size(); n++){
+            Integer index = ord.get(n).getId();
+            ordDetailByOrd.put(index, ordDetailService.getByOrd(index));
+        }
+
+        model.addAttribute("ordDetailByOrd", ordDetailByOrd);
+        model.addAttribute("ord",ord);
+        model.addAttribute("center", dir + "ordhistory");
+        return "index";
+    }
+
 }

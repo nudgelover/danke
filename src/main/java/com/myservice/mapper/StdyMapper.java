@@ -14,4 +14,11 @@ public interface StdyMapper extends KBMapper<Integer, Stdy> {
     Page<Stdy> getpage() throws Exception;
 
     public List<Stdy> getMyStdy(String writer) throws Exception;
+
+    public Stdy stdyStartOrNot(String writer) throws Exception;
+
+    public Stdy stdyEndOrNot(String writer) throws Exception;
+
+    public Stdy stdyContentsUpdate(String writer) throws Exception;
+
 }

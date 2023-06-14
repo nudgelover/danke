@@ -55,4 +55,8 @@ public class OrdDetailService implements KBService<Integer, OrdDetail> {
         return mapper.getThisOrd(lecId, stdnId);
     }
 
+    public OrdDetail boughtOrNot(Integer lecId, String stdnId) throws Exception{
+        return mapper.boughtOrNot(lecId, stdnId);
+    }
+
 }

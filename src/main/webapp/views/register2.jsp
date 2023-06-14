@@ -30,17 +30,41 @@
             });
         },
         send: function () {
-            $('#register_form').attr({
-                'action': '/registerimpl2',
-                'method': 'post'
-            });
-            $('#register_form').submit();
+
+            var formData = new FormData($('#register_form')[0]);
+            let registerModal = $('#register_modal');
+
+            $.ajax({
+                url        : '/registerimpl2',
+                method     : 'POST',
+                data       : formData,
+                processData: false,
+                contentType: false,
+                success    : function (response) {
+                    let modal = new bootstrap.Modal(registerModal);
+                    $('#register_msg').html('가입완료! 관리자 승인 후, 로그인 가능합니다!(10초 후 로그인 페이지 이동)');
+                    modal.show();
+                    setTimeout(function() {
+                        window.location.href = '/login'
+                    }, 10000);
+                },
+                error      : function (error) {
+                    let modal = new bootstrap.Modal(registerModal);
+                    $('#register_msg').html(' 마이페이지 정보 등록 실패! 관리자 승인 후, 로그인 가능합니다.(10초 후 로그인 페이지 이동)');
+                    modal.show();
+                }
+            })
         }
     };
 
     $(function () {
         register_form.init();
     });
+
+
+
+
+
 </script>
 
 <!--begin::Main-->
@@ -176,6 +200,22 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
+
+<div class="modal fade" tabindex="-1" id="register_modal">
+<div class="modal-dialog">
+    <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
+        <div class="modal-body" style="display: flex; justify-content: space-between">
+            <div class="text-start text-white" style="width: 90%;">
+                <p id="register_msg" class="text-white" style="font-weight:700"></p>
+            </div>
+            <div class="text-end" style="width: 10%;">
+                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
 
 
 <!--begin::Javascript-->

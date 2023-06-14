@@ -38,22 +38,23 @@
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
-        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">주문상세조회</h3>
-                <!--end::Title-->
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">주문상세조회</span></a>
+                    </li>
+                </ul>
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/lecture/all" class="btn btn-active-accent fw-bold ms-3">View All Course</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course
-                    List</a>
-                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My
-                    Curriculum</a>
-                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Cart</a>
+                <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
+                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
+                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
             <!--end::Nav-->
         </div>

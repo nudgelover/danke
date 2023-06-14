@@ -42720,7 +42720,7 @@ code:not([class*=language-]) {
 .timeline-label:before {
   content: "";
   position: absolute;
-  left: 50%;
+  left: 32%;
   width: 3px;
   top: 0;
   bottom: 0;

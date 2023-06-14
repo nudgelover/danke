@@ -41,11 +41,23 @@ public class StdyService implements KBService<Integer, Stdy> {
     }
 
     public List<Stdy> getPage(int pageNo) throws Exception {
-        PageHelper.startPage(pageNo, 7); //한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 10); //한화면에 출력되는 개수
         return mapper.getpage();
     }
 
     public List<Stdy> getMyStdy(String writer) throws Exception{
         return mapper.getMyStdy(writer);
+    }
+
+    public Stdy stdyStartOrNot(String writer) throws Exception{
+        return mapper.stdyStartOrNot(writer);
+    }
+
+    public Stdy stdyEndOrNot(String writer) throws Exception{
+        return mapper.stdyEndOrNot(writer);
+    }
+
+    public Stdy stdyContentsUpdate(String writer) throws Exception{
+        return mapper.stdyContentsUpdate(writer);
     }
 }

@@ -2,9 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<!--begin::Vendor Stylesheets(used for this page only)-->
-<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+<script src="assets/js/scripts.bundle.js"></script>
 
 
 <style>
@@ -12,17 +11,10 @@
         margin-bottom: 30px;
     }
 
-    .modal_rank {
-        position: fixed;
-        top: 80%;
-        left: 38%;
-        transform: translate(-50%, -50%);
-    }
-
     .modal_body {
         position: fixed;
-        top: 90%;
-        left: 38%;
+        top: 80%;
+        left: 50%;
         transform: translate(-50%, -50%);
     }
 
@@ -39,26 +31,71 @@
 <script>
     $(document).ready(function () {
 
+        $('.order_btn').on('click', function () {
+            let stdnId = '${loginStdn.id}';
+            let lecId = $(this).prop('id').substring(10);
+            let orderModal = $('#order_modal_' + lecId);
+
+            if(stdnId==''){
+                let modal = new bootstrap.Modal(orderModal);
+                $('#order_msg_' + lecId).html('로그인이 필요한 서비스입니다.');
+                $('#order_link_'+lecId).attr('href','/login');
+                $('#order_link_'+lecId).html('로그인');
+                modal.show();
+            } else {
+
+                $.ajax({
+                    url:'/boughtornot',
+                    data:{stdnId:stdnId,lecId:lecId},
+                    success: function(result){
+                        if(result==1){
+                            window.location.href = '/lecture/orderthis?id='+lecId;
+                        } else {
+                            let modal = new bootstrap.Modal(orderModal);
+                            $('#order_msg_' +lecId).html('이미 수강신청한 강의입니다.');
+                            $('#order_link_'+lecId).attr('href','/lecture/playlecture?id='+lecId);
+                            $('#order_link_'+lecId).html(' 바로 학습하기');
+                            modal.show();
+                        }
+                    }
+                })
+            }
+        });
+
+
+
         $('.cart_btn').on('click', function () {
             let stdnId = '${loginStdn.id}';
             let lecId = $(this).prop('id').substring(9);
             let cartModal = $('#cart_modal_' + lecId);
 
-            $.ajax({
-                url: '/cartimpl',
-                data: {stdnId: stdnId, lecId: lecId},
-                success: function (result) {
-                    if (result === 0) {
-                        let modal = new bootstrap.Modal(cartModal)
-                        $('#cart_msg_' + lecId).html('이미 카트에 있는 강의입니다.');
-                        modal.show()
-                    } else if (result === 1) {
-                        let modal = new bootstrap.Modal(cartModal)
-                        $('#cart_msg_' + lecId).html('강의가 카트에 추가되었습니다.');
-                        modal.show()
+            if(stdnId==''){
+                let modal = new bootstrap.Modal(cartModal);
+                $('#cart_msg_' + lecId).html('로그인이 필요한 서비스입니다.');
+                $('#cart_link_'+lecId).attr('href','/login');
+                $('#cart_link_'+lecId).html('로그인');
+                modal.show();
+            } else {
+                $.ajax({
+                    url: '/cartimpl',
+                    data: {stdnId: stdnId, lecId: lecId},
+                    success: function (result) {
+                        if (result === 0) {
+                            let modal = new bootstrap.Modal(cartModal);
+                            $('#cart_msg_' + lecId).html('이미 카트에 있는 강의입니다.');
+                            $('#cart_link_'+lecId).attr('href','/lecture/cart?id='+stdnId);
+                            $('#cart_link_'+lecId).html('보러가기');
+                            modal.show();
+                        } else if (result === 1) {
+                            let modal = new bootstrap.Modal(cartModal);
+                            $('#cart_msg_' + lecId).html('강의가 카트에 추가되었습니다.');
+                            $('#cart_link_'+lecId).attr('href','/lecture/cart?id='+stdnId);
+                            $('#cart_link_'+lecId).html('보러가기');
+                            modal.show();
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         $('.curri_btn').on('click', function () {
@@ -66,21 +103,33 @@
             let lecId = $(this).prop('id').substring(10);
             let curriModal = $('#curri_modal_' + lecId);
 
-            $.ajax({
-                url: '/curriimpl',
-                data: {stdnId: stdnId, lecId: lecId},
-                success: function (result) {
-                    if (result === 0) {
-                        let modal = new bootstrap.Modal(curriModal)
-                        $('#curri_msg_' + lecId).html('이미 커리큘럼에 있는 강의입니다.');
-                        modal.show()
-                    } else if (result === 1) {
-                        let modal = new bootstrap.Modal(curriModal)
-                        $('#curri_msg_' + lecId).html('강의가 커리큘럼에 추가되었습니다.');
-                        modal.show()
+            if(stdnId==''){
+                let modal = new bootstrap.Modal(curriModal);
+                $('#curri_msg_' + lecId).html('로그인이 필요한 서비스입니다.');
+                $('#curri_link_'+lecId).attr('href','/login');
+                $('#curri_link_'+lecId).html('로그인');
+                modal.show();
+            } else {
+                $.ajax({
+                    url: '/curriimpl',
+                    data: {stdnId: stdnId, lecId: lecId},
+                    success: function (result) {
+                        if (result === 0) {
+                            let modal = new bootstrap.Modal(curriModal);
+                            $('#curri_msg_' + lecId).html('이미 커리큘럼에 있는 강의입니다.');
+                            $('#curri_link_'+lecId).attr('href','/lecture/curri?id='+stdnId);
+                            $('#curri_link_'+lecId).html('보러가기');
+                            modal.show();
+                        } else if (result === 1) {
+                            let modal = new bootstrap.Modal(curriModal);
+                            $('#curri_msg_' + lecId).html('강의가 커리큘럼에 추가되었습니다.');
+                            $('#curri_link_'+lecId).attr('href','/lecture/curri?id='+stdnId);
+                            $('#curri_link_'+lecId).html('보러가기');
+                            modal.show();
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     });
 </script>
@@ -106,7 +155,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
-                <a href="/lecture/curriculum?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 커리큘럼</a>
+                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
             <!--end::Nav-->
@@ -155,528 +204,228 @@
 
 
                     <div class="mb-10">
-                        <!--begin::Heading-->
-                        <div class="d-flex justify-content-between align-items-center mb-7">
-                            <div id="kt_carousel_3_carousel" class="carousel carousel-custom slide"
-                                 data-bs-ride="carousel" data-bs-interval="8000">
-                                <!--begin::Heading-->
+                        <div id="lec_container">
+                            <!--Lecture Contents With Menu Start-->
+                            <div  class="row g-5 g-xxl-8" style="display: flex; flex-direction: row;">
 
-                                <!--end::Heading-->
-
-                                <!--begin::Carousel-->
-                                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
-                                            <span class="text-primary fs-2" style="font-weight: 700">인기 강의 Top 9</span></a>
-                                    </li>
-                                </ul>
-                                <div class="carousel-inner pt-8 rounded bg-light-info
-                                    border-primary px-7 py-7 tab-content" id="myTabContent">
-                                    <!--begin::Item-->
-                                    <div class="carousel-item active">
-                                        <div style="display: flex;">
-                                            <div id="rank_container" class="row g-5 g-xxl-8">
-                                                <c:forEach var="rank" items="${rank}" varStatus="status" begin="0"
-                                                           end="2">
-                                                    <div class="col-md-4 col-xxl-4 col-lg-12">
-                                                        <!--begin::Card-->
-                                                        <div class="card shadow-none">
-                                                            <div class="card-body p-0 overlay overlay-wrapper">
-                                                                <!--begin::Image-->
-                                                                <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                                                    <div class="overlay-wrapper bg-light text-center">
-                                                                        <img src="/uimg/${rank.img}" alt="" class="mw-100"/>
-                                                                    </div>
-                                                                    <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
-                                                                        <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
-                                                                        </div>
-                                                                        <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
-                                                                            <ul class="icon-tray">
-                                                                                <li>
-                                                                                    <a href="/lecture/orderthis?id=${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="바로구매">
-                                                                                        <img src="/img/buy.png" style="width: 10%; align-self: flex-end;" />
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="cart_btn" id="cart_btn_${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="카트담기">
-                                                                                        <img src="/img/cart.png" style="width: 10%; align-self: flex-end;">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="curri_btn" id="curri_btn_${rank.id}">
-                                                                                    <img src="/img/heart.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="내 커리큘럼 추가">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
-                                                                                        <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--end::Image-->
-                                                                <!--begin::Details-->
-                                                                <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
-                                                                       class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
-                                                                    <span class="fs-6">${rank.teacher}<br>
-                                                <c:choose>
-                                                    <c:when test="${rank.discRate == 0}">
-                                                        <span class="text-gray-800 fw-bold fs-6">
-                                                        <fmt:formatNumber value="${rank.price}" type="number"
-                                                                          pattern="###,###원"/>
-                                                            </span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
-                                                                value="${rank.price}" type="number"
-                                                                pattern="###,###원"/></span>
-                                                        <span class="text-success fw-bold fs-6"><fmt:formatNumber
-                                                                value="${rank.price * (100 - rank.discRate)/100}"
-                                                                type="number" pattern="###,###원"/><span
-                                                                class="badge badge-light-danger">sale</span></span>
-                                                            </c:otherwise>
-                                                </c:choose>
-                                                <br><span class="badge badge-light-primary">누적수강생 ${rank.hit}명</span>
-                                                    <br><span><img src="/img/rating.png"
-                                                                   style="width:7%; height:7%;"> ${rank.rating} (${rank.cnt})</span>
-                                                                </div>
-                                                                <!--end::Details-->
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Card-->
-
-                                                        <!--Cart Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"
-                                                             id="cart_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="cart_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/cart?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Cart Modal End-->
-                                                        <!--Curri Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"id="curri_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="curri_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/curri?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                            <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Curri Modal End-->
-
-                                                    </div>
-                                                </c:forEach>
+                                    <!-- Side Menu Start -->
+                                    <div class="col-md-3 col-xxl-3 col-lg-3" style="width: 15%">
+                                        <div class="menu menu-rounded menu-column menu-title-gray-700 menu-icon-gray-400 menu-arrow-gray-400 menu-bullet-gray-400 menu-arrow-gray-400 menu-state-bg" data-kt-menu="true"
+                                             style="font-weight: 800;">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item" data-kt-menu-trigger="click">
+                                                <!--begin::Menu link-->
+                                                <a href="#" class="menu-link py-3">
+                                                    <span class="menu-title">전체 강의</span>
+                                                </a>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="carousel-item ">
-                                        <div style="display: flex;">
-                                            <div id="rank_container2" class="row g-5 g-xxl-8 ">
-                                                <c:forEach var="rank" items="${rank}" varStatus="status" begin="3"
-                                                           end="5">
-                                                    <div class="col-md-4 col-xxl-4 col-lg-12 ">
-                                                        <!--begin::Card-->
-                                                        <div class="card shadow-none">
-                                                            <div class="card-body p-0 overlay overlay-wrapper">
-                                                                <!--begin::Image-->
-                                                                <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                                                    <div class="overlay-wrapper bg-light text-center">
-                                                                        <img src="/uimg/${rank.img}" alt="" class="mw-100"/>
-                                                                    </div>
-                                                                    <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
-                                                                        <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
-                                                                        </div>
-                                                                        <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
-                                                                            <ul class="icon-tray">
-                                                                                <li>
-                                                                                    <a href="/lecture/orderthis?id=${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="바로구매">
-                                                                                        <img src="/img/buy.png" style="width: 10%; align-self: flex-end;" />
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="cart_btn" id="cart_btn_${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="카트담기">
-                                                                                        <img src="/img/cart.png" style="width: 10%; align-self: flex-end;">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="curri_btn" id="curri_btn_${rank.id}">
-                                                                                    <img src="/img/heart.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="내 커리큘럼 추가">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
-                                                                                    <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
-
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--end::Image-->
-                                                                <!--begin::Details-->
-                                                                <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
-                                                                       class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
-                                                                    <span class="fs-6">${rank.teacher}<br>
-                                                <c:choose>
-                                                    <c:when test="${rank.discRate == 0}">
-                                                        <span class="text-gray-800 fw-bold fs-6">
-                                                        <fmt:formatNumber value="${rank.price}" type="number"
-                                                                          pattern="###,###원"/>
-                                                            </span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
-                                                                value="${rank.price}" type="number"
-                                                                pattern="###,###원"/></span>
-                                                        <span class="text-success fw-bold fs-6"><fmt:formatNumber
-                                                                value="${rank.price * (100 - rank.discRate)/100}"
-                                                                type="number" pattern="###,###원"/><span
-                                                                class="badge badge-light-danger">sale</span></span>
-                                                            </c:otherwise>
-                                                </c:choose>
-                                                <br><span class="badge badge-light-primary">누적수강생 ${rank.hit}명</span>
-                                                    <br><span><img src="/img/rating.png"
-                                                                   style="width:7%; height:7%;"> ${rank.rating} (${rank.cnt})</span>
-                                                                </div>
-
-
-                                                                <!--end::Details-->
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Card-->
-                                                        <!--Cart Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"
-                                                             id="cart_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 5% 5% 3% 5%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="cart_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/cart?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                            <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Modal End-->
-                                                        <!--Curri Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"id="curri_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="curri_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/curri?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                            <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Curri Modal End-->
+                                        <c:forEach var="sbjBig" items="${sideBig}">
+                                <!--begin::Menu-->
+                                        <div class="menu menu-rounded menu-column menu-title-gray-700 menu-icon-gray-400 menu-arrow-gray-400 menu-bullet-gray-400 menu-arrow-gray-400 menu-state-bg" data-kt-menu="true"
+                                        style="font-weight: 800;">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
+                                                <!--begin::Menu link-->
+                                                <a href="#" class="menu-link py-3">
+                                                    <span class="menu-title">${sbjBig.sbjName}</span>
+                                                    <span class="menu-arrow"></span>
+                                                </a>
+                                                <!--end::Menu link-->
+                                                <div class="menu-sub menu-sub-accordion pt-3">
+                                                    <!--begin::Menu item-->
+                                                    <div class="menu-item">
+                                                        <a href="#" class="menu-link">
+                                                            <span class="menu-title">ALL</span>
+                                                        </a>
                                                     </div>
+                                                </div>
+                                                <c:forEach var="sbjMedium" items="${sideMedium[sbjBig.sbjCode]}">
+                                                    <!--begin::Menu sub-->
+
+                                                    <div class="menu-sub menu-sub-accordion pt-3">
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item">
+                                                            <a href="#" class="menu-link ${param.sbjCode != null && sbjMedium.sbjCode == param.sbjCode ? 'active' : ''}">
+                                                                <span class="menu-title">${sbjMedium.sbjName}</span>
+                                                            </a>
+                                                        </div>
+                                                        <!--end::Menu item-->
+                                                    </div>
+                                                    <!--end::Menu sub-->
                                                 </c:forEach>
                                             </div>
+                                            <!--end::Menu item-->
                                         </div>
+                                <!--end::Menu-->
+                                        </c:forEach>
                                     </div>
-                                    <!--end::Item-->
-                                    <!--begin::Item-->
-                                    <div class="carousel-item">
-                                        <div style="display: flex;">
-                                            <div id="rank_container3" class="row g-5 g-xxl-8">
-                                                <c:forEach var="rank" items="${rank}" varStatus="status" begin="6"
-                                                           end="8">
-                                                    <div class="col-md-4 col-xxl-4 col-lg-12">
-                                                        <!--begin::Card-->
-                                                        <div class="card shadow-none">
-                                                            <div class="card-body p-0 overlay overlay-wrapper">
-                                                                <!--begin::Image-->
-                                                                <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                                                    <div class="overlay-wrapper bg-light text-center">
-                                                                        <img src="/uimg/${rank.img}" alt="" class="mw-100"/>
-                                                                    </div>
-                                                                    <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
-                                                                        <div class="text-start text-white" style="text-align: left">
-                                                                            <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${rank.title}</a>
-                                                                        </div>
-                                                                        <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
-                                                                            <ul class="icon-tray">
-                                                                                <li>
-                                                                                    <a href="/lecture/orderthis?id=${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="바로구매">
-                                                                                        <img src="/img/buy.png" style="width: 10%; align-self: flex-end;" />
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="cart_btn" id="cart_btn_${rank.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="카트담기">
-                                                                                        <img src="/img/cart.png" style="width: 10%; align-self: flex-end;">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="javascript:void(0)" class="curri_btn" id="curri_btn_${rank.id}">
-                                                                                    <img src="/img/heart.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="내 커리큘럼 추가">
-                                                                                    </a>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}">
-                                                                                    <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--end::Image-->
-                                                                <!--begin::Details-->
-                                                                <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                                    <a href="/lecture/detail?id=${rank.id}&&stdnId=${loginStdn.id}"
-                                                                       class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${rank.title}</a>
-                                                                    <span class="fs-6">${rank.teacher}<br>
-                                                <c:choose>
-                                                    <c:when test="${rank.discRate == 0}">
-                                                        <span class="text-gray-800 fw-bold fs-6">
-                                                        <fmt:formatNumber value="${rank.price}" type="number"
-                                                                          pattern="###,###원"/>
-                                                            </span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
-                                                                value="${rank.price}" type="number"
-                                                                pattern="###,###원"/></span>
-                                                        <span class="text-success fw-bold fs-6"><fmt:formatNumber
-                                                                value="${rank.price * (100 - rank.discRate)/100}"
-                                                                type="number" pattern="###,###원"/><span
-                                                                class="badge badge-light-danger">sale</span></span>
-                                                            </c:otherwise>
-                                                </c:choose>
-                                                <br><span class="badge badge-light-primary">누적수강생 ${rank.hit}명</span>
-                                                    <br><span><img src="/img/rating.png"
-                                                                   style="width:7%; height:7%;"> ${rank.rating} (${rank.cnt})</span>
-                                                                </div>
-                                                                <!--end::Details-->
+                                    <!-- Side Menu End -->
+
+                                <div class="col-md-9 col-xxl-9 col-lg-9" style="width: 85%">
+                                <!-- Top Subject Buttons Start -->
+                                    <div class="d-flex justify-content-start  mb-7">
+                                        <a href="#" class="btn btn-light-primary btn-sm fw-bold" style="margin-right:0.5%">View All</a>
+                                        <a href="#" class="btn btn-light-primary btn-sm fw-bold" style="margin-right:0.5%">Spring</a>
+                                        <a href="#" class="btn btn-light-primary btn-sm fw-bold" style="margin-right:0.5%">Spring Boot</a>
+                                    </div>
+                                <!-- Top Subject Buttons End -->
+
+                                <!--Lecture List Start -->
+                                    <div class="row">
+                                    <c:forEach var="obj" items="${cpage.getList()}">
+                                        <div class="col-md-3 col-xxl-3 col-lg-3">
+                                            <!--begin::Card-->
+                                            <div class="card shadow-none">
+                                                <div class="card-body p-0 overlay overlay-wrapper">
+                                                    <!--begin::Image-->
+                                                    <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+                                                        <div class="overlay-wrapper bg-light text-center">
+                                                            <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
+                                                        </div>
+                                                        <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between">
+                                                            <div class="text-start text-white px-5 py-4">
+                                                                <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}" class="fs-4 text-white text-hover-white" style="font-weight: 700;">${obj.title}</a>
+                                                                <p style="margin-top:3%;"><span style="color: rgb(163,223,237)"><span class="svg-icon" style="color: rgb(163,223,237)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z" fill="currentColor"/>
+        <path d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z" fill="currentColor"/>
+        <path d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z" fill="currentColor"/>
+                                                                                </svg></span> 과정정보 1
+                                                                                    <br><span class="svg-icon" style="color: rgb(163,223,237)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z" fill="currentColor"/>
+        <path d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z" fill="currentColor"/>
+        <path d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z" fill="currentColor"/>
+                                                                                </svg></span> 과정정보 2
+                                                                                    <br><span class="svg-icon" style="color: rgb(163,223,237)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z" fill="currentColor"/>
+        <path d="M10.9256 11.1882C10.5351 10.7977 10.5351 10.1645 10.9256 9.77397L18.0669 2.6327C18.8479 1.85165 20.1143 1.85165 20.8953 2.6327L21.3665 3.10391C22.1476 3.88496 22.1476 5.15129 21.3665 5.93234L14.2252 13.0736C13.8347 13.4641 13.2016 13.4641 12.811 13.0736L10.9256 11.1882Z" fill="currentColor"/>
+        <path d="M8.82343 12.0064L8.08852 14.3348C7.8655 15.0414 8.46151 15.7366 9.19388 15.6242L11.8974 15.2092C12.4642 15.1222 12.6916 14.4278 12.2861 14.0223L9.98595 11.7221C9.61452 11.3507 8.98154 11.5055 8.82343 12.0064Z" fill="currentColor"/>
+                                                                                        </svg></span> 과정정보 3</span></p>
+                                                            </div>
+                                                            <div class="text-end px-3 py-1">
+                                                                <ul class="icon-tray">
+                                                                    <li>
+                                                                        <a href="javascript:void(0)" class="order_btn" id="order_btn_${obj.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="바로구매">
+                                                                            <img src="/img/buy.png" style="width: 10%; align-self: flex-end;" />
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)" class="cart_btn" id="cart_btn_${obj.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="카트담기">
+                                                                            <img src="/img/cart.png" style="width: 10%; align-self: flex-end;">
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="javascript:void(0)" class="curri_btn" id="curri_btn_${obj.id}">
+                                                                        <img src="/img/heart.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="내 커리큘럼 추가">
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}">
+                                                                        <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                         </div>
-                                                        <!--end::Card-->
-                                                        <!--Cart Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"
-                                                             id="cart_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 5% 5% 3% 5%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="cart_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/cart?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                            <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Modal End-->
-                                                        <!--Curri Modal-->
-                                                        <div class="modal fade modal_rank" tabindex="-1"id="curri_modal_${rank.id}">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
-                                                                    <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                                        <div class="text-start" style="width: 50%;">
-                                                                            <p id="curri_msg_${rank.id}" style="font-weight:700"></p>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 40%;">
-                                                                            <a href="/lecture/curri?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                                        </div>
-                                                                        <div class="text-end" style="width: 10%;">
-                                                                            <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Curri Modal End-->
                                                     </div>
-                                                </c:forEach>
+                                                    <!--end::Image-->
+                                                    <!--begin::Details-->
+                                                    <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
+                                                        <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}"
+                                                           class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
+                                                        <span class="fs-6">${obj.teacher}<br>
+                                                        <c:choose>
+                                                            <c:when test="${obj.discRate == 0}">
+                                                                <span class="text-gray-800 fw-bold fs-6">
+                                                                <fmt:formatNumber value="${obj.price}" type="number"
+                                                                                  pattern="###,###원"/>
+                                                                    </span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
+                                                                        value="${obj.price}" type="number"
+                                                                        pattern="###,###원"/></span>
+                                                                <span class="text-success fw-bold fs-6"><fmt:formatNumber
+                                                                        value="${obj.price * (100 - obj.discRate)/100}"
+                                                                        type="number" pattern="###,###원"/><span
+                                                                        class="badge badge-light-danger">sale</span></span>
+                                                                    </c:otherwise>
+                                                        </c:choose>
+                                                        <br><span class="badge badge-light-primary">누적수강생 ${obj.hit}명</span>
+                                                            <br><span><img src="/img/rating.png"
+                                                                           style="width:4%; height:4%;"> <fmt:formatNumber value="${obj.rating}" type="number" pattern="0.0"/>(${obj.cnt})</span>
+                                                    </div>
+
+
+                                                    <!--end::Details-->
+                                                </div>
                                             </div>
+                                            <!--end::Card-->
+                                            <!--Cart Modal-->
+                                            <div class="modal fade modal_body" tabindex="-1"
+                                                 id="cart_modal_${obj.id}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
+                                                        <div class="modal-body" style="display: flex; justify-content: space-between">
+                                                            <div class="text-start" style="width: 50%;">
+                                                                <p id="cart_msg_${obj.id}" style="font-weight:700"></p>
+                                                            </div>
+                                                            <div class="text-end" style="width: 40%;">
+                                                                <a href="/lecture/cart?id=${loginStdn.id}" id="cart_link_${obj.id}" style="font-weight: bold;">보러가기</a>
+                                                            </div>
+                                                            <div class="text-end" style="width: 10%;">
+                                                                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Cart Modal End-->
+                                            <!--Curri Modal-->
+                                            <div class="modal fade modal_body" tabindex="-1"id="curri_modal_${obj.id}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
+                                                        <div class="modal-body" style="display: flex; justify-content: space-between">
+                                                            <div class="text-start" style="width: 50%;">
+                                                                <p id="curri_msg_${obj.id}" style="font-weight:700"></p>
+                                                            </div>
+                                                            <div class="text-end" style="width: 40%;">
+                                                                <a href="/lecture/curri?id=${loginStdn.id}" id="curri_link_${obj.id}" style="font-weight: bold;">보러가기</a>
+                                                            </div>
+                                                            <div class="text-end" style="width: 10%;">
+                                                                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Curri Modal End-->
+                                            <!--Order Modal-->
+                                            <div class="modal fade modal_body" tabindex="-1" id="order_modal_${obj.id}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
+                                                        <div class="modal-body" style="display: flex; justify-content: space-between">
+                                                            <div class="text-start" style="width: 50%;">
+                                                                <p id="order_msg_${obj.id}" style="font-weight:700"></p>
+                                                            </div>
+                                                            <div class="text-end" style="width: 40%;">
+                                                                <a href="/lecture/orderthis?id=${loginStdn.id}" id="order_link_${obj.id}" style="font-weight: bold;"></a>
+                                                            </div>
+                                                            <div class="text-end" style="width: 10%;">
+                                                                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Order Modal End-->
                                         </div>
+                                    </c:forEach>
                                     </div>
-                                    <!--end::Item-->
-                                </div>
-                                <!--end::Carousel-->
-                                <div class="d-flex flex-wrap" style="justify-content: center; align-items: center">
-                                    <ol class="p-0 m-0 carousel-indicators carousel-indicators-bullet carousel-indicators-active-primary">
-                                        <li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="0"
-                                            class="ms-1 active"></li>
-                                        <li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="1"
-                                            class="ms-1"></li>
-                                        <li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="2"
-                                            class="ms-1"></li>
-                                    </ol>
-                                    <!--end::Carousel Indicators-->
+                                    <jsp:include page="../page.jsp"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-7">
-                            <a href="#" class="btn btn-light-primary btn-sm fw-bold">View All</a>
-                        </div>
-                        <div id="lec_container" class="row g-5 g-xxl-8">
-                            <!--begin::Product-->
-                            <c:forEach var="obj" items="${cpage.getList()}">
-                                <div class="col-md-4 col-xxl-4 col-lg-12">
-                                    <!--begin::Card-->
-                                    <div class="card shadow-none">
-                                        <div class="card-body p-0 overlay overlay-wrapper">
-                                            <!--begin::Image-->
-                                            <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                                <div class="overlay-wrapper bg-light text-center">
-                                                    <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
-                                                </div>
-                                                <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column;">
-                                                    <div class="text-start text-white" style="text-align: left">
-                                                        <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}" class="text-start fs-4 text-white text-hover-white" style="font-weight: 700">${obj.title}</a>
-                                                    </div>
-                                                    <div class="text-end px-3" style="display: flex; flex-direction: column; align-items: flex-end; text-align: end">
-                                                        <ul class="icon-tray">
-                                                            <li>
-                                                                <a href="/lecture/orderthis?id=${obj.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="바로구매">
-                                                                    <img src="/img/buy.png" style="width: 10%; align-self: flex-end;" />
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0)" class="cart_btn" id="cart_btn_${obj.id}" data-bs-toggle="tooltip" data-bs-placement="left" title="카트담기">
-                                                                    <img src="/img/cart.png" style="width: 10%; align-self: flex-end;">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0)" class="curri_btn" id="curri_btn_${obj.id}">
-                                                                <img src="/img/heart.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="내 커리큘럼 추가">
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}">
-                                                                <img src="/img/view.png" style="width:10%; align-self: flex-end;" data-bs-toggle="tooltip" data-bs-placement="left" title="상세보기">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Image-->
-                                            <!--begin::Details-->
-                                            <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}"
-                                                   class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title}</a>
-                                                <span class="fs-6">${obj.teacher}<br>
-                                                <c:choose>
-                                                    <c:when test="${obj.discRate == 0}">
-                                                        <span class="text-gray-800 fw-bold fs-6">
-                                                        <fmt:formatNumber value="${obj.price}" type="number"
-                                                                          pattern="###,###원"/>
-                                                            </span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
-                                                                value="${obj.price}" type="number"
-                                                                pattern="###,###원"/></span>
-                                                        <span class="text-success fw-bold fs-6"><fmt:formatNumber
-                                                                value="${obj.price * (100 - obj.discRate)/100}"
-                                                                type="number" pattern="###,###원"/><span
-                                                                class="badge badge-light-danger">sale</span></span>
-                                                            </c:otherwise>
-                                                </c:choose>
-                                                <br><span class="badge badge-light-primary">누적수강생 ${obj.hit}명</span>
-                                                    <br><span><img src="/img/rating.png"
-                                                                   style="width:7%; height:7%;"> ${obj.rating} (${obj.cnt})</span>
-                                            </div>
-
-
-                                            <!--end::Details-->
-                                        </div>
-                                    </div>
-                                    <!--end::Card-->
-                                    <!--Cart Modal-->
-                                    <div class="modal fade modal_body" tabindex="-1"
-                                         id="cart_modal_${obj.id}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="padding: 5% 5% 3% 5%; text-align:center;">
-                                                <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                    <div class="text-start" style="width: 50%;">
-                                                        <p id="cart_msg_${obj.id}" style="font-weight:700"></p>
-                                                    </div>
-                                                    <div class="text-end" style="width: 40%;">
-                                                        <a href="/lecture/cart?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                    </div>
-                                                    <div class="text-end" style="width: 10%;">
-                                                        <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--Modal End-->
-                                    <!--Curri Modal-->
-                                    <div class="modal fade modal_body" tabindex="-1"id="curri_modal_${obj.id}">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;">
-                                                <div class="modal-body" style="display: flex; justify-content: space-between">
-                                                    <div class="text-start" style="width: 50%;">
-                                                        <p id="curri_msg_${obj.id}" style="font-weight:700"></p>
-                                                    </div>
-                                                    <div class="text-end" style="width: 40%;">
-                                                        <a href="/lecture/curri?id=${loginStdn.id}" style="font-weight: bold;">보러가기</a>
-                                                    </div>
-                                                    <div class="text-end" style="width: 10%;">
-                                                        <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--Curri Modal End-->
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <jsp:include page="../page.jsp"/>
+                            <!--Contents End-->
                     </div>
                 </div>
             </div>
@@ -687,13 +436,4 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-
-
-<!--begin::Vendors Javascript(used for this page only)-->
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="/assets/js/custom/apps/shop.js"></script>
-<script src="/assets/js/custom/widgets.js"></script>
-<script src="/assets/js/custom/apps/chat/chat.js"></script>
-<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+</div>

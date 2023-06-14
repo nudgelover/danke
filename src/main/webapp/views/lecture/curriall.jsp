@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+<!--begin::Vendor Stylesheets(used for this page only)-->
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <style>
     .timeline-label{
         display: flex;
@@ -18,6 +20,24 @@
         margin-bottom: 1.7rem;
     }
 
+    .timeline-badge {
+    /*    flex-shrink: 0;*/
+    /*    background-color: var(--bs-body-bg);*/
+    /*    width: 1rem;*/
+    /*    height: 1rem;*/
+    /*    border-radius: 100%;*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    align-items: center;*/
+    /*    z-index: 1;*/
+    /*    position: absolute;*/
+    /*    top: 50%;*/
+    /*    left: -0.5rem; !* Adjust the left position as needed *!*/
+    /*    transform: translateY(-50%);*/
+    /*    padding: 3px !important;*/
+    /*    border: 6px solid var(--bs-body-bg) !important;*/
+    }
+
     .timeline-content {
         margin-left: 2rem; /* Adjust the margin as needed */
         width: 50%;
@@ -31,19 +51,13 @@
         $('.curri_settings').click( function(){
             let stdnId = '${loginStdn.id}';
             let curriId = $(this).prop('id').substring(19);
-            let checked = 0;
-            let isChecked = $('#isOpen_' + curriId).is(':checked');
-            if(isChecked){
-                checked=1;
-            };
-            //alert(checked);
+            let checked = $('#isOpen_' + curriId).is(':checked') ? 1 : 0;
+            alert(checked);
             $.ajax({
                 url:'/currisettingsimpl',
                 data:{stdnId:stdnId, curriId:curriId, checked:checked},
                 success:function(result){
                     window.location.href='/lecture/curri?id='+stdnId;
-
-
                 }
             })
 
@@ -94,6 +108,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5">커리큘럼 엿보기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_6">MD추천 커리큘럼</a>
                         </li>
                     </ul>
 
@@ -295,6 +312,9 @@
                                          style="background-image: url(/assets/media/illustrations/sigma-1/4.png);"></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="tab-pane fade" id="kt_tab_pane_6" role="tabpanel">
+                            삼번입네다
                         </div>
                     </div>
                     <!--begin::Engage Widget 1-->

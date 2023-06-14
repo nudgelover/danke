@@ -8,12 +8,15 @@
     </select>
 
     <select id="getMyOrd" parameterType="String" resultType="Ord">
-        SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone
-             , ord_price AS ordPrice, pay_method AS payMethod
-             , upd_date AS updDate, use_cpn AS useCpn
-        FROM ord
-        WHERE stdn_id=#{stdnId}
+        SELECT o.id, o.stdn_id AS stdnId, o.rdate, o.is_done AS isDone
+             , o.ord_price AS ordPrice, o.pay_method AS payMethod
+             , o.upd_date AS updDate, o.use_cpn AS useCpn, COUNT(od.id) AS cnt
+        FROM ord o
+                 LEFT JOIN ord_detail od ON o.id = od.ord_id
+        WHERE o.stdn_id = #{stdnId}
+        GROUP BY o.id, o.stdn_id, o.rdate, o.is_done, o.ord_price, o.pay_method, o.upd_date, o.use_cpn
     </select>
+
 
     <select id="select" parameterType="Integer" resultType="Ord">
         SELECT id, stdn_id AS stdnId, rdate, is_done AS isDone

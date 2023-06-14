@@ -1,8 +1,10 @@
 package com.myservice.controller;
 
 import com.myservice.dto.MyPage;
+import com.myservice.dto.SbjDetail;
 import com.myservice.dto.Stdn;
 import com.myservice.service.MyPageService;
+import com.myservice.service.SbjDetailService;
 import com.myservice.service.StdnService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,8 @@ public class MainController {
     StdnService stdnService;
     @Autowired
     MyPageService myPageService;
+    @Autowired
+    SbjDetailService sbjDetailService;
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
@@ -154,27 +158,18 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/registerimpl2")
-    public String registerimpl2(Model model, MyPage myPage, HttpSession session) throws Exception {
-        try {
-            myPageService.register(myPage);
-
-        } catch (Exception e) {
-            throw new Exception("시스템 장애: ER0006");
-        }
-
-        model.addAttribute("center", "center");
-        return "redirect:/login";
-    }
-
-
-
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session) throws Exception {
         if (session != null) {
             session.invalidate();
         }
         return "redirect:/";
+    }
+
+    @RequestMapping("/attd")
+    public String attd(Model model) throws Exception {
+        model.addAttribute("center", "attd");
+        return "index";
     }
 
 }
