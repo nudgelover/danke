@@ -77,16 +77,19 @@
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">비밀번호 변경</h3>
-                <!--end::Title-->
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">비밀번호 변경</span></a>
+                    </li>
+                </ul>
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
+                <a href="/mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
                 <a href="/settings/pwd?id=${loginStdn.id}" class="btn btn-active-accent active fw-bold ms-3">비밀번호 변경</a>
-                <a href="#" class="btn btn-active-accent fw-bold ms-3">QR코드발급</a>
+                <a href="/settings/authentication" class="btn btn-active-accent fw-bold ms-3">QR코드발급</a>
                 <a href="/settings" class="btn btn-active-accent  fw-bold">settings</a>
             </div>
             <!--end::Nav-->
@@ -104,7 +107,7 @@
                     <div class="card-body mw-800px py-20">
                         <!--begin::Form row-->
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">아이디</label>
+                            <label class="col-lg-3 col-form-label"><span class="bullet bullet-vertical bg-primary me-5"></span>아이디</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
@@ -113,11 +116,11 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">현재 비밀번호</label>
+                            <label class="col-lg-3 col-form-label"><span class="bullet bullet-vertical bg-primary me-5"></span>현재 비밀번호</label>
                             <div class="col-lg-9">
                                 <div class="input-group">
                                     <input type="hidden" name="id" value="${loginStdn.id}">
-                                    <input class="form-control form-control-solid"
+                                    <input class="form-control form-control-solid rounded"
                                            type="password" id="pwd_current" style="width: 60%; margin-right: 5px;"/>
                                     <div class="input-group-append">
                                         <input type="button" class="btn btn-color-gray-600 btn-light-primary fw-bold px-6 py-3"
@@ -132,7 +135,7 @@
 
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">새 비밀번호</label>
+                            <label class="col-lg-3 col-form-label"><span class="bullet bullet-vertical bg-primary me-5"></span>새 비밀번호</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
                                     <input class="form-control form-control-lg form-control-solid" type="password"
@@ -141,7 +144,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">새 비밀번호 확인</label>
+                            <label class="col-lg-3 col-form-label"><span class="bullet bullet-vertical bg-primary me-5"></span>새 비밀번호 확인</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
                                     <input class="form-control form-control-lg form-control-solid" type="password"

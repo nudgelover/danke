@@ -19,6 +19,7 @@ public class Ord {
     private int useCpn;
 
     private Integer ordId;
+    private Integer cnt;
 
     //Insert
     public Ord(String stdnId, int ordPrice, String payMethod, int useCpn) {

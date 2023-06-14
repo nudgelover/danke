@@ -1,8 +1,10 @@
 package com.myservice.controller;
 
 import com.myservice.dto.MyPage;
+import com.myservice.dto.SbjDetail;
 import com.myservice.dto.Stdn;
 import com.myservice.service.MyPageService;
+import com.myservice.service.SbjDetailService;
 import com.myservice.service.StdnService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +41,8 @@ public class MainController {
     StdnService stdnService;
     @Autowired
     MyPageService myPageService;
+    @Autowired
+    SbjDetailService sbjDetailService;
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
@@ -178,6 +182,13 @@ public class MainController {
         }
         return "redirect:/";
     }
+
+    @RequestMapping("/attd")
+    public String attd(Model model) throws Exception {
+        model.addAttribute("center", "attd");
+        return "index";
+    }
+
     @RequestMapping("/toall")
     public String websocket(Model model){
         model.addAttribute("adminserver", adminserver);

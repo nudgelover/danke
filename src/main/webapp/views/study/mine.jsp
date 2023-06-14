@@ -10,11 +10,6 @@
         white-space: nowrap;
         overflow: hidden;
     }
-
-    #cutcut {
-        display: block;
-        white-space: nowrap;
-    }
 </style>
 
 <!--begin::Main-->
@@ -34,10 +29,10 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/study/all" class="btn btn-active-accent active active fw-bold ms-33">스터디 게시판</a>
+                <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
                     <c:when test="${loginStdn != null}">
-                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
+                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-33">나의 스터디 기록</a>
                         <a href="/study/add" class="btn btn-active-accent fw-bold ms-3">스터디 일지 작성</a>
                     </c:when>
                 </c:choose>
@@ -51,7 +46,7 @@
         <!--begin::Container-->
         <div class="container-xxl">
             <!--begin::Inbox-->
-            <div class="d-flex flex-column flex-lg-row mb-3">
+            <div class="d-flex flex-column flex-lg-row">
                 <!--begin::List-->
 
                 <div class="flex-lg-row-fluid d-block" id="kt_inbox_list">
@@ -66,7 +61,7 @@
                         <div class="card-body px-0 overflow-auto">
                             <!--begin::Items-->
                             <div  data-inbox="list">
-                                <c:forEach var="stdy" items="${cpage.getList()}">
+                                <c:forEach var="stdy" items="${stdy}">
                                 <div class="d-flex align-items-start bg-hover-light card-px py-3" data-inbox="message">
                                     <!--begin::Toolbar-->
                                     <div class="d-flex align-items-center">
@@ -89,7 +84,7 @@
                                     <!--begin::Info-->
                                     <div class="flex-lg-grow-1 mt-2 me-2" data-bs-toggle="view">
                                         <div>
-                                            <span class="fw-bold fs-6 me-2">${stdy.startTime} - ${stdy.endTime}</span>
+                                            <span class="fw-bold fs-6 me-2">${stdy.startTime} - ${stdy.endTime} <span class="badge badge-light-primary" mx-1>총 ${stdy.duration}</span></span>
                                             <c:choose>
                                                 <c:when test="${loginStdn.id==stdy.writer}">
                                                     <a href="/study/delete?id=${stdy.id}"><span class="svg-icon svg-icon-muted svg-icon-2x"
@@ -102,7 +97,8 @@
                                                     </span></a>
                                                 </c:when>
                                             </c:choose>
-                                            <br><a href="/study/detail?id=${stdy.id}"><span class="fw-bolder" id="cutcut">${stdy.contents}</span></a>
+                                            <br>
+                                            <a href="/study/detail?id=${stdy.id}"><span class="fw-bolder shorttitle">${stdy.contents}</span></a>
                                             <span class="badge badge-light-info me-1">new</span>
                                         </div>
                                         <div class="mt-2">
@@ -137,7 +133,6 @@
                 <!--end::List-->
             </div>
             <!--end::Inbox-->
-            <jsp:include page="../page.jsp"/>
         </div>
         <!--end::Container-->
     </div>

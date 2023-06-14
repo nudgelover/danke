@@ -38,4 +38,16 @@ public class SbjDetailService implements KBService<Integer, SbjDetail> {
     public List<SbjDetail> get() throws Exception {
         return mapper.selectall();
     }
+
+    public List<SbjDetail> searchBig() throws Exception{
+        return mapper.searchBig();
+    }
+
+    public List<SbjDetail> searchMedium(Integer SbjCode2) throws Exception{
+        return mapper.searchMedium(SbjCode2);
+    }
+
+    public List<SbjDetail> searchMediumAll() throws Exception{
+        return mapper.searchMediumAll();
+    }
 }

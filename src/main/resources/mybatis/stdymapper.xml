@@ -4,41 +4,78 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.StdyMapper">
 
+    <select id="stdyContentsUpdate" parameterType="String" resultType="Stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+          AND y.writer=#{writer}
+          AND y.rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+          AND y.end_time is not null
+          AND y.contents is null
+    </select>
+
+
+    <select id="stdyEndOrNot" parameterType="String" resultType="Stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+          AND y.writer=#{writer}
+          AND y.rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+          AND y.end_time is null
+    </select>
+
+    <select id="stdyStartOrNot" parameterType="String" resultType="Stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+          AND y.writer=#{writer}
+          AND y.rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+    </select>
+
     <select id="getMyStdy" parameterType="String" resultType="Stdy">
-        SELECT stdy.id, stdy.writer, stdy.start_time AS startTime, stdy.end_time AS endTime
-             , stdy.contents, stdy.rdate, stdy.filename, stdy.filename_org AS filenameOrg
-             , stdn.name AS stdnName, stdn.img AS stdnImg
-        FROM stdy, stdn
-        WHERE stdy.writer=stdn.id
-        AND stdy.writer=#{writer}
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+        AND y.writer=#{writer}
+        AND y.contents IS NOT NULL
     </select>
 
     <select id="select" parameterType="Integer" resultType="Stdy">
-        SELECT stdy.id, stdy.writer, stdy.start_time AS startTime, stdy.end_time AS endTime
-             , stdy.contents, stdy.rdate, stdy.filename, stdy.filename_org AS filenameOrg
-             , stdn.name AS stdnName, stdn.img AS stdnImg
-        FROM stdy, stdn
-        WHERE stdy.writer=stdn.id
-        AND stdy.id=#{id}
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+        AND y.id=#{id}
+        AND y.contents IS NOT NULL
     </select>
 
     <select id="selectall" resultType="Stdy">
-        SELECT stdy.id, stdy.writer, stdy.start_time AS startTime, stdy.end_time AS endTime
-             , stdy.contents, stdy.rdate, stdy.filename, stdy.filename_org AS filenameOrg
-             , stdn.name AS stdnName, stdn.img AS stdnImg
-        FROM stdy, stdn
-        WHERE stdy.writer=stdn.id
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+          AND y.contents IS NOT NULL
     </select>
 
     <insert id="insert" parameterType="Stdy">
         INSERT INTO stdy (id, writer, start_time, end_time
                 , contents, rdate, filename, filename_org)
-        VALUES (stdy_seq.NEXTVAL,#{writer},#{startTime},#{endTime}
-        ,#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{filename},#{filenameOrg})
+        VALUES (stdy_seq.NEXTVAL,#{writer},#{startTime},#{endTime, jdbcType=VARCHAR}
+        ,#{contents, jdbcType=VARCHAR},TO_CHAR(SYSDATE,'yyyy.MM.dd'),#{filename, jdbcType=VARCHAR},#{filenameOrg, jdbcType=VARCHAR})
     </insert>
 
     <update id="update" parameterType="stdy">
-        UPDATE stdy SET contents=#{contents}, filename=#{filename},filename_org=#{filenameOrg}
+        UPDATE stdy SET end_time=#{endTime, jdbcType=VARCHAR}, contents=#{contents, jdbcType=VARCHAR}, filename=#{filename, jdbcType=VARCHAR},filename_org=#{filenameOrg, jdbcType=VARCHAR}
         WHERE id=#{id}
     </update>
 
@@ -47,5 +84,17 @@
         FROM stdy
         WHERE id=#{id}
     </delete>
+
+    <select id="getpage" resultType="stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename,y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+        FROM stdy y, stdn n
+        WHERE y.writer=n.id
+          AND y.contents is not null
+        ORDER BY y.id DESC
+    </select>
+
+
 
 </mapper>

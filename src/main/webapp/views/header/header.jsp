@@ -335,10 +335,6 @@
 <%--                    </div>--%>
 <%--                </c:otherwise>--%>
 <%--            </c:choose>--%>
-            <div class="ms-1 ms-lg-6">
-                <!--begin::Dropdown-->
-                <button class="toggle-button" onclick="lightDarkMode()">light/dark</button>
-            </div>
 
 
             <!--begin::Aside Toggler-->

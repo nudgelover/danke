@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.myservice.mapper.AttdMapper">
 
+    <select id="attdOrNot" parameterType="map" resultType="Attd">
+        SELECT id, stdn_id AS stdnId, rdate, start_time AS startTime
+             , end_time AS endTime, is_attend AS isAttend
+        FROM attd
+        WHERE stdn_id=#{stdnId}
+          AND rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+    </select>
 
     <select id="getMyAttd" parameterType="String" resultType="Attd">
         SELECT id, stdn_id AS stdnId, rdate, start_time AS startTime
@@ -37,8 +44,7 @@
     <update id="update" parameterType="Attd">
         UPDATE attd
         SET end_time=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
-        WHERE stdn_id=#{stdnId}
-        AND rdate=TO_CHAR(SYSDATE,'yyyy.MM.dd')
+        WHERE id=#{id}
         </update>
 
     <delete id="delete" parameterType="Integer">

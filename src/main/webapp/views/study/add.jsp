@@ -1,344 +1,160 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
+<script src="/js/jsQR.js"></script>
+<!--CKEditor Build Bundles:: Only include the relevant bundles accordingly-->
+<script src="/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
+<style>
+    video, canvas {
+        border-radius: 15px;
+        width: 100%
+    }
+</style>
+<%--파일업로드 스크립트--%>
 
+<script>
+        var dropImg;
 
-<!--begin::Main-->
+        function dataURLtoFile(dataurl, filename) {
+            var arr = dataurl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], filename, {type: mime});
+        }
+
+    $(document).ready(function () {
+
+        $('#study_register_btn').click(function (e) {
+            const contents = document.getElementById('kt_docs_ckeditor_document').innerHTML;
+            const targetContent = '<p><br data-cke-filler="true"></p>';
+            let studyEndModal = $('#study_end_modal');
+
+            if (contents === targetContent) {
+                let modal = new bootstrap.Modal(studyEndModal);
+                $('#study_end_msg').html('내용을 입력해주세요!');
+                modal.show();
+                return;
+            }
+            if (!dropImg) {
+                let modal = new bootstrap.Modal(studyEndModal);
+                $('#study_end_msg').html('스터디 자료를 등록해주세요!')
+                modal.show();
+                return;
+            }
+
+            // <div>의 내용을 가져오기 ckeditor
+            var studyContent = $('#kt_docs_ckeditor_document').html();
+            // console.log('Detail Content:', studyContent);
+
+            // 폼 데이터 생성
+            var formData = new FormData($('#study_update')[0]);
+            formData.append('contents', studyContent);
+            formData.append('filenameFile', dropImg);
+
+            // 입력된 값 출력
+            formData.forEach(function (value, key) {
+                console.log('Input:', key, value);
+            });
+
+            // 서버로 데이터 전송
+            $.ajax({
+                url        : '/study/addimpl',
+                method     : 'POST',
+                data       : formData,
+                processData: false,
+                contentType: false,
+                success    : function (response) {
+                    // console.log(response);
+                    window.location.href = '/study/all';
+                },
+                error      : function (error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Register</h3>
-                <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">스터디 일지 작성</span></a>
                     </li>
-                    <li class="breadcrumb-item text-dark">Register</li>
                 </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
+            <!--begin::Nav-->
+            <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
+                <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
+                <c:choose>
+                    <c:when test="${loginStdn != null}">
+                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
+                        <a href="/study/add" class="btn btn-active-accent active active fw-bold ms-33">스터디 일지 작성</a>
+                    </c:when>
+                </c:choose>
+            </div>
+            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
         <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Profile Account-->
             <div class="card">
+                <div class="card-body">
                 <!--begin::Form-->
-                <form class="form d-flex flex-center">
-                    <div class="card-body mw-800px py-20">
-                        <!--begin::Form row-->
-                        <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">Username</label>
-                            <div class="col-lg-9">
-                                <div class="spinner spinner-sm spinner-primary spinner-right">
-                                    <input class="form-control form-control-lg form-control-solid" type="text"
-                                           value="max_stone"/>
-                                </div>
+                    <input type="hidden" id="outputData" value=""/>
+                <div>
+                    <div class="card mb-12">
+                        <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info py-3">
+                            <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
+                                <h1 class="text-dark" style="font-weight: 900">오늘 학습한 내용을 나누고 함께 성장하세요!</h1>
+                                <div class="fs-3 mb-8">DIGICampus는 스터디 시간 및 일지 작성 통계를 바탕으로 다양한 혜택을 제공합니다.<br>
+                                이번 달 혜택 주인공은 너야 너!</div>
                             </div>
+                            <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
+                                 style="background-image: url(/assets/media/illustrations/sigma-1/4.png);"></div>
                         </div>
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-                        <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">Email Address</label>
-                            <div class="col-lg-9">
-                                <div class="input-group input-group-lg input-group-solid">
-														<span class="input-group-text pe-0">
-															<i class="la la-at fs-4"></i>
-														</span>
-                                    <input type="text" class="form-control form-control-lg form-control-solid"
-                                           value="nick.watson@loop.com" placeholder="Email"/>
-                                </div>
-                                <div class="form-text">Email will not be publicly displayed.
-                                    <a href="#" class="fw-semibold">Learn more</a>.
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label for="kt_td_picker_linked_1_input" class="form-label">Study time</label>
-                                <div class="input-group log-event" id="kt_td_picker_linked_1"
-                                     data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                    <input id="kt_td_picker_linked_1_input" type="text" class="form-control"
-                                           data-td-target="#kt_td_picker_linked_1"/>
-                                    <span class="input-group-text" data-td-target="#kt_td_picker_linked_1"
-                                          data-td-toggle="datetimepicker">
-                <span class="fa-solid fa-calendar"></span>
-            </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="kt_td_picker_linked_2_input" class="form-label">To</label>
-                                <div class="input-group log-event" id="kt_td_picker_linked_2"
-                                     data-td-target-input="nearest" data-td-target-toggle="nearest">
-                                    <input id="kt_td_picker_linked_2_input" type="text" class="form-control"
-                                           data-td-target="#kt_td_picker_linked_2"/>
-                                    <span class="input-group-text" data-td-target="#kt_td_picker_linked_2"
-                                          data-td-toggle="datetimepicker">
-                <span class="fa-solid fa-calendar"></span>
-            </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-                        <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">Time Zone</label>
-                            <div class="col-lg-9">
-                                <select class="form-select form-select-lg form-select-solid" data-control="select2"
-                                        data-placeholder="Select Timezone...">
-                                    <option data-offset="-39600" value="International Date Line West">(GMT-11:00)
-                                        International Date Line West
-                                    </option>
-                                    <option data-offset="-39600" value="Midway Island">(GMT-11:00) Midway Island
-                                    </option>
-                                    <option data-offset="-39600" value="Samoa">(GMT-11:00) Samoa</option>
-                                    <option data-offset="-36000" value="Hawaii">(GMT-10:00) Hawaii</option>
-                                    <option data-offset="-28800" value="Alaska">(GMT-08:00) Alaska</option>
-                                    <option data-offset="-25200" value="Pacific Time (US &amp; Canada)">(GMT-07:00)
-                                        Pacific Time (US &amp; Canada)
-                                    </option>
-                                    <option data-offset="-25200" value="Tijuana">(GMT-07:00) Tijuana</option>
-                                    <option data-offset="-25200" value="Arizona">(GMT-07:00) Arizona</option>
-                                    <option data-offset="-21600" value="Mountain Time (US &amp; Canada)">(GMT-06:00)
-                                        Mountain Time (US &amp; Canada)
-                                    </option>
-                                    <option data-offset="-21600" value="Chihuahua">(GMT-06:00) Chihuahua</option>
-                                    <option data-offset="-21600" value="Mazatlan">(GMT-06:00) Mazatlan</option>
-                                    <option data-offset="-21600" value="Saskatchewan">(GMT-06:00) Saskatchewan</option>
-                                    <option data-offset="-21600" value="Central America">(GMT-06:00) Central America
-                                    </option>
-                                    <option data-offset="-18000" value="Central Time (US &amp; Canada)">(GMT-05:00)
-                                        Central Time (US &amp; Canada)
-                                    </option>
-                                    <option data-offset="-18000" value="Guadalajara">(GMT-05:00) Guadalajara</option>
-                                    <option data-offset="-18000" value="Mexico City">(GMT-05:00) Mexico City</option>
-                                    <option data-offset="-18000" value="Monterrey">(GMT-05:00) Monterrey</option>
-                                    <option data-offset="-18000" value="Bogota">(GMT-05:00) Bogota</option>
-                                    <option data-offset="-18000" value="Lima">(GMT-05:00) Lima</option>
-                                    <option data-offset="-18000" value="Quito">(GMT-05:00) Quito</option>
-                                    <option data-offset="-14400" value="Eastern Time (US &amp; Canada)">(GMT-04:00)
-                                        Eastern Time (US &amp; Canada)
-                                    </option>
-                                    <option data-offset="-14400" value="Indiana (East)">(GMT-04:00) Indiana (East)
-                                    </option>
-                                    <option data-offset="-14400" value="Caracas">(GMT-04:00) Caracas</option>
-                                    <option data-offset="-14400" value="La Paz">(GMT-04:00) La Paz</option>
-                                    <option data-offset="-14400" value="Georgetown">(GMT-04:00) Georgetown</option>
-                                    <option data-offset="-10800" value="Atlantic Time (Canada)">(GMT-03:00) Atlantic
-                                        Time (Canada)
-                                    </option>
-                                    <option data-offset="-10800" value="Santiago">(GMT-03:00) Santiago</option>
-                                    <option data-offset="-10800" value="Brasilia">(GMT-03:00) Brasilia</option>
-                                    <option data-offset="-10800" value="Buenos Aires">(GMT-03:00) Buenos Aires</option>
-                                    <option data-offset="-9000" value="Newfoundland">(GMT-02:30) Newfoundland</option>
-                                    <option data-offset="-7200" value="Greenland">(GMT-02:00) Greenland</option>
-                                    <option data-offset="-7200" value="Mid-Atlantic">(GMT-02:00) Mid-Atlantic</option>
-                                    <option data-offset="-3600" value="Cape Verde Is.">(GMT-01:00) Cape Verde Is.
-                                    </option>
-                                    <option data-offset="0" value="Azores">(GMT) Azores</option>
-                                    <option data-offset="0" value="Monrovia">(GMT) Monrovia</option>
-                                    <option data-offset="0" value="UTC">(GMT) UTC</option>
-                                    <option data-offset="3600" value="Dublin">(GMT+01:00) Dublin</option>
-                                    <option data-offset="3600" value="Edinburgh">(GMT+01:00) Edinburgh</option>
-                                    <option data-offset="3600" value="Lisbon">(GMT+01:00) Lisbon</option>
-                                    <option data-offset="3600" value="London">(GMT+01:00) London</option>
-                                    <option data-offset="3600" value="Casablanca">(GMT+01:00) Casablanca</option>
-                                    <option data-offset="3600" value="West Central Africa">(GMT+01:00) West Central
-                                        Africa
-                                    </option>
-                                    <option data-offset="7200" value="Belgrade">(GMT+02:00) Belgrade</option>
-                                    <option data-offset="7200" value="Bratislava">(GMT+02:00) Bratislava</option>
-                                    <option data-offset="7200" value="Budapest">(GMT+02:00) Budapest</option>
-                                    <option data-offset="7200" value="Ljubljana">(GMT+02:00) Ljubljana</option>
-                                    <option data-offset="7200" value="Prague">(GMT+02:00) Prague</option>
-                                    <option data-offset="7200" value="Sarajevo">(GMT+02:00) Sarajevo</option>
-                                    <option data-offset="7200" value="Skopje">(GMT+02:00) Skopje</option>
-                                    <option data-offset="7200" value="Warsaw">(GMT+02:00) Warsaw</option>
-                                    <option data-offset="7200" value="Zagreb">(GMT+02:00) Zagreb</option>
-                                    <option data-offset="7200" value="Brussels">(GMT+02:00) Brussels</option>
-                                    <option data-offset="7200" value="Copenhagen">(GMT+02:00) Copenhagen</option>
-                                    <option data-offset="7200" value="Madrid">(GMT+02:00) Madrid</option>
-                                    <option data-offset="7200" value="Paris">(GMT+02:00) Paris</option>
-                                    <option data-offset="7200" value="Amsterdam">(GMT+02:00) Amsterdam</option>
-                                    <option data-offset="7200" value="Berlin">(GMT+02:00) Berlin</option>
-                                    <option data-offset="7200" value="Bern">(GMT+02:00) Bern</option>
-                                    <option data-offset="7200" value="Rome">(GMT+02:00) Rome</option>
-                                    <option data-offset="7200" value="Stockholm">(GMT+02:00) Stockholm</option>
-                                    <option data-offset="7200" value="Vienna">(GMT+02:00) Vienna</option>
-                                    <option data-offset="7200" value="Cairo">(GMT+02:00) Cairo</option>
-                                    <option data-offset="7200" value="Harare">(GMT+02:00) Harare</option>
-                                    <option data-offset="7200" value="Pretoria">(GMT+02:00) Pretoria</option>
-                                    <option data-offset="10800" value="Bucharest">(GMT+03:00) Bucharest</option>
-                                    <option data-offset="10800" value="Helsinki">(GMT+03:00) Helsinki</option>
-                                    <option data-offset="10800" value="Kiev">(GMT+03:00) Kiev</option>
-                                    <option data-offset="10800" value="Kyiv">(GMT+03:00) Kyiv</option>
-                                    <option data-offset="10800" value="Riga">(GMT+03:00) Riga</option>
-                                    <option data-offset="10800" value="Sofia">(GMT+03:00) Sofia</option>
-                                    <option data-offset="10800" value="Tallinn">(GMT+03:00) Tallinn</option>
-                                    <option data-offset="10800" value="Vilnius">(GMT+03:00) Vilnius</option>
-                                    <option data-offset="10800" value="Athens">(GMT+03:00) Athens</option>
-                                    <option data-offset="10800" value="Istanbul">(GMT+03:00) Istanbul</option>
-                                    <option data-offset="10800" value="Minsk">(GMT+03:00) Minsk</option>
-                                    <option data-offset="10800" value="Jerusalem">(GMT+03:00) Jerusalem</option>
-                                    <option data-offset="10800" value="Moscow">(GMT+03:00) Moscow</option>
-                                    <option data-offset="10800" value="St. Petersburg">(GMT+03:00) St. Petersburg
-                                    </option>
-                                    <option data-offset="10800" value="Volgograd">(GMT+03:00) Volgograd</option>
-                                    <option data-offset="10800" value="Kuwait">(GMT+03:00) Kuwait</option>
-                                    <option data-offset="10800" value="Riyadh">(GMT+03:00) Riyadh</option>
-                                    <option data-offset="10800" value="Nairobi">(GMT+03:00) Nairobi</option>
-                                    <option data-offset="10800" value="Baghdad">(GMT+03:00) Baghdad</option>
-                                    <option data-offset="14400" value="Abu Dhabi">(GMT+04:00) Abu Dhabi</option>
-                                    <option data-offset="14400" value="Muscat">(GMT+04:00) Muscat</option>
-                                    <option data-offset="14400" value="Baku">(GMT+04:00) Baku</option>
-                                    <option data-offset="14400" value="Tbilisi">(GMT+04:00) Tbilisi</option>
-                                    <option data-offset="14400" value="Yerevan">(GMT+04:00) Yerevan</option>
-                                    <option data-offset="16200" value="Tehran">(GMT+04:30) Tehran</option>
-                                    <option data-offset="16200" value="Kabul">(GMT+04:30) Kabul</option>
-                                    <option data-offset="18000" value="Ekaterinburg">(GMT+05:00) Ekaterinburg</option>
-                                    <option data-offset="18000" value="Islamabad">(GMT+05:00) Islamabad</option>
-                                    <option data-offset="18000" value="Karachi">(GMT+05:00) Karachi</option>
-                                    <option data-offset="18000" value="Tashkent">(GMT+05:00) Tashkent</option>
-                                    <option data-offset="19800" value="Chennai">(GMT+05:30) Chennai</option>
-                                    <option data-offset="19800" value="Kolkata">(GMT+05:30) Kolkata</option>
-                                    <option data-offset="19800" value="Mumbai">(GMT+05:30) Mumbai</option>
-                                    <option data-offset="19800" value="New Delhi">(GMT+05:30) New Delhi</option>
-                                    <option data-offset="19800" value="Sri Jayawardenepura">(GMT+05:30) Sri
-                                        Jayawardenepura
-                                    </option>
-                                    <option data-offset="20700" value="Kathmandu">(GMT+05:45) Kathmandu</option>
-                                    <option data-offset="21600" value="Astana">(GMT+06:00) Astana</option>
-                                    <option data-offset="21600" value="Dhaka">(GMT+06:00) Dhaka</option>
-                                    <option data-offset="21600" value="Almaty">(GMT+06:00) Almaty</option>
-                                    <option data-offset="21600" value="Urumqi">(GMT+06:00) Urumqi</option>
-                                    <option data-offset="23400" value="Rangoon">(GMT+06:30) Rangoon</option>
-                                    <option data-offset="25200" value="Novosibirsk">(GMT+07:00) Novosibirsk</option>
-                                    <option data-offset="25200" value="Bangkok">(GMT+07:00) Bangkok</option>
-                                    <option data-offset="25200" value="Hanoi">(GMT+07:00) Hanoi</option>
-                                    <option data-offset="25200" value="Jakarta">(GMT+07:00) Jakarta</option>
-                                    <option data-offset="25200" value="Krasnoyarsk">(GMT+07:00) Krasnoyarsk</option>
-                                    <option data-offset="28800" value="Beijing">(GMT+08:00) Beijing</option>
-                                    <option data-offset="28800" value="Chongqing">(GMT+08:00) Chongqing</option>
-                                    <option data-offset="28800" value="Hong Kong">(GMT+08:00) Hong Kong</option>
-                                    <option data-offset="28800" value="Kuala Lumpur">(GMT+08:00) Kuala Lumpur</option>
-                                    <option data-offset="28800" value="Singapore">(GMT+08:00) Singapore</option>
-                                    <option data-offset="28800" value="Taipei">(GMT+08:00) Taipei</option>
-                                    <option data-offset="28800" value="Perth">(GMT+08:00) Perth</option>
-                                    <option data-offset="28800" value="Irkutsk">(GMT+08:00) Irkutsk</option>
-                                    <option data-offset="28800" value="Ulaan Bataar">(GMT+08:00) Ulaan Bataar</option>
-                                    <option data-offset="32400" value="Seoul">(GMT+09:00) Seoul</option>
-                                    <option data-offset="32400" value="Osaka">(GMT+09:00) Osaka</option>
-                                    <option data-offset="32400" value="Sapporo">(GMT+09:00) Sapporo</option>
-                                    <option data-offset="32400" value="Tokyo">(GMT+09:00) Tokyo</option>
-                                    <option data-offset="32400" value="Yakutsk">(GMT+09:00) Yakutsk</option>
-                                    <option data-offset="34200" value="Darwin">(GMT+09:30) Darwin</option>
-                                    <option data-offset="34200" value="Adelaide">(GMT+09:30) Adelaide</option>
-                                    <option data-offset="36000" value="Canberra">(GMT+10:00) Canberra</option>
-                                    <option data-offset="36000" value="Melbourne">(GMT+10:00) Melbourne</option>
-                                    <option data-offset="36000" value="Sydney">(GMT+10:00) Sydney</option>
-                                    <option data-offset="36000" value="Brisbane">(GMT+10:00) Brisbane</option>
-                                    <option data-offset="36000" value="Hobart">(GMT+10:00) Hobart</option>
-                                    <option data-offset="36000" value="Vladivostok">(GMT+10:00) Vladivostok</option>
-                                    <option data-offset="36000" value="Guam">(GMT+10:00) Guam</option>
-                                    <option data-offset="36000" value="Port Moresby">(GMT+10:00) Port Moresby</option>
-                                    <option data-offset="36000" value="Solomon Is.">(GMT+10:00) Solomon Is.</option>
-                                    <option data-offset="39600" value="Magadan">(GMT+11:00) Magadan</option>
-                                    <option data-offset="39600" value="New Caledonia">(GMT+11:00) New Caledonia</option>
-                                    <option data-offset="43200" value="Fiji">(GMT+12:00) Fiji</option>
-                                    <option data-offset="43200" value="Kamchatka">(GMT+12:00) Kamchatka</option>
-                                    <option data-offset="43200" value="Marshall Is.">(GMT+12:00) Marshall Is.</option>
-                                    <option data-offset="43200" value="Auckland">(GMT+12:00) Auckland</option>
-                                    <option data-offset="43200" value="Wellington">(GMT+12:00) Wellington</option>
-                                    <option data-offset="46800" value="Nuku'alofa">(GMT+13:00) Nuku'alofa</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-                        <div class="row align-items-center mb-3">
-                            <label class="col-lg-3 col-form-label">Communication</label>
-                            <div class="col-lg-9">
-                                <div class="d-flex align-items-center">
-                                    <div class="form-check form-check-custom form-check-solid me-5">
-                                        <input class="form-check-input" type="checkbox" checked="checked"
-                                               id="inlineCheckbox1" value="option1"/>
-                                        <label class="form-check-label fw-semibold" for="inlineCheckbox1">Email</label>
-                                    </div>
-                                    <div class="form-check form-check-custom form-check-solid me-5">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                               value="option2"/>
-                                        <label class="form-check-label fw-semibold" for="inlineCheckbox2">SMS</label>
-                                    </div>
-                                    <div class="form-check form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
-                                               value="option3"/>
-                                        <label class="form-check-label fw-semibold" for="inlineCheckbox3">Phone</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--begin::Form row-->
-                        <div class="separator separator-dashed my-10"></div>
-                        <!--begin::Form row-->
-                        <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">Login verification</label>
-                            <div class="col-lg-9">
-                                <button type="button" class="btn btn-light-primary fw-semibold btn-sm">Setup login
-                                    verification
-                                </button>
-                                <div class="form-text">After you log in, you will be asked for additional information to
-                                    confirm your identity and protect your account from being compromised.
-                                    <a href="#" class="fw-semibold">Learn more</a>.
-                                </div>
-                            </div>
-                        </div>
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-                        <div class="row mb-13">
-                            <label class="col-lg-3 col-form-label">Password reset verification</label>
-                            <div class="col-lg-9">
-                                <div class="form-check form-check-custom form-check-solid me-5">
-                                    <input class="form-check-input" type="checkbox" id="customCheck5" value="option1"/>
-                                    <label class="form-check-label fw-semibold" for="customCheck5">Require personal
-                                        information to reset your password.</label>
-                                </div>
-                                <div class="form-text py-2">For extra security, this requires you to confirm your email
-                                    or phone number when you reset your password.
-                                    <a href="#" class="fw-boldk">Learn more</a>.
-                                </div>
-                                <button type="button" class="btn btn-light-danger fw-semibold btn-sm">Deactivate your
-                                    account ?
-                                </button>
-                            </div>
-                        </div>
-                        <!--end::Form row-->
-                        <!--begin::Form row-->
-                        <div class="row">
-                            <label class="col-lg-3 col-form-label"></label>
-                            <div class="col-lg-9">
-                                <button type="reset" class="btn btn-primary fw-bold px-6 py-3 me-3">Save Changes
-                                </button>
-                                <button type="reset"
-                                        class="btn btn-color-gray-600 btn-active-light-primary fw-bold px-6 py-3">Cancel
-                                </button>
-                            </div>
-                        </div>
-                        <!--end::Form row-->
                     </div>
-                </form>
+                    <form class="card mb-12" id="study_update">
+                        <div class="rounded">
+                            <div id="kt_docs_ckeditor_document_toolbar"></div>
+                            <div class="border-gray-500 my-3" id="kt_docs_ckeditor_document" contenteditable="true">
+
+                            </div>
+                            <div class="dropzone" id="kt_dropzonejs_example_1">
+                                <!--begin::Message-->
+                                <div class="dz-message needsclick">
+                                    <!--begin::Icon-->
+                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                                    <!--end::Icon-->
+                                    <!--begin::Info-->
+                                    <div class="ms-4">
+                                        <h3 class="fs-5 fw-bold text-gray-900 mb-1">스터디 관련 자료 업로드</h3>
+                                        <span class="fs-7 fw-semibold text-gray-400">상자를 클릭하거나 파일을 드랍하세요.</span><br>
+                                        <span class="fs-7 fw-semibold text-gray-400">파일크기 1MB제한</span>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                            </div>
+                            <div class="d-flex float-end mt-10 pb-10">
+                                <a href="javascript:void(0)" id="study_register_btn" class="btn btn-primary">등록</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <!--end::Form-->
+                </div>
             </div>
             <!--end::Profile Account-->
         </div>
@@ -347,41 +163,295 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-<%--캘린더 스크립트--%>
+
+
+<div class="modal fade" tabindex="-1" id="study_qr_modal">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content" style="padding: 3%">
+            <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x fs-6"
+                style="display: flex; justify-content: space-between">
+                <li class="nav-item">
+                    <a class="nav-link active fs-2qx text-gray-800" data-bs-toggle="tab" href="#kt_tab_pane_4">스터디 시작</a>
+                </li>
+                <l1>
+                    <div class="text-end">
+                        <img src="/img/close.png" style="width: 8%" data-bs-dismiss="modal" aria-label="Close">
+                    </div>
+                </l1>
+            </ul>
+            <div class="modal-body tab-content">
+                <div style="position: relative;">
+                    <div class="d-flex h-100 justify-content-center px-0">
+                        <div id="timeajax" class="d-flex justify-content-center flex-column" style="width:30%; margin-right:2%">
+                            <h1 id="server_time" class="text-center text-white" style="font-weight: 900;"></h1>
+                            <!--begin::Option-->
+                            <input type="radio" class="btn-check" name="start_end" value="1" checked="checked"  id="start"/>
+                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5" for="start">
+                                <!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
+                                <span class="svg-icon svg-icon-2tx me-4">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z" fill="currentColor"/>
+                                            <path d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                <!--end::Svg Icon-->
+
+                                <span class="d-block text-start">
+                                    <span class="text-primary d-block fs-3 fw-bolder">시작</span>
+                                    <span class="text-muted fw-bolder fs-8" style="margin-left:3%">시작 시간 체크 후, 원하는 강의 페이지에서 학습하고 돌아오셔도 돼요!</span>
+                                </span>
+                            </label>
+                            <!--end::Option-->
+                            <!--begin::Option-->
+                            <input type="radio" class="btn-check" name="start_end" value="2" id="end"/>
+                            <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center" for="end">
+                                <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
+                                <span class="svg-icon svg-icon-2tx me-4">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="currentColor"/>
+                                            <path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="currentColor"/>
+                                        </svg>
+                                    </span>
+                                <!--end::Svg Icon-->
+                                <span class="d-block fw-semibold text-start">
+                                    <span class="text-primary fw-bold d-block fs-3">종료</span>
+                                    <span class="text-muted fw-bolder fs-8" style="margin-left:3%">종료 시간 체크 후, 스터디 내용과 첨부파일을 작성해주세요.</span>
+                                </span>
+                            </label>
+                            <!--end::Option-->
+                        </div>
+                        <div class="d-flex flex-column justify-content-center" style="width:70%">
+                            <div class="text-center overlay overlay-wrapper" id="output">
+                                <div class="verlay-wrapper" id="frame" >
+                                    <canvas id="canvas"></canvas>
+                                </div>
+                                <h3 class="overlay-layer text-white" style="border-radius: 15px;">
+                                    당신의 QR을 보여주세요!
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0">
+                            <img src="../img/qrphone.png" alt="qrphone" style="max-height: 300px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="study_end_modal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
+            <div class="modal-body" style="display: flex; justify-content: space-between">
+                <div class="text-start text-white" style="width: 90%;">
+                    <p id="study_end_msg" class="text-white" style="font-weight:700"></p>
+                </div>
+                <div class="text-end" style="width: 10%;">
+                    <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--CKEditor Build Bundles:: Only include the relevant bundles accordingly-->
+<script src="/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
+<script src="/sass/components/_rating.scss"></script>
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
 <script>
-    const linkedPicker1Element = document.getElementById("kt_td_picker_linked_1");
-    const linked1 = new tempusDominus.TempusDominus(linkedPicker1Element);
-    const linked2 = new tempusDominus.TempusDominus(document.getElementById("kt_td_picker_linked_2"), {
-        useCurrent: false,
-    });
+    DecoupledEditor
+        .create(document.querySelector('#kt_docs_ckeditor_document'))
+        .then(editor => {
+            const toolbarContainer = document.querySelector('#kt_docs_ckeditor_document_toolbar');
 
-    //using event listeners
-    linkedPicker1Element.addEventListener(tempusDominus.Namespace.events.change, (e) => {
-        linked2.updateOptions({
-            restrictions: {
-                minDate: e.detail.date,
-            },
-        });
+            toolbarContainer.appendChild(editor.ui.view.toolbar.element);
+        })
+        .catch(error => {
+            console.error(error);
+        })
+</script>
+<script>
+    const myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
+        url           : "study/addimpl",
+        paramName     : "file",
+        maxFiles      : 1,
+        maxFilesize   : 10, // MB
+        addRemoveLinks: true,
+        accept        : function (file, done) {
+            if (file) {
+                dropImg = file;
+            } else {
+                done();
+            }
+        }
     });
+</script>
 
-    //using subscribe method
-    const subscription = linked2.subscribe(tempusDominus.Namespace.events.change, (e) => {
-        linked1.updateOptions({
-            restrictions: {
-                maxDate: e.date,
-            },
+
+<script>
+    $(document).ready(function() {
+        var isVideoPlaying = false;
+        function gettime () {
+            let studyEndModal = $('#study_end_modal');
+            $.ajax({
+                url: '/getservertime',
+                success: function (result) {
+                    if (result.day == 1 || result.day == 7) {
+                        let modal = new bootstrap.Modal(studyEndModal);
+                        $('#study_end_msg').html('오늘은 휴일입니다! 월요일에 뵈어요!');
+                        modal.show();
+                        clearInterval(gettime);
+                    } else {
+                        setInterval(function () {
+                            $.ajax({
+                                url: '/getservertime',
+                                success: function (result) {
+                                    displayTime(result);
+                                }
+                            })
+                        }, 1000)
+                    }
+                }
+            });
+        };
+
+        function createVideo() {
+            if(!isVideoPlaying){
+                return;
+            } else {
+                var video = $("<video></video>")[0];
+                var canvasElement = document.getElementById("canvas");
+                var canvas = canvasElement.getContext("2d");
+                var outputContainer = $("#output");
+            }
+            function resizeVideo() {
+                var parentWidth = canvasElement.offsetWidth;
+                var videoWidth = parentWidth * 0.8;
+
+                video.style.width = videoWidth + "px";
+                video.style.height = "auto";
+            }
+
+            gettime();
+            resizeVideo();
+            $(window).resize(resizeVideo);
+
+            function drawLine(begin, end, color) {
+                canvas.beginPath();
+                canvas.moveTo(begin.x, begin.y);
+                canvas.lineTo(end.x, end.y);
+                canvas.lineWidth = 4;
+                canvas.strokeStyle = color;
+                canvas.stroke();
+            }
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.setAttribute("playsinline", true);
+                    video.play();
+                    requestAnimationFrame(tick);
+                });
+
+            function tick() {
+                if (!isVideoPlaying) {
+                    return;
+                }
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvasElement.hidden = false;
+                    outputContainer.hidden = false;
+
+                    canvasElement.height = video.videoHeight;
+                    canvasElement.width = video.videoWidth;
+                    canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                    var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                    var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: "dontInvert",
+                    });
+                    // QR코드 인식에 성공한 경우
+                    if (code) {
+
+                        drawLine(code.location.topLeftCorner, code.location.topRightCorner, "rgba(13,178,103,0.66)");
+                        drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "rgba(13,178,103,0.66)");
+                        drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "rgba(13,178,103,0.66)");
+                        drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "rgba(13,178,103,0.66)");
+
+                        if(code.data.length>=15) {
+                            $('#outputData').val(code.data);
+                            $('#outputData').trigger("change");
+                            return;
+                        }
+                    }
+                    // QR코드 인식에 실패한 경우
+                    // else {
+                    //
+                    // }
+                }
+                requestAnimationFrame(tick);
+            }
+        }
+        createVideo();
+        let stdnId='${loginStdn.id}';
+        let studyModal = $('#study_qr_modal');
+        let studyEndModal = $('#study_end_modal');
+
+        $.ajax({
+            url:'/studyendornot',
+            data:{stdnId:stdnId},
+            success: function(result){
+                if(result==1){
+                    let modal = new bootstrap.Modal(studyModal);
+                    isVideoPlaying = true;
+                    modal.show();
+                    createVideo();
+                } else if(result==2){
+                    let modal = new bootstrap.Modal(studyEndModal);
+                    $('#study_end_msg').html('스터디는 1일 1회 인정됩니다. 오늘 스터디 완료');
+                    modal.show();
+                    return;
+                } else if(result==3){
+                    let modal = new bootstrap.Modal(studyEndModal);
+                    $('#study_end_msg').html('스터디 일지와 첨부파일을 저장하세요.');
+                    modal.show();
+                    return;
+                } else if (result==4){
+                    let modal1 = new bootstrap.Modal(studyModal);
+                    modal1.show();
+                    let modal2 = new bootstrap.Modal(studyEndModal);
+                    $('#study_end_msg').html('아직 종료하지 않은 스터디가 있습니다.');
+                    isVideoPlaying = true;
+                    createVideo();
+                    modal2.show();
+                    $('#end').prop('checked',true);
+                }
+            }
+        })
+
+        function displayTime (result) {
+                $('#server_time').html(result.now);
+        };
+
+
+
+        $('#outputData').bind("change", function() {
+            let code_value=$('#outputData').val();
+            let stdnId = '${loginStdn.id}';
+            let start_end =  $('input[name="start_end"]:checked').val();
+            let studyEndModal = $('#study_end_modal');
+            $.ajax({
+                url:'/studyqrimpl',
+                data:{stdnId:stdnId, code_value:code_value, start_end:start_end},
+                success: function(result){
+                        let modal = new bootstrap.Modal(studyEndModal);
+                        $('#study_end_msg').html(result);
+                        modal.show();
+                        setTimeout(function() {
+                            window.location.href = '/study/add';
+                        }, 10000);
+                }
+            })
         });
     });
 </script>
-<!--begin::Vendors Javascript(used for this page only)-->
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="/assets/js/custom/widgets.js"></script>
-<script src="/assets/js/custom/apps/chat/chat.js"></script>
-<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
-
-
-<!--end::Custom Javascript-->
-<!--end::Javascript-->

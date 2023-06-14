@@ -101,8 +101,6 @@
                                         </h3>
                                         <div class="fs-3 text-danger">Get Amazing Nike Sneakers</div>
                                     </div>
-                                    <div class="d-none d-md-flex flex-row-fluid bgi-no-repeat bgi-position-y-center bgi-position-x-right bgi-size-cover"
-                                         style="transform: translateX(10%) rotate(-26deg); background-image: url('assets/media/products/12.png')"></div>
                                 </div>
                             </div>
                             <!--end::Engage Widget 2-->

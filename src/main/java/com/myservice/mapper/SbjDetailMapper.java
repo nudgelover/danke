@@ -5,8 +5,14 @@ import com.myservice.dto.SbjDetail;
 import com.myservice.frame.KBMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Mapper
 @Repository
 public interface SbjDetailMapper extends KBMapper<Integer, SbjDetail> {
+    public List<SbjDetail> searchBig() throws Exception;
+
+    public List<SbjDetail> searchMedium(Integer SbjCode2) throws Exception;
+
+    public List<SbjDetail> searchMediumAll() throws Exception;
 }

@@ -16,6 +16,14 @@
           AND od.ord_id=#{ordId}
     </select>
 
+    <select id="boughtOrNot" parameterType="map" resultType="OrdDetail">
+        SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour
+             , od.disc_rate AS discRate, od.price
+        FROM ord_detail od
+                 INNER JOIN ord o ON od.ord_id = o.id
+        WHERE od.lec_id =#{lecId}
+          AND o.stdn_id =#{stdnId}
+    </select>
 
     <select id="getMyOrdDetail" parameterType="String" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour

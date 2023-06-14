@@ -1,5 +1,7 @@
 package com.myservice.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Curri;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.CurriMapper;
@@ -39,8 +41,12 @@ public class CurriService implements KBService<Integer, Curri> {
         return mapper.selectall();
     }
 
-    public List<Curri> getMyCurri(String stdnId) throws Exception{
-        return mapper.getMyCurri(stdnId);
+    public Curri getMyCurri(Integer id) throws Exception{
+        return mapper.getMyCurri(id);
+    }
+
+    public List<Curri> getMyCurris(String stdnId) throws Exception{
+        return mapper.getMyCurris(stdnId);
     }
 
     public Curri thisCurri(String stdnId,Integer lecId) throws Exception{
@@ -49,6 +55,11 @@ public class CurriService implements KBService<Integer, Curri> {
 
     public Integer cntMyCurri(String stdnId) throws Exception{
         return mapper.cntMyCurri(stdnId);
+    }
+
+    public Page<Curri> getPage(int pageNo) throws Exception{
+        PageHelper.startPage(pageNo, 9); //한화면에 출력되는 개수
+        return mapper.getpage();
     }
 
 }

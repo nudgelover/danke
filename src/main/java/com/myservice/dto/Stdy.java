@@ -23,6 +23,7 @@ public class Stdy {
 
     private String stdnName;
     private String stdnImg;
+    private String duration;
 
     //Insert
     public Stdy(String writer, String startTime, String endTime, String contents, String filename, String filenameOrg) {
@@ -40,5 +41,10 @@ public class Stdy {
         this.contents = contents;
         this.filename = filename;
         this.filenameOrg = filenameOrg;
+    }
+
+    public Stdy(String writer, String startTime) {
+        this.writer = writer;
+        this.startTime = startTime;
     }
 }

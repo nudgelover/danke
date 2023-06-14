@@ -33,6 +33,7 @@ public class Stdn {
     private String sbj2;
     private String sbj3;
     private String loginError;
+    private String qr;
 
 
     private MultipartFile imgfile;
