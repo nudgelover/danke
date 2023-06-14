@@ -489,6 +489,7 @@ public class RestController {
         return  result;
     }
 
+
     @RequestMapping("/boughtornot")
     public Object boughtornot(String stdnId, Integer lecId) throws Exception {
         Integer result = 0;

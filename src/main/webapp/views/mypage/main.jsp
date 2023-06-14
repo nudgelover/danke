@@ -164,7 +164,7 @@
                                 <!--end::User-->
                                 <!--begin::Actions-->
                                 <div class="d-flex">
-                                    <a href="#" class="btn-primary"><i class="bi-qr-code fs-2tx"></i></a>
+                                    <a href="/settings/authentication" class="btn-primary"><i class="bi-qr-code fs-2tx"></i></a>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -201,15 +201,18 @@
                             <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/myblah?id=${student.id}">마이블라</a>
                         </li>
                         <!--end::Nav item-->
-
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
+                               href="/mypage/settings?id=${student.id}">마이프로필변경</a>
+                        </li>
                         <!--begin::Nav item-->
-<%--                        <li class="nav-item mt-2">--%>
-<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/security">Security</a>--%>
-<%--                        </li>--%>
+                        <li class="nav-item mt-2">
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/settings/pwd?id=${loginStdn.id}">비밀번호변경</a>
+                        </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/billing">QR발급</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/settings/authentication">QR발급</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
@@ -235,12 +238,7 @@
 <%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/referrals">결제강의(수료증)referrals/billing</a>--%>
 <%--                        </li>--%>
                         <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                               href="/mypage/settings?id=${student.id}">Settings</a>
-                        </li>
-                        <!--end::Nav item-->
+
                     </ul>
                     <!--begin::Navs-->
                 </div>

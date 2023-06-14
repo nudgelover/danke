@@ -162,18 +162,6 @@ public class MainController {
         return "index";
     }
 
-    @RequestMapping("/registerimpl2")
-    public String registerimpl2(Model model, MyPage myPage, HttpSession session) throws Exception {
-        try {
-            myPageService.register(myPage);
-
-        } catch (Exception e) {
-            throw new Exception("시스템 장애: ER0006");
-        }
-
-        model.addAttribute("center", "center");
-        return "redirect:/login";
-    }
 
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session) throws Exception {

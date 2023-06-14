@@ -166,6 +166,7 @@ public class MypageController {
         return "index";
     }
 
+
     @RequestMapping("/activity")
     public String mypage(Model model) throws Exception {
         model.addAttribute("center", dir + "activity");
