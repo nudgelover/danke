@@ -7,19 +7,19 @@
     <select id="select" parameterType="Integer" resultType="mrk">
         SELECT *
         FROM mrk
-        WHERE id=#{id}
+        WHERE id = #{id}
     </select>
 
     <select id="getKeyword" parameterType="String" resultType="mrk">
         SELECT *
         FROM mrk
-        WHERE keyword=UPPER(#{keyword})
+        WHERE keyword = UPPER(#{keyword})
     </select>
 
     <select id="getMyMrk" parameterType="String" resultType="mrk">
         SELECT *
         FROM mrk
-        WHERE writer=#{writer}
+        WHERE writer = #{writer}
     </select>
 
     <select id="selectall" resultType="mrk">
@@ -30,38 +30,89 @@
 
     <select id="getRecent" resultType="mrk">
         <![CDATA[
-    SELECT *
-    FROM (
         SELECT *
-        FROM mrk
-        ORDER BY id DESC
-    )
-    WHERE ROWNUM <= 5
-    ]]>
+        FROM (SELECT *
+              FROM mrk
+              ORDER BY id DESC)
+        WHERE ROWNUM <= 5
+        ]]>
     </select>
 
     <insert id="insert" parameterType="mrk">
         INSERT INTO mrk
             (id, writer, lat, lng, img, rating, detail, keyword, title, rdate)
-        VALUES (mrk_seq.NEXTVAL,#{writer},#{lat},#{lng}
-        ,#{img},#{rating},#{detail},#{keyword},#{title},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'))
+        VALUES ( mrk_seq.NEXTVAL, #{writer}, #{lat}, #{lng}
+               , #{img}, #{rating}, #{detail}, #{keyword}, #{title}, TO_CHAR(SYSDATE, 'yyyy.MM.dd hh24:mi:ss'))
     </insert>
 
     <update id="update" parameterType="mrk">
-        UPDATE mrk SET lat=#{lat}, lng=#{lng}, img=#{img}
-                      , rating=#{rating}, detail=#{detail}
-                      , keyword=#{keyword}, title=#{title}
-        WHERE id=#{id}
+        UPDATE mrk
+        SET lat=#{lat}
+          , lng=#{lng}
+          , img=#{img}
+          , rating=#{rating}
+          , detail=#{detail}
+          , keyword=#{keyword}
+          , title=#{title}
+        WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">
-        DELETE FROM mrk WHERE id=#{id}
+        DELETE
+        FROM mrk
+        WHERE id = #{id}
     </delete>
 
 
     <select id="getpage" resultType="mrk">
-        SELECT * FROM mrk ORDER BY id DESC
+        SELECT *
+        FROM mrk
+        ORDER BY id DESC
     </select>
 
+    <select id="getpageRating" resultType="mrk">
+        SELECT *
+        FROM mrk
+        ORDER BY rating DESC
+    </select>
+
+    <select id="getPageComment" resultType="mrk">
+        SELECT m.*, COUNT(c.id) AS comment_count
+        FROM mrk m
+                 LEFT JOIN mrk_comm c ON m.id = c.post_id
+        GROUP BY m.id, m.writer, m.lat, m.lng, m.img, m.rating, m.detail, m.keyword, m.title, m.rdate
+        ORDER BY comment_count DESC
+    </select>
+
+    <select id="getfindpage" resultType="mrk" parameterType="search">
+        SELECT *
+        FROM mrk
+        WHERE 1=1
+        <if test="keyword == 'title'">
+            AND title LIKE '%' || #{search} || '%'
+        </if>
+        <if test="keyword == 'rating'">
+            AND rating LIKE '%' || #{search} || '%'
+        </if>
+        <if test="keyword == 'writer'">
+            AND writer LIKE '%' || #{search} || '%'
+        </if>
+        <if test="keyword == 'keyword'">
+            <choose>
+                <when test="search == '카페'">
+                    AND keyword LIKE '%C%'
+                </when>
+                <when test="search == '식당'">
+                    AND keyword LIKE '%R%'
+                </when>
+                <when test="search == '스터디카페'">
+                    AND keyword LIKE '%S%'
+                </when>
+                <otherwise>
+                    AND keyword LIKE '%' || #{search} || '%'
+                </otherwise>
+            </choose>
+        </if>
+    </select>
 
 </mapper>

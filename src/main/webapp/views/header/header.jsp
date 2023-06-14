@@ -122,7 +122,7 @@
                             <!--end::Svg Icon-->
                             <span class="fw-bold fs-6 d-block pt-3">My Profile</span>
                         </a>
-                        <a href="/settings"
+                        <a href="/mypage/settings?id=${loginStdn.id}"
                            class="col border-bottom text-center py-10 btn btn-active-color-primary rounded-0">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                             <span class="svg-icon svg-icon-3x me-n1">

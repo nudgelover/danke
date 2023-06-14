@@ -2,6 +2,17 @@
 <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <!--end::Vendor Stylesheets-->
+<style>
+    .fc-day-sun a {
+        color: orangered;
+    }
+    .fc-day-mon a ,.fc-day-tue a, .fc-day-wed a,.fc-day-thu a,.fc-day-fri a{
+        color: gray;
+    }
+    .fc-day-sat a {
+        color: royalblue;
+    }
+</style>
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -28,7 +39,7 @@
                 <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">Notice</a>
                 <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">Calendar</a>
                 <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi member</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi Member</a>
             </div>
             <!--end::Nav-->
         </div>

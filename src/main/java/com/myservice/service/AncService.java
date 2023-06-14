@@ -1,7 +1,9 @@
 package com.myservice.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Anc;
+import com.myservice.dto.Search;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.AncMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,9 @@ public class AncService implements KBService<Integer, Anc> {
         PageHelper.startPage(pageNo, 10); //한화면에 출력되는 개수
         return mapper.getpage();
     }
+    public Page<Anc> getFindPage(int pageNo, Search search) throws Exception {
+        PageHelper.startPage(pageNo, 10);
 
+        return mapper.getfindpage(search);
+    }
 }

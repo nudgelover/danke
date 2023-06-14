@@ -2,8 +2,10 @@ package com.myservice.controller;
 
 import com.myservice.dto.Blah;
 import com.myservice.dto.Comm;
+import com.myservice.dto.Likes;
 import com.myservice.service.BlahService;
 import com.myservice.service.CommService;
+import com.myservice.service.LikesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,12 +29,12 @@ public class BlahController {
     BlahService blahService;
     @Autowired
     CommService commService;
+    @Autowired
+    LikesService likesService;
 
     @RequestMapping("")
     public String blah(Model model) throws Exception {
         List<Blah> blahList = null;
-        List<Integer> commentCounts = new ArrayList<>();
-
 
         try {
             blahList = blahService.get();  // 모든 Blah 게시글 조회
@@ -41,12 +43,13 @@ public class BlahController {
                 blah.setCommList(commList);  // Blah 게시글에 댓글 리스트 추가
                 int commentCount = commService.cntComm(blah.getId());  // Get the count of comments for the postId
                 blah.setCommentCount(commentCount);  // Set the comment count in the Blah object
+                int likeCount = blahService.cntLike(blah.getId());
+                blah.setLikeCount(likeCount);
             }
 
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        model.addAttribute("commentCounts", commentCounts);
         model.addAttribute("blahList", blahList);  // 모든 Blah 게시글 추가
         model.addAttribute("center", dir + "blah");
         return "index";
@@ -64,6 +67,7 @@ public class BlahController {
 
         return "redirect:/blah";
     }
+
     @RequestMapping("/delete")
     public String delete(Model model, Integer id) throws Exception {
 
@@ -97,9 +101,39 @@ public class BlahController {
         } catch (Exception e) {
             throw new Exception(e);
         }
+        return "redirect:/blah";
+
+    }
+
+
+    @RequestMapping("/addlike")
+    public String addlike(Model model, Likes likes) throws Exception {
+
+        try {
+            likesService.register(likes);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
 
         return "redirect:/blah";
     }
+
+
+    @RequestMapping("/deletelike")
+    public String deletelike(Integer postId, String stdnId, String board) throws Exception {
+        try {
+            Likes likes = likesService.getThisLikes(postId, stdnId, board);
+            if (likes != null) {
+                int likeId = likes.getLikeId();
+                likesService.remove(likeId);
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+        return "redirect:/blah";
+    }
+
+
     @RequestMapping("/group")
     public String group(Model model) throws Exception {
 

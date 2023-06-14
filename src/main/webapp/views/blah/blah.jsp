@@ -20,6 +20,25 @@
 </style>
 <script>
     $(document).ready(function () {
+            const loadingEl = document.createElement("div");
+            document.body.prepend(loadingEl);
+            loadingEl.classList.add("page-loader");
+            loadingEl.classList.add("flex-column");
+            loadingEl.classList.add("bg-dark");
+            loadingEl.classList.add("bg-opacity-25");
+            loadingEl.innerHTML = `
+        <span class="spinner-border text-primary" role="status"></span>
+        <span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
+    `;
+
+            // Show page loading
+            KTApp.showPageLoading();
+
+            // Hide after 3 seconds
+            setTimeout(function () {
+                KTApp.hidePageLoading();
+                loadingEl.remove();
+            }, 500);
 
             function checkEditorContent() {
                 const quillContent = $('.ql-editor').html().trim();
@@ -121,7 +140,10 @@
                     contentType: false,
                     success    : function (response) {
                         console.log('Data submitted successfully');
-                        window.location.href = '/blah';
+                        var scrollPosition = $(window).scrollTop();
+                        // 댓글 추가 후 스크롤 위치 복원
+                        $('html, body').animate({scrollTop: scrollPosition}, 0);
+                        window.location.reload(); // 페이지 새로고침
                     },
                     error      : function (error) {
                         console.error('Error submitting data:', error);
@@ -129,23 +151,86 @@
                 });
             });
 
-            $('[id^="likeButton_"]').click(function (e) {
-                e.preventDefault();
-                const path = $(this).find('path');
-                // const currentColor = $(this).css('color');
+            $('[id^="likeButton_"]').each(function () {
+                const postId = $(this).closest('form').find('input[name="postId"]').val();
+                const stdnId = $(this).closest('form').find('input[name="stdnId"]').val();
+                const board = $(this).closest('form').find('input[name="board"]').val();
+                console.log(postId, stdnId, board)
+                // 좋아요를 이미 누른 상태인지 확인하는 AJAX 요청
+                $.ajax({
+                    url    : '/blah/checklike',
+                    method : 'GET',
+                    data   : {postId: postId, stdnId: stdnId, board: board},
+                    success: function (response) {
+                        if (response === 'liked') {
+                            const path = $(this).find('path');
+                            path.attr('fill', 'red');
+                        }
+                    }.bind(this),
+                    error  : function (xhr, status, error) {
+                        console.log('에러가 발생했습니다.');
+                    }
+                });
 
-                if (path.attr('fill') === 'currentColor') {
-                    path.attr('fill', 'red');
-                } else {
-                    path.attr('fill', 'currentColor');
-                }
+                // 클릭 이벤트 처리
+                $(this).click(function (e) {
+                    e.preventDefault();
+                    const stdnId = $(this).closest('form').find('input[name="stdnId"]').val();
+                    // console.log(stdnId+"로그인한 사람");
+
+                    if (stdnId === null || stdnId === "") {
+                        alert('로그인해주세요')
+                        window.location.href = '/login';
+                        //모달로 바꾸기------------------------------------
+                        return;
+                    }
+
+                    const path = $(this).find('path');
+                    const currentColor = path.attr('fill');
+
+                    if (currentColor === 'currentColor') {
+                        path.attr('fill', 'red');
+                        // AJAX 요청을 보냅니다.
+                        $.ajax({
+                            url    : '/blah/addlike',
+                            method : 'POST',
+                            data   : $('#likeblah_' + postId).serialize(),
+                            success: function (response) {
+                                console.log('요청이 성공적으로 보내졌습니다.');
+                                var scrollPosition = $(window).scrollTop();
+                                $('html, body').animate({scrollTop: scrollPosition}, 0);
+                                window.location.reload(); // 페이지 새로고침
+                            },
+                            error  : function (xhr, status, error) {
+                                console.log('에러가 발생했습니다.');
+                            }
+                        });
+                    } else {
+                        path.attr('fill', 'currentColor');
+                        // AJAX 요청을 보냅니다.
+                        $.ajax({
+                            url    : '/blah/deletelike',
+                            method : 'POST',
+                            data   : $('#likeblah_' + postId).serialize(),
+                            success: function (response) {
+                                console.log('요청이 성공적으로 보내졌습니다.');
+                                var scrollPosition = $(window).scrollTop();
+                                $('html, body').animate({scrollTop: scrollPosition}, 0);
+                                window.location.reload(); // 페이지 새로고침
+                            },
+                            error  : function (xhr, status, error) {
+                                console.log('에러가 발생했습니다.');
+                            }
+                        });
+                    }
+                });
             });
+
 
         }
     )
     ;
 </script>
-
 
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -154,18 +239,17 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Blah Blah</h3>
-                <%--                <p>대댓글 미구현</p>--%>
-                <%--                <p>editor에 사진올리는 기능도 있는데.. DB를 col로 바꿔야한다 </p>--%>
+                <h3 class="text-dark fw-bold my-1">블라블라</h3>
+                <p>다함께 소통해요:)</p>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/blah" class="btn btn-active-accent active fw-bold">Blah Blah</a>
-                <a href="/myblah" class="btn btn-active-accent fw-bold ms-3">MY Blah</a>
-                <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>
-                <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>
+                <a href="/blah" class="btn btn-active-accent active fw-bold">블라블라</a>
+                <a href="/mypage/myblah?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">마이블라</a>
+<%--                <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>--%>
+<%--                <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>--%>
             </div>
             <!--end::Nav-->
         </div>
@@ -254,7 +338,7 @@
 
 
                                     <div class="d-flex flex-column flex-grow-1">
-                                        <a href="/digicam/mypage?id=${obj.stdnId}"
+                                        <a href="/mypage/myblah?id=${obj.stdnId}"
                                            class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">
                                                 ${obj.name} <span
                                                 style="color: gray;font-weight: 200">@ ${obj.stdnId}</span>
@@ -293,17 +377,22 @@
 														</span>
                                                 ${obj.commentCount}
                                         </a>
-                                        <a href="#" id="likeButton_${obj.id}"
-                                           class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
-                                            <span class="svg-icon svg-icon-3 pe-1">
+                                        <form id="likeblah_${obj.id}">
+                                            <input type="hidden" id="postId" name="postId" value="${obj.id}">
+                                            <input type="hidden" id="stdnId" name="stdnId" value="${loginStdn.id}">
+                                            <input type="hidden" id="board" name="board" value="B">
+                                            <a href="#" id="likeButton_${obj.id}"
+                                               class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
+                                                <span class="svg-icon svg-icon-3 pe-1">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                                  xmlns="http://www.w3.org/2000/svg">
 																<path d="M18.3721 4.65439C17.6415 4.23815 16.8052 4 15.9142 4C14.3444 4 12.9339 4.73924 12.003 5.89633C11.0657 4.73913 9.66 4 8.08626 4C7.19611 4 6.35789 4.23746 5.62804 4.65439C4.06148 5.54462 3 7.26056 3 9.24232C3 9.81001 3.08941 10.3491 3.25153 10.8593C4.12155 14.9013 9.69287 20 12.0034 20C14.2502 20 19.875 14.9013 20.7488 10.8593C20.9109 10.3491 21 9.81001 21 9.24232C21.0007 7.26056 19.9383 5.54462 18.3721 4.65439Z"
                                                                       fill="currentColor"/>
 															</svg>
 														</span>
-                                            <!--end::Svg Icon-->${obj.likes}</a>
+                                                <!--end::Svg Icon-->${obj.likeCount}</a>
+                                        </form>
                                     </div>
                                     <!--end::Action-->
                                 </div>
@@ -312,7 +401,7 @@
                                     <div class="modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">전체 댓글 보기${obj.id}</h5>
+                                                <h5 class="modal-title">전체 댓글 보기</h5>
 
                                                 <!--begin::Close-->
                                                 <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
@@ -341,48 +430,20 @@
                                                                 <span class="text-muted fw-normal flex-grow-1 fs-7">${comment.rdate}</span>
                                                                     <%--                                                <a href="#"--%>
                                                                     <%--                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>--%>
-                                                                <c:if test="${comment.stdnId == loginStdn.id}">
-                                                                    <a style="margin-left: 10px" href="#"
-                                                                       class="text-muted text-hover-primary fw-normal fs-7"
-                                                                       data-bs-toggle="modal"
-                                                                       data-bs-target="#kt_modal_1_com_${comment.id}"
-                                                                    >Delete</a>
-                                                                </c:if>
+                                                                <c:choose>
+                                                                    <c:when test="${comment.stdnId == loginStdn.id || obj.stdnId == loginStdn.id}">
+                                                                        <a style="margin-left: 10px" href="#"
+                                                                           class="text-muted text-hover-primary fw-normal fs-7"
+                                                                           data-bs-toggle="modal"
+                                                                           data-bs-target="#kt_modal_1_com_${comment.id}"
+                                                                        >Delete</a>
+                                                                    </c:when>
+                                                                </c:choose>
                                                             </div>
                                                             <span class="text-gray-800 fs-7 fw-normal pt-1">${comment.contents}</span>
                                                             <!--end::Info-->
                                                         </div>
                                                         <!--end::Info-->
-                                                    </div>
-                                                    <div class="modal fade" tabindex="-1"
-                                                         id="kt_modal_1_com_${comment.id}">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h3 class="modal-title">Warning⚠️</h3>
-
-                                                                    <!--begin::Close-->
-                                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                                         data-bs-dismiss="modal" aria-label="Close">
-                                                                        <span class="svg-icon svg-icon-1"></span>
-                                                                    </div>
-                                                                    <!--end::Close-->
-                                                                </div>
-
-                                                                <div class="modal-body">
-                                                                    <p>댓글을 정말로 삭제하시겠습니까?</p>
-                                                                </div>
-
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light"
-                                                                            data-bs-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                    <a href="/blah/deletecom?id=${comment.id}"
-                                                                       class="btn btn-light">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </c:forEach>
                                             </div>
@@ -400,6 +461,8 @@
                                 <div class="separator pt-4"></div>
                                 <!-- ... 이전 코드 생략 ... -->
                                 <!--begin::Comment-->
+
+
                                 <c:forEach var="comment" items="${obj.commList}" varStatus="status">
                                     <c:if test="${status.index < 2}">
                                         <div class="d-flex py-5">
@@ -419,13 +482,15 @@
                                                     <span class="text-muted fw-normal flex-grow-1 fs-7">${comment.rdate}</span>
                                                         <%--                                                <a href="#"--%>
                                                         <%--                                                   class="text-muted text-hover-primary fw-normal fs-7">Reply</a>--%>
-                                                    <c:if test="${comment.stdnId == loginStdn.id}">
-                                                        <a style="margin-left: 10px" href="#"
-                                                           class="text-muted text-hover-primary fw-normal fs-7"
-                                                           data-bs-toggle="modal"
-                                                           data-bs-target="#kt_modal_1_com_${comment.id}"
-                                                        >Delete</a>
-                                                    </c:if>
+                                                    <c:choose>
+                                                        <c:when test="${comment.stdnId == loginStdn.id || obj.stdnId == loginStdn.id}">
+                                                            <a style="margin-left: 10px" href="#"
+                                                               class="text-muted text-hover-primary fw-normal fs-7"
+                                                               data-bs-toggle="modal"
+                                                               data-bs-target="#kt_modal_1_com_${comment.id}"
+                                                            >Delete</a>
+                                                        </c:when>
+                                                    </c:choose>
                                                 </div>
                                                 <span class="text-gray-800 fs-7 fw-normal pt-1">${comment.contents}</span>
                                                 <!--end::Info-->
@@ -463,6 +528,7 @@
                                         </div>
                                     </c:if>
                                 </c:forEach>
+
                                 <!--end::Separator-->
                                 <!--begin::Editor-->
                                 <form id="comm_from_${obj.id}"

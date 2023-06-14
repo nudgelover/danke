@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
@@ -18,8 +19,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">NOTICE Detail</h3>
-                <p>NOTICE BOARD Detail</p>
+                <h3 class="text-dark fw-bold my-1">NOTICE DETAIL</h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
@@ -47,13 +47,12 @@
                             <div class="d-flex flex-wrap gap-2 justify-content-between mb-8">
                                 <div class="d-flex align-items-center flex-wrap gap-2">
                                     <!--begin::Heading-->
-                                    <h2 class="fw-semibold me-3 my-1">Welcome to Digi campus</h2>
-                                    <!--begin::Heading-->
-                                    <!--begin::Badges-->
-                                    <span class="badge badge-light-primary my-1 me-2">inbox</span>
-                                    <span class="badge badge-light-danger my-1">important</span>
-                                    <span class="badge badge-light-warning my-1">new</span>
-                                    <!--end::Badges-->
+                                    <h2 class="fw-semibold me-3 my-1">${anc.title}</h2>
+                                    <c:if test="${anc.newPost}">
+                                        <span class="badge badge-light-warning my-1">new</span>
+                                    </c:if>
+
+
                                 </div>
                             </div>
                             <!--end::Title-->
@@ -85,7 +84,7 @@
 																		</svg>
 																	</span>
                                                 <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">1 day ago</span>
+                                                <span class="text-muted fw-bold">${anc.timeAgo}</span>
                                             </div>
                                             <!--end::Author details-->
                                         </div>
@@ -97,49 +96,48 @@
                                         <span class="fw-semibold text-muted text-end me-3">${anc.rdate}</span>
                                         <!--end::Date-->
                                         <div class="d-flex">
-                                            <!--begin::Star-->
-                                            <a href="#"
-                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Star">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
-                                                <span class="svg-icon svg-icon-2 m-0">
-																		<svg width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg">
-																			<path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                                                                  fill="currentColor"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                            <!--end::Star-->
-                                            <!--begin::Mark as important-->
-                                            <a href="#"
-                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                               data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="Mark as important">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen056.svg-->
-                                                <span class="svg-icon svg-icon-2 m-0">
-																		<svg width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg">
-																			<path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z"
-                                                                                  fill="currentColor"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                            <!--end::Mark as important-->
+<%--                                            <!--begin::Star-->--%>
+<%--                                            <a href="#"--%>
+<%--                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"--%>
+<%--                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Star">--%>
+<%--                                                <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->--%>
+<%--                                                <span class="svg-icon svg-icon-2 m-0">--%>
+<%--																		<svg width="24" height="24" viewBox="0 0 24 24"--%>
+<%--                                                                             fill="none"--%>
+<%--                                                                             xmlns="http://www.w3.org/2000/svg">--%>
+<%--																			<path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"--%>
+<%--                                                                                  fill="currentColor"/>--%>
+<%--																		</svg>--%>
+<%--																	</span>--%>
+<%--                                                <!--end::Svg Icon-->--%>
+<%--                                            </a>--%>
+<%--                                            <!--end::Star-->--%>
+<%--                                            <!--begin::Mark as important-->--%>
+<%--                                            <a href="#"--%>
+<%--                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"--%>
+<%--                                               data-bs-toggle="tooltip" data-bs-placement="top"--%>
+<%--                                               title="Mark as important">--%>
+<%--                                                <!--begin::Svg Icon | path: icons/duotune/general/gen056.svg-->--%>
+<%--                                                <span class="svg-icon svg-icon-2 m-0">--%>
+<%--																		<svg width="24" height="24" viewBox="0 0 24 24"--%>
+<%--                                                                             fill="none"--%>
+<%--                                                                             xmlns="http://www.w3.org/2000/svg">--%>
+<%--																			<path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z"--%>
+<%--                                                                                  fill="currentColor"/>--%>
+<%--																		</svg>--%>
+<%--																	</span>--%>
+<%--                                                <!--end::Svg Icon-->--%>
+<%--                                            </a>--%>
+<%--                                            <!--end::Mark as important-->--%>
                                             <a href="#" id="shareFb"
                                                class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="shareFb">
+                                               data-bs-toggle="tooltip" data-bs-placement="top" title="페이스북 공유하기">
                                                 <img style="width:20px; height: 20px"
                                                      src="  https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png">
                                             </a>
 
-                                            <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2">
-                                                <img style="width:20px; height: 20px" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                                     alt="카카오톡 공유 보내기 버튼"/>
+                                            <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"  data-bs-toggle="tooltip" data-bs-placement="top" title="카카오톡 공유하기">
+                                                <img style="width:20px; height: 20px" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"/>
                                             </a>
                                         </div>
                                     </div>

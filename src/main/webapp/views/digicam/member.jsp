@@ -161,7 +161,7 @@
                 <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">Notice</a>
                 <a href="/digicam/calendar" class="btn btn-active-accent  fw-bold">Calendar</a>
                 <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent active fw-bold ms-3">Digi members</a>
+                <a href="/digicam/member" class="btn btn-active-accent active fw-bold ms-3">Digi Members</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -195,163 +195,164 @@
             <div id="memberCardContainer" class="row g-6 g-xl-9">
                 <!--begin::Col-->
                 <c:forEach var="obj" items="${studentList}">
-                <div class="col-md-6 col-xxl-4">
-                    <!--begin::Card-->
+                    <div class="col-md-6 col-xxl-4">
+                        <!--begin::Card-->
 
-                    <div class="card">
-                        <!--begin::Card body-->
-                        <div class="card-body d-flex flex-center flex-column p-9">
-                            <!--begin::Wrapper-->
-                            <div class="mb-5">
-                                <!--begin::Avatar-->
-                                <div class="symbol symbol-75px symbol-circle">
-                                    <img alt="Pic" src="/uimg/${obj.img}"/>
+                        <div class="card">
+                            <!--begin::Card body-->
+                            <div class="card-body d-flex flex-center flex-column p-9">
+                                <!--begin::Wrapper-->
+                                <div class="mb-5">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-75px symbol-circle">
+                                        <img alt="Pic" src="/uimg/${obj.img}"/>
+                                    </div>
+                                    <!--end::Avatar-->
                                 </div>
-                                <!--end::Avatar-->
+                                <!--end::Wrapper-->
+                                <!--begin::Name-->
+                                <a href="/mypage?id=${obj.id}"
+                                   class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${obj.name}</a>
+                                <!--end::Name-->
+                                <!--begin::Position-->
+                                <div class="fw-semibold text-gray-400 mb-6">DIGI CAMPUS
+                                    <c:if test="${obj.digidate == '20220201'}">
+                                        <span class="badge badge-success">1TH</span>
+                                    </c:if>
+                                    <c:if test="${obj.digidate == '20230201'}">
+                                        <span class="badge badge-warning">2TH</span> </c:if>
+                                </div>
+
+
+                                <!--end::Position-->
+                                <!--begin::Info-->
+                                <div class="d-flex flex-center flex-wrap mb-5">
+                                    <!--begin::Stats-->
+                                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mx-3 mb-3">
+                                        <c:if test="${obj.facebook == null || obj.facebook == ' '}">
+                                            <a style="cursor:default" href="#"
+                                               class="btn btn-icon me-5 "><i
+                                                    class="fab fa-facebook-f fs-4"></i></a>
+                                        </c:if>
+
+                                        <c:if test="${obj.facebook != null && obj.facebook != ' '}">
+                                            <a href="https://www.facebook.com/${obj.facebook}"
+                                               class="btn btn-icon btn-light-facebook me-5 "><i
+                                                    class="fab fa-facebook-f fs-4"></i></a>
+                                        </c:if>
+
+
+                                        <c:if test="${obj.insta == null || obj.insta == ' '}">
+                                            <a style="cursor: default;" href="#"
+                                               class="btn btn-icon me-5 "><i
+                                                    class="fab fa-instagram fs-4"></i></a>
+                                        </c:if>
+
+                                        <c:if test="${obj.insta != null && obj.insta != ' '}">
+                                            <a href="https://www.instagram.com/${obj.insta}"
+                                               class="btn btn-icon btn-light-instagram me-5 "><i
+                                                    class="fab fa-instagram fs-4"></i></a>
+                                        </c:if>
+
+
+                                        <a href="#"
+                                           class="btn btn-icon btn-light-twitter me-5 " data-bs-toggle="modal"
+                                           data-bs-target="#kt_modal_1"><i
+                                                class="fonticon-outgoing-call"></i></a>
+                                    </div>
+                                    <!--end::Stats-->
+                                </div>
+                                <!--end::Info-->
+                                <!--begin::Link-->
+                                <button class="btn btn-sm btn-light-primary fw-bold" data-kt-drawer-show="true"
+                                        data-kt-drawer-target="#kt_drawer_chat">Send Message
+                                </button>
+                                <!--end::Link-->
                             </div>
-                            <!--end::Wrapper-->
-                            <!--begin::Name-->
-                            <a href="/mypage?id=${obj.id}"
-                               class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${obj.name}</a>
-                            <!--end::Name-->
-                            <!--begin::Position-->
-                            <div class="fw-semibold text-gray-400 mb-6">DIGI CAMPUS
-                                <c:if test="${obj.digidate == '20220201'}">
-                                <span class="badge badge-success">1TH</span></div>
-                            </c:if>
-                            <c:if test="${obj.digidate == '20230201'}">
-                            <span class="badge badge-warning">2TH</span></div>
-                        </c:if>
-
-                        <!--end::Position-->
-                        <!--begin::Info-->
-                        <div class="d-flex flex-center flex-wrap mb-5">
-                            <!--begin::Stats-->
-                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mx-3 mb-3">
-                                <c:if test="${obj.facebook == null || obj.facebook == ' '}">
-                                    <a style="cursor:default" href="#"
-                                       class="btn btn-icon me-5 "><i
-                                            class="fab fa-facebook-f fs-4"></i></a>
-                                </c:if>
-
-                                <c:if test="${obj.facebook != null && obj.facebook != ' '}">
-                                    <a href="https://www.facebook.com/${obj.facebook}"
-                                       class="btn btn-icon btn-light-facebook me-5 "><i
-                                            class="fab fa-facebook-f fs-4"></i></a>
-                                </c:if>
-
-
-                                <c:if test="${obj.insta == null || obj.insta == ' '}">
-                                    <a style="cursor: default;" href="#"
-                                       class="btn btn-icon me-5 "><i
-                                            class="fab fa-instagram fs-4"></i></a>
-                                </c:if>
-
-                                <c:if test="${obj.insta != null && obj.insta != ' '}">
-                                    <a href="https://www.instagram.com/${obj.insta}"
-                                       class="btn btn-icon btn-light-instagram me-5 "><i
-                                            class="fab fa-instagram fs-4"></i></a>
-                                </c:if>
-
-
-                                <a href="#"
-                                   class="btn btn-icon btn-light-twitter me-5 " data-bs-toggle="modal"
-                                   data-bs-target="#kt_modal_1"><i
-                                        class="fonticon-outgoing-call"></i></a>
-                            </div>
-                            <!--end::Stats-->
+                            <!--begin::Card body-->
                         </div>
-                        <!--end::Info-->
-                        <!--begin::Link-->
-                        <button class="btn btn-sm btn-light-primary fw-bold" data-kt-drawer-show="true"
-                                data-kt-drawer-target="#kt_drawer_chat">Send Message
-                        </button>
-                        <!--end::Link-->
+
+
+                        <!--begin::Card-->
                     </div>
-                    <!--begin::Card body-->
-                </div>
+                    <%--                    모달--%>
+                    <div class="modal fade" tabindex="-1" id="kt_modal_1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title"> ${obj.name}의 연락처</h3>
 
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                         data-bs-dismiss="modal" aria-label="Close">
+                                        <span class="svg-icon svg-icon-1"></span>
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
 
-                <!--begin::Card-->
-            </div>
-                <%--                    모달--%>
-            <div class="modal fade" tabindex="-1" id="kt_modal_1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title"> ${obj.name}의 연락처</h3>
+                                <div class="modal-body">
 
-                            <!--begin::Close-->
-                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                 data-bs-dismiss="modal" aria-label="Close">
-                                <span class="svg-icon svg-icon-1"></span>
-                            </div>
-                            <!--end::Close-->
-                        </div>
-
-                        <div class="modal-body">
-
-                            <p style="color: black">PHONE : ${obj.contact}</p>
-                            <span style="color: black">EMAIL : ${obj.email}<a
-                                    href="https://mail.google.com/">
+                                    <p style="color: black">PHONE : ${obj.contact}</p>
+                                    <span style="color: black">EMAIL : ${obj.email}<a
+                                            href="https://mail.google.com/">
                                                     <img style="width: 15px;"
                                                          src="https://cdn-icons-png.flaticon.com/512/732/732200.png"></a></span>
-                        </div>
+                                </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
+                <!--end::Col-->
+
+
+                <!--end::Col-->
             </div>
-            </c:forEach>
-            <!--end::Col-->
-
-
-            <!--end::Col-->
+            <!--end::Contacts-->
+            <!--begin::Pagination-->
+            <%--            <div class="d-flex flex-stack flex-wrap pt-10">--%>
+            <%--                <div class="fs-6 fw-semibold text-gray-700">Showing 1 to 10 of 50 entries</div>--%>
+            <%--                <!--begin::Pages-->--%>
+            <%--                <ul class="pagination">--%>
+            <%--                    <li class="page-item previous">--%>
+            <%--                        <a href="#" class="page-link">--%>
+            <%--                            <i class="previous"></i>--%>
+            <%--                        </a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item active">--%>
+            <%--                        <a href="#" class="page-link">1</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item">--%>
+            <%--                        <a href="#" class="page-link">2</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item">--%>
+            <%--                        <a href="#" class="page-link">3</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item">--%>
+            <%--                        <a href="#" class="page-link">4</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item">--%>
+            <%--                        <a href="#" class="page-link">5</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item">--%>
+            <%--                        <a href="#" class="page-link">6</a>--%>
+            <%--                    </li>--%>
+            <%--                    <li class="page-item next">--%>
+            <%--                        <a href="#" class="page-link">--%>
+            <%--                            <i class="next"></i>--%>
+            <%--                        </a>--%>
+            <%--                    </li>--%>
+            <%--                </ul>--%>
+            <%--                <!--end::Pages-->--%>
+            <%--            </div>--%>
+            <!--end::Pagination-->
         </div>
-        <!--end::Contacts-->
-        <!--begin::Pagination-->
-        <%--            <div class="d-flex flex-stack flex-wrap pt-10">--%>
-        <%--                <div class="fs-6 fw-semibold text-gray-700">Showing 1 to 10 of 50 entries</div>--%>
-        <%--                <!--begin::Pages-->--%>
-        <%--                <ul class="pagination">--%>
-        <%--                    <li class="page-item previous">--%>
-        <%--                        <a href="#" class="page-link">--%>
-        <%--                            <i class="previous"></i>--%>
-        <%--                        </a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item active">--%>
-        <%--                        <a href="#" class="page-link">1</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item">--%>
-        <%--                        <a href="#" class="page-link">2</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item">--%>
-        <%--                        <a href="#" class="page-link">3</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item">--%>
-        <%--                        <a href="#" class="page-link">4</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item">--%>
-        <%--                        <a href="#" class="page-link">5</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item">--%>
-        <%--                        <a href="#" class="page-link">6</a>--%>
-        <%--                    </li>--%>
-        <%--                    <li class="page-item next">--%>
-        <%--                        <a href="#" class="page-link">--%>
-        <%--                            <i class="next"></i>--%>
-        <%--                        </a>--%>
-        <%--                    </li>--%>
-        <%--                </ul>--%>
-        <%--                <!--end::Pages-->--%>
-        <%--            </div>--%>
-        <!--end::Pagination-->
+        <!--end::Container-->
     </div>
-    <!--end::Container-->
-</div>
-<!--end::Content-->
+    <!--end::Content-->
 </div>
 <!--end::Main-->
 

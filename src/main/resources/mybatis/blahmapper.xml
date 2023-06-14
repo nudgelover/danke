@@ -5,9 +5,17 @@
 <mapper namespace="com.myservice.mapper.BlahMapper">
 
     <select id="getMyBlah" parameterType="String" resultType="Blah">
-        SELECT id, stdn_id AS stdnId, contents, rdate, likes
-        FROM blah
+        SELECT s.name,
+               s.img,
+               m.stdn_id AS stdnId,
+               m.id,
+               m.contents,
+               m.rdate
+--                m.likes
+        FROM stdn s
+                 JOIN blah m ON s.id = m.stdn_id
         WHERE stdn_id=#{stdnId}
+        ORDER BY m.id DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="Blah">
@@ -22,8 +30,8 @@
                m.stdn_id AS stdnId,
                m.id,
                m.contents,
-               m.rdate,
-               m.likes
+               m.rdate
+--                m.likes
         FROM stdn s
                  JOIN blah m ON s.id = m.stdn_id
         ORDER BY m.id DESC
@@ -51,5 +59,10 @@
         FROM blah
         WHERE id=#{id}
     </delete>
-
+    <select id="cntLike" parameterType="Integer" resultType="Integer">
+        SELECT COUNT(*) AS cnt
+        FROM likes
+        WHERE BOARD = 'B'
+          AND POST_ID = #{postId}
+    </select>
 </mapper>

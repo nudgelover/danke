@@ -15,6 +15,7 @@
         width: 100%;
         height: 400px;
     }
+
     #keyword {
         background-color: var(--bs-gray-100);
         border-color: var(--bs-gray-100);
@@ -45,7 +46,7 @@
         }, 3000);
     });
 </script>
-<c:set var="currentPage" value="${mpage}"/>
+<c:set var="currentPage" value="${cpage}"/>
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -54,7 +55,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">맛집탐방</h3>
+                <h3 class="text-dark fw-bold my-1">디지캠맛집</h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
@@ -77,7 +78,7 @@
                 <div class="card-body">
                     <!--begin::Engage Widget 1-->
                     <div class="card mb-12">
-                        <div style="background-color: #FDF1E3" class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
+                        <div style="background-color:lavenderblush;" class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
                             <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
                                 <h1 class="fw-bold text-dark">성수의 맛집을 둘러보세요👀</h1>
                                 <!--begin::Form-->
@@ -117,8 +118,8 @@
                                 </form>
                                 <!--end::Form-->
                             </div>
-                            <div class="d-none d-md-flex flex-row-fluid mw-450px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                 style="background-image: url(/img/jmt2.png);"></div>
+                            <div class="d-none d-md-flex flex-row-fluid mw-350px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
+                                 style="background-image: url(/img/jmt3.png);"></div>
                         </div>
                     </div>
                     <!--end::Engage Widget 1-->
@@ -150,11 +151,11 @@
                             <!--begin::Nav-->
                             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                                 <a href="#" id="recentBtn"
-                                   class="btn btn-bg-light btn-active-color-success active">최신순⚡</a>
+                                   class="btn btn-bg-light btn-active-color-success ">최신순⚡</a>
                                 <a href="#" style="margin-left: 10px;" id="popularBtn"
-                                   class="btn btn-bg-light btn-active-color-success">별점순🌟</a>
+                                   class="btn btn-bg-light btn-active-color-success ">별점순🌟</a>
                                 <a href="#" style="margin-left: 10px;" id="commentBtn"
-                                   class="btn btn-bg-light btn-active-color-success">댓글순✏️</a>
+                                   class="btn btn-bg-light btn-active-color-success active">댓글순✏️</a>
                             </div>
                             <!--end::Nav-->
                         </div>
@@ -179,6 +180,7 @@
                                                     <img class="h-250px" src="/uimg/${obj.img}" alt=""
                                                          class="mw-100 w-200px" onerror="this.src='/uimg/default.jpg';"/>
                                                 </div>
+
                                                 <div class="overlay-layer">
                                                     <a href="/marker/detail?id=${obj.id}"
                                                        class="btn fw-bold btn-sm btn-light-primary me-2">상세보기</a>
@@ -222,7 +224,6 @@
                                                     <span class="fs-6 text-gray-400">⭐ 댓글 ${obj.commentCount}</span>
                                                 </c:if>
 
-
                                             </div>
                                             <!--end::Details-->
                                         </div>
@@ -241,7 +242,7 @@
                                 <c:choose>
                                     <c:when test="${currentPage.getPrePage() != 0}">
                                         <li>
-                                            <a href="/marker/all?pageNo=${currentPage.getPrePage()}"
+                                            <a href="/marker/allcomment?pageNo=${currentPage.getPrePage()}"
                                                class="btn btn-light"><</a>
                                         </li>
                                     </c:when>
@@ -257,13 +258,13 @@
                                     <c:choose>
                                         <c:when test="${currentPage.getPageNum() == page}">
                                             <li>
-                                                <a href="/marker/all?pageNo=${page}"
+                                                <a href="/marker/allcomment?pageNo=${page}"
                                                    class="btn btn-bg-light btn-color-primary">${page }</a>
                                             </li>
                                         </c:when>
                                         <c:otherwise>
                                             <li>
-                                                <a href="/marker/all?pageNo=${page}"
+                                                <a href="/marker/allcomment?pageNo=${page}"
                                                    class="btn btn-active-light-secondary">${page }</a>
                                             </li>
                                         </c:otherwise>
@@ -273,7 +274,7 @@
                                 <c:choose>
                                     <c:when test="${currentPage.getNextPage() != 0}">
                                         <li>
-                                            <a href="/marker/all?pageNo=${currentPage.getNextPage()}"
+                                            <a href="/marker/allcomment?pageNo=${currentPage.getNextPage()}"
                                                class="btn btn-light">></a>
                                         </li>
                                     </c:when>
@@ -344,17 +345,16 @@
                                                 <a href="/marker/detail?id=${obj.id}"
                                                    class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">
                                                         ${obj.title}
-                                                            <c:if test="${obj.keyword=='R'}">
-                                                                🍳
-                                                            </c:if>
-                                                            <c:if test="${obj.keyword=='C'}">
-                                                                ☕
-                                                            </c:if>
-                                                            <c:if test="${obj.keyword=='S'}">
-                                                                ✍️
-                                                            </c:if>
-                                                </a>
 
+                                                    <c:if test="${obj.keyword=='R'}">
+                                                        🍳
+                                                    </c:if>
+                                                    <c:if test="${obj.keyword=='C'}">
+                                                        ☕
+                                                    </c:if>
+                                                    <c:if test="${obj.keyword=='S'}">
+                                                        ✍️
+                                                    </c:if></a>
                                                 <c:if test="${obj.rating== 5.0}">
                                                     <span class="fs-6">⭐⭐⭐⭐⭐</span>
                                                 </c:if>
@@ -591,7 +591,8 @@
         saveScrollPosition();
         window.location.href = "/marker/allrating";
     });
-    // 댓글순 버튼 클릭 시 스크롤 위치를 저장하고 페이지 이동
+
+    // 인기순 버튼 클릭 시 스크롤 위치를 저장하고 페이지 이동
     document.getElementById("commentBtn").addEventListener("click", function (event) {
         event.preventDefault();
         saveScrollPosition();

@@ -186,27 +186,46 @@
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-    var dropImg;
+    let dropImg;
 
-    function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','),
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]),
-            n = bstr.length,
-            u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, {type: mime});
-    }
+    // function dataURLtoFile(dataurl, filename) {
+    //     var arr = dataurl.split(','),
+    //         mime = arr[0].match(/:(.*?);/)[1],
+    //         bstr = atob(arr[1]),
+    //         n = bstr.length,
+    //         u8arr = new Uint8Array(n);
+    //     while (n--) {
+    //         u8arr[n] = bstr.charCodeAt(n);
+    //     }
+    //     return new File([u8arr], filename, {type: mime});
+    // }
 
     $(document).ready(function () {
+
+        const myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
+            url           : "marker/addimpl", // Set the URL for your upload script location
+            paramName     : "file", // The name that will be used to transfer the file
+            maxFiles      : 1,
+            maxFilesize   : 10, // MB
+            addRemoveLinks: true,
+            acceptedFiles : "image/*",
+            accept        : function (file, done) {
+                if (this.files.length <= 1) {
+                    dropImg = file;
+                } else {
+                    done("이미지는 한장만 업로드하실 수 있습니다.");
+                    alert("이미지는 1장만 업로드하실 수 있습니다.");
+                    dropImg = file;
+                }
+            }
+        });
+
         $('#register_btn').click(function (e) {
             const title = document.getElementById('title').value;
             const lat = document.getElementById('lat').value;
             const lng = document.getElementById('lng').value;
+            const writer = document.getElementById('writer').value;
             const contents = document.getElementById('kt_docs_ckeditor_document').innerHTML;
             console.log(contents);
 
@@ -221,6 +240,12 @@
                 alert('상세설명을 더 입력해주세요.');
                 return;
             }
+
+            if (!writer) {
+                alert('로그인 후 이용해주세요.');
+                return;
+            }
+
             if (!dropImg) {
                 alert('이미지를 등록해주세요')
                 return;
@@ -267,24 +292,15 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">JMTGR</h3>
+                <h3 class="text-dark fw-bold my-1">맛집탐방</h3>
                 <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Shop 1</li>
-                </ul>
-                <!--end::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/marker/all" class="btn btn-active-accent fw-bold ms-3">맛집 조회</a>
                 <a href="/marker/add" class="btn btn-active-accent active fw-bold ms-3">맛집 등록</a>
-                <a href="/marker/detail" class="btn btn-active-accent fw-bold ms-3">나의 맛집</a>
+                <a href="#" class="btn btn-active-accent fw-bold ms-3">나의 맛집</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -325,7 +341,7 @@
                                                         Drop files here or
                                                         click
                                                         to upload.</h3>
-                                                    <span class="fs-7 fw-semibold text-gray-400">Upload up to 10 files</span>
+                                                    <span class="fs-7 fw-semibold text-gray-400">Upload up to 1 files</span>
                                                     <span class="fs-7 fw-semibold text-gray-400">파일 1개만 올릴 수 있게 변경, 이미지 파일만 올릴 수 있도록 제한, 이미지 없을 시 alert</span>
                                                 </div>
                                                 <!--end::Info-->
@@ -801,19 +817,6 @@
 
 <%--파일업로드 스크립트--%>
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
-<script>
-    const myDropzone = new Dropzone("#kt_dropzonejs_example_1", {
-        url           : "marker/addimpl", // Set the url for your upload script location
-        paramName     : "file", // The name that will be used to transfer the file
-        maxFiles      : 1,
-        maxFilesize   : 10, // MB
-        addRemoveLinks: true,
-        accept        : function (file, done) {
-            if (file) {
-                dropImg = file;
-            } else {
-                done();
-            }
-        }
-    });
-</script>
+
+
+

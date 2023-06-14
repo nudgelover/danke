@@ -16,7 +16,7 @@ var KTModalCreateProjectSettings = function () {
 		var myDropzone = new Dropzone("#kt_modal_create_project_settings_logo", { 
 			url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
+            maxFiles: 1,
             maxFilesize: 10, // MB
             addRemoveLinks: true,
             accept: function(file, done) {

@@ -35708,7 +35708,8 @@ body {
 .fc .fc-col-header-cell .fc-col-header-cell-cushion {
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--bs-gray-800);
+  /*color: var(--bs-gray-800);*/
+/*  기본값 제거 jinhee*/
 }
 .fc .fc-scrollgrid {
   border-radius: 0.65rem;
@@ -35735,7 +35736,8 @@ body {
   padding: 0.25rem 0.25rem;
 }
 .fc .fc-daygrid-day-number {
-  color: var(--bs-gray-800);
+  /*color: var(--bs-gray-800);*/
+/* jinhee 수정*/
 }
 .fc .fc-daygrid-dot-event {
   background-color: var(--bs-light);

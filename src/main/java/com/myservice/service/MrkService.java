@@ -3,6 +3,8 @@ package com.myservice.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Mrk;
+import com.myservice.dto.MrkSearch;
+import com.myservice.dto.Search;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.MrkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +55,27 @@ public class MrkService implements KBService<Integer, Mrk> {
         return mapper.getRecent();
     }
 
-
+    public List<Mrk> search(MrkSearch ms) throws Exception{
+        return mapper.search(ms);
+    }
     public Page<Mrk> getPage(int pageNo) throws Exception {
         PageHelper.startPage(pageNo, 6); // 3: 한화면에 출력되는 개수
         return mapper.getpage();
     }
 
+    public Page<Mrk> getPageRating(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 6); // 3: 한화면에 출력되는 개수
+        return mapper.getpageRating();
+    }
+
+    public Page<Mrk> getPageComment(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 6); // 3: 한화면에 출력되는 개수
+        return mapper.getPageComment();
+    }
+    public Page<Mrk> getFindPage(int pageNo, Search search) throws Exception {
+        PageHelper.startPage(pageNo, 6);
+        return mapper.getfindpage(search);
+    }
 
 
 }

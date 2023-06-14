@@ -2,7 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--begin::Vendor Stylesheets(used for this page only)-->
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
-
+<style>
+    #keyword {
+        background-color: var(--bs-gray-100);
+        border-color: var(--bs-gray-100);
+        color: var(--bs-gray-700);
+        transition: color 0.2s ease;
+        width: 100px;
+        outline: none;
+    }
+</style>
 <!--end::Vendor Stylesheets-->
 <script>
     // 마우스를 가져다 댈 때 호출되는 함수
@@ -32,7 +41,6 @@
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
                 <h3 class="text-dark fw-bold my-1">NOTICE</h3>
-                <p>검색기능 미구현</p>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
             </div>
@@ -42,7 +50,7 @@
                 <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Notice</a>
                 <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">Calendar</a>
                 <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi member</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi Member</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -62,9 +70,10 @@
 
                         <div class="card-body py-10">
                             <div class="d-flex flex-column mb-10 px-3">
-                                <h2 class="text-dark fw-bold fs-1 mb-5">Popular Articles</h2>
+                                <h3>공지사항</h3>
                                 <!--begin::SEARCH Form-->
-                                <form>
+                                <form action="/digicam/anc/findimpl" method="get">
+
                                     <div class="input-group input-group-solid" id="kt_chat_aside_search">
 															<span class="input-group-text" id="basic-addon1">
 																<!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -81,7 +90,19 @@
 																</span>
                                                                 <!--end::Svg Icon-->
 															</span>
-                                        <input type="text" class="form-control ps-0 py-4 h-auto" placeholder="Search"/>
+                                        <select name="keyword" id="keyword">
+                                            <option value="title"
+                                                    <c:if test="${search.keyword == 'title'}">selected</c:if>>제목
+                                            </option>
+                                            <option value="contents"
+                                                    <c:if test="${search.keyword == 'contents'}">selected</c:if>>
+                                                내용
+                                            </option>
+                                        </select>
+                                        <input type="text" id="search" name="search"
+                                               <c:if test="${search.search != null}">value="${search.search}"
+                                               </c:if>class="form-control ps-0 py-4 h-auto" placeholder="Search"/>
+                                        <button class="btn btn-light-primary" type="submit">검색</button>
                                     </div>
                                 </form>
                                 <!--end:: SEARCH Form-->
@@ -107,8 +128,14 @@
                                         <tr style="cursor: pointer" onmouseover="changeColor(this)"
                                             onmouseout="restoreColor(this)"
                                             onclick="window.location.href='/digicam/anc/detail?id=${obj.id}'">
-                                            <td>${status.index + 1}</td>
-                                            <td style="text-align: left;">${obj.title}</td>
+                                            <td>${status.index + 1 + (apage.getPageNum() - 1) * apage.getPageSize()}</td>
+                                            <td style="text-align: left;">
+                                                    ${obj.title}
+                                                <c:if test="${obj.newPost}">
+                                                    <span style="margin-left: 10px"
+                                                          class="badge badge-warning">New</span>
+                                                </c:if>
+                                            </td>
                                             <td>${obj.writer}</td>
                                             <td>${obj.rdate}</td>
                                         </tr>
@@ -117,60 +144,12 @@
 
                                     </tbody>
                                 </table>
+                                <c:if test="${apage.getList() == null||apage.getList().size()==0}">
+                                    <h4 style="margin-left: 3%">죄송합니다. 해당 게시글은 존재하지않습니다.</h4>
+                                </c:if>
+                                <jsp:include page="findpage.jsp"/>
+
                             </div>
-
-                            <!-- pagination start -->
-                            <div class="col text-center">
-                                <ul class="pagination ">
-                                    <c:choose>
-                                        <c:when test="${apage.getPrePage() != 0}">
-                                            <li>
-                                                <a href="/digicam/anc/all?pageNo=${apage.getPrePage()}"
-                                                   class="btn btn-light"><</a>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li>
-                                                <a href="#" class="btn btn-bg-light btn-color-secondary"><</a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                    <c:forEach begin="${apage.getNavigateFirstPage() }"
-                                               end="${apage.getNavigateLastPage() }" var="page">
-                                        <c:choose>
-                                            <c:when test="${apage.getPageNum() == page}">
-                                                <li>
-                                                    <a href="/digicam/anc/all?pageNo=${page}"
-                                                       class="btn btn-bg-light btn-color-primary">${page }</a>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li>
-                                                    <a href="/digicam/anc/all?pageNo=${page}"
-                                                       class="btn btn-active-light-secondary">${page }</a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                    </c:forEach>
-                                    <c:choose>
-                                        <c:when test="${apage.getNextPage() != 0}">
-                                            <li>
-                                                <a href="/digicam/anc/all?pageNo=${apage.getNextPage()}"
-                                                   class="btn btn-light">></a>
-                                            </li>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <li>
-                                                <a href="#" class="btn btn-bg-light btn-color-secondary">></a>
-                                            </li>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                </ul>
-                            </div>
-                            <!-- pagination end -->
                         </div>
                     </div>
                     <!--end::Card-->

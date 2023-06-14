@@ -50,5 +50,4 @@ public class LikesService implements KBService<Integer, Likes> {
     public Likes getThisLikes(Integer postId, String stdnId, String board) throws Exception {
         return mapper.getThisLikes(postId, stdnId, board);
     }
-
 }

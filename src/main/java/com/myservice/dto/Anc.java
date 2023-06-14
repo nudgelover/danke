@@ -16,6 +16,8 @@ public class Anc {
     private String contents;
     private String img;
     private String rdate;
+    private boolean NewPost;
+    private String TimeAgo;
 
     private MultipartFile imgfile;
 
@@ -37,4 +39,5 @@ public class Anc {
         this.img = img;
         this.rdate = rdate;
     }
+
 }

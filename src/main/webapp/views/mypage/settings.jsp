@@ -18,7 +18,7 @@
         const form = document.getElementById('kt_docs_formvalidation_text');
 
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
-        var validator = FormValidation.formValidation(
+        const validator = FormValidation.formValidation(
             form,
             {
                 fields: {
@@ -74,11 +74,11 @@
                         // Disable button to avoid multiple click
                         submitButton.disabled = true;
 
-                        // let subject = [];
-                        // const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-                        // checkboxes.forEach(function (checkbox) {
-                        //     subject.push(checkbox.value);
-                        // });
+                        let sbj = [];
+                        const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                        checkboxes.forEach(function (checkbox) {
+                            sbj.push(checkbox.value);
+                        });
 
 
                         form.setAttribute('method', 'post');
@@ -292,45 +292,41 @@
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
                         <div style="margin-left: 10px;" class="d-flex align-items-center">
-                            <input class="form-check-input" type="text"
-                                   id="inlineCheckbox1" value="JAVA" name="sbj1"/>
-                            <input class="form-check-input" type="text"
-                                   id="inlineCheckbox1" value="REACT" name="sbj2"/>
-                            <input class="form-check-input" type="text"
-                                   id="inlineCheckbox1" value="CS" name="sbj3"/>
-<%--                            <div class="form-check form-check-custom form-check-solid me-5">--%>
-<%--                                <input class="form-check-input" type="checkbox"--%>
-<%--                                       id="inlineCheckbox1" value="JAVA" name="sbj"/>--%>
-<%--                                <label class="form-check-label fw-semibold" for="inlineCheckbox1">JAVA</label>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-custom form-check-solid me-5">--%>
-<%--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"--%>
-<%--                                       value="React" name="sbj"/>--%>
-<%--                                <label class="form-check-label fw-semibold" for="inlineCheckbox2">React</label>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-custom form-check-solid"--%>
-<%--                                 style="margin-right:15px;">--%>
-<%--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3"--%>
-<%--                                       value="CS" name="sbj"/>--%>
-<%--                                <label class="form-check-label fw-semibold" for="inlineCheckbox3">CS</label>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-custom form-check-solid"--%>
-<%--                                 style="margin-right:15px;">--%>
-<%--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4"--%>
-<%--                                       value="Algorithm" name="sbj"/>--%>
-<%--                                <label class="form-check-label fw-semibold"--%>
-<%--                                       for="inlineCheckbox4">Algorithm</label>--%>
-<%--                            </div>--%>
-<%--                            <div class="form-check form-check-custom form-check-solid"--%>
-<%--                                 style="margin-right:15px;">--%>
-<%--                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5"--%>
-<%--                                       value="Machine Learning" name="sbj"/>--%>
-<%--                                <label class="form-check-label fw-semibold" for="inlineCheckbox5">Machine--%>
-<%--                                    Learning</label>--%>
-<%--                            </div>--%>
+                            <div class="form-check form-check-custom form-check-solid me-5">
+                                <input class="form-check-input" type="checkbox"
+                                       id="inlineCheckbox1" value="JAVA" name="sbj"/>
+                                <label class="form-check-label fw-semibold" for="inlineCheckbox1">JAVA</label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid me-5">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                       value="React" name="sbj"/>
+                                <label class="form-check-label fw-semibold" for="inlineCheckbox2">React</label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid"
+                                 style="margin-right:15px;">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
+                                       value="CS" name="sbj"/>
+                                <label class="form-check-label fw-semibold" for="inlineCheckbox3">CS</label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid"
+                                 style="margin-right:15px;">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
+                                       value="Algorithm" name="sbj"/>
+                                <label class="form-check-label fw-semibold"
+                                       for="inlineCheckbox4">Algorithm</label>
+                            </div>
+                            <div class="form-check form-check-custom form-check-solid"
+                                 style="margin-right:15px;">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
+                                       value="Machine Learning" name="sbj"/>
+                                <label class="form-check-label fw-semibold" for="inlineCheckbox5">Machine
+                                    Learning</label>
+                            </div>
                         </div>
                         <div class="col-lg-9">
                             <div class="form-text" style="margin: 12px 0 0 5px">관심분야 <span style="color:darkorange">3가지</span>를 선택해주세요. 강의 추천에 많은 도움이 됩니다.
+                                ${student.sbj1}  ${student.sbj2}  ${student.sbj3}
+<%--                                삭제--%>
                             </div>
                         </div>
                     </div>
@@ -421,10 +417,10 @@
 <!--end::Basic info-->
 
 <script>
-    // 기존 회원이 선택한 MBTI 값을 가져옵니다.
-    var selectedMBTI = "${mypage.mbti}";
+    // 기존 회원이 선택한 MBTI 값을 가져오기
+    const selectedMBTI = "${mypage.mbti}";
     // MBTI 선택 옵션들의 NodeList를 가져옵니다.
-    var mbtiOptions = document.querySelectorAll('#mbti option');
+    const mbtiOptions = document.querySelectorAll('#mbti option');
 
 
     // NodeList를 Array로 변환하여 각 옵션을 순회하며 선택 여부를 확인합니다.
@@ -435,9 +431,9 @@
         }
     });
 
-    var selectedDIGIDATE = "${mypage.digidate}";
-    // digi_sdate 라디오 버튼의 NodeList를 가져옵니다.
-    var digiDateOptions = document.querySelectorAll('input[name="digidate"]');
+    // 회원의 기존 digi_date가져오기
+    const selectedDIGIDATE = "${mypage.digidate}";
+    const digiDateOptions = document.querySelectorAll('input[name="digidate"]');
 
     // NodeList를 Array로 변환하여 각 라디오 버튼을 순회하며 선택 여부를 확인합니다.
     Array.from(digiDateOptions).forEach(function (radio) {
@@ -447,26 +443,38 @@
         }
     });
 
-    var comSdateInput = document.getElementById("comdate");
-    var comSdateValue = "${mypage.comdate}";
+    // 회원의 기존 comdate가져오기
+    const comSdateInput = document.getElementById("comdate");
+    const comSdateValue = "${mypage.comdate}";
 
     // 값이 존재하는 경우
     if (comSdateValue) {
         // 2023-05-01 00:00:00 => 2023-05-01
-        var date = comSdateValue.substr(0, 10);
+        const date = comSdateValue.substr(0, 10);
 
         // 날짜 형식으로 변환
-        var formattedDate = date
+        const formattedDate = date
 
         // 날짜 값을 <input type="date"> 요소에 설정
         comSdateInput.value = formattedDate;
     }
+
 
     // 최대 선택 가능한 체크박스 개수
     const maxCheckboxCount = 3;
 
     // 체크박스 요소들
     const checkboxes = document.querySelectorAll('input[name="sbj"]');
+    const sbj1Value = "${student.sbj1}";
+    const sbj2Value = "${student.sbj2}";
+    const sbj3Value = "${student.sbj3}";
+
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.value === sbj1Value || checkbox.value === sbj2Value || checkbox.value === sbj3Value) {
+            checkbox.checked = true;
+        }
+    });
+
 
     // 체크박스 개수 체크 함수
     function checkCheckboxCount() {
@@ -490,7 +498,7 @@
 </script>
 
 <!--begin::Vendors Javascript(used for this page only)-->
-<script>var hostUrl = "/assets/";</script>
+<script>const hostUrl = "/assets/";</script>
 <!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/assets/js/scripts.bundle.js"></script>

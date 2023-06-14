@@ -646,7 +646,7 @@ var KTFileManagerList = function () {
             url: "path/to/your/server", // Set the url for your upload script location
             parallelUploads: 10,
             previewTemplate: previewTemplate,
-            maxFilesize: 1, // Max filesize in MB
+            maxFilesize: 10, // Max filesize in MB
             autoProcessQueue: false, // Stop auto upload
             autoQueue: false, // Make sure the files aren't queued until manually added
             previewsContainer: id + " .dropzone-items", // Define the container to display the previews

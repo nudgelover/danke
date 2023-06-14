@@ -29,8 +29,11 @@ public class AjaxImplController {
     @Autowired
     MyPageService myPageService;
 
+    @Autowired
     BlahService blahService;
+    @Autowired
     LikesService likesService;
+
 
     @RequestMapping("/markers")
     public Object markers(String keyword) throws Exception {
@@ -74,10 +77,10 @@ public class AjaxImplController {
             jo.put("id", obj.getId());
             jo.put("name", obj.getName());
             jo.put("img", obj.getImg());
-            jo.put("birthday",obj.getBirthday());
-            jo.put("insta",obj.getInsta());
+            jo.put("birthday", obj.getBirthday());
+            jo.put("insta", obj.getInsta());
             jo.put("facebook", obj.getFacebook());
-            jo.put("contact",obj.getContact());
+            jo.put("contact", obj.getContact());
             jo.put("email", obj.getEmail());
             jo.put("comdate", obj.getComdate());
             jo.put("digidate", obj.getDigidate());
@@ -86,13 +89,15 @@ public class AjaxImplController {
         return ja;
     }
 
-    @RequestMapping("/likeblah")
-    public Object likeblah(Integer postId) throws Exception {
-        Likes likes = null;
-        Blah blah =null;
-        likesService.register(likes);
-        blahService.updateLikes(blah);
-
-        return null;
+    @RequestMapping("/blah/checklike")
+    public String checkLike(Integer postId, String board, String stdnId) throws Exception {
+        // 해당 포스트와 사용자의 좋아요 여부를 조회하는 로직을 구현합니다.
+        String result = "";
+        if (likesService.getThisLikes(postId, stdnId, board) != null) {
+            result = "liked";
+        }
+        log.info(result);
+        return result;
     }
 }
+

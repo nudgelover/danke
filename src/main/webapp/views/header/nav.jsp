@@ -37,22 +37,22 @@
                             <!--begin::Row-->
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">Dashboards</h3>
+                                    <h3 class="fw-bold mb-5">디지캠퍼스</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2 active" href="/">Home</a>
+                                            <a class="menu-link ps-0 py-2 active" href="/">홈</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/digicam/anc/all">Notice</a>
+                                            <a class="menu-link ps-0 py-2" href="/digicam/anc/all">공지사항</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/digicam/calendar">Calendar</a>
+                                            <a class="menu-link ps-0 py-2" href="/digicam/calendar">캘린더</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/digicam/detail">Digi Cam</a>
+                                            <a class="menu-link ps-0 py-2" href="/digicam/detail">디지캠퍼스</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/digicam/member">Digi Member</a>
+                                            <a class="menu-link ps-0 py-2" href="/digicam/member">디지멤버스</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -95,40 +95,43 @@
                             <!--begin::Row-->
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">Blah Blah</h3>
+                                    <h3 class="fw-bold mb-5">블라블라</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/blah">BlahBlah</a>
+                                            <a class="menu-link ps-0 py-2" href="/blah">블라블라</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/blah/private">Private Chat@</a>
+                                            <a class="menu-link ps-0 py-2" href="/mypage/myblah?id=${loginStdn.id}">마이블라</a>
                                         </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/blah/group">Group Chat@
-                                            </a>
-                                        </li>
+<%--                                        <li class="menu-item">--%>
+<%--                                            <a class="menu-link ps-0 py-2" href="/blah/private">Private Chat</a>--%>
+<%--                                        </li>--%>
+<%--                                        <li class="menu-item">--%>
+<%--                                            <a class="menu-link ps-0 py-2" href="/blah/group">Group Chat@--%>
+<%--                                            </a>--%>
+<%--                                        </li>--%>
                                     </ul>
                                 </div>
 
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">JMTGR</h3>
+                                    <h3 class="fw-bold mb-5">맛집탐방</h3>
 
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/add">add</a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/all">맛집조회</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/all">all</a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/add">맛집등록</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/detail">detail</a>
+                                            <a class="menu-link ps-0 py-2" href="#">나의맛집</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-4">
                                     <h3 class="fw-bold mb-5">ETC</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10"> <li class="menu-item">
-                                        <a class="menu-link ps-0 py-2" href="#">Mypage</a>
+                                        <a class="menu-link ps-0 py-2" href="/mypage?id=${loginStdn.id}">Mypage</a>
                                     </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/settings">Settings@</a>

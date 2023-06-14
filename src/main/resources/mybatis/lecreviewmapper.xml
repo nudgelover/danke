@@ -6,79 +6,121 @@
     <select id="cntLecReview" parameterType="Integer" resultType="Integer">
         SELECT COUNT(id) AS cnt
         FROM lec_review
-        WHERE lec_id=#{lecId}
+        WHERE lec_id = #{lecId}
     </select>
-
-
-    <select id="cntLecReview" parameterType="Integer" resultType="Integer">
-        SELECT COUNT(id) AS cnt
-        FROM lec_review
-        WHERE lec_id=#{lecId}
-    </select>
+    
 
     <select id="getMyLecReview" parameterType="String" resultType="lecReview">
-        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
-             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
-             , l.up_review AS upReview, l.likes, s.img AS stdnImg
-        FROM lec_review l, stdn s
-        WHERE l.stdn_id=s.id
-        AND stdn_id=#{stdnId}
+        SELECT l.id
+             , l.lec_id    AS lecId
+             , l.stdn_id   AS stdnId
+             , l.title
+             , l.contents
+             , l.rdate
+             , l.rating
+             , l.img
+             , l.is_delete AS isDelete
+             , l.del_date  AS delDate
+             , l.up_review AS upReview
+             , l.likes
+             , s.img       AS stdnImg
+        FROM lec_review l,
+             stdn s
+        WHERE l.stdn_id = s.id
+          AND stdn_id = #{stdnId}
     </select>
 
     <select id="getLecReview" parameterType="Integer" resultType="lecReview">
-        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
-             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
-             , l.up_review AS upReview, l.likes, s.img AS stdnImg
-        FROM lec_review l, stdn s
-        WHERE l.stdn_id=s.id
-        AND lec_id=#{lec_id}
+        SELECT l.id
+             , l.lec_id    AS lecId
+             , l.stdn_id   AS stdnId
+             , l.title
+             , l.contents
+             , l.rdate
+             , l.rating
+             , l.img
+             , l.is_delete AS isDelete
+             , l.del_date  AS delDate
+             , l.up_review AS upReview
+             , l.likes
+             , s.img       AS stdnImg
+        FROM lec_review l,
+             stdn s
+        WHERE l.stdn_id = s.id
+          AND lec_id = #{lec_id}
     </select>
 
     <select id="select" parameterType="Integer" resultType="lecReview">
-        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
-             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
-             , l.up_review AS upReview, l.likes, s.img AS stdnImg
-        FROM lec_review l, stdn s
-        WHERE l.stdn_id=s.id
-        AND id=#{id}
+        SELECT l.id
+             , l.lec_id    AS lecId
+             , l.stdn_id   AS stdnId
+             , l.title
+             , l.contents
+             , l.rdate
+             , l.rating
+             , l.img
+             , l.is_delete AS isDelete
+             , l.del_date  AS delDate
+             , l.up_review AS upReview
+             , l.likes
+             , s.img       AS stdnImg
+        FROM lec_review l,
+             stdn s
+        WHERE l.stdn_id = s.id
+          AND id = #{id}
     </select>
 
     <select id="selectall" resultType="lecReview">
-        SELECT l.id, l.lec_id AS lecId, l.stdn_id AS stdnId, l.title, l.contents
-             , l.rdate, l.rating, l.img, l.is_delete AS isDelete, l.del_date AS delDate
-             , l.up_review AS upReview, l.likes, s.img AS stdnImg
-        FROM lec_review l, stdn s
-        WHERE l.stdn_id=s.id
+        SELECT l.id
+             , l.lec_id    AS lecId
+             , l.stdn_id   AS stdnId
+             , l.title
+             , l.contents
+             , l.rdate
+             , l.rating
+             , l.img
+             , l.is_delete AS isDelete
+             , l.del_date  AS delDate
+             , l.up_review AS upReview
+             , l.likes
+             , s.img       AS stdnImg
+        FROM lec_review l,
+             stdn s
+        WHERE l.stdn_id = s.id
     </select>
 
     <insert id="insert" parameterType="lecReview">
         INSERT INTO lec_review (id, lec_id, stdn_id, title, contents, rdate, rating, img, is_delete, up_review, likes)
-        VALUES (lec_review_seq.NEXTVAL,#{lecId},#{stdnId},#{title},#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),#{rating},#{img},'0',#{upReview}, 0)
+        VALUES (lec_review_seq.NEXTVAL, #{lecId}, #{stdnId}, #{title}, #{contents},
+                TO_CHAR(SYSDATE, 'yyyy.MM.dd hh24:mi:ss'), #{rating}, #{img}, '0', #{upReview}, 0)
     </insert>
 
     <update id="update" parameterType="lecReview">
         UPDATE lec_review
-        SET title=#{title}, contents=#{contents}
-          , rating=#{rating}, img=#{img}
-        WHERE id=#{id}
+        SET title=#{title}
+          , contents=#{contents}
+          , rating=#{rating}
+          , img=#{img}
+        WHERE id = #{id}
     </update>
 
     <update id="updateDelete" parameterType="lecReview">
         UPDATE lec_review
-        SET is_delete=#{isDelete}, del_date=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
-        WHERE id=#{id}
+        SET is_delete=#{isDelete},
+            del_date=TO_CHAR(SYSDATE, 'yyyy.MM.dd hh24:mi:ss')
+        WHERE id = #{id}
     </update>
 
     <update id="updateLikes" parameterType="lecReview">
         UPDATE lec_review
-        SET likes=likes+1
-        WHERE id=#{id}
+        SET likes=likes + 1
+        WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM lec_review
-        WHERE id=#{id}
+        WHERE id = #{id}
     </delete>
 
 </mapper>

@@ -136,7 +136,7 @@ var KTAppEcommerceSaveProduct = function () {
         var myDropzone = new Dropzone("#kt_ecommerce_add_product_media", {
             url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
+            maxFiles: 1,
             maxFilesize: 10, // MB
             addRemoveLinks: true,
             accept: function (file, done) {

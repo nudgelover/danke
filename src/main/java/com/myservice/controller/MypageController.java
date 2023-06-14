@@ -1,7 +1,11 @@
 package com.myservice.controller;
 
+import com.myservice.dto.Blah;
+import com.myservice.dto.Comm;
 import com.myservice.dto.MyPage;
 import com.myservice.dto.Stdn;
+import com.myservice.service.BlahService;
+import com.myservice.service.CommService;
 import com.myservice.service.MyPageService;
 import com.myservice.service.StdnService;
 import com.myservice.utill.FileUploadUtil;
@@ -11,12 +15,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Slf4j
@@ -32,8 +38,10 @@ public class MypageController {
     StdnService stdnService;
     @Autowired
     MyPageService myPageService;
-
-
+    @Autowired
+    BlahService blahService;
+    @Autowired
+    CommService commService;
 
     @RequestMapping("")
     public String mypage(Model model, String id) throws Exception {
@@ -53,17 +61,17 @@ public class MypageController {
             model.addAttribute("startDigi", formattedDate);
 
             //KBDday
-            LocalDateTime comDateTime = LocalDateTime.parse(mypage.getComdate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            LocalDate comDate = comDateTime.toLocalDate();
-            long daysElapsed2 = ChronoUnit.DAYS.between(comDate, currentDate);
-            model.addAttribute("kbDday", daysElapsed2);
+            String comDateStr = mypage.getComdate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate comDate = LocalDate.parse(comDateStr, formatter);
 
-            //DIGIDATE 년 월 일 형식으로 변환
-            String formattedDate2 = comDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
-            model.addAttribute("startKb", formattedDate2);
+            long daysUntilKbDday = ChronoUnit.DAYS.between(comDate, currentDate);
+            model.addAttribute("kbDday", daysUntilKbDday);
 
-            System.out.println(formattedDate); // 출력: 2023년 02월 01일
+            //KBDday 년 월 일 형식으로 변환
 
+            String startKb = comDate.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
+            model.addAttribute("startKb", startKb);
 
 
         } catch (Exception e) {
@@ -96,20 +104,19 @@ public class MypageController {
     }
 
     @RequestMapping("/updateimpl")
-    public String updateimpl(Model model, MyPage myPage, Stdn stdn) throws Exception {
+    public String updateimpl(@RequestParam List<String> sbj, Model model, MyPage myPage, Stdn stdn) throws Exception {
         MultipartFile mf = stdn.getImgfile();
         String img = mf.getOriginalFilename();
-        log.info("-------------test----------------");
-        log.info(stdn.toString()+"-------------test");
-        log.info(myPage.toString()+"--------------------tostring");
+//        log.info("-------------test----------------");
+//        log.info(stdn.toString() + "-------------test");
+//        log.info(myPage.toString() + "--------------------tostring");
 
-
-//        String sbj1 = sbj.get(0);
-//        String sbj2 = sbj.get(1);
-//        String sbj3 = sbj.get(2);
-//        stdn.setSbj1(sbj1);
-//        stdn.setSbj2(sbj2);
-//        stdn.setSbj3(sbj3);
+        String sbj1 = sbj.get(0);
+        String sbj2 = sbj.get(1);
+        String sbj3 = sbj.get(2);
+        stdn.setSbj1(sbj1);
+        stdn.setSbj2(sbj2);
+        stdn.setSbj3(sbj3);
 
         if (img.equals("") || img == null) {
             stdnService.modify(stdn);
@@ -129,18 +136,31 @@ public class MypageController {
 
     @RequestMapping("/myblah")
     public String myblah(Model model, String id) throws Exception {
+
         Stdn stdn = null;
         MyPage mypage = null;
+        List<Blah> blahList = null;
+
         try {
             mypage = myPageService.get(id);
             stdn = stdnService.get(id);
-
+            blahList = blahService.getMyBlah(id);  // 모든 Blah 게시글 조회
+            log.info("blahList: " + blahList.toString());
+            for (Blah blah : blahList) {
+                List<Comm> commList = commService.getPostComm(blah.getId());  // 해당 Blah 게시글의 댓글 조회
+                blah.setCommList(commList);  // Blah 게시글에 댓글 리스트 추가
+                int commentCount = commService.cntComm(blah.getId());  // Get the count of comments for the postId
+                blah.setCommentCount(commentCount);  // Set the comment count in the Blah object
+                int likeCount = blahService.cntLike(blah.getId());
+                blah.setLikeCount(likeCount);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception(e.getMessage());
         }
         model.addAttribute("mypage", mypage);
         model.addAttribute("student", stdn);
+        model.addAttribute("blahList", blahList);  // 모든 Blah 게시글 추가
         model.addAttribute("center", dir + "main");
         model.addAttribute("mpcenter", "myblah");
         return "index";

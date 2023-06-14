@@ -193,19 +193,19 @@
                     <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage?id=${student.id}">Main</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage?id=${student.id}">마이프로필</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/myblah?id=${student.id}">MyBlah</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/myblah?id=${student.id}">마이블라</a>
                         </li>
                         <!--end::Nav item-->
 
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/security">Security</a>
-                        </li>
+<%--                        <li class="nav-item mt-2">--%>
+<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/security">Security</a>--%>
+<%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
@@ -213,27 +213,27 @@
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                               href="/mypage/logs">내가 쓴 게시글</a>
-                        </li>
+<%--                        <li class="nav-item mt-2">--%>
+<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
+<%--                               href="/mypage/logs">내가 쓴 게시글</a>--%>
+<%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                               href="/mypage/statements">내 블라블라</a>
-                        </li>
+<%--                        <li class="nav-item mt-2">--%>
+<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
+<%--                               href="/mypage/statements">내 블라블라</a>--%>
+<%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/api-keys">내 스터디(이건
-                                링크만)</a>
-                        </li>
+<%--                        <li class="nav-item mt-2">--%>
+<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/api-keys">내 스터디(이건--%>
+<%--                                링크만)</a>--%>
+<%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/referrals">결제강의(수료증)referrals/billing</a>
-                        </li>
+<%--                        <li class="nav-item mt-2">--%>
+<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/referrals">결제강의(수료증)referrals/billing</a>--%>
+<%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
@@ -281,50 +281,6 @@
 <script src="/assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 
-<script>
-    // 페이지 로드가 완료되면 실행되는 함수
-    window.onload = function () {
-        var countUpElement = document.getElementById('count-up');
-        var digidday = ${DigiDday}; // 숫자로 표시할 digidday 값
-        var kbDday = ${kbDday}; // 숫자로 표시할 kbDday 값
-        var duration = 3000; // 애니메이션의 지속 시간
-
-        countUpAnimation(countUpElement, digidday, duration);
-        countUpAnimation(document.getElementById('count-up-kb'), kbDday, duration);
-    }
-
-    // 숫자를 올리는 애니메이션을 실행하는 함수
-    function countUpAnimation(element, targetValue, duration) {
-        var startValue = 0;
-        var increment = 3;
-        var interval = duration / targetValue;
-
-        function animate() {
-            var timer = setInterval(function () {
-                startValue += increment;
-                element.innerHTML = 'D+' + startValue + ' ING ~ ❤️‍';
-
-                if (startValue >= targetValue) {
-                    clearInterval(timer);
-                }
-
-                // 애니메이션 속도를 조절하기 위한 코드
-                if (startValue >= targetValue * 0.8) {
-                    increment = 1; // 나중에는 천천히 증가하도록 속도 감소
-                }
-            }, interval);
-        }
-
-        animate(); // 애니메이션 실행
-
-        // 5초마다 애니메이션을 반복 실행
-        setInterval(function () {
-            startValue = 0; // 시작 값을 초기화
-            animate(); // 애니메이션 실행
-        }, 7000);
-    }
-
-</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!--begin::Javascript-->
 <script>var hostUrl = "/assets/";</script>

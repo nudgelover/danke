@@ -213,17 +213,17 @@
 
     <%--}--%>
 
-    function dataURLtoFile(dataurl, filename) {
-        var arr = dataurl.split(','),
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]),
-            n = bstr.length,
-            u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new File([u8arr], filename, {type: mime});
-    }
+    // function dataURLtoFile(dataurl, filename) {
+    //     var arr = dataurl.split(','),
+    //         mime = arr[0].match(/:(.*?);/)[1],
+    //         bstr = atob(arr[1]),
+    //         n = bstr.length,
+    //         u8arr = new Uint8Array(n);
+    //     while (n--) {
+    //         u8arr[n] = bstr.charCodeAt(n);
+    //     }
+    //     return new File([u8arr], filename, {type: mime});
+    // }
 
     $(document).ready(function () {
         console.log($('.dz-image img')[0])
@@ -260,8 +260,8 @@
             var formData = new FormData($('#marker_form')[0]);
             formData.append('detail', detailContent);
             // formData.append('imgfile', file);
-            if(dropImg)
-            formData.append('imgfile', dropImg);
+            if (dropImg)
+                formData.append('imgfile', dropImg);
 
             // 입력된 값 출력
             formData.forEach(function (value, key) {
@@ -820,13 +820,16 @@
         url           : "marker/addimpl", // Set the url for your upload script location
         paramName     : "file", // The name that will be used to transfer the file
         maxFiles      : 1,
-        maxFilesize   : 10, // MB
+        maxFilesize   : 100, // MB
         addRemoveLinks: true,
+        acceptedFiles : "image/*",
         accept        : function (file, done) {
-            if (file) {
+            if (this.files.length <= 1) {
                 dropImg = file;
             } else {
-                done();
+                done("이미지는 한장만 업로드하실 수 있습니다.");
+                alert("이미지는 1장만 업로드하실 수 있습니다.");
+                dropImg = file;
             }
         }
     });

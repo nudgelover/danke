@@ -402,8 +402,8 @@
         <div class="card h-md-100">
             <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                    <h1 class="fw-bold text-dark">Search Goods</h1>
-                    <div class="fs-3 mb-8">Get Amazing Gadgets</div>
+                    <h1 class="fw-bold text-dark"> ${student.sbj1}</h1>
+                    <div class="fs-3 mb-8">${student.sbj1}</div>
                     ${student.sbj1}
                 </div>
                 <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto"></div>
@@ -418,8 +418,8 @@
         <div class="card h-md-100">
             <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                    <h1 class="fw-bold text-dark">Search Goods</h1>
-                    <div class="fs-3 mb-8">Get Amazing Gadgets</div>
+                    <h1 class="fw-bold text-dark">${student.sbj2}</h1>
+                    <div class="fs-3 mb-8">${student.sbj2}</div>
                     ${student.sbj2}
                 </div>
                 <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto"></div>
@@ -434,8 +434,8 @@
         <div class="card h-md-100">
             <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                    <h1 class="fw-bold text-dark">Search Goods</h1>
-                    <div class="fs-3 mb-8">Get Amazing Gadgets</div>
+                    <h1 class="fw-bold text-dark">${student.sbj3}</h1>
+                    <div class="fs-3 mb-8">${student.sbj3}</div>
                     <!--begin::Form-->
                     ${student.sbj3}
                     <!--end::Form-->
@@ -868,3 +868,48 @@
     </div>
     <!--end::Col-->
 </div>
+
+<script>
+    // 페이지 로드가 완료되면 실행되는 함수
+    window.onload = function () {
+        var countUpElement = document.getElementById('count-up');
+        var digidday = ${DigiDday}; // 숫자로 표시할 digidday 값
+        var kbDday = ${kbDday}; // 숫자로 표시할 kbDday 값
+        var duration = 3000; // 애니메이션의 지속 시간
+
+        countUpAnimation(countUpElement, digidday, duration);
+        countUpAnimation(document.getElementById('count-up-kb'), kbDday, duration);
+    }
+
+    // 숫자를 올리는 애니메이션을 실행하는 함수
+    function countUpAnimation(element, targetValue, duration) {
+        var startValue = 0;
+        var increment = 3;
+        var interval = duration / targetValue;
+
+        function animate() {
+            var timer = setInterval(function () {
+                startValue += increment;
+                element.innerHTML = 'D+' + startValue + ' ING ~ ❤️‍';
+
+                if (startValue >= targetValue) {
+                    clearInterval(timer);
+                }
+
+                // 애니메이션 속도를 조절하기 위한 코드
+                if (startValue >= targetValue * 0.8) {
+                    increment = 1; // 나중에는 천천히 증가하도록 속도 감소
+                }
+            }, interval);
+        }
+
+        animate(); // 애니메이션 실행
+
+        // 5초마다 애니메이션을 반복 실행
+        setInterval(function () {
+            startValue = 0; // 시작 값을 초기화
+            animate(); // 애니메이션 실행
+        }, 10000);
+    }
+
+</script>

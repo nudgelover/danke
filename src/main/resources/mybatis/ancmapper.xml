@@ -16,7 +16,7 @@
 
     <insert id="insert" parameterType="anc">
         INSERT INTO anc (id, writer, title, contents, img, rdate)
-        VALUES (anc_seq.NEXTVAL,#{writer},#{title},#{contents},#{img},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'))
+        VALUES (anc_seq.NEXTVAL,#{writer},#{title},#{contents},#{img},TO_CHAR(SYSDATE,'yyyy-MM-dd'))
     </insert>
 
     <update id="update" parameterType="anc">
@@ -34,4 +34,16 @@
         SELECT * FROM anc ORDER BY id DESC
     </select>
 
+    <select id="getfindpage" resultType="anc" parameterType="search">
+        SELECT *
+        FROM anc
+        WHERE 1=1
+        <if test="keyword == 'title'">
+            AND title LIKE '%' ||  #{search} || '%'
+        </if>
+        <if test="keyword == 'contents'">
+            AND contents LIKE '%' ||  #{search} || '%'
+        </if>
+        ORDER BY id DESC
+    </select>
 </mapper>

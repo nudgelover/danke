@@ -20,6 +20,7 @@ public class Blah {
     private int likes;
     private List<Comm> commList;
     private int commentCount;
+    private int likeCount;
 
     // Getter and Setter methods for other fields
 

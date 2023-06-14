@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!--begin::Vendor Stylesheets(used for this page only)-->
@@ -11,7 +12,42 @@
     }
 </style>
 <!--end::Head-->
+<script>
+    $(document).ready(function () {
 
+        $('#add_comm').on('click', function (event) {
+            event.preventDefault();
+
+            const contents = $('#contents').val();
+            if (contents == '' || contents == null) {
+                $('#kt_modal_1_alert').modal('show');
+                return;
+            }
+
+            var formData = new FormData($('#kt_inbox_reply_form')[0]);
+
+
+            formData.forEach(function (value, key) {
+                console.log('Input:', key, value);
+            });
+
+            $.ajax({
+                url        : '/marker/addcomm',
+                method     : 'POST',
+                data       : formData,
+                processData: false,
+                contentType: false,
+                success    : function (response) {
+                    console.log('Data submitted successfully');
+                    window.location.href = '/marker/detail?id=${marker.id}'; // Redirect
+                },
+                error      : function (error) {
+                    console.error('Error submitting data:', error);
+                }
+            });
+        });
+    });
+</script>
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -52,17 +88,20 @@
                                     <!--begin::Heading-->
                                     <h2 class="fw-semibold me-3 my-1">${marker.title}
                                     </h2>
+                                    <c:if test="${marker.newPost}">
+                                        <span class="badge badge-light-warning my-1">new</span>
+                                    </c:if>
                                     <!--begin::Heading-->
-                                    <!--begin::Badges-->
-                                    <span class="badge badge-light-primary my-1 me-2">inbox</span>
-                                    <span class="badge badge-light-danger my-1">important</span>
-                                    <span class="badge badge-light-warning my-1">new</span>
-                                    <!--end::Badges-->
                                 </div>
-                                <div class="d-flex align-items-center flex-wrap gap-2">
-                                    <a href="/marker/edit?id=${marker.id}" class="btn btn-active-accent active fw-bold">Edit</a>
-                                    <a href="/marker/delete?id=${marker.id}" class="btn btn-active-accent active fw-bold">Delete</a>
-                                </div>
+                                <c:if test="${marker.writer eq loginStdn.id}">
+                                    <div class="d-flex align-items-center flex-wrap gap-2">
+                                        <a href="/marker/edit?id=${marker.id}"
+                                           class="btn btn-active-accent active fw-bold">Edit</a>
+                                        <a href="#" class="btn btn-active-accent active fw-bold"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#kt_modal_1_delete">Delete</a>
+                                    </div>
+                                </c:if>
                             </div>
                             <!--end::Title-->
                             <!--begin::Message accordion-->
@@ -75,7 +114,7 @@
                                         <!--begin::Avatar-->
                                         <div class="symbol symbol-50 me-4">
                                             <span class="symbol-label"
-                                                  style="background-image:url(/img/logo.png);"></span>
+                                                  style="background-image:url(/uimg/${student.img});"></span>
                                         </div>
                                         <!--end::Avatar-->
                                         <div class="pe-5">
@@ -93,7 +132,7 @@
 																		</svg>
 																	</span>
                                                 <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">1 day ago</span>
+                                                <span class="text-muted fw-bold">${marker.timeAgo}</span>
                                             </div>
                                             <!--end::Author details-->
                                         </div>
@@ -102,7 +141,7 @@
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">19 Aug 2023, 2:40 pm</span>
+                                        <span class="fw-semibold text-muted text-end me-3">${marker.rdate}</span>
                                         <!--end::Date-->
                                         <div class="d-flex">
                                             <!--begin::Star-->
@@ -146,8 +185,10 @@
                                             </a>
 
 
-                                            <a id="kakaotalk-sharing-btn" href="javascript:;" class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2">
-                                                <img style="width:20px; height: 20px" src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                            <a id="kakaotalk-sharing-btn" href="javascript:;"
+                                               class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2">
+                                                <img style="width:20px; height: 20px"
+                                                     src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
                                                      alt="카카오톡 공유 보내기 버튼"/>
                                             </a>
                                         </div>
@@ -168,44 +209,40 @@
                             <!--end::Message accordion-->
 
                             <div class="separator my-6"></div>
-                            <!--begin::Message accordion-->
-                            <div data-kt-inbox-message="message_wrapper">
-                                <!--begin::Message header-->
-                                <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
-                                     data-kt-inbox-message="header">
-                                    <!--begin::Author-->
-                                    <div class="d-flex align-items-center">
-                                        <!--begin::Avatar-->
-                                        <div class="symbol symbol-50 me-4">
+                            <c:forEach var="mrkComm" items="${mrkComm}">
+                                <!--begin::Message accordion-->
+                                <div data-kt-inbox-message="message_wrapper">
+                                    <!--begin::Message header-->
+                                    <div class="d-flex flex-wrap gap-2 flex-stack cursor-pointer"
+                                         data-kt-inbox-message="header">
+                                        <!--begin::Author-->
+                                        <div class="d-flex align-items-center">
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-50 me-4">
                                             <span class="symbol-label"
-                                                  style="background-image:url(/img/logo.png);"></span>
-                                        </div>
-                                        <!--end::Avatar-->
-                                        <div class="pe-5">
-                                            <!--begin::Author details-->
-                                            <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
-                                                <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
-                                                <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
-																		<svg xmlns="http://www.w3.org/2000/svg"
-                                                                             width="24px" height="24px"
-                                                                             viewBox="0 0 24 24" version="1.1">
-																			<circle fill="currentColor" cx="12" cy="12"
-                                                                                    r="8"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">2 days ago</span>
+                                                  style="background-image:url(/uimg/${mrkComm.stdnImg});"></span>
                                             </div>
-                                            <!--end::Author details-->
-                                            <!--begin::Message details-->
-                                            <div class="d-none" data-kt-inbox-message="details">
-                                                <span class="text-muted fw-semibold">to me</span>
-                                                <!--begin::Menu toggle-->
-                                                <a href="#" class="me-1" data-kt-menu-trigger="click"
-                                                   data-kt-menu-placement="bottom-start">
-                                                    <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                    <span class="svg-icon svg-icon-5 m-0">
+                                            <!--end::Avatar-->
+
+                                            <div class="pe-5">
+                                                <!--begin::Author details-->
+                                                <div class="d-flex align-items-center flex-wrap gap-1">
+                                                    <a href="#"
+                                                       class="fw-bold text-dark text-hover-primary">${mrkComm.stdnName}
+                                                        <span style="color: gray; font-weight: 200">@${mrkComm.stdnId}</span></a>
+                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
+
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                                <!--end::Author details-->
+                                                <!--begin::Message details-->
+                                                <div class="d-none" data-kt-inbox-message="details">
+                                                    <span class="text-muted fw-semibold">to me</span>
+                                                    <!--begin::Menu toggle-->
+                                                    <a href="#" class="me-1" data-kt-menu-trigger="click"
+                                                       data-kt-menu-placement="bottom-start">
+                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                                        <span class="svg-icon svg-icon-5 m-0">
 																			<svg width="24" height="24"
                                                                                  viewBox="0 0 24 24" fill="none"
                                                                                  xmlns="http://www.w3.org/2000/svg">
@@ -213,33 +250,32 @@
                                                                                       fill="currentColor"/>
 																			</svg>
 																		</span>
-                                                    <!--end::Svg Icon-->
-                                                </a>
-                                                <!--end::Menu toggle-->
+                                                        <!--end::Svg Icon-->
+                                                    </a>
+                                                    <!--end::Menu toggle-->
+                                                </div>
+                                                <!--end::Message details-->
+                                                <!--begin::Preview message-->
+                                                <div class="text-dark fw-semibold mw-450px"
+                                                     data-kt-inbox-message="preview">${mrkComm.contents}
+                                                </div>
+                                                <!--end::Preview message-->
                                             </div>
-                                            <!--end::Message details-->
-                                            <!--begin::Preview message-->
-                                            <div class="text-dark fw-semibold mw-450px"
-                                                 data-kt-inbox-message="preview">Jornalists call this critical,
-                                                introductory section the "Lede," and when bridge properly executed....
-                                            </div>
-                                            <!--end::Preview message-->
                                         </div>
+                                        <!--end::Author-->
+                                        <!--begin::Actions-->
+                                        <div class="d-flex align-items-center flex-wrap gap-2">
+                                            <!--begin::Date-->
+                                            <span class="fw-semibold text-muted text-end me-3">${mrkComm.rdate}</span>
+                                            <!--end::Date-->
+                                        </div>
+                                        <!--end::Actions-->
                                     </div>
-                                    <!--end::Author-->
-                                    <!--begin::Actions-->
-                                    <div class="d-flex align-items-center flex-wrap gap-2">
-                                        <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">24 Jun 2023, 5:20 pm</span>
-                                        <!--end::Date-->
-                                    </div>
-                                    <!--end::Actions-->
+                                    <!--end::Message header-->
                                 </div>
-                                <!--end::Message header-->
-                            </div>
-                            <!--end::Message accordion-->
-                            <div class="separator my-6"></div>
-
+                                <!--end::Message accordion-->
+                                <div class="separator my-6"></div>
+                            </c:forEach>
                             <!--begin::Form-->
                             <form id="kt_inbox_reply_form">
                                 <!--begin::Body-->
@@ -247,10 +283,13 @@
                                     <!--begin::To-->
                                     <div class="d-flex align-items-center border-bottom px-8 min-h-50px">
                                         <!--begin::Input-->
-                                        <img width="30px" src="/img/logo.png">
-                                        <input type="text" class="form-control border-0" name="compose_to"
+                                        <img style="width:50px; height: 42px; border-radius: 50px"
+                                             src="/uimg/${loginStdn.img}">
+                                        <input type="hidden" name="stdnId" value="${loginStdn.id}">
+                                        <input type="hidden" name="postId" value="${marker.id}">
+                                        <input type="text" id="contents" name="contents" class="form-control border-0"
                                                placeholder="comment..."/>
-                                        <a href="#" class="btn btn-primary">Send</a>
+                                        <a href="#" id="add_comm" class="btn btn-primary">Send</a>
 
                                         <!--end::Input-->
                                     </div>
@@ -271,7 +310,59 @@
     </div>
     <!--end::Main-->
 </div>
+<div class="modal fade" tabindex="-1" id="kt_modal_1_delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Warning⚠️</h3>
 
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                     data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-1"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p>댓글을 정말로 삭제하시겠습니까?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+                <a href="/marker/delete?id=${marker.id}"
+                   class="btn btn-light">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="kt_modal_1_alert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">안내</h3>
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                     aria-label="Close">
+                    <span class="svg-icon svg-icon-1"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p>등록하실 내용을 입력해주세요.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <!--end::Vendors Javascript-->

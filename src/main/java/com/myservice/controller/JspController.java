@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class JspController {
-
+// 나중에 지울 컨트롤러..!!! 화면 구성요소 보기 위해 임시로 만듬
 
     @RequestMapping("/notice")
     public String notice(Model model) throws Exception {

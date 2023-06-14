@@ -358,7 +358,7 @@ var KTAppInboxLib = function() {
         var myDropzone = new Dropzone(id, { // Make the whole body a dropzone
             url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
             parallelUploads: 20,
-            maxFilesize: 1, // Max filesize in MB
+            maxFilesize: 10, // Max filesize in MB
             previewTemplate: previewTemplate,
             previewsContainer: id + " .dropzone-items", // Define the container to display the previews
             clickable: id + "_select" // Define the element that should be used as click trigger to select files.

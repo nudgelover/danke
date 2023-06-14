@@ -20,7 +20,9 @@ public class Mrk {
     private String keyword;
     private String title;
     private String rdate;
-
+    private boolean NewPost;
+    private String TimeAgo;
+    private int commentCount;
 
     private MultipartFile imgfile;
 

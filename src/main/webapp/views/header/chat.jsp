@@ -136,7 +136,7 @@
               <!--begin::Details-->
               <div class="me-3">
                 <span class="text-muted fs-7 mb-1">5 mins</span>
-                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">${loginStdn.name}</a>
               </div>
               <!--end::Details-->
               <!--begin::Avatar-->

@@ -6,13 +6,13 @@ var KTAppCalendar = function () {
     // Calendar variables
     var calendar;
     var data = {
-        id: '',
-        eventName: '',
+        id              : '',
+        eventName       : '',
         eventDescription: '',
-        eventLocation: '',
-        startDate: '',
-        endDate: '',
-        allDay: false
+        eventLocation   : '',
+        startDate       : '',
+        endDate         : '',
+        allDay          : false
     };
     var popover;
     var popoverState = false;
@@ -62,14 +62,23 @@ var KTAppCalendar = function () {
 
         // Init calendar --- more info: https://fullcalendar.io/docs/initialize-globals
         calendar = new FullCalendar.Calendar(calendarEl, {
-            headerToolbar: {
-                left: 'prev,next today',
+            googleCalendarApiKey: "AIzaSyBqlAq7CsSqXl4KBBZl1k6a1eN5utb5_E0",
+            eventSources        : [
+                {
+                    googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com'
+                    , color         : 'white'   // an option!
+                    , textColor     : 'red' // an option!
+                }
+            ],
+            headerToolbar       : {
+                left  : 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right : 'dayGridMonth,timeGridWeek,timeGridDay'
             },
-            initialDate: TODAY,
-            navLinks: true, // can click day/week names to navigate views
-            selectable: true,
+
+            initialDate : TODAY,
+            navLinks    : true, // can click day/week names to navigate views
+            selectable  : true,
             selectMirror: true,
 
             // Select dates action --- more info: https://fullcalendar.io/docs/select-callback
@@ -84,13 +93,13 @@ var KTAppCalendar = function () {
                 hidePopovers();
 
                 formatArgs({
-                    id: arg.event.id,
-                    title: arg.event.title,
+                    id         : arg.event.id,
+                    title      : arg.event.title,
                     description: arg.event.extendedProps.description,
-                    location: arg.event.extendedProps.location,
-                    startStr: arg.event.startStr,
-                    endStr: arg.event.endStr,
-                    allDay: arg.event.allDay
+                    location   : arg.event.extendedProps.location,
+                    startStr   : arg.event.startStr,
+                    endStr     : arg.event.endStr,
+                    allDay     : arg.event.allDay
                 });
                 handleViewEvent();
             },
@@ -98,159 +107,161 @@ var KTAppCalendar = function () {
             // MouseEnter event --- more info: https://fullcalendar.io/docs/eventMouseEnter
             eventMouseEnter: function (arg) {
                 formatArgs({
-                    id: arg.event.id,
-                    title: arg.event.title,
+                    id         : arg.event.id,
+                    title      : arg.event.title,
                     description: arg.event.extendedProps.description,
-                    location: arg.event.extendedProps.location,
-                    startStr: arg.event.startStr,
-                    endStr: arg.event.endStr,
-                    allDay: arg.event.allDay
+                    location   : arg.event.extendedProps.location,
+                    startStr   : arg.event.startStr,
+                    endStr     : arg.event.endStr,
+                    allDay     : arg.event.allDay
                 });
 
                 // Show popover preview
                 initPopovers(arg.el);
             },
 
-            editable: true,
+            editable    : true,
             dayMaxEvents: true, // allow "more" link when too many events
-            events: [
+            locale      : 'ko',
+            timeZone    : 'Asia/Seoul',
+            events      : [
                 {
-                    id: uid(),
-                    title: 'All Day Event',
-                    start: YM + '-01',
-                    end: YM + '-02',
-                    description: 'Toto lorem ipsum dolor sit incid idunt ut',
-                    className: "fc-event-danger fc-event-solid-warning",
-                    location: 'Federation Square'
+                    id         : uid(),
+                    title      : '진희생일',
+                    start      : 202310 + '-14',
+                    end        : 202310 + '-14',
+                    description: '진희생일',
+                    className  : "fc-event-danger fc-event-solid-warning",
+                    location   : 'Federation Square'
                 },
                 {
-                    id: uid(),
-                    title: 'Reporting',
-                    start: YM + '-14T13:30:00',
+                    id         : uid(),
+                    title      : 'Reporting',
+                    start      : YM + '-14T13:30:00',
                     description: 'Lorem ipsum dolor incid idunt ut labore',
-                    end: YM + '-14T14:30:00',
-                    className: "fc-event-success",
-                    location: 'Meeting Room 7.03'
+                    end        : YM + '-14T14:30:00',
+                    className  : "fc-event-success",
+                    location   : 'Meeting Room 7.03'
                 },
                 {
-                    id: uid(),
-                    title: 'Company Trip',
-                    start: YM + '-02',
+                    id         : uid(),
+                    title      : 'Company Trip',
+                    start      : YM + '-02',
                     description: 'Lorem ipsum dolor sit tempor incid',
-                    end: YM + '-03',
-                    className: "fc-event-primary",
-                    location: 'Seoul, Korea'
+                    end        : YM + '-03',
+                    className  : "fc-event-primary",
+                    location   : 'Seoul, Korea'
 
                 },
                 {
-                    id: uid(),
-                    title: 'ICT Expo 2021 - Product Release',
-                    start: YM + '-03',
+                    id         : uid(),
+                    title      : 'ICT Expo 2021 - Product Release',
+                    start      : YM + '-03',
                     description: 'Lorem ipsum dolor sit tempor inci',
-                    end: YM + '-05',
-                    className: "fc-event-light fc-event-solid-primary",
-                    location: 'Melbourne Exhibition Hall'
+                    end        : YM + '-05',
+                    className  : "fc-event-light fc-event-solid-primary",
+                    location   : 'Melbourne Exhibition Hall'
                 },
                 {
-                    id: uid(),
-                    title: 'Dinner',
-                    start: YM + '-12',
+                    id         : uid(),
+                    title      : 'Dinner',
+                    start      : YM + '-12',
                     description: 'Lorem ipsum dolor sit amet, conse ctetur',
-                    end: YM + '-13',
-                    location: 'Squire\'s Loft'
+                    end        : YM + '-13',
+                    location   : 'Squire\'s Loft'
                 },
                 {
-                    id: uid(),
-                    title: 'Repeating Event',
-                    start: YM + '-09T16:00:00',
-                    end: YM + '-09T17:00:00',
+                    id         : uid(),
+                    title      : 'Repeating Event',
+                    start      : YM + '-09T16:00:00',
+                    end        : YM + '-09T17:00:00',
                     description: 'Lorem ipsum dolor sit ncididunt ut labore',
-                    className: "fc-event-danger",
-                    location: 'General Area'
+                    className  : "fc-event-danger",
+                    location   : 'General Area'
                 },
                 {
-                    id: uid(),
-                    title: 'Repeating Event',
+                    id         : uid(),
+                    title      : 'Repeating Event',
                     description: 'Lorem ipsum dolor sit amet, labore',
-                    start: YM + '-16T16:00:00',
-                    end: YM + '-16T17:00:00',
-                    location: 'General Area'
+                    start      : YM + '-16T16:00:00',
+                    end        : YM + '-16T17:00:00',
+                    location   : 'General Area'
                 },
                 {
-                    id: uid(),
-                    title: 'Conference',
-                    start: YESTERDAY,
-                    end: TOMORROW,
+                    id         : uid(),
+                    title      : 'Conference',
+                    start      : YESTERDAY,
+                    end        : TOMORROW,
                     description: 'Lorem ipsum dolor eius mod tempor labore',
-                    className: "fc-event-primary",
-                    location: 'Conference Hall A'
+                    className  : "fc-event-primary",
+                    location   : 'Conference Hall A'
                 },
                 {
-                    id: uid(),
-                    title: 'Meeting',
-                    start: TODAY + 'T10:30:00',
-                    end: TODAY + 'T12:30:00',
+                    id         : uid(),
+                    title      : 'Meeting',
+                    start      : TODAY + 'T10:30:00',
+                    end        : TODAY + 'T12:30:00',
                     description: 'Lorem ipsum dolor eiu idunt ut labore',
-                    location: 'Meeting Room 11.06'
+                    location   : 'Meeting Room 11.06'
                 },
                 {
-                    id: uid(),
-                    title: 'Lunch',
-                    start: TODAY + 'T12:00:00',
-                    end: TODAY + 'T14:00:00',
-                    className: "fc-event-info",
+                    id         : uid(),
+                    title      : 'Lunch',
+                    start      : TODAY + 'T12:00:00',
+                    end        : TODAY + 'T14:00:00',
+                    className  : "fc-event-info",
                     description: 'Lorem ipsum dolor sit amet, ut labore',
-                    location: 'Cafeteria'
+                    location   : 'Cafeteria'
                 },
                 {
-                    id: uid(),
-                    title: 'Meeting',
-                    start: TODAY + 'T14:30:00',
-                    end: TODAY + 'T15:30:00',
-                    className: "fc-event-warning",
+                    id         : uid(),
+                    title      : 'Meeting',
+                    start      : TODAY + 'T14:30:00',
+                    end        : TODAY + 'T15:30:00',
+                    className  : "fc-event-warning",
                     description: 'Lorem ipsum conse ctetur adipi scing',
-                    location: 'Meeting Room 11.10'
+                    location   : 'Meeting Room 11.10'
                 },
                 {
-                    id: uid(),
-                    title: 'Happy Hour',
-                    start: TODAY + 'T17:30:00',
-                    end: TODAY + 'T21:30:00',
-                    className: "fc-event-info",
+                    id         : uid(),
+                    title      : 'Happy Hour',
+                    start      : TODAY + 'T17:30:00',
+                    end        : TODAY + 'T21:30:00',
+                    className  : "fc-event-info",
                     description: 'Lorem ipsum dolor sit amet, conse ctetur',
-                    location: 'The English Pub'
+                    location   : 'The English Pub'
                 },
                 {
-                    id: uid(),
-                    title: 'Dinner',
-                    start: TOMORROW + 'T18:00:00',
-                    end: TOMORROW + 'T21:00:00',
-                    className: "fc-event-solid-danger fc-event-light",
+                    id         : uid(),
+                    title      : 'Dinner',
+                    start      : TOMORROW + 'T18:00:00',
+                    end        : TOMORROW + 'T21:00:00',
+                    className  : "fc-event-solid-danger fc-event-light",
                     description: 'Lorem ipsum dolor sit ctetur adipi scing',
-                    location: 'New York Steakhouse'
+                    location   : 'New York Steakhouse'
                 },
                 {
-                    id: uid(),
-                    title: 'Birthday Party',
-                    start: TOMORROW + 'T12:00:00',
-                    end: TOMORROW + 'T14:00:00',
-                    className: "fc-event-primary",
+                    id         : uid(),
+                    title      : 'Birthday Party',
+                    start      : TOMORROW + 'T12:00:00',
+                    end        : TOMORROW + 'T14:00:00',
+                    className  : "fc-event-primary",
                     description: 'Lorem ipsum dolor sit amet, scing',
-                    location: 'The English Pub'
+                    location   : 'The English Pub'
                 },
                 {
-                    id: uid(),
-                    title: 'Site visit',
-                    start: YM + '-28',
-                    end: YM + '-29',
-                    className: "fc-event-solid-info fc-event-light",
+                    id         : uid(),
+                    title      : 'Site visit',
+                    start      : YM + '-28',
+                    end        : YM + '-29',
+                    className  : "fc-event-solid-info fc-event-light",
                     description: 'Lorem ipsum dolor sit amet, labore',
-                    location: '271, Spring Street'
+                    location   : '271, Spring Street'
                 }
             ],
 
             // Reset popovers when changing calendar views --- more info: https://fullcalendar.io/docs/datesSet
-            datesSet: function(){
+            datesSet: function () {
                 hidePopovers();
             }
         });
@@ -270,13 +281,13 @@ var KTAppCalendar = function () {
         // Popover options
         var options = {
             container: 'body',
-            trigger: 'manual',
-            boundary: 'window',
+            trigger  : 'manual',
+            boundary : 'window',
             placement: 'auto',
-            dismiss: true,
-            html: true,
-            title: 'Event Summary',
-            content: popoverHtml,
+            dismiss  : true,
+            html     : true,
+            title    : 'Event Summary',
+            content  : popoverHtml,
         }
 
         // Initialize popover
@@ -307,7 +318,7 @@ var KTAppCalendar = function () {
             form,
             {
                 fields: {
-                    'calendar_event_name': {
+                    'calendar_event_name'      : {
                         validators: {
                             notEmpty: {
                                 message: 'Event name is required'
@@ -321,7 +332,7 @@ var KTAppCalendar = function () {
                             }
                         }
                     },
-                    'calendar_event_end_date': {
+                    'calendar_event_end_date'  : {
                         validators: {
                             notEmpty: {
                                 message: 'End date is required'
@@ -331,11 +342,11 @@ var KTAppCalendar = function () {
                 },
 
                 plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
+                    trigger  : new FormValidation.plugins.Trigger(),
                     bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row',
+                        rowSelector    : '.fv-row',
                         eleInvalidClass: '',
-                        eleValidClass: ''
+                        eleValidClass  : ''
                     })
                 }
             }
@@ -374,12 +385,12 @@ var KTAppCalendar = function () {
 
             // Reset form data
             data = {
-                id: '',
-                eventName: '',
+                id              : '',
+                eventName       : '',
                 eventDescription: '',
-                startDate: new Date(),
-                endDate: new Date(),
-                allDay: false
+                startDate       : new Date(),
+                endDate         : new Date(),
+                allDay          : false
             };
             handleNewEvent();
         });
@@ -436,11 +447,11 @@ var KTAppCalendar = function () {
 
                             // Show popup confirmation 
                             Swal.fire({
-                                text: "New event added to calendar!",
-                                icon: "success",
-                                buttonsStyling: false,
+                                text             : "New event added to calendar!",
+                                icon             : "success",
+                                buttonsStyling   : false,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: {
+                                customClass      : {
                                     confirmButton: "btn btn-primary"
                                 }
                             }).then(function (result) {
@@ -452,8 +463,12 @@ var KTAppCalendar = function () {
 
                                     // Detect if is all day event
                                     let allDayEvent = false;
-                                    if (allDayToggle.checked) { allDayEvent = true; }
-                                    if (startTimeFlatpickr.selectedDates.length === 0) { allDayEvent = true; }
+                                    if (allDayToggle.checked) {
+                                        allDayEvent = true;
+                                    }
+                                    if (startTimeFlatpickr.selectedDates.length === 0) {
+                                        allDayEvent = true;
+                                    }
 
                                     // Merge date & time
                                     var startDateTime = moment(startFlatpickr.selectedDates[0]).format();
@@ -470,13 +485,13 @@ var KTAppCalendar = function () {
 
                                     // Add new event to calendar
                                     calendar.addEvent({
-                                        id: uid(),
-                                        title: eventName.value,
+                                        id         : uid(),
+                                        title      : eventName.value,
                                         description: eventDescription.value,
-                                        location: eventLocation.value,
-                                        start: startDateTime,
-                                        end: endDateTime,
-                                        allDay: allDayEvent
+                                        location   : eventLocation.value,
+                                        start      : startDateTime,
+                                        end        : endDateTime,
+                                        allDay     : allDayEvent
                                     });
                                     calendar.render();
 
@@ -490,11 +505,11 @@ var KTAppCalendar = function () {
                     } else {
                         // Show popup warning 
                         Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again.",
-                            icon: "error",
-                            buttonsStyling: false,
+                            text             : "Sorry, looks like there are some errors detected, please try again.",
+                            icon             : "error",
+                            buttonsStyling   : false,
                             confirmButtonText: "Ok, got it!",
-                            customClass: {
+                            customClass      : {
                                 confirmButton: "btn btn-primary"
                             }
                         });
@@ -555,11 +570,11 @@ var KTAppCalendar = function () {
 
                             // Show popup confirmation 
                             Swal.fire({
-                                text: "New event added to calendar!",
-                                icon: "success",
-                                buttonsStyling: false,
+                                text             : "New event added to calendar!",
+                                icon             : "success",
+                                buttonsStyling   : false,
                                 confirmButtonText: "Ok, got it!",
-                                customClass: {
+                                customClass      : {
                                     confirmButton: "btn btn-primary"
                                 }
                             }).then(function (result) {
@@ -574,8 +589,12 @@ var KTAppCalendar = function () {
 
                                     // Detect if is all day event
                                     let allDayEvent = false;
-                                    if (allDayToggle.checked) { allDayEvent = true; }
-                                    if (startTimeFlatpickr.selectedDates.length === 0) { allDayEvent = true; }
+                                    if (allDayToggle.checked) {
+                                        allDayEvent = true;
+                                    }
+                                    if (startTimeFlatpickr.selectedDates.length === 0) {
+                                        allDayEvent = true;
+                                    }
 
                                     // Merge date & time
                                     var startDateTime = moment(startFlatpickr.selectedDates[0]).format();
@@ -592,13 +611,13 @@ var KTAppCalendar = function () {
 
                                     // Add new event to calendar
                                     calendar.addEvent({
-                                        id: uid(),
-                                        title: eventName.value,
+                                        id         : uid(),
+                                        title      : eventName.value,
                                         description: eventDescription.value,
-                                        location: eventLocation.value,
-                                        start: startDateTime,
-                                        end: endDateTime,
-                                        allDay: allDayEvent
+                                        location   : eventLocation.value,
+                                        start      : startDateTime,
+                                        end        : endDateTime,
+                                        allDay     : allDayEvent
                                     });
                                     calendar.render();
 
@@ -612,11 +631,11 @@ var KTAppCalendar = function () {
                     } else {
                         // Show popup warning 
                         Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again.",
-                            icon: "error",
-                            buttonsStyling: false,
+                            text             : "Sorry, looks like there are some errors detected, please try again.",
+                            icon             : "error",
+                            buttonsStyling   : false,
                             confirmButtonText: "Ok, got it!",
-                            customClass: {
+                            customClass      : {
                                 confirmButton: "btn btn-primary"
                             }
                         });
@@ -661,15 +680,15 @@ var KTAppCalendar = function () {
             e.preventDefault();
 
             Swal.fire({
-                text: "Are you sure you would like to delete this event?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
+                text             : "Are you sure you would like to delete this event?",
+                icon             : "warning",
+                showCancelButton : true,
+                buttonsStyling   : false,
                 confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, return",
-                customClass: {
+                cancelButtonText : "No, return",
+                customClass      : {
                     confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light"
+                    cancelButton : "btn btn-active-light"
                 }
             }).then(function (result) {
                 if (result.value) {
@@ -678,11 +697,11 @@ var KTAppCalendar = function () {
                     viewModal.hide(); // Hide modal				
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text: "Your event was not deleted!.",
-                        icon: "error",
-                        buttonsStyling: false,
+                        text             : "Your event was not deleted!.",
+                        icon             : "error",
+                        buttonsStyling   : false,
                         confirmButtonText: "Ok, got it!",
-                        customClass: {
+                        customClass      : {
                             confirmButton: "btn btn-primary",
                         }
                     });
@@ -708,15 +727,15 @@ var KTAppCalendar = function () {
             e.preventDefault();
 
             Swal.fire({
-                text: "Are you sure you would like to cancel?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
+                text             : "Are you sure you would like to cancel?",
+                icon             : "warning",
+                showCancelButton : true,
+                buttonsStyling   : false,
                 confirmButtonText: "Yes, cancel it!",
-                cancelButtonText: "No, return",
-                customClass: {
+                cancelButtonText : "No, return",
+                customClass      : {
                     confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light"
+                    cancelButton : "btn btn-active-light"
                 }
             }).then(function (result) {
                 if (result.value) {
@@ -724,11 +743,11 @@ var KTAppCalendar = function () {
                     modal.hide(); // Hide modal				
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text: "Your form has not been cancelled!.",
-                        icon: "error",
-                        buttonsStyling: false,
+                        text             : "Your form has not been cancelled!.",
+                        icon             : "error",
+                        buttonsStyling   : false,
                         confirmButtonText: "Ok, got it!",
-                        customClass: {
+                        customClass      : {
                             confirmButton: "btn btn-primary",
                         }
                     });
@@ -744,15 +763,15 @@ var KTAppCalendar = function () {
             e.preventDefault();
 
             Swal.fire({
-                text: "Are you sure you would like to cancel?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
+                text             : "Are you sure you would like to cancel?",
+                icon             : "warning",
+                showCancelButton : true,
+                buttonsStyling   : false,
                 confirmButtonText: "Yes, cancel it!",
-                cancelButtonText: "No, return",
-                customClass: {
+                cancelButtonText : "No, return",
+                customClass      : {
                     confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-active-light"
+                    cancelButton : "btn btn-active-light"
                 }
             }).then(function (result) {
                 if (result.value) {
@@ -760,11 +779,11 @@ var KTAppCalendar = function () {
                     modal.hide(); // Hide modal				
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text: "Your form has not been cancelled!.",
-                        icon: "error",
-                        buttonsStyling: false,
+                        text             : "Your form has not been cancelled!.",
+                        icon             : "error",
+                        buttonsStyling   : false,
                         confirmButtonText: "Ok, got it!",
-                        customClass: {
+                        customClass      : {
                             confirmButton: "btn btn-primary",
                         }
                     });
