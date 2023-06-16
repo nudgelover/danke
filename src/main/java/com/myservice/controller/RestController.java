@@ -85,7 +85,7 @@ public class RestController {
 
     public RestController() {
         // 하 이걸 컨트롤러에서 안 쓰고 어떻게 할 수 잇을까 개빡치네
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSZZYRXWU2OLFTF", "YTAMPJCZUWT8XIOA2EUH59GPWPEM0UJO", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("나한테물어", "나한테물어", "https://api.coolsms.co.kr");
     }
 
 

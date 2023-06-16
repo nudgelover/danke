@@ -18,8 +18,8 @@ public class SendEmailUtil {
         mailSender = new JavaMailSenderImpl();
         ((JavaMailSenderImpl) mailSender).setHost("smtp.naver.com");
         ((JavaMailSenderImpl) mailSender).setPort(587);
-        ((JavaMailSenderImpl) mailSender).setUsername("digicampusdanke@naver.com");
-        ((JavaMailSenderImpl) mailSender).setPassword("digi2023!");
+        ((JavaMailSenderImpl) mailSender).setUsername("나한테물어");
+        ((JavaMailSenderImpl) mailSender).setPassword("나한테물어!");
 
         Properties props = ((JavaMailSenderImpl) mailSender).getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
@@ -36,7 +36,7 @@ public class SendEmailUtil {
         String text ="[DIGICampus Danke] 1회용인증번호: "+ code +" (유효기한 5분내에 입력 바랍니다.)";
         log.info("여기"+text);
         message.setTo(to);
-        message.setFrom("digicampusdanke@naver.com");
+        message.setFrom("나한테물어");
         message.setSubject(subject);
         message.setText(text);
 

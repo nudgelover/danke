@@ -217,15 +217,15 @@
                         <div id="lec_container">
                             <div  class="row g-5 g-xxl-8" style="display: flex; flex-direction: row;">
                                     <div class="col-md-3 col-xxl-3 col-lg-3" style="width: 15%">
-                                        <div class="menu menu-rounded menu-column menu-title-gray-700 menu-icon-gray-400 menu-arrow-gray-400 menu-bullet-gray-400 menu-arrow-gray-400 menu-state-bg" data-kt-menu="true"
+                                        <div class="menu menu-rounded menu-column menu-title-gray-700 menu-icon-gray-400 menu-bullet-gray-400"  data-kt-menu="true"
                                              style="font-weight: 800;">
-                                            <div class="menu-item" data-kt-menu-trigger="click">
+                                            <div class="menu-item">
                                                 <a href="#" class="menu-link py-3">
                                                     <span class="menu-title">전체 강의</span>
                                                 </a>
                                             </div>
                                         </div>
-                                        <c:forEach var="sbjBig" items="${sideBig}">
+                                        <c:forEach var="sbjBig" items="${sideBig}" varStatus="status" begin="1">
                                         <div class="menu menu-rounded menu-column menu-title-gray-700 menu-icon-gray-400 menu-arrow-gray-400 menu-bullet-gray-400 menu-arrow-gray-400 menu-state-bg" data-kt-menu="true"
                                         style="font-weight: 800;">
                                             <div class="menu-item menu-sub-indention menu-accordion" data-kt-menu-trigger="click">
