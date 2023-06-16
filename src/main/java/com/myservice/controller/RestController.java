@@ -13,7 +13,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 @Slf4j
@@ -78,11 +78,14 @@ public class RestController {
     @Autowired
     MyPageService myPageService;
 
+    @Autowired
+    CpnService cpnService;
+
     final DefaultMessageService messageService;
 
     public RestController() {
         // 하 이걸 컨트롤러에서 안 쓰고 어떻게 할 수 잇을까 개빡치네
-        this.messageService = NurigoApp.INSTANCE.initialize("나에게물어", "나에게물어", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSZZYRXWU2OLFTF", "YTAMPJCZUWT8XIOA2EUH59GPWPEM0UJO", "https://api.coolsms.co.kr");
     }
 
 
@@ -440,7 +443,7 @@ public class RestController {
     }
 
     @RequestMapping("/study/editimpl")
-    public String editimpl(Stdy stdy, HttpSession session) throws Exception {
+    public String editimpl(Stdy stdy) throws Exception {
 
         MultipartFile filenameFile = stdy.getFilenameFile();
         String filenameOrg = "";
@@ -474,7 +477,7 @@ public class RestController {
     }
 
     @RequestMapping("/registerimpl2")
-    public Object registerimpl2(Model model, MyPage myPage) throws Exception {
+    public Object registerimpl2(MyPage myPage) throws Exception {
         Integer result = 0;
         log.info("여기 마이페이지다"+ myPage);
 
@@ -485,7 +488,6 @@ public class RestController {
         } catch (Exception e) {
             throw new Exception("시스템 장애: ER0006");
         }
-
         return  result;
     }
 
@@ -525,6 +527,34 @@ public class RestController {
         return result;
     }
 
+    @RequestMapping("/coldcall")
+    public Object coldcall(Integer lecId, String stdnId) throws Exception {
+        Integer result = 0;
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId,stdnId);
+        try {
+            ordDetail.setStdyHour("100");
+            ordDetailService.modify(ordDetail);
+            Cpn cpn = new Cpn(1020, stdnId, "2023.12.31");
+            cpnService.register(cpn);
+            result = 1;
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+        return  result;
+    }
+
+    @RequestMapping("/coldcallfail")
+    public Object coldcallfail(Integer lecId, String stdnId) throws Exception {
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId,stdnId);
+        Random r = new Random();
+        Integer stdyPercent = r.nextInt(98)+1;
+        String stdyHour = stdyPercent+"";
+        log.info("여기"+stdyHour);
+        ordDetail.setStdyHour(stdyHour);
+        ordDetailService.modify(ordDetail);
+        return  null;
+    }
 }
 
 

@@ -30,12 +30,13 @@
              , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName, s.img AS stdnImg
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id
           AND o.stdn_id=s.id
           AND o.stdn_id=#{stdnId}
+        ORDER BY od.id DESC
     </select>
 
 
@@ -44,7 +45,7 @@
              , od.disc_rate AS discRate, od.price AS price
              , l.lec_code AS lecCode, l.title AS lecTitle, l.teacher AS lecTeacher
              , l.topic AS lecTopic, l.target AS lecTarget, l.length AS lecLength
-             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName
+             , l.img AS img, o.stdn_id AS stdnId, s.name AS stdnName, s.img AS stdnImg
         FROM ord_detail od, ord o, lec l, stdn s
         WHERE od.ord_id=o.id
           AND od.lec_id=l.id

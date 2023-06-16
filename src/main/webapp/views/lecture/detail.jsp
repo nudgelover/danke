@@ -71,13 +71,6 @@
         font-size: 1.2rem;
     }
 
-    /*.contents-over {*/
-    /*    width:500px;*/
-    /*    overflow:hidden;*/
-    /*    text-overflow:ellipsis;*/
-    /*    white-space:nowrap;*/
-    /*    display:inline-block;*/
-    /*}*/
 </style>
 
 
@@ -355,7 +348,7 @@
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
@@ -377,24 +370,23 @@
                     <div class="card-body d-flex p-12 flex-column flex-md-row flex-lg-column flex-xxl-row">
                         <!--begin::Image-->
                         <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-900px mx-auto"
-                             style="background-image: url('/uimg/${lec.img}');  background-size: cover; border-top-left-radius: 10px; border-bottom-left-radius: 10px"></div>
+                             style="background-image: url('/uimg/${lec.img}');  background-size: cover;"></div>
                         <!--end::Image-->
                         <!--begin::Card-->
                         <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
                             <!--begin::Card Body-->
-                            <div class="card-body bg-light px-12 py-10 "
-                                 style="border-top-right-radius: 30px;border-bottom-right-radius: 30px;">
-                                <h3 class="fw-bold fs-1 mb-1" style="padding-top: 15px;">
+                            <div class="card-body bg-light px-12 py-10">
+                                <h3 class="fw-bold fs-1 mb-1">
                                     <a href="#" class="text-gray-800">${lec.title}</a>
                                 </h3>
-                                <div class="text-primary fs-3 mb-9" style="font-weight: 700;">
+                                <div class="text-primary fs-3 mb-9 fw-bolder">
                                     <c:choose>
                                     <c:when test="${lec.discRate == 0}">
                                     <fmt:formatNumber value="${lec.price}" type="number" pattern="₩###,###"/></div>
                                 </c:when>
                                 <c:otherwise>
-                                <span class="text-primary fs-3 mb-9"
-                                      style="font-weight: 400; text-decoration: line-through;">
+                                <span class="text-primary fs-3 mb-9 fw-semibold"
+                                       style="text-decoration: line-through;">
                                                 <fmt:formatNumber value="${lec.price}" type="number"
                                                                   pattern="₩###,###"/>
                                             </span>
@@ -436,7 +428,7 @@
                                         <a href="/lecture/orderthis?id=${lec.id}" class="btn btn-primary fw-bolder hover-scale" style="width: 100%">바로 수강신청 하기</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a href="/lecture/playlecture?id=${lec.id}" class="btn btn-primary fw-bolder hover-scale" style="width: 100%">지금 바로 학습하기</a>
+                                        <a href="/lecture/playlecture?id=${lec.id}&&stdnId=${loginStdn.id}" class="btn btn-primary fw-bolder hover-scale" style="width: 100%">지금 바로 학습하기</a>
                                     </c:otherwise>
                                 </c:choose>
 

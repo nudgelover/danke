@@ -32,35 +32,26 @@
             let stdnId = '${loginStdn.id}';
             let curriId = $(this).prop('id').substring(19);
             let checked = 0;
+            //공개여부 공개면 1값 비공개 0
             let isChecked = $('#isOpen_' + curriId).is(':checked');
             if(isChecked){
                 checked=1;
             };
-            //alert(checked);
             $.ajax({
                 url:'/currisettingsimpl',
                 data:{stdnId:stdnId, curriId:curriId, checked:checked},
                 success:function(result){
                     window.location.href='/lecture/curri?id='+stdnId;
-
-
                 }
-            })
-
-        })
-
-    })
-
+            });
+        });
+    });
 </script>
 
 
-<!--begin::Main-->
-
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -69,23 +60,16 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="//lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Card-->
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
@@ -93,14 +77,12 @@
                             <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_4">나의 커리큘럼</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_5">커리큘럼 엿보기</a>
+                            <a class="nav-link" href="/lecture/curri/others">커리큘럼 엿보기</a>
                         </li>
                     </ul>
-
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="kt_tab_pane_4" role="tabpanel">
                             <div class="col-xl-12">
-                                <!--begin::Engage Widget 1-->
                                 <div class="card mb-12">
                                     <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-primary">
                                         <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-start bgi-size-contain"
@@ -112,39 +94,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end::Engage Widget 1-->
                                 <div class="card card-stretch mb-5 mb-xxl-8">
-                                    <!--begin::Header-->
                                     <div class="card-header align-items-center border-0 mt-5">
                                         <h3 class="card-title align-items-start flex-column">
                                             <span class="fw-bold text-dark fs-3">${loginStdn.name}님의 커리큘럼</span>
                                             <span class="text-muted mt-2 fw-semibold fs-6">코딩으로 탈큽하는 그날까지 학습 발자취를 남겨주세요</span>
                                         </h3>
                                     </div>
-                                    <!--end::Header-->
-                                    <!--begin::Body-->
                                     <div class="card-body pt-3">
-                                        <!--begin::Timeline-->
                                         <div class="timeline-label" style="padding-right: 7.5rem">
-                                            <!--begin::Item-->
                                             <c:forEach var="curri" items="${curri}">
                                                 <div class="timeline-item">
-                                                    <!--begin::Label-->
                                                     <div class="fw-bold text-gray-800 fs-6 px-lg-9">${curri.rdate}</div>
-                                                    <!--end::Label-->
-                                                    <!--begin::Badge-->
                                                     <div class="timeline-badge">
                                                         <i class="fa fa-genderless text-warning fs-1"></i>
                                                     </div>
-                                                    <!--end::Badge-->
-                                                    <!--begin::Text-->
                                                     <div class="timeline-content d-flex flex-wrap align-items-center mb-7 px-lg-3">
-                                                        <!--begin::Symbol-->
                                                         <div class="symbol symbol-65px symbol-2by3 me-4">
                                                             <img src="/uimg/${curri.lecImg}" class="mw-100" />
                                                         </div>
-                                                        <!--end::Symbol-->
-                                                        <!--begin::Title-->
                                                         <div class="d-flex justify-content-center my-lg-0 my-2 pe-3">
                                                             <div>
                                                                 <a href="#" class="text-gray-800 fw-bold text-hover-primary fs-6">${curri.lecTitle}</a>
@@ -182,9 +150,7 @@
                                                                 <span class="badge badge-light-info" style="margin-left:1%">비공개</span>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                        <!--end::Title-->
                                                     </div>
-                                                    <!--end::Text-->
                                                 </div>
 
                                                 <!--Settings Modal-->
@@ -197,15 +163,11 @@
                                                                     <a class="nav-link active fs-2 text-gray-800" data-bs-toggle="tab" href="#kt_tab_pane_4">커리큘럼 설정</a>
                                                                 </li>
                                                             </ul>
-                                                            <!--begin::Input group-->
                                                             <div class="d-flex flex-stack px-10 py-10">
-                                                                <!--begin::Label-->
                                                                 <div class="me-5">
                                                                     <label class="fs-6 fw-semibold form-label">커리큘럼에서 이 강의를 공개할까요?</label>
                                                                     <div class="fs-7 fw-semibold text-muted">비공개 강의는 타 수강생에게 보이지 않습니다.</div>
                                                                 </div>
-                                                                <!--end::Label-->
-                                                                <!--begin::Switch-->
                                                                 <label class="form-check form-switch form-check-custom form-check-solid">
                                                                     <input class="form-check-input" type="checkbox" id="isOpen_${curri.id}" value="1" name="isOpen"
                                                                            <c:choose>
@@ -217,7 +179,6 @@
                                                                         공개여부
                                                                     </span>
                                                                 </label>
-                                                                <!--end::Switch-->
                                                             </div>
                                                             <div class="modal-footer text-center" style="border-top: 1px solid #d8d8d8;align-items: center;">
                                                                 <button type="button" class="btn btn-light fw-bolder" data-bs-dismiss="modal">취소</button>
@@ -249,7 +210,6 @@
                                                 <!--Delete Modal End-->
 
                                             </c:forEach>
-                                            <!--end::Item-->
                                             <c:choose>
                                                 <c:when test="${curri.size()==0}">
                                                     <div class="py-20">
@@ -258,54 +218,13 @@
                                                 </c:when>
                                             </c:choose>
                                         </div>
-                                        <!--end::Timeline-->
                                     </div>
-                                    <!--end: Card Body-->
-                                </div>
-                                <!--end::List Widget 1-->
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="kt_tab_pane_5" role="tabpanel">
-                            <div class="card mb-12">
-                                <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info">
-                                    <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                                        <h1 class="text-dark" style="font-weight: 900">배우고 나누고 성장하세요!</h1>
-                                        <div class="fs-3 mb-8">커리큘럼이 궁금한 DIGICAM MEMBER는?</div>
-                                        <!--begin::Form-->
-                                        <form class="d-flex flex-center py-2 px-6 bg-white rounded">
-                                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <span class="svg-icon svg-icon-1 svg-icon-info">
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                 xmlns="http://www.w3.org/2000/svg">
-																<rect opacity="0.5" x="17.0365" y="15.1223"
-                                                                      width="8.15546" height="2" rx="1"
-                                                                      transform="rotate(45 17.0365 15.1223)"
-                                                                      fill="currentColor"/>
-																<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                                      fill="currentColor"/>
-															</svg>
-														</span>
-                                            <!--end::Svg Icon-->
-                                            <input type="text" class="form-control border-0 fw-semibold ps-2 w-xxl-350px"
-                                                   placeholder="걔는 뭘 듣길래 그렇게 코딩을 잘 한대?"/>
-                                        </form>
-                                        <!--end::Form-->
-                                    </div>
-                                    <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                         style="background-image: url(/assets/media/illustrations/sigma-1/4.png);"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--begin::Engage Widget 1-->
-                    <!--end::Engage Widget 1-->
-                    <!--begin::Section-->
                 </div>
             </div>
-            <!--end::Card-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->

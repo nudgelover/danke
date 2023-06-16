@@ -5,19 +5,19 @@
 
 
 <script>
-        var dropImg;
+    var dropImg;
 
-        function dataURLtoFile(dataurl, filename) {
-            var arr = dataurl.split(','),
-                mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]),
-                n = bstr.length,
-                u8arr = new Uint8Array(n);
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            return new File([u8arr], filename, {type: mime});
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
         }
+        return new File([u8arr], filename, {type: mime});
+    }
 
     $(document).ready(function () {
 
@@ -69,10 +69,8 @@
 </script>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -81,8 +79,6 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
@@ -92,15 +88,12 @@
                     </c:when>
                 </c:choose>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
             <div class="card">
                 <div class="card-body">
-                <!--begin::Form-->
                     <input type="hidden" id="outputData" value=""/>
                 <div>
                     <div class="card mb-12">
@@ -120,26 +113,19 @@
                         <input type="hidden" name="startTime" value="${stdy.startTime}"/>
                         <input type="hidden" name="endTime" value="${stdy.endTime}"/>
                         <input type="hidden" name="rdate" value="${stdy.rdate}"/>
-
-
                         <div class="rounded">
                             <div id="kt_docs_ckeditor_document_toolbar"></div>
                             <div class="border-gray-500 my-3" id="kt_docs_ckeditor_document" contenteditable="true">
                                 ${stdy.contents}
                             </div>
                             <div class="dropzone" id="kt_dropzonejs_example_1">
-                                <!--begin::Message-->
                                 <div class="dz-message needsclick">
-                                    <!--begin::Icon-->
                                     <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                    <!--end::Icon-->
-                                    <!--begin::Info-->
                                     <div class="ms-4">
                                         <h3 class="fs-5 fw-bold text-gray-900 mb-1">${stdy.filenameOrg}</h3>
                                         <span class="fs-7 fw-semibold text-gray-400">상자를 클릭하거나 파일을 드랍하세요.</span><br>
                                         <span class="fs-7 fw-semibold text-gray-400">파일크기 1MB제한</span>
                                     </div>
-                                    <!--end::Info-->
                                 </div>
                             </div>
                             <div class="d-flex float-end mt-10 pb-10">
@@ -148,16 +134,11 @@
                         </div>
                     </form>
                 </div>
-                <!--end::Form-->
                 </div>
             </div>
-            <!--end::Profile Account-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
 
 
 <div class="modal fade" tabindex="-1" id="study_edit_modal">
@@ -179,7 +160,6 @@
 
 
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-
 <!--CKEditor Build Bundles:: Only include the relevant bundles accordingly-->
 <script src="/assets/plugins/custom/ckeditor/ckeditor-document.bundle.js"></script>
 <script src="/sass/components/_rating.scss"></script>

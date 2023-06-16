@@ -4,56 +4,35 @@
 
 <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
 
-<style>
-    form {
-        padding: 100px;
-    }
-
-    .inline-group {
-        display: inline-block;
-    }
-</style>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
-        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
+        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">결제완료</h3>
-                <!--end::Title-->
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">결제완료</span></a>
+                    </li>
+                </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/lecture/all" class="btn btn-active-accent fw-bold ms-3">View All Course</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Course List</a>
-                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Curriculum</a>
-                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">My Cart</a>
+                <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
+                <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Profile Account-->
             <div class="card">
-                <!--begin::Form-->
-
                 <div class="card card-stretch mb-5 mb-xxl-8">
-                    <!--begin::Body-->
                     <div class="card-body pb-0">
-                        <!--begin::Wrapper-->
                         <div class="d-flex flex-column h-100" style="padding-top: 120px;">
-                            <!--begin::Text-->
                             <div class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-100px"
                                  style="background-image:url('../img/confirm.png')"></div>
                             <h3 class="text-primary text-center fs-1 fw-bold pt-15 lh-lg">결제 완료</h3>
-
                             <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-600px text-center"
                                  data-kt-element="message-text" style="margin:0 auto; width: max-content">
                                 <div style="display: flex; padding: 20px;">
@@ -78,31 +57,10 @@
                             </div>
                             <div class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-300px"
                                  style="background-image:url('../assets/media/illustrations/sigma-1/3.png')"></div>
-                            <!--end::Image-->
                         </div>
-                        <!--end::Wrapper-->
                     </div>
-                    <!--end::Body-->
                 </div>
-                <!--end::Form-->
             </div>
-            <!--end::Profile Account-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
-<%--캘린더 스크립트--%>
-<script src="/assets/plugins/global/plugins.bundle.js"></script>
-<!--begin::Vendors Javascript(used for this page only)-->
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="/assets/js/custom/widgets.js"></script>
-<script src="/assets/js/custom/apps/chat/chat.js"></script>
-<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
-
-
-<!--end::Custom Javascript-->
-<!--end::Javascript-->

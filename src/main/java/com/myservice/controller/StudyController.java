@@ -53,12 +53,26 @@ public class StudyController {
     @RequestMapping("/all")
     public String all(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Stdy> p;
-        try {
-            p = new PageInfo<>(stdyService.getPage(pageNo), 5);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception();
+        p = new PageInfo<>(stdyService.getPage(pageNo), 5);
+        List<Stdy> stdy = p.getList();
+        for (Stdy one : stdy) {
+            String start = one.getStartTime();
+            String end = one.getEndTime();
+
+            String shortVer = "";
+            int firstIndex = one.getContents().indexOf(">");
+            int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
+
+            if( secondIndex > 30 ){
+                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 30))+"...</p>";
+            } else {
+                shortVer = one.getContents().substring(0,secondIndex+1);
+            };
+
+            one.setShortVer(shortVer);
+            one.setDuration(GetTimeUtil.getTime(end,start));
         }
+
         model.addAttribute("target", "study");
         model.addAttribute("cpage", p);
         model.addAttribute("center", dir + "all");
@@ -69,10 +83,8 @@ public class StudyController {
     public ResponseEntity<byte[]> downloadFile(@PathVariable("filename") String filename, HttpServletRequest request) throws IOException {
         String filePath = downloadPath;
 
-        // 파일 경로 생성
         Path file = Paths.get(filePath, filename);
 
-        // 파일을 ByteArray로 변환하여 ResponseEntity에 담아 반환
         byte[] fileContent = Files.readAllBytes(file);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -111,9 +123,20 @@ public class StudyController {
         for (Stdy one : stdy) {
             String start = one.getStartTime();
             String end = one.getEndTime();
+
+            String shortVer = "";
+            int firstIndex = one.getContents().indexOf(">");
+            int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
+
+            if( secondIndex > 30 ){
+                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 30))+"...</p>";
+            } else {
+                shortVer = one.getContents().substring(0,secondIndex+1);
+            };
+
+            one.setShortVer(shortVer);
             one.setDuration(GetTimeUtil.getTime(end,start));
         }
-
         model.addAttribute("stdy",stdy);
         model.addAttribute("center", dir + "mine");
         return "index";

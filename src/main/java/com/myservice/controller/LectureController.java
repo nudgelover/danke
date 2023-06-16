@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static org.eclipse.jdt.core.compiler.CharOperation.parseInt;
 
 @Slf4j
 @Controller
@@ -301,23 +300,6 @@ public class LectureController {
         return "index";
     }
 
-//    @RequestMapping("/reviewaddimpl")
-//    public String reviewaddimpl(LecReview lecReview) throws Exception {
-//        log.info("여기" + lecReview.toString());
-//        Integer lecId = lecReview.getLecId();
-//
-//        MultipartFile imgfile = lecReview.getImgfile();
-//        String imgOrg = imgfile.getOriginalFilename();
-//        log.info("여기" + imgOrg);
-//        String img = FileUploadUtil.uploadFile(imgfile, uploadPath);
-//        log.info("여기" + img);
-//        lecReview.setImg(img);
-//        lecReview.setImgOrg(imgOrg);
-//        lecReviewService.register(lecReview);
-//
-//        return "redirect:/lecture/detail?id=" + lecId;
-//    }
-
     @RequestMapping("/reviewdelete")
     public String reviewdelete(Integer id) throws Exception {
 
@@ -353,23 +335,45 @@ public class LectureController {
     @RequestMapping("/ordhistory")
     public String ordhistory(Model model, String stdnId) throws Exception {
 
-//        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
-//        for(int n = 0; n < sideBig.size(); n++) {
-//            Integer index = sideBig.get(n).getSbjCode();
-//            sideMedium.put(index, sbjDetailService.searchMedium(index));
-//        }
-
-
         List<Ord> ord = ordService.getMyOrd(stdnId);
         Map<Integer, List<OrdDetail>> ordDetailByOrd = new HashMap<>();
         for(int n = 0; n < ord.size(); n++){
             Integer index = ord.get(n).getId();
             ordDetailByOrd.put(index, ordDetailService.getByOrd(index));
         }
-
         model.addAttribute("ordDetailByOrd", ordDetailByOrd);
         model.addAttribute("ord",ord);
         model.addAttribute("center", dir + "ordhistory");
+        return "index";
+    }
+
+    @RequestMapping("/playlecture")
+    public String playlecture(Integer id,String stdnId,Model model) throws Exception {
+        Lec lec = lecService.get(id);
+        //콜드콜 뿌릴 시간 구하는 랜덤, 프로젝트 때는 setTimemout 상수로 하기로 함.
+        //String duration = lec.getLength();
+        //Integer length = Integer.parseInt(duration);
+        //Random r = new Random();
+        //Integer coldcall = r.nextInt(49)+51;
+        //log.info("임의의 coldcall 시간"+coldcall);
+        //Integer timing = length * (coldcall / 100) * 1000;
+        String rdate = lec.getRdate().substring(0,10);
+        lec.setRdate(rdate);
+        OrdDetail ordDetail = ordDetailService.getThisOrd(id,stdnId);
+        model.addAttribute("lec",lec);
+        //model.addAttribute("timing", timing);
+        model.addAttribute("ordDetail", ordDetail);
+        model.addAttribute("center", dir + "playlecture");
+        return "index";
+    }
+
+    @RequestMapping("/mylecture")
+    public String mylecture(Model model, String id) throws Exception {
+        List<OrdDetail> ordDetail = ordDetailService.getMyOrdDetail(id);
+        Integer cnt = cartService.cntMyCart(id);
+        model.addAttribute("cnt", cnt);
+        model.addAttribute("ordDetail", ordDetail);
+        model.addAttribute("center", dir + "mylecture");
         return "index";
     }
 

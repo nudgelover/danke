@@ -7,7 +7,6 @@
 
 <style>
     .flex-root {
-        /*display: flex;*/
         align-items: center;
         justify-content: flex-start;
         text-align: left;
@@ -34,12 +33,9 @@
 
 
 
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -48,23 +44,16 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Pricing-->
             <div class="card" style="padding:70px 30px 30px 50px;">
                 <div class="card-body p-12">
                     <div class="row mb-12">
@@ -81,9 +70,7 @@
                         <div class="separator m-1"></div>
                         <div class="col-md-11 col-lg-12 col-xl-112 col-xxl-12 rounded border-gray-300 border-dotted"
                              style="padding:10px;margin:0 auto;">
-                            <!--begin::Tab content-->
                             <div class="tab-content" id="nav-tabContent">
-                                <!--begin::Monthly Prices-->
                                 <div id="kt_nav_monthly_content" class="tab-pane fade show active" role="tabpanel"
                                      aria-labelledby="kt_nav_monthly">
                                     <div class="row">
@@ -136,12 +123,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end::Monthly Prices-->
                                 </div>
-                                <!--begin::Tab content-->
                             </div>
                         </div>
-                        <!--begin::Table-->
                         <div style="display: flex; margin-top: 30px;">
                             <div class="fs-2">강의정보</div>
                         </div>
@@ -182,7 +166,6 @@
                                                                                       type="number" pattern="₩###,###"/>
                                                                 </span>
                                                             </div>
-
                                                         </c:when>
                                                         <c:otherwise>
                                                             <div class="text-left">
@@ -195,7 +178,6 @@
                                                     </c:choose>
                                                 </div>
                                                 <div class="py-8 px-9 flex-root d-flex justify-content-center">
-
                                                 </div>
                                                 <div class="py-8 px-9 flex-root d-flex justify-content-center">
                                                     <span class="text-gray-800 fw-bold d-block fs-6 text-left">
@@ -247,19 +229,7 @@
                         </div>
                     </div>
                 </div>
-                <!--end::Pricing-->
             </div>
-            <!--end::Container-->
         </div>
-        <!--end::Content-->
     </div>
-    <!--end::Main-->
-
-
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="assets/js/custom/widgets.js"></script>
-    <script src="assets/js/custom/apps/chat/chat.js"></script>
-    <script src="assets/js/custom/utilities/modals/users-search.js"></script>
+</div>

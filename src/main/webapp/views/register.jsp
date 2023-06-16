@@ -171,64 +171,53 @@
 
             if (id.length <= 4) {
                 $("#id").css("border-bottom", "1px solid #f5a425");
-                $('#check_id').text('The ID must be at least Five Characters long.');
+                $('#check_id').text('ID는 최소 다섯글자 이상이어야 합니다.');
                 $('#id').focus();
                 return;
-            }
-            ;
+            };
             if (id.length > 5) {
                 $('#check_id').text('');
-            }
-            ;
+            };
             if (pwd == '') {
                 $('#pwd').focus();
                 return;
-            }
-            ;
+            };
             if (name == '') {
                 $('#name').focus();
                 return;
-            }
-            ;
+            };
             if (email == '') {
                 $('#email').focus();
                 return;
-            }
-            ;
+            };
             if (contact_auth == '') {
                 $('#contact_auth').focus();
                 return;
-            }
-            ;
+            };
             if (year == '') {
                 $('#year').focus();
                 return;
-            }
-            ;
+            };
             if (month == '') {
                 $('#month').focus();
                 return;
-            }
-            ;
+            };
             if (day == '') {
                 $('#day').focus();
                 return;
-            }
-            ;
+            };
             if (sbj1 == '') {
                 $('#sbj1').focus();
                 return;
-            }
-            ;
+            };
             if (sbj2 == '') {
                 $('#sbj2').focus();
                 return;
-            }
-            ;
+            };
             if (sbj3 == '') {
                 $('#sbj3').focus();
                 return;
-            }
+            };
 
             let subject = new Array();
             $('select[name="sbj"]:selected').each(function () {
@@ -256,14 +245,9 @@
     });
 </script>
 
-<!--begin::Main-->
-
-
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -272,25 +256,17 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Profile Account-->
             <div class="card">
                 <input type="hidden" id="code_real" value=""/>
-                <!--begin::Form-->
                 <form class="form d-flex flex-center" id="register_form">
                     <input type="hidden" id="contact" name="contact" value=""/>
                     <div class="card-body mw-800px py-20">
-                        <!--begin::Form row-->
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>아이디</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -301,7 +277,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>비밀번호</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -311,7 +287,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>비밀번호 확인</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -322,7 +298,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>이름</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -332,7 +308,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>생년월일</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -441,11 +417,10 @@
                                         <label for="day" style="font-size: smaller;">Day</label>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>E-mail</label>
                             <div class="col-lg-9">
                                 <div class="input-group input-group-lg input-group-solid">
@@ -455,7 +430,7 @@
                             </div>
                         </div>
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>연락처</label>
                             <div class="col-lg-9 d-flex justify mb-3">
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
@@ -474,17 +449,6 @@
                             <div class="col-lg-9 d-flex align-items-center">
                                 <button class="spinner spinner-primary text-center spinner-sm spinner-right form-control btn bg-light-danger fw-bold px-6 py-3 me-1"
                                      style="width:20%;">
-<%--                                        <span id="timer_icon" class="svg-icon svg-icon-muted text-center text-danger fs-3 fw-bolder">--%>
-<%--                                            <svg width="14" height="21" viewBox="0 0 14 21" fill="none"--%>
-<%--                                                 xmlns="http://www.w3.org/2000/svg">--%>
-<%--                                                <path opacity="0.3"--%>
-<%--                                                      d="M12 6.20001V1.20001H2V6.20001C2 6.50001 2.1 6.70001 2.3 6.90001L5.6 10.2L2.3 13.5C2.1 13.7 2 13.9 2 14.2V19.2H12V14.2C12 13.9 11.9 13.7 11.7 13.5L8.4 10.2L11.7 6.90001C11.9 6.70001 12 6.50001 12 6.20001Z"--%>
-<%--                                                      fill="currentColor"/>--%>
-<%--                                                <path d="M13 2.20001H1C0.4 2.20001 0 1.80001 0 1.20001C0 0.600012 0.4 0.200012 1 0.200012H13C13.6 0.200012 14 0.600012 14 1.20001C14 1.80001 13.6 2.20001 13 2.20001ZM13 18.2H10V16.2L7.7 13.9C7.3 13.5 6.7 13.5 6.3 13.9L4 16.2V18.2H1C0.4 18.2 0 18.6 0 19.2C0 19.8 0.4 20.2 1 20.2H13C13.6 20.2 14 19.8 14 19.2C14 18.6 13.6 18.2 13 18.2ZM4.4 6.20001L6.3 8.10001C6.7 8.50001 7.3 8.50001 7.7 8.10001L9.6 6.20001H4.4Z"--%>
-<%--                                                      fill="currentColor"/>--%>
-<%--                                                </svg>--%>
-<%--                                            </svg>--%>
-<%--                                        </span>--%>
                                     <span id="id_span_timer" class="svg-icon svg-icon-muted text-center text-danger fs-6 fw-bolder">유효시간</span>
                                 </button>
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
@@ -501,7 +465,7 @@
                             </div>
                         </div>
                         <div class="row align-items-center mb-8">
-                            <label class="col-lg-3 col-form-label"><span
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
                                     class="bullet bullet-vertical bg-primary me-5"></span>관심분야</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
@@ -718,7 +682,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--begin::Form row-->
                         <div class="separator separator-dashed my-10"></div>
                         <div class="row">
                             <label class="col-lg-3 col-form-label"></label>
@@ -728,18 +691,12 @@
                                 </button>
                             </div>
                         </div>
-                        <!--end::Form row-->
                     </div>
                 </form>
-                <!--end::Form-->
             </div>
-            <!--end::Profile Account-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
 
 <!--Method Modal Start-->
 <div class="modal fade" tabindex="-1" id="auth_modal">
@@ -761,16 +718,5 @@
 
 <!--begin::Javascript-->
 <script>var hostUrl = "/assets/";</script>
-<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script src="/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Vendors Javascript(used for this page only)-->
-<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<!--end::Vendors Javascript-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="/assets/js/custom/widgets.js"></script>
-<script src="/assets/js/custom/apps/chat/chat.js"></script>
-<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
-<!--end::Custom Javascript-->
-<!--end::Javascript-->

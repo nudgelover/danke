@@ -14,6 +14,7 @@
     <select id="selectall" resultType="SbjDetail">
         SELECT sbj_code as sbjCode, sbj_name as sbjName, sbj_code2 as sbjCode2
         FROM sbj_detail
+        ORDER BY sbj_code ASC
     </select>
 
     <insert id="insert" parameterType="SbjDetail">

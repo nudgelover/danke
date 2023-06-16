@@ -19,7 +19,7 @@ public class SendEmailUtil {
         ((JavaMailSenderImpl) mailSender).setHost("smtp.naver.com");
         ((JavaMailSenderImpl) mailSender).setPort(587);
         ((JavaMailSenderImpl) mailSender).setUsername("digicampusdanke@naver.com");
-        ((JavaMailSenderImpl) mailSender).setPassword("비밀번호나에게물어");
+        ((JavaMailSenderImpl) mailSender).setPassword("digi2023!");
 
         Properties props = ((JavaMailSenderImpl) mailSender).getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

@@ -65,10 +65,8 @@ public class SettingsController {
     public ResponseEntity<byte[]> downloadFile(@PathVariable("filename") String filename, HttpServletRequest request) throws IOException {
         String filePath = downloadPath;
 
-        // 파일 경로 생성
         Path file = Paths.get(filePath, filename);
 
-        // 파일을 ByteArray로 변환하여 ResponseEntity에 담아 반환
         byte[] fileContent = Files.readAllBytes(file);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);

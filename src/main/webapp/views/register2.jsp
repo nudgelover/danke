@@ -46,7 +46,7 @@
                     modal.show();
                     setTimeout(function() {
                         window.location.href = '/login'
-                    }, 10000);
+                    }, 5000);
                 },
                 error      : function (error) {
                     let modal = new bootstrap.Modal(registerModal);
@@ -91,7 +91,7 @@
             <div class="card">
                 <!--begin::Form-->
                 <form class="form d-flex flex-center" id="register_form">
-                    <input type="text" name="id" id="id" value="${loginStdn.id}">
+                    <input type="hidden" name="id" id="id" value="${loginStdn.id}">
                     <div class="card-body mw-800px py-20">
                         <!--begin::Form row-->
                         <div class="row mb-8">

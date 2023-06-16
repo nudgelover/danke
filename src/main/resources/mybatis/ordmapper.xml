@@ -15,6 +15,7 @@
                  LEFT JOIN ord_detail od ON o.id = od.ord_id
         WHERE o.stdn_id = #{stdnId}
         GROUP BY o.id, o.stdn_id, o.rdate, o.is_done, o.ord_price, o.pay_method, o.upd_date, o.use_cpn
+        ORDER BY o.id DESC
     </select>
 
 
