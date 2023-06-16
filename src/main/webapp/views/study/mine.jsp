@@ -12,12 +12,9 @@
     }
 </style>
 
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -26,8 +23,6 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
@@ -37,51 +32,31 @@
                     </c:when>
                 </c:choose>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Inbox-->
             <div class="d-flex flex-column flex-lg-row">
-                <!--begin::List-->
-
                 <div class="flex-lg-row-fluid d-block" id="kt_inbox_list">
-                    <!--begin::Card-->
                     <div class="card mt-10 mt-lg-0">
-                        <!--begin::Header-->
                         <div class="card-header align-items-center card-px">
-
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
                         <div class="card-body px-0 overflow-auto">
-                            <!--begin::Items-->
                             <div  data-inbox="list">
                                 <c:forEach var="stdy" items="${stdy}">
                                 <div class="d-flex align-items-start bg-hover-light card-px py-3" data-inbox="message">
-                                    <!--begin::Toolbar-->
                                     <div class="d-flex align-items-center">
-                                        <!--begin::Author-->
                                         <div class="d-flex align-items-center flex-wrap w-xxl-200px me-3"
                                              data-bs-toggle="view">
-                                            <!--begin::Symbol-->
                                             <div class="symbol symbol-40px me-4">
 																	<span class="symbol-label bg-light">
 																		<img src="/uimg/${stdy.stdnImg}"
                                                                              class="h-75 align-self-end" alt=""/>
 																	</span>
                                             </div>
-                                            <!--end::Symbol-->
                                             <a href="#" class="fw-semibold text-gray-800 text-hover-primary">${stdy.stdnName}</a>
                                         </div>
-                                        <!--end::Author-->
                                     </div>
-                                    <!--end::Toolbar-->
-                                    <!--begin::Info-->
                                     <div class="flex-lg-grow-1 mt-2 me-2" data-bs-toggle="view">
                                         <div>
                                             <span class="fw-bold fs-6 me-2">${stdy.startTime} - ${stdy.endTime} <span class="badge badge-light-primary" mx-1>총 ${stdy.duration}</span></span>
@@ -98,15 +73,12 @@
                                                 </c:when>
                                             </c:choose>
                                             <br>
-                                            <a href="/study/detail?id=${stdy.id}"><span class="fw-bolder shorttitle">${stdy.contents}</span></a>
+                                            <a href="/study/detail?id=${stdy.id}"><span class="fw-bolder shorttitle" id="cutcut">${stdy.shortVer}</span></a>
                                             <span class="badge badge-light-info me-1">new</span>
                                         </div>
                                         <div class="mt-2">
-
                                         </div>
                                     </div>
-                                    <!--end::Info-->
-                                    <!--begin::Datetime-->
                                     <div class="mt-2 me-3 fw-bold  text-center" data-bs-toggle="view">
                                         <a href="/study/download/${stdy.filename}"
                                            data-bs-toggle="tooltip" data-bs-custom-class="tooltip-inverse" data-bs-placement="left" title="다운로드">
@@ -120,25 +92,13 @@
                                             <p class="shorttitle">${stdy.filenameOrg}</p>
                                         </a>
                                     </div>
-                                    <!--end::Datetime-->
                                 </div>
                                 </c:forEach>
                             </div>
-                            <!--end::Items-->
                         </div>
-                        <!--end::Body-->
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::List-->
             </div>
-            <!--end::Inbox-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
-
-
-

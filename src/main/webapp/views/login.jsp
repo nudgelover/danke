@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -62,41 +63,26 @@
 
 <body id="kt_body">
 <div class="d-flex flex-column flex-root">
-    <!--begin::Login-->
     <div class="d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">
-        <!--begin::Aside-->
         <div class="d-flex flex-column flex-lg-row-auto bg-primary w-lg-600px pt-15 pt-lg-0">
-            <!--begin::Aside Top-->
             <div class="d-flex flex-row-fluid flex-center flex-column-auto flex-column text-center mb-5">
-                <!--begin::Aside Logo-->
                 <a href="../dist/index.html" class="mb-6">
                     <img alt="Logo" src="assets/media/logos/logo-default.svg" class="h-50px h-lg-75px"/>
                 </a>
-                <!--end::Aside Logo-->
-                <!--begin::Aside Subtitle-->
                 <h3 class="fw-bold fs-2x text-white lh-lg">Discover Start
                     <br/>with great build tools</h3>
-                <!--end::Aside Subtitle-->
             </div>
-            <!--end::Aside Top-->
-            <!--begin::Illustration-->
             <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px"
                  style="background-image: url(/assets/media/illustrations/sigma-1/2.png"></div>
-            <!--end::Illustration-->
         </div>
-        <!--begin::Aside-->
-        <!--begin::Content-->
         <div class="login-content flex-lg-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden py-10 py-lg-20 px-10 p-lg-7 mx-auto mw-450px w-100">
-            <!--begin::Wrapper-->
             <div class="d-flex flex-column-fluid flex-center py-10">
-                <!--begin::Signin Form-->
                 <form class="form w-100" novalidate="novalidate" id="kt_login_signin_form">
                     <div class="pb-5 pb-lg-15">
                         <h3 class="fw-bold text-dark display-6">Welcome to Start</h3>
                         <a href="/register">
-                            <div class="text-muted fw-semibold fs-3">New Here?
-                                <span class="text-primary fw-bold">Create
-								Account</span></div>
+                            <div class="text-muted fs-4" style="font-weight: 800">처음 오셨나요?
+                                <span class="text-primary fw-bold"> 회원가입하기</span></div>
                         </a>
                     </div>
                     <div id="here"></div>
@@ -112,80 +98,30 @@
                                placeholder="PASSWORD" autocomplete="off"/>
                         <label for="floatingPwd">PASSWORD</label>
                         <div class="d-flex justify-content-end mt-n5">
-                            <a href="#" class="text-primary fs-6 fw-bold text-hover-primary pt-5"
-                               id="kt_login_signin_form_password_reset_button">Forgot Password ?</a>
+                            <a href="/settings/pwd" class="text-primary fs-8 fw-bold text-hover-primary pt-5"
+                               id="kt_login_signin_form_password_reset_button">비밀번호를 잊으셨나요?</a>
                         </div>
                     </div>
-                    <!--begin::Action-->
                     <div class="pb-lg-0 pb-5">
                         <button type="button" id="kt_login_signin_form_submit_button"
-                                class="btn btn-primary fw-bold fs-6 px-8 py-4 my-3 me-3">Sign In
-                        </button>
-                        <button type="submit" class="btn btn-light-primary fw-bold px-8 py-4 my-3 fs-6">
-                            <img src="assets/media/svg/brand-logos/google-icon.svg" class="w-20px h-20px me-3" alt=""/>Sign
-                            in with Google
+                                class="btn btn-primary fw-bold fs-6 px-8 py-4 my-3 me-3">로그인
                         </button>
                     </div>
-                    <!--end::Action-->
                 </form>
-                <!--begin::Password Reset Form-->
-                <form class="form d-none w-100" novalidate="novalidate" id="kt_login_password_reset_form">
-                    <!--begin::Title-->
-                    <div class="pb-5 pb-lg-10">
-                        <h3 class="fw-bold text-dark display-6">Forgotten Password ?</h3>
-                        <p class="text-muted fw-semibold fs-3">Enter your email to reset your password</p>
-                    </div>
-                    <!--end::Title-->
-                    <!--begin::Form group-->
-                    <div class="fv-row mb-10">
-                        <label class="form-label fs-6 fw-bold text-dark pt-5">Email</label>
-                        <input class="form-control form-control-lg form-control-solid" type="email" placeholder=""
-                               name="email" autocomplete="off"/>
-                        <div class="d-flex justify-content-end mt-n5">
-                            <a href="/login" class="text-primary fs-6 fw-bold text-hover-primary pt-5"
-                               id="kt_login_signin_form_button">Return to Login Page</a>
-                        </div>
-                    </div>
-                    <!--end::Form group-->
-                    <!--begin::Form group-->
-                    <div class="d-flex flex-wrap pb-lg-0">
-                        <button type="button" id="kt_login_password_reset_form_submit_button"
-                                class="btn btn-primary fw-bold fs-6 px-8 py-4 my-3 me-4">Submit
-                        </button>
-                        <button type="button" id="kt_login_password_reset_form_cancel_button"
-                                class="btn btn-light-primary fw-bold fs-6 px-8 py-4 my-3">Cancel
-                        </button>
-                    </div>
-                    <!--end::Form group-->
-                </form>
-                <!--end::Password Reset Form-->
             </div>
-            <!--end::Wrapper-->
-            <!--begin::Footer-->
             <div class="d-flex justify-content-lg-start justify-content-center align-items-center py-2 py-lg-7 py-lg-0 fs-5 fw-bold">
                 <a href="https://keenthemes.com" target="_blank" class="text-gray-600 text-hover-primary">About</a>
                 <a href="https://devs.keenthemes.com" target="_blank" class="text-gray-600 text-hover-primary ms-10">Support</a>
                 <a href="https://keenthemes.com/products/start-html-pro" target="_blank"
                    class="text-gray-600 text-hover-primary ms-10">Purchase</a>
             </div>
-            <!--end::Footer-->
         </div>
-        <!--end::Content-->
     </div>
-    <!--end::Login-->
 </div>
-<!--end::Main-->
 
-<!--JQuery-->
-<!--begin::Javascript-->
 <script>var hostUrl = "assets/";</script>
-<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script src="assets/plugins/global/plugins.bundle.js"></script>
 <script src="assets/js/scripts.bundle.js"></script>
-<!--end::Global Javascript Bundle-->
-<!--begin::Custom Javascript(used for this page only)-->
-<script src="assets/js/custom/general/login.js"></script>
-<!--end::Custom Javascript-->
-<!--end::Javascript-->
+<!--<script src="assets/js/custom/general/login.js"></script>-->
 </body>
 </html>

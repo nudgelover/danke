@@ -7,31 +7,37 @@
     let cart = {
         init: function () {
 
+            //강의 옆에 있는 커리버튼으로 단수 강의 커리큘럼 넣으면
             $('.curri_btn').click(function(){
                 let self = this;
                 cart.curri(self);
             });
 
-            $('#del_lecs_btn').click(function () {
-                cart.send();
-            });
-
+            //전체 선택 옆에 있는 커리버튼으로 복수 강의 커리큘럼 넣으면
             $('#curris_btn').click(function(){
                 cart.curris();
             })
 
+            //체크된 강의들 복수 삭제하는 버튼 누르면
+            $('#del_lecs_btn').click(function () {
+                cart.send();
+            });
+
+            //체크된 아이들 결제창으로 이동시키면
             $('#ord_btn').click(function () {
                 cart.place_ord();
             });
 
-
+            //ord테이블 및 ord_detail테이블에 필요한 값들 초기화
             let cnt = 0;
             let price = 0;
             let disc = 0;
             let order = 0;
 
+            //전체선택 버튼 누르면 (전체선택 버튼 눌러서 계산하는 것과, 각각 체크하면서 계산하는 것 따로 해줘야 해...)
             $('#all_select').change(function() {
                 var all = $(this).is(':checked');
+                //전체선택 버튼까지 체크드 된 값으로 들어가면 안 되니까 낫디스 하고 나머지 다 체인지 트리거
                 $('input[type="checkbox"]').not(this).prop('checked', all).trigger('change');
                 cnt = 0;
                 price = 0;
@@ -39,25 +45,40 @@
                 order = 0;
 
                 $('input[type="checkbox"]:checked').not(this).each(function() {
+                    //체크박스타입 애들 포문 돌리면서
+                    //각각 주문 상품 개수 늘려주고, 가격 합산하고, 할인 합산하고, '(가격-할인)=주문금액' 합산하고
                     cnt += 1;
                     price += parseInt($(this).data('price'));
                     disc += parseInt($(this).data('disc'));
                     order += parseInt($(this).data('order'));
                 });
 
+                //가격값에 세자리마다 콤마찍어주고 원화표시 붙여주고
+                function numberWithCommas(number) {
+                    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                };
+
+                let fommattedPrice = numberWithCommas(price);
+                let fommattedDisc = numberWithCommas(price);
+                let fommattedOrder = numberWithCommas(price);
+
+                // 각 창에 각 값들 바로 표출
                 $('#sum_cnt').text(cnt + '개의 강의');
-                $('#sum_price').text('₩' + price);
-                $('#sum_disc').text('₩' + disc);
-                $('#sum_order').text('₩' + order);
+                $('#sum_price').text('₩' + fommattedPrice);
+                $('#sum_disc').text('₩' + fommattedDisc);
+                $('#sum_order').text('₩' + fommattedOrder);
             });
 
+            //전체선택 버튼을 제외한 다른 체크박스들 누르면
             $('input[type="checkbox"]:checked').not('#all_select').each(function() {
+                //체크드된 애들만 또 수량, 가격, 할인, 주문금액 합산
                 cnt += 1;
                 price += parseInt($(this).data('price'));
                 disc += parseInt($(this).data('disc'));
                 order += parseInt($(this).data('order'));
             });
 
+            //가격값에 세자리마다 콤마찍어주고 원화표시 붙여주고
             function numberWithCommas(number) {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             };
@@ -66,12 +87,13 @@
             let fommattedDisc = numberWithCommas(price);
             let fommattedOrder = numberWithCommas(price);
 
+            // 각 창에 각 값들 바로 표출
             $('#sum_cnt').text(cnt + '개의 강의');
             $('#sum_price').text('₩' + fommattedPrice);
             $('#sum_disc').text('₩' + fommattedDisc);
             $('#sum_order').text('₩' + fommattedOrder);
 
-
+            //같은 원리로 애들 값이 변할 때마다 계산
             $('input[type="checkbox"]').not('#all_select').change(function () {
 
                 cnt = 0;
@@ -95,12 +117,16 @@
 
         },
         send: function(){
+            //복수의 강의를 카트 삭제하기 위해 배열 초기화
             let deletes = new Array();
             $('input[type="checkbox"]:checked').not('#all_select').each(function () {
+                //전체선택 버튼 제외한 다른 체크된 애들 아이디값 배열에 넣고
                 deletes.push(this.id);
             });
+            //값 심어주고
             $('input.name').val(deletes);
 
+            //보내
             $('#cart_del_form').attr({
                 'action': '/lecture/deleteimpl',
                 'method': 'post'
@@ -110,12 +136,16 @@
         },
 
         place_ord: function(){
+            //선택된 복수의 강의 주문을 하면 배열 초기화부터
             let ord = new Array();
             $('input[type="checkbox"]:checked').not('#all_select').each(function () {
+                //선택된 강의들 중 전체선택 버튼 제외한 애들 아이디 값을 배열에 넣고
                 ord.push(this.id);
             });
+            //값 심어주고
             $('input.name').val(ord);
 
+            //보내
             $('#cart_del_form').attr({
                 'action': '/lecture/order',
                 'method': 'post'
@@ -123,8 +153,9 @@
 
             $('#cart_del_form').submit();
         },
-
+        //커리큘럼 단 건
         curri: function(element) {
+
             event.preventDefault();
 
             let stdnId = '${loginStdn.id}';
@@ -148,35 +179,45 @@
             });
         },
 
+        //커리큘럼은 잇는지 없는지 확인하고 넣어야 오류가 안 나서
+        //ajax로 확인하고 없는 애들만 넣고 있는 애들은 잇다고 알려야 해...
+        //근데 얘네가 form안에 있어서 ajax통신 후, 지멋대로 form 전송해버려서 error 뜨니까
+        //전송 못하도록 프리벤트디폴트,,
         curris: function(){
             event.preventDefault();
             let stdnId = '${loginStdn.id}';
+            //선택된 강의 넣을 배열 초기화
             let curri_lecs = new Array();
+
+            //전체선택 체크박스 제외한 것들 넣어
             $('input[type="checkbox"]:checked').not('#all_select').each(function () {
                 curri_lecs.push($(this).data('lec'));
             });
             let curriModal = $('#curris_modal');
+            //배열에 강의 몇개 담겼는지 미리 확인
             let curri_length=curri_lecs.length;
+
             $.ajax({
                 url: '/currilecsimpl',
                 data: {stdnId:stdnId, curri_lecs:curri_lecs},
                 traditional: true,
                 success: function(result){
                     if(result === 0){
+                        //선택한 강의들이 모두 커리큘럼에 없었을 때
                         let modal = new bootstrap.Modal(curriModal);
                         $('#curris_msg').html('선택하신 강의들이 커리큘럼에 추가되었습니다.');
                         modal.show();
                     } else {
+                        //controller에서 돌아온 result 값은 배열에 담아보냇던 강의들 중 이미 들어있던 강의 수를 반환
                         let modal = new bootstrap.Modal(curriModal);
+                        //보낸 거 - 이미 있던 강의 = cnt
                         let cnt = curri_length - result;
                         $('#curris_msg').html('선택하신 강의 중 이미 커리큘럼에 있던<br>'+result+'개의 강의에 더하여 '+cnt+'개의 강의가 추가되었습니다!');
                         modal.show();
                     }
                 }
-            })
-
+            });
         },
-
     }
     $(function () {
         cart.init();
@@ -185,12 +226,9 @@
 </script>
 
 
-<!--begin::Main-->
-<div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
+<div class="d-flex flex-column">
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -199,31 +237,20 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-33">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
-    <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
+    <div class="content fs-6 d-flex" id="kt_content">
         <div class="container-xxl" style="display: flex;">
-            <!--begin::Inbox-->
-            <div class="d-flex flex-column flex-lg-row" >
-                <!--begin::List-->
-                <div class="flex-lg-row-fluid d-block  w-lg-450px w-xxl-900px" id="kt_inbox_list">
-                    <!--begin::Card-->
-                    <div class="card mt-10 mt-lg-0" style="margin-right: 10px;">
-                        <!--begin::Header-->
+            <div class="d-flex flex-column flex-lg-row  col-lg-12">
+                <div class="d-block col-lg-9 mb-3" id="kt_inbox_aside" style="margin-right:1%">
+                    <div class="card mt-10 mt-lg-0">
                         <div class="card-header align-items-center card-px">
-                            <!--begin::Toolbar-->
                             <div class="d-flex align-items-center">
                                 <div class="form-check form-check-sm form-check-custom form-check-solid me-4 my-2"
                                      data-inbox="group-select">
@@ -241,29 +268,19 @@
                                     </button>
                                 </div>
                             </div>
-                            <!--end::Toolbar-->
-                            <!--begin::Pagination-->
                             <div class="d-flex align-items-center justify-content-sm-end text-end my-2">
                                 <!--begin::Per Page Dropdown-->
                                 <div class="d-flex align-items-center me-2">
                                     <span class="text-muted fw-semibold me-2">총 ${cnt}개의 강의</span>
                                 </div>
-                                <!--end::Per Page Dropdown-->
                             </div>
-                            <!--end::Pagination-->
                         </div>
-                        <!--end::Header-->
-                        <!--begin::Body-->
                         <div class="card-body px-0 overflow-auto">
                             <form id="cart_del_form">
                                 <c:forEach var="obj" items="${cart}">
-                                    <!--begin::Items-->
                                     <div class="min-w-700px" data-inbox="list">
-                                        <!--begin::Item-->
                                         <div class="d-flex align-items-start bg-hover-light card-px py-3" data-inbox="message">
-                                            <!--begin::Toolbar-->
                                             <div class="d-flex align-items-center">
-                                                <!--begin::Actions-->
                                                 <div class="d-flex align-items-center me-3" data-inbox="actions">
                                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                         <input class="form-check-input"
@@ -280,11 +297,8 @@
                                                         <i class="fas fa-trash fs-6"></i>
                                                     </a>
                                                 </div>
-                                                <!--end::Actions-->
-                                                <!--begin::Author-->
                                                 <div class="d-flex align-items-center flex-wrap me-3"
-                                                     data-bs-toggle="view" style="margin-left: 3px;">
-                                                    <!--begin::Symbol-->
+                                                     data-bs-toggle="view" style="margin-left: 1%;">
                                                     <div class="symbol symbol-100px me-4">
                                                                         <span class="symbol-label bg-light">
                                                                             <img src="/uimg/${obj.lecImg}"
@@ -292,10 +306,7 @@
                                                                         </span>
                                                     </div>
                                                 </div>
-                                                <!--end::Author-->
                                             </div>
-                                            <!--end::Toolbar-->
-                                            <!--begin::Info-->
                                             <div class="flex-grow-1 mt-2 me-2" data-bs-toggle="view">
                                                 <div>
                                                     <span class="fw-bold fs-6 me-2">${obj.lecTitle}</span>
@@ -311,8 +322,6 @@
                                                     </c:choose>
                                                 </div>
                                             </div>
-                                            <!--end::Info-->
-                                            <!--begin::Datetime-->
                                             <div class="mt-2 me-3 fw-bold w-150px text-end" data-bs-toggle="view" style="font-size: small;">
                                                 <c:choose>
                                                     <c:when test="${obj.lecDiscRate == 0}">
@@ -332,9 +341,7 @@
                                                     <a href="/lecture/orderthis?id=${obj.lecId}"><img src="/assets/media/icons/duotune/finance/fin002.svg" data-bs-toggle="tooltip" title="Order this Course"/></a>
                                                 </div>
                                             </div>
-                                            <!--end::Datetime-->
                                         </div>
-                                        <!--end::Item-->
                                     </div>
 
 
@@ -378,7 +385,6 @@
                                     </div>
                                     <!--Curris Modal End-->
 
-
                                 </c:forEach>
                             </form>
                             <c:choose>
@@ -389,64 +395,45 @@
                                 </c:when>
                             </c:choose>
                         </div>
-                        <!--end::Body-->
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::List-->
-                <!--begin::Aside-->
-                <div class="flex-lg-row-auto w-lg-250px w-xxl-325px" id="kt_inbox_aside">
-                    <!--begin::Item-->
+                <div class="flex-lg-row-auto col-lg-3" id="kt_inbox_list" style="margin-right:1%">
                     <div class="card">
-                        <!--begin::Head-->
                         <div class="card-header card-header-stretch">
                             <div class="d-flex align-items-center">
                                 <span class="fs-1 fw-bold me-3 text-center">주문금액</span>
                                 <span class="badge badge badge-light text-muted fs-7 fw-bold rounded py-2 px-3" id="sum_cnt"></span>
                             </div>
                         </div>
-                        <!--begin::Head-->
-                        <!--begin::Body-->
-                        <div class="card-body px-0 pb-0">
-                            <!--begin::Inbox Aside-->
+                        <div class="card-body card-body-stretch px-0 pb-0">
                             <div class="overflow-auto">
                                 <div data-action="list" class="mh-300px mh-lg-unset">
-                                    <!--begin::Item-->
                                     <div class="bg-state-light active px-9 py-8 d-flex" data-action="list">
-                                        <div class="d-flex flex-row-fluid flex-column">
-                                            <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex flex-column" style="width:100%">
+                                            <div class="d-flex justify-content-between" style="justify-content:stretch">
                                                 <div class="text-muted fw-bold">선택 강의 금액</div>
                                                 <div class="text-muted fs-7 fw-bold text-end" id="sum_price"></div>
                                             </div>
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between">
                                                 <div class="text-danger fw-bold">할인 금액</div>
                                                 <div class="text-danger fs-7 fw-bold text-end" id="sum_disc"></div>
                                             </div>
                                             <div class="separator separator-dashed my-10"></div>
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex justify-content-between">
                                                 <div class="text-primary fw-bold">총 주문 금액</div>
                                                 <div class="text-primary fs-7 fw-bold text-end" id="sum_order"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end::Item-->
                                 </div>
                             </div>
-                            <!--end::Inbox Aside-->
                             <div class="d-flex flex-stack px-9 mt-3 mb-10">
                                 <button class="btn btn-flex btn-primary form-control" style="display: flex; justify-content: center; align-items: center;" id="ord_btn">수강 신청</button>
                             </div>
                         </div>
-                        <!--end::Body-->
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::Aside-->
             </div>
-            <!--end::Inbox-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->

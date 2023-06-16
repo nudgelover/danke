@@ -26,12 +26,10 @@
     let order_selected = {
         init: function () {
 
-            // var IMP = window.IMP;
-            // IMP.init("imp80384222");
-
+            //결제버튼 결제방법 선택 전, 비활성화
             $('#pay_btn').attr('disabled', true);
 
-
+            //단 건 주문 로직이니까 주문금액을 세자리마다 ','찍고 원화 표시 붙이고 표출
             let rawData = $('#ord_price').html();
             //alert(rawData);
             let trimmed = rawData.replace(/,/g, "");
@@ -46,22 +44,26 @@
             //alert(formattedOrdPrice);
             $('#final_order').html('₩' + formattedOrdPrice);
 
+            //쿠폰 할인 적용시키기
 
             $('#apply_btn').click(function () {
+                //선택한 쿠폰 값 바깥 전달
                 let cpnId = $('input[type="radio"][name="cpn_no"]:checked').val();
                 $('#cpnId').val(cpnId);
                 let selected_cpn = $('input[type="radio"][name="cpn_no"]:checked').data('name');
                 $('#selected_title').val(selected_cpn);
 
+                //선택한 쿠폰의 할인 금액 바깥 전달
                 let cpn_id = $('input[type="radio"][name="cpn_no"]:checked').val();
                 let benefit_amount = $('#benefit_' + cpn_id).data('value');
                 let intbenefit = Math.floor(benefit_amount);
 
-
+                //점찍어서 원화표시 붙이고
                 let formattedBenefit = numberWithCommas(intbenefit);
                 $('#benefit').text('-₩' + formattedBenefit);
                 $('#useCpn').val(intbenefit);
 
+                //hidden포함한 창들에 모두 값전달
                 let total_amount = $('#ord_price').data('value');
                 let final_price = (total_amount - benefit_amount);
                 let formattedFinal = numberWithCommas(final_price);
@@ -73,6 +75,8 @@
                 $('#my_coupon').modal('hide');
             })
 
+            //결제방법 선택하면 결제버튼 활성화
+            //결제방법 선택 바꿀 때마다 값 전달
             $('input[name="payment"]').change(function () {
                 let payMethod = $('input[name="payment"]:checked').val()
                 $('#payMethod').val(payMethod);
@@ -83,7 +87,9 @@
                 }
             });
 
+            //결제 버튼 누르면 수단별 팝업 api
             $('#pay_btn').click(function () {
+                //수단 값 전달 받아서 세팅
                 let pg='';
                 let payMethod = $('input[name="payment"]:checked').val();
                 if(payMethod==1){
@@ -91,14 +97,17 @@
                 } else {
                     pg='kakaopay';
                 }
-
-                const IMP = window.IMP; // 생략 가능
-                IMP.init("imp80384222"); // 예: imp00000000a
+                //아이엠포트엽니다,,
+                const IMP = window.IMP;
+                IMP.init("imp80384222");
+                //단건은 그냥 상품명에 강의명 넣기,,
                 let name = '${lec.title}';
+                //pg연동 고유값 주기 위해 시간 값으로 할당,,
                 let merchant_uid = 'DIGI'+ new Date().getTime();
-
+                //모달 준비시키고
                 let orderthisModal = $('#orderthis_modal');
 
+                //창 열고 주문자 값과 상품명, 결제방법 전달
                 IMP.request_pay({
                     pg: pg,
                     pay_method: 'card',
@@ -119,9 +128,6 @@
                 });
             });
         },
-        // requestPay: function () {
-
-        // },
         send: function () {
 
             $('#pay_form').attr({
@@ -139,12 +145,9 @@
 </script>
 
 
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -153,36 +156,26 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
             <div class="card">
                 <div class="card-body p-0">
-                    <!--begin::Invoice-->
                     <div class="row justify-content-center pt-8 px-8 pt-md-20 px-md-0">
                         <div class="col-md-10">
-                            <!-- begin: Invoice header-->
                             <div class="d-flex justify-content-between pb-10 pb-md-20 flex-column flex-md-row">
                                 <h1 class="display-6 text-dark fw-bold mb-10">CHECKOUT</h1>
                                 <div class="d-flex flex-column align-items-md-end px-0">
-                                    <!--begin::Logo-->
                                     <a href="#" class="mb-5">
                                         <img src="/img/logo3.png" class="h-50px" alt="img"/>
                                     </a>
-                                    <!--end::Logo-->
                                     <span class="d-flex flex-column align-items-md-end fs-7 fw-semibold text-muted">
 															<span>서울특별시 성동구 아차산로 111 2층 (04794)</span>
 															<span>TEL. 02-2163-5700</span>
@@ -190,8 +183,6 @@
                                 </div>
                             </div>
                             <div class="separator mt-3" style="border: solid 0.5px rgba(151,151,151,0.53);"></div>
-                            <!--end: Invoice header-->
-                            <!--begin: Invoice body-->
                             <div class="row border-bottom pb-10">
                                 <div class="col-md-9 py-md-10 pe-md-10">
                                     <div class="table-responsive">
@@ -259,7 +250,6 @@
                                                                type="text"
                                                                style="width: fit-content(100%); margin-left: 35px"
                                                                disabled id="selected_title"/>
-
                                                     </div>
                                                 </td>
                                                 <td class="text-end">
@@ -291,9 +281,9 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-center">
-                                                    <div>
-                                                        <input type="radio" class="btn-check" name="payment" value="1" id="card"/>
-                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5" for="card" style="margin-left: 30%; margin-right: 30%;">
+                                                    <div class="d-flex justify-content-center" style="width: 100%">
+                                                        <input type="radio" class="btn-check" name="payment" value="1" id="card" style="width: 50%;"/>
+                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5" for="card" style="width: 50%;margin-left:10%;margin-right:1%;">
                                                             <span class="svg-icon svg-icon-4hx me-4 text-dark fs-2hx">
                                                                 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M22 7H2V11H22V7Z" fill="currentColor"/>
@@ -304,36 +294,12 @@
                                                                 <span class="text-dark fw-bold d-block fs-3">카드</span>
                                                             </span>
                                                         </label>
-                                                        <input type="radio" class="btn-check" name="payment" value="2" id="kakao"/>
-                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center" for="kakao" style="margin-left: 30%; margin-right: 30%;">
-                                                            <span class="svg-icon svg-icon-4x me-4">
-                                                                <?xml version="1.0" encoding="utf-8"?>
-                                                                <svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 143.6 44.2" style="enable-background:new 0 0 143.6 44.2;" xml:space="preserve">
-                                                                        <style type="text/css">
-                                                                        .st0{fill-rule:evenodd;clip-rule:evenodd;fill:black;}
-                                                                        .st1{fill:black;}
-                                                                        </style>
-                                                                        <g>
-                                                                            <g>
-                                                                                <g>
-                                                                                    <path class="st0" d="M21.9,0C9.8,0,0,7.8,0,17.3C0,23.5,4.1,28.9,10.2,32l-2.1,7.7c-0.1,0.2,0,0.5,0.2,0.7
-                                                                                        c0.1,0.1,0.3,0.2,0.4,0.2c0.1,0,0.3-0.1,0.4-0.1l8.9-6c1.3,0.2,2.6,0.3,4,0.3c12.1,0,21.9-7.8,21.9-17.3C43.9,7.8,34.1,0,21.9,0z
-                                                                                        "/>
-                                                                                </g>
-                                                                            </g>
-                                                                            <path class="st1" d="M62.4,31.7v11.2h-8V1.6H60l1,2.6c1.7-1.7,4.3-3.5,8.4-3.5c7.8,0,11.5,5.8,11.5,15.3c0,9.9-5.7,16.2-13.9,16.2
-                                                                            C65.4,32.3,64.2,32.2,62.4,31.7z M62.4,8.3v17.8c0.4,0.1,1.5,0.2,2.6,0.2c5.7,0,7.9-4,7.9-10.3c0-5.5-1.5-8.8-6-8.8
-                                                                            C65.3,7.2,63.7,7.7,62.4,8.3z"/>
-                                                                            <path class="st1" d="M98.2,13.3h4.5v-1c0-3.3-1.9-4.8-5.1-4.8c-2.5,0-5.6,0.7-8.2,2l-2.2-5.3c2.8-2,7.2-3.3,11.1-3.3
-                                                                            c7.6,0,11.8,4,11.8,11.7v18.9h-5.6l-0.8-2.5c-3.2,2.3-6.2,3.3-8.8,3.3c-5.8,0-9.1-3.5-9.1-9.4C85.8,16.6,90.1,13.3,98.2,13.3z
-                                                                             M102.7,23.8v-5.5h-3.7c-4.1,0-6.2,1.5-6.2,4.4c0,2.2,1.1,3.3,3.5,3.3C98.6,26.1,101.4,25,102.7,23.8z"/>
-                                                                            <path class="st1" d="M134.3,28.4c-2.8,7.4-6.1,12.8-11,15.8l-4.9-4.5c2.8-2.5,4.9-4.9,6.6-8.1L114.4,2.7l7.9-2.1l6.8,23.4l6.7-23.5
-                                                                            l7.8,2.2L134.3,28.4z"/>
-                                                                        </g>
-                                                                    </svg>
-                                                                </span>
+
+                                                        <input type="radio" class="btn-check" name="payment" value="2" id="kakaopay" style="width: 50%"/>
+                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5" for="kakaopay" style="width: 50%;margin-left:1%;margin-right:10%;">
+                                                            <img src="/img/kakaopay.png" style="width: 20%">
                                                             <span class="d-block fw-semibold text-start">
-                                                                <span class="text-dark fw-bold d-block fs-3">카카오페이</span>
+                                                                <span class="text-dark fw-bold d-block fs-3 mx-2">카카오페이</span>
                                                             </span>
                                                         </label>
                                                     </div>
@@ -342,10 +308,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                                 <div class="col-md-3 border-start-md ps-md-10 pt-md-10 text-end">
-                                    <!--begin::Total Amount-->
                                     <div class="fs-3 fw-bold text-muted mb-3">총 주문금액</div>
                                     <div class="fs-2x fw-bold" id="ord_price"
                                          data-value="${lec.price * (100 - lec.discRate)/100}">
@@ -353,7 +317,6 @@
                                                           pattern="₩###,###"/>
                                     </div>
                                     <div class="text-muted fw-semibold mb-16">부가세 포함</div>
-                                    <!--end::Total Amount-->
                                     <div class="fs-3 fw-bold text-muted mb-3">최종결제금액</div>
                                     <div class="fs-2x fw-bold text-danger" id="final_order"></div>
                                     <div class="text-primary fw-semibold mb-16">최저가혜택</div>
@@ -373,26 +336,19 @@
                                         </form>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <!-- begin: Invoice action-->
                     <div class="row justify-content-center py-8 px-8 py-md-13 px-md-0">
                         <div class="col-md-10">
 
                         </div>
                     </div>
-                    <!-- end: Invoice action-->
-                    <!--end::Invoice-->
                 </div>
             </div>
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
 
 
 <div class="modal fade" tabindex="-1" id="my_coupon">

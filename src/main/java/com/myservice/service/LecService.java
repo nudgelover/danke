@@ -43,7 +43,7 @@ public class LecService implements KBService<Integer, Lec> {
     }
 
     public Page<Lec> getPage(int pageNo) throws Exception {
-        PageHelper.startPage(pageNo, 12); //한화면에 출력되는 개수
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
         return mapper.getpage();
     }
 

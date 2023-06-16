@@ -4,16 +4,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+
         $('#down_qr_btn').hide();
         $('#verification_btn').hide();
         $('#verification_tab').hide();
         $('#tab2').hide();
 
+        //타이머 5분 준다
         let limits = 300;
         function count_down_timer() {
+            //여따가 넣어놔야 마이너스 분으로 안 감. clearInterval이나, 메서드 중간에 넣는  return이 안 먹음..이유는 모름
             if(limits<0){
                 return;
             } else {
+                //분 초 표시
                 var min = parseInt((limits) / 60);
                 var sec = limits % 60;
                 let methodModal = $('#method_modal');
@@ -47,15 +51,18 @@
                   if(result!=0){
                       let modal = new bootstrap.Modal(methodModal);
                       $('#method_msg').html('인증번호가 발송되었습니다.');
+                      //인증번호 받던 화면 가리고,
                       $('#method_tab').hide();
                       $('#method_btn').hide();
+                      //hidden값으로 인증번호 심어주고
                       $('#code').val(result)
+                      //인증번호 입력 창 보여주고
                       $('#verification_btn').show();
                       $('#verification_tab').show();
 
+                      //타이머 1초마다 호출
                       count_down_timer();
                       setInterval(count_down_timer, 1000);
-
                       modal.show();
                   } else {
                       let modal = new bootstrap.Modal(methodModal);
@@ -69,6 +76,7 @@
         $('#send_code_btn').click( function(){
             let stdnId= $('#stdnId').val();
             let methodModal = $('#method_modal');
+            //히든값 입력값 비교
             if($('#code').val()==$('#confirm_code').val()){
                 window.location.href='/settings/generateqr?id='+stdnId;
             } else {
@@ -82,10 +90,8 @@
 </script>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -94,30 +100,20 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
                 <a href="/settings/pwd?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold">비밀번호 변경</a>
                 <a href="/settings/authentication" class="btn btn-active-accent active fw-bold ms-3">QR코드발급</a>
                 <a href="/settings" class="btn btn-active-accent  fw-bold">settings</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Profile Account-->
             <div class="card">
-                <!--begin::Form-->
-
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="kt_tab_pane_4" role="tabpanel">
                         <div class="col-xl-12">
-                            <!--begin::Engage Widget 1-->
                             <div class="card px-8 py-8">
                                 <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info">
                                     <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
@@ -129,13 +125,11 @@
                                          style="background-image: url(/assets/media/illustrations/sigma-1/17.png);"></div>
                                 </div>
                             </div>
-
                             <div class="card card-stretch mb-5 mb-xxl-8" id="tab1">
                                 <div class="card-body pt-3">
                                     <input type="hidden" id="stdnId" value="${loginStdn.id}"/>
                                     <input type="hidden" id="qr_name" value=""/>
                                     <input type="hidden" id="code" value=""/>
-
                                     <div class="row mb-8 d-flex justify-content-center " style="text-align: center">
                                         <div class="col-lg-9">
                                             <div class="card-body p-0 d-flex justify-content-center flex-column">
@@ -167,10 +161,8 @@
                                                                 </span>
                                                             </span>
                                                         </label>
-                                                        <!--end::Option-->
                                                     </div>
                                                     <div class="mx-30">
-                                                        <!--begin::Option-->
                                                         <input type="radio" class="btn-check" name="method" value="2" id="method_sms"/>
                                                         <label class="btn btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger p-7 d-flex align-items-center" for="method_sms">
                                                             <span class="svg-icon svg-icon-muted svg-icon-2hx">
@@ -186,7 +178,6 @@
                                                                 </span>
                                                             </span>
                                                         </label>
-                                                        <!--end::Option-->
                                                     </div>
                                                 </div>
                                                 <div id="method_btn" style="padding-left: 15%; padding-right:15%;">
@@ -211,7 +202,6 @@
                                                                     </svg>
                                                                 </svg>
                                                             </span>
-                                                            <!--end::Svg Icon-->
                                                         </span>
                                                         <input id="confirm_code" type="text" class="form-control" placeholder="인증번호를 입력하세요" aria-describedby="label_for_code"/>
                                                     </div>
@@ -225,7 +215,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="card card-stretch mb-5 mb-xxl-8" id="tab2">
                                 <div class="card-body pt-3">
                                     <div class="row mb-8" style="text-align: center">
@@ -233,7 +222,6 @@
                                             <img src="/uimg/logo.png" style="width:310px; height: 310px;" class="rounded" id="qr_img">
                                         </div>
                                     </div>
-
                                     <div class="row mb-8" style="text-align: center">
                                         <label class="col-lg-12 col-form-label"></label>
                                         <div class="col-lg-12">

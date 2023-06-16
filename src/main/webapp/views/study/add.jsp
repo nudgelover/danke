@@ -10,7 +10,6 @@
         width: 100%
     }
 </style>
-<%--파일업로드 스크립트--%>
 
 <script>
         var dropImg;
@@ -81,10 +80,8 @@
 </script>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -93,8 +90,6 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
@@ -104,65 +99,53 @@
                     </c:when>
                 </c:choose>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
             <div class="card">
                 <div class="card-body">
-                <!--begin::Form-->
                     <input type="hidden" id="outputData" value=""/>
-                <div>
-                    <div class="card mb-12">
-                        <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info py-3">
-                            <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                                <h1 class="text-dark" style="font-weight: 900">오늘 학습한 내용을 나누고 함께 성장하세요!</h1>
-                                <div class="fs-3 mb-8">DIGICampus는 스터디 시간 및 일지 작성 통계를 바탕으로 다양한 혜택을 제공합니다.<br>
-                                이번 달 혜택 주인공은 너야 너!</div>
+                    <div>
+                        <div class="card mb-12">
+                            <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info py-3">
+                                <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
+                                    <h1 class="text-dark" style="font-weight: 900">오늘 학습한 내용을 나누고 함께 성장하세요!</h1>
+                                    <div class="fs-3 mb-8">DIGICampus는 스터디 시간 및 일지 작성 통계를 바탕으로 다양한 혜택을 제공합니다.<br>
+                                    이번 달 혜택 주인공은 너야 너!</div>
+                                </div>
+                                <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
+                                     style="background-image: url(/assets/media/illustrations/sigma-1/4.png);"></div>
                             </div>
-                            <div class="d-none d-md-flex flex-row-fluid mw-400px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                 style="background-image: url(/assets/media/illustrations/sigma-1/4.png);"></div>
                         </div>
-                    </div>
-                    <form class="card mb-12" id="study_update">
-                        <div class="rounded">
-                            <div id="kt_docs_ckeditor_document_toolbar"></div>
-                            <div class="border-gray-500 my-3" id="kt_docs_ckeditor_document" contenteditable="true">
+                        <form class="card mb-12" id="study_update">
+                            <div class="rounded">
+                                <div id="kt_docs_ckeditor_document_toolbar"></div>
+                                <div class="border-gray-500 my-3" id="kt_docs_ckeditor_document" contenteditable="true">
 
-                            </div>
-                            <div class="dropzone" id="kt_dropzonejs_example_1">
-                                <!--begin::Message-->
-                                <div class="dz-message needsclick">
-                                    <!--begin::Icon-->
-                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                    <!--end::Icon-->
-                                    <!--begin::Info-->
-                                    <div class="ms-4">
-                                        <h3 class="fs-5 fw-bold text-gray-900 mb-1">스터디 관련 자료 업로드</h3>
-                                        <span class="fs-7 fw-semibold text-gray-400">상자를 클릭하거나 파일을 드랍하세요.</span><br>
-                                        <span class="fs-7 fw-semibold text-gray-400">파일크기 1MB제한</span>
+                                </div>
+                                <div class="dropzone" id="kt_dropzonejs_example_1">
+                                    <div class="dz-message needsclick">
+                                        <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
+                                        <div class="ms-4">
+                                            <h3 class="fs-5 fw-bold text-gray-900 mb-1">스터디 관련 자료 업로드</h3>
+                                            <span class="fs-7 fw-semibold text-gray-400">상자를 클릭하거나 파일을 드랍하세요.</span><br>
+                                            <span class="fs-7 fw-semibold text-gray-400">파일크기 1MB제한</span>
+                                        </div>
                                     </div>
-                                    <!--end::Info-->
+                                </div>
+                                <div class="d-flex float-end mt-10 pb-10">
+                                    <a href="javascript:void(0)" id="study_register_btn" class="btn btn-primary">등록</a>
                                 </div>
                             </div>
-                            <div class="d-flex float-end mt-10 pb-10">
-                                <a href="javascript:void(0)" id="study_register_btn" class="btn btn-primary">등록</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!--end::Form-->
+                        </form>
+                    </div>
                 </div>
             </div>
-            <!--end::Profile Account-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
+
 
 
 <div class="modal fade" tabindex="-1" id="study_qr_modal">

@@ -1,7 +1,6 @@
 package com.myservice.controller;
 
-import com.myservice.dto.MyPage;
-import com.myservice.dto.SbjDetail;
+
 import com.myservice.dto.Stdn;
 import com.myservice.service.MyPageService;
 import com.myservice.service.SbjDetailService;
@@ -78,42 +77,25 @@ public class MainController {
 
             if(stdn==null){
                 model.addAttribute("msg","error");
-                model.addAttribute("contents", "The ID does not exist.");
+                model.addAttribute("contents", "존재하지 않는 ID입니다.");
                 return "login";
             }
 
             if(Integer.parseInt(stdn.getIsJoin())==0){
                 model.addAttribute("msg","error");
-                model.addAttribute("contents", "After admin approval, you can log in.");
+                model.addAttribute("contents", "관리자 승인 후 로그인 가능합니다.");
                 return "login";
             }
 
             if(Integer.parseInt(stdn.getIsJoin())==2){
                 model.addAttribute("msg","error");
-                model.addAttribute("contents", "Login blocked after 5 failed attempts.");
+                model.addAttribute("contents", "비밀번호 5회 실패로 로그인이 차단되었습니다.");
                 return "login";
             }
 
             if(Integer.parseInt(stdn.getIsJoin())==3){
                 model.addAttribute("msg","error");
-                model.addAttribute("contents", "Login blocked by Admin");
-                return "login";
-            }
-
-            if(!encoder.matches(pwd, stdn.getPwd())) {
-                int num = Integer.parseInt(stdn.getLoginError())+1;
-                if(num==5){
-                    stdn.setIsJoin("2");
-                    stdn.setLoginError(num+"");
-                    stdnService.updateAdm(stdn);
-                    model.addAttribute("msg","error");
-                    model.addAttribute("contents", "Login blocked after 5 failed attempts.");
-                    return "login";
-                }
-                stdn.setLoginError(num+"");
-                stdnService.updateAdm(stdn);
-                model.addAttribute("msg","error");
-                model.addAttribute("contents", "Login Failed. ("+num+" attempt)");
+                model.addAttribute("contents", "관리자에 의하여 차단되었습니다.");
                 return "login";
             }
 
@@ -123,12 +105,28 @@ public class MainController {
                 String lastVisit = now.format(formatter);
                 stdn.setLastVisit(lastVisit);
                 stdn.setLoginError("0");
-                stdnService.modify(stdn);
+                stdnService.updateAdm(stdn);
 
                 session.setMaxInactiveInterval(12000000);
                 session.setAttribute("loginStdn", stdn);
+            } else if (!encoder.matches(pwd, stdn.getPwd())) {
+                int num = Integer.parseInt(stdn.getLoginError());
+                if(num==4){
+                    num+=1;
+                    stdn.setIsJoin("2");
+                    stdn.setLoginError(num+"");
+                    stdnService.updateAdm(stdn);
+                    model.addAttribute("msg","error");
+                    model.addAttribute("contents", "비밀번호 5회 실패로 로그인이 차단되었습니다.");
+                    return "login";
+                }
+                num+=1;
+                stdn.setLoginError(num+"");
+                stdnService.updateAdm(stdn);
+                model.addAttribute("msg","error");
+                model.addAttribute("contents", "로그인 실패. ("+num+"회 오류)");
+                return "login";
             }
-
         model.addAttribute("loginStdn", stdn);
         model.addAttribute("center", "center");
         return "index";
@@ -160,19 +158,6 @@ public class MainController {
     public String register2(Model model) throws Exception {
         model.addAttribute("center", "register2");
         return "index";
-    }
-
-    @RequestMapping("/registerimpl2")
-    public String registerimpl2(Model model, MyPage myPage, HttpSession session) throws Exception {
-        try {
-            myPageService.register(myPage);
-
-        } catch (Exception e) {
-            throw new Exception("시스템 장애: ER0006");
-        }
-
-        model.addAttribute("center", "center");
-        return "redirect:/login";
     }
 
     @RequestMapping("/logout")

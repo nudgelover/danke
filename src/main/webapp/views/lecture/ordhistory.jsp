@@ -1,12 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap0">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -15,23 +15,18 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
-                <a href="/lecture/courselist?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
                 <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
             <div class="card">
                 <div class="card-body">
-                    <!--begin::Form-->
                     <input type="hidden" id="outputData" value=""/>
                     <div>
                         <div class="card mb-12">
@@ -46,20 +41,22 @@
                             </div>
                         </div>
                         <div class="rounded d-flex justify-content-center flex-grow-0">
-                            <div class="py-5 px-10" style="width: 100%">
+                            <div class="py-5" style="width: 100%; padding-right:15%; padding-left:15%">
                                 <div class="table-responsive text-center">
                                     <table class="table table-row-dashed table-row-gray-300 gy-7">
                                         <colgroup>
-                                            <col style="width: 15%;">
-                                            <col style="width: 15%;">
-                                            <col style="width: 70%;">
+                                            <col style="width: 20%;">
+                                            <col style="width: 30%;">
+                                            <col style="width: 50%;">
                                         </colgroup>
                                         <thead>
                                             <tr class="fw-bold fs-6 text-gray-800">
                                                 <th>주문일자
                                                     <br><span class="text-muted fs-8">(주문번호)</span></th>
-                                                <th>주문상세번호</th>
-                                                <th class="text-center">상세내역</th>
+                                                <th>주문상세번호
+                                                    <br><span class="text-muted fs-8">(강의별 주문상세번호)</span></th>
+                                                <th class="text-center">상세내역
+                                                    <br><span class="text-muted fs-8">(강의 상세정보)</span></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -67,10 +64,33 @@
                                                     <tr>
                                                         <td rowspan="${ord.cnt}">
                                                         ${ord.rdate}<br>
-                                                        <span class="text-muted fs-8"><a href="/lecture/orddetail?id=${ord.id}">(${ord.id})</a></span></td>
+                                                        <span class="text-muted fs-8">주문번호: <a href="/lecture/orddetail?id=${ord.id}">${ord.id}</a></span></td>
                                                         <c:forEach var="ordDetailByOrd" items="${ordDetailByOrd[ord.id]}" varStatus="status" begin="0" end="0">
                                                             <td>${ordDetailByOrd.id}</td>
-                                                            <td class="text-center">${ordDetailByOrd.img}</td>
+                                                            <td class="text-center">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <div class="symbol symbol-100px me-4">
+                                                                            <span class="symbol-label bg-light">
+                                                                                <img src="/uimg/${ordDetailByOrd.img}"
+                                                                                     class="h-75 align-self-center" alt=""/>
+                                                                            </span>
+                                                                    </div>
+                                                                    <div class="text-start" style="margin-left: 1%">
+                                                                        <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><br>
+                                                                        <span class="text-muted fs-8 text-start">${ordDetailByOrd.lecTeacher}</span>
+                                                                        <p class="text-muted fs-8 text-start">
+                                                                            <span style="text-decoration: line-through;">
+                                                                                    <fmt:formatNumber value="${ordDetailByOrd.price}" type="number" pattern="###,###원"/>
+                                                                                </span>
+                                                                            (${ordDetailByOrd.discRate}%할인)<br>
+                                                                            <span class="text-danger">
+                                                                                <fmt:formatNumber value="${ordDetailByOrd.price * (100-ordDetailByOrd.discRate)/100}" type="number" pattern="###,###원"/>
+                                                                            </span>
+                                                                            <br><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </c:forEach>
                                                     </tr>
                                                     <c:choose>
@@ -78,29 +98,47 @@
                                                             <c:forEach var="ordDetailByOrd" items="${ordDetailByOrd[ord.id]}" varStatus="status" begin="1">
                                                                 <tr>
                                                                     <td>${ordDetailByOrd.id}</td>
-                                                                    <td class="text-center">${ordDetailByOrd.img}</td>
+                                                                    <td class="text-center">
+                                                                        <div class="d-flex justify-content-center">
+                                                                            <div class="symbol symbol-100px me-4">
+                                                                            <span class="symbol-label bg-light">
+                                                                                <img src="/uimg/${ordDetailByOrd.img}"
+                                                                                     class="h-75 align-self-center" alt=""/>
+                                                                            </span>
+                                                                            </div>
+                                                                            <div class="text-start" style="margin-left: 1%">
+                                                                                <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><br>
+                                                                                <span class="text-muted fs-8 text-start">${ordDetailByOrd.lecTeacher}</span>
+                                                                                <p class="text-muted fs-8 text-start">
+                                                                            <span style="text-decoration: line-through;">
+                                                                                    <fmt:formatNumber value="${ordDetailByOrd.price}" type="number" pattern="###,###원"/>
+                                                                                </span>
+                                                                                    (${ordDetailByOrd.discRate}%할인)<br>
+                                                                                    <span class="text-danger">
+                                                                                <fmt:formatNumber value="${ordDetailByOrd.price * (100-ordDetailByOrd.discRate)/100}" type="number" pattern="###,###원"/>
+                                                                            </span>
+                                                                                    <br><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
                                                                 </tr>
                                                             </c:forEach>
                                                         </c:when>
                                                     </c:choose>
                                             </c:forEach>
-                                        <!-- 추가적인 주문상세번호와 상세내역을 필요한 만큼 추가 -->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--end::Form-->
                 </div>
             </div>
-            <!--end::Profile Account-->
         </div>
-        <!--end::Container-->
     </div>
-    <!--end::Content-->
 </div>
-<!--end::Main-->
+
 
 
 <div class="modal fade" tabindex="-1" id="study_edit_modal">
@@ -117,4 +155,3 @@
         </div>
     </div>
 </div>
->

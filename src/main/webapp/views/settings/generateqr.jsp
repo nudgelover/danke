@@ -4,6 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
+        //큐알생성후에 보여줄,,,
         $('#down_qr_btn').hide();
         $('#by_mms_btn').hide();
 
@@ -41,17 +42,13 @@
                     }
                 }
             })
-
         })
-
     });
 </script>
 
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -60,30 +57,20 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/mypage" class="btn btn-active-accent  fw-bold">MYPAGE</a>
                 <a href="/settings/pwd?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold">비밀번호 변경</a>
                 <a href="/settings/authentication" class="btn btn-active-accent active fw-bold ms-3">QR코드발급</a>
                 <a href="/settings" class="btn btn-active-accent  fw-bold">settings</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Profile Account-->
             <div class="card">
-                <!--begin::Form-->
-
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="kt_tab_pane_4" role="tabpanel">
                         <div class="col-xl-12">
-                            <!--begin::Engage Widget 1-->
                             <div class="card px-8 py-8">
                                 <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-info">
                                     <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
@@ -95,7 +82,6 @@
                                          style="background-image: url(/assets/media/illustrations/sigma-1/17.png);"></div>
                                 </div>
                             </div>
-
                             <div class="card card-stretch mb-5 mb-xxl-8" id="tab2">
                                 <div class="card-body pt-3">
                                         <input type="hidden" id="stdnId" value="${loginStdn.id}"/>
@@ -105,7 +91,6 @@
                                             <img src="/uimg/logo.png" style="width:310px; height: 310px;" class="rounded" id="qr_img">
                                         </div>
                                     </div>
-
                                     <div class="row mb-8" style="text-align: center">
                                         <label class="col-lg-12 col-form-label"></label>
                                         <div class="col-lg-12">
