@@ -2,16 +2,15 @@ package com.myservice.controller;
 
 
 import com.myservice.dto.*;
-import com.myservice.service.BlahService;
-import com.myservice.service.LikesService;
-import com.myservice.service.MrkService;
-import com.myservice.service.MyPageService;
+import com.myservice.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,6 +23,8 @@ public class AjaxImplController {
     @Value("${uploadimgdir}")
     String imgdir;
 
+    @Autowired
+    StdnService stdnService;
     @Autowired
     BlahService blahService;
     @Autowired
@@ -76,10 +77,10 @@ public class AjaxImplController {
             jo.put("id", obj.getId());
             jo.put("name", obj.getName());
             jo.put("img", obj.getImg());
-            jo.put("birthday",obj.getBirthday());
-            jo.put("insta",obj.getInsta());
+            jo.put("birthday", obj.getBirthday());
+            jo.put("insta", obj.getInsta());
             jo.put("facebook", obj.getFacebook());
-            jo.put("contact",obj.getContact());
+            jo.put("contact", obj.getContact());
             jo.put("email", obj.getEmail());
             jo.put("comdate", obj.getComdate());
             jo.put("digidate", obj.getDigidate());
@@ -98,4 +99,13 @@ public class AjaxImplController {
         log.info(result);
         return result;
     }
+
+
+    @RequestMapping("/getstdnimg")
+    public ResponseEntity<?> getStudentImage(@RequestParam String stdnId) throws Exception {
+        Stdn stdn = stdnService.get(stdnId);
+        return ResponseEntity.ok(stdn);
+    }
+
+
 }

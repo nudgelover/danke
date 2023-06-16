@@ -43,7 +43,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">MY PAGE</h3>
+                <h3 class="text-dark fw-bold my-1">마이페이지</h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
@@ -207,7 +207,7 @@
                         </li>
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/settings/pwd?id=${loginStdn.id}">비밀번호변경</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/pwd?id=${loginStdn.id}">비밀번호변경</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->

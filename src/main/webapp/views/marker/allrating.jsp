@@ -43,7 +43,7 @@
         setTimeout(function () {
             KTApp.hidePageLoading();
             loadingEl.remove();
-        }, 3000);
+        }, 500);
     });
 </script>
 <c:set var="currentPage" value="${rpage}"/>
@@ -293,124 +293,11 @@
                 <!--end::Products-->
             </div>
             <!--end::Section-->
-            <!--begin::Section-->
-            <div class="mt-10 mb-10">
-                <!--begin::Heading-->
-                <div class="d-flex justify-content-between align-items-center mb-7">
-                    <h2 class="fw-bold text-dark fs-2 mb-0">따끈따근 신상맛집! 최근에 업로드되었어요!🔥</h2>
-                </div>
-                <!--end::Heading-->
-
-                <div class="row g-5 g-xxl-8">
-                    <div class="tns tns-default" style="direction: ltr">
-                        <!--begin::Slider-->
-                        <div
-                                data-tns="true"
-                                data-tns-loop="true"
-                                data-tns-swipe-angle="false"
-                                data-tns-speed="2000"
-                                data-tns-autoplay="true"
-                                data-tns-autoplay-timeout="18000"
-                                data-tns-controls="true"
-                                data-tns-nav="false"
-                                data-tns-items="3"
-                                data-tns-center="false"
-                                data-tns-dots="false"
-                                data-tns-prev-button="#kt_team_slider_prev1"
-                                data-tns-next-button="#kt_team_slider_next1"
-                        >
-
-                            <c:forEach var="obj" items="${recent}">
-                                <div class="col-md-4 col-xxl-4 col-lg-12">
-                                    <!--begin::Card-->
-                                    <div class="card shadow-none">
-                                        <div class="card-body p-0">
-                                            <!--begin::Image-->
-                                            <div class="overlay rounded overflow-hidden">
-                                                <div class="overlay-wrapper rounded bg-light text-center">
-                                                    <img class="h-250px" src="/uimg/${obj.img}" alt=""
-                                                         class="mw-100 w-200px"/>
-                                                </div>
-                                                <div class="overlay-layer">
-                                                    <a href="/marker/detail?id=${obj.id}"
-                                                       class="btn fw-bold btn-sm btn-light-primary me-2">상세보기</a>
-                                                    <a href="../dist/apps/shop/product.html"
-                                                       class="btn fw-bold btn-sm btn-light-primary">찜하기</a>
-                                                </div>
-                                            </div>
-                                            <!--end::Image-->
-                                            <!--begin::Details-->
-                                            <div class="text-center mt-5 mb-md-0 mb-lg-5 mb-md-0 mb-lg-5 mb-lg-0 mb-5 d-flex flex-column">
-                                                <a href="/marker/detail?id=${obj.id}"
-                                                   class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">
-                                                        ${obj.title}
-
-                                                    <c:if test="${obj.keyword=='R'}">
-                                                        🍳
-                                                    </c:if>
-                                                    <c:if test="${obj.keyword=='C'}">
-                                                        ☕
-                                                    </c:if>
-                                                    <c:if test="${obj.keyword=='S'}">
-                                                        ✍️
-                                                    </c:if></a>
-                                                <c:if test="${obj.rating== 5.0}">
-                                                    <span class="fs-6">⭐⭐⭐⭐⭐</span>
-                                                </c:if>
-                                                <c:if test="${obj.rating== 4.0}">
-                                                    <span class="fs-6">⭐⭐⭐⭐</span>
-                                                </c:if>
-                                                <c:if test="${obj.rating== 3.0}">
-                                                    <span class="fs-6">⭐⭐⭐</span>
-                                                </c:if>
-                                                <c:if test="${obj.rating== 2.0}">
-                                                    <span class="fs-6">⭐⭐</span>
-                                                </c:if>
-                                                <c:if test="${obj.rating== 1.0}">
-                                                    <span class="fs-6">⭐</span>
-                                                </c:if>
-
-                                            </div>
-                                            <!--end::Details-->
-                                        </div>
-                                    </div>
-                                    <!--end::Card-->
-                                </div>
-                            </c:forEach>
-                            <!--end::Item-->
-                            ...
-                        </div>
-                        <!--end::Slider-->
-
-                        <!--begin::Slider button-->
-                        <button
-                                class="btn btn-icon btn-active-color-primary"
-                                id="kt_team_slider_prev1"
-                        >
-                            <span style="font-size: 20px" class="svg-icon svg-icon-3x"> < </span>
-                        </button>
-                        <!--end::Slider button-->
-
-                        <!--begin::Slider button-->
-                        <button
-                                class="btn btn-icon btn-active-color-primary"
-                                id="kt_team_slider_next1"
-                        >
-                            <span style="font-size: 20px" class="svg-icon svg-icon-3x"> > </span>
-                        </button>
-                        <!--end::Slider button-->
-                    </div>
-                </div>
-            </div>
-            <!--end::Section-->
         </div>
     </div>
     <!--end::Card-->
 </div>
 <!--end::Container-->
-</div>
-<!--end::Content-->
-</div>
 <!--end::Main-->
 
 

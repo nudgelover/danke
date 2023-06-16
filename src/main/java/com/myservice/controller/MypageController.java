@@ -12,6 +12,7 @@ import com.myservice.utill.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,8 @@ public class MypageController {
     BlahService blahService;
     @Autowired
     CommService commService;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @RequestMapping("")
     public String mypage(Model model, String id) throws Exception {
@@ -166,6 +169,45 @@ public class MypageController {
         return "index";
     }
 
+
+    @RequestMapping("/pwd")
+    public String pwd(Model model, String id) throws Exception {
+        Stdn stdn = null;
+        MyPage mypage = null;
+        try {
+            mypage = myPageService.get(id);
+            stdn = stdnService.get(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
+        model.addAttribute("mypage", mypage);
+        model.addAttribute("student", stdn);
+        model.addAttribute("center", dir + "main");
+        model.addAttribute("mpcenter", "pwd");
+        return "index";
+    }
+
+    @RequestMapping("/pwdimpl")
+    public String pwdimpl(Model model, String id, String pwd) throws Exception {
+
+        log.info("여기" + id);
+        log.info("여기" + pwd);
+        Stdn stdn = (Stdn) stdnService.get(id);
+        log.info("여기" + stdn.toString());
+        log.info("여기" + encoder.encode(pwd));
+        stdn.setPwd(encoder.encode(pwd));
+        stdnService.updatePwd(stdn);
+
+        MyPage mypage = myPageService.get(id);
+
+        model.addAttribute("mypage", mypage);
+        model.addAttribute("student", stdn);
+        model.addAttribute("center", dir + "main");
+        model.addAttribute("mpcenter", "success");
+        return "index";
+    }
 
     @RequestMapping("/activity")
     public String mypage(Model model) throws Exception {

@@ -40,17 +40,18 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">NOTICE</h3>
+                <h3 class="text-dark fw-bold my-1">공지사항</h3>
+                <p class="text-muted">주요 공지사항은 반드시 필독해주세요.</p>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Notice</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">Calendar</a>
-                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi Member</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">공지사항</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">캘린더</a>
+                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
             </div>
             <!--end::Nav-->
         </div>

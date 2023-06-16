@@ -1,6 +1,8 @@
 package com.myservice.controller;
 
-
+import com.github.pagehelper.PageInfo;
+import com.myservice.dto.*;
+import com.myservice.service.*;
 import com.myservice.dto.Stdn;
 import com.myservice.service.MyPageService;
 import com.myservice.service.SbjDetailService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -42,9 +45,56 @@ public class MainController {
     MyPageService myPageService;
     @Autowired
     SbjDetailService sbjDetailService;
+    @Autowired
+    MrkService mrkService;
+    @Autowired
+    StdyService stdyService;
+    @Autowired
+    LecService lecService;
 
     @RequestMapping("/")
-    public String main(Model model) throws Exception {
+    public String main(Model model, HttpSession session) throws Exception {
+        //최근순 맛집리스트
+        List<Mrk> list;
+        //별점순 맛집리스트
+        List<Mrk> rlist;
+        //댓글순 맛집리스트
+        List<Mrk> clist;
+        List<Lec> leclist;
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM");
+        String monthFormattedDate = currentDate.format(formatter);
+        log.info("---------날짜" + monthFormattedDate);
+        //2023.06 으로 로그 잘찍힘.
+        try {
+            list = mrkService.getRecent();
+            rlist = mrkService.getRating();
+            clist = mrkService.getComment();
+            leclist = lecService.getRank();
+
+            if (session != null && session.getAttribute("loginStdn") != null) {
+                Stdn stdn = (Stdn) session.getAttribute("loginStdn");
+                Stdy startStudy = stdyService.stdyStartOrNot(stdn.getId());
+                Stdy endStudy = stdyService.stdyEndOrNot(stdn.getId());
+                int monthStudy = stdyService.getStudyCountByMonth(stdn.getId(), monthFormattedDate);
+                //monthStudy 데이터가 없으면 '0'
+
+                boolean didStdy = (startStudy != null); // 스터디 시작한 데이터가 있으면 true, 없으면 false
+                boolean endedStudy = (endStudy != null); // 스터디 종료 데이터가 있으면 false, 없으면 true!
+                model.addAttribute("endedStudy", endedStudy);
+                model.addAttribute("didStdy", didStdy);
+                model.addAttribute("monthStudy", monthStudy);
+
+            }
+        } catch (Exception e) {
+            throw new Exception("시스템 장애: ER0001");
+        }
+
+        model.addAttribute("recent", list);
+        model.addAttribute("rating", rlist);
+        model.addAttribute("comment", clist);
+        model.addAttribute("leclist", leclist);
         model.addAttribute("adminserver", adminserver);
         model.addAttribute("nav", "nav");
         return "index";
@@ -160,6 +210,7 @@ public class MainController {
         return "index";
     }
 
+
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session) throws Exception {
         if (session != null) {
@@ -193,4 +244,6 @@ public class MainController {
         model.addAttribute("center", "chatbot");
         return "index";
     }
+
+
 }

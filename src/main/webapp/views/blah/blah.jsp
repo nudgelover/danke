@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">--%>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<%--<link rel="stylesheet" href="/path/to/styles/default.min.css">--%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-light.min.css">
+
+<script src="/path/to/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 <style>
     #register_btn {
         margin-right: 10px;
@@ -16,29 +23,37 @@
         color: #20D489; /* Change the color to red on hover */
     }
 
-
+    .highlight {
+        background-color: #fafafa !important;
+        padding: 10px !important;
+    }
 </style>
 <script>
     $(document).ready(function () {
-            const loadingEl = document.createElement("div");
-            document.body.prepend(loadingEl);
-            loadingEl.classList.add("page-loader");
-            loadingEl.classList.add("flex-column");
-            loadingEl.classList.add("bg-dark");
-            loadingEl.classList.add("bg-opacity-25");
-            loadingEl.innerHTML = `
-        <span class="spinner-border text-primary" role="status"></span>
-        <span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
-    `;
+            const loadingEl = $("<div></div>");
+            $("body").prepend(loadingEl);
 
-            // Show page loading
-            KTApp.showPageLoading();
+            loadingEl.addClass("page-loader flex-column bg-dark bg-opacity-25");
+            loadingEl.html(`
+              <span class="spinner-border text-primary" role="status"></span>
+              <span class="text-gray-800 fs-6 fw-semibold mt-5">Loading...</span>
+            `);
 
-            // Hide after 3 seconds
-            setTimeout(function () {
-                KTApp.hidePageLoading();
-                loadingEl.remove();
-            }, 500);
+                // Show page loading
+                KTApp.showPageLoading();
+
+                // Hide after 3 seconds
+                setTimeout(function () {
+                    KTApp.hidePageLoading();
+                    loadingEl.remove();
+                }, 500);
+
+                const preElements = $('pre');
+
+                // 각 <pre> 요소에 대해 코드 하이라이팅 수행
+                preElements.each(function () {
+                    hljs.highlightElement(this);
+                });
 
             function checkEditorContent() {
                 const quillContent = $('.ql-editor').html().trim();
@@ -66,8 +81,8 @@
 
             $('#register_btn').click(function (e) {
                 //content 글자 제한 하기, 아무내용 없을때 게시 버튼 비활성화.    수정 삭제버튼
-                // const contents = document.getElementById('kt_forms_widget_1_editor').innerHTML;
-                // console.log(contents);
+                const contents = document.getElementById('kt_forms_widget_1_editor').innerHTML;
+                console.log(contents);
 
 
                 // Quill 에디터에서 사용자의 입력 추출
@@ -225,8 +240,6 @@
                     }
                 });
             });
-
-
         }
     )
     ;
@@ -248,8 +261,8 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/blah" class="btn btn-active-accent active fw-bold">블라블라</a>
                 <a href="/mypage/myblah?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">마이블라</a>
-<%--                <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>--%>
-<%--                <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>--%>
+                <%--                <a href="/blah/private" class="btn btn-active-accent  fw-bold ms-3">Private Chat</a>--%>
+                <%--                <a href="/blah/group" class="btn btn-active-accent fw-bold ms-3">Group Chat</a>--%>
             </div>
             <!--end::Nav-->
         </div>
@@ -301,9 +314,39 @@
                                         <button class="ql-bold"></button>
                                         <button class="ql-italic"></button>
                                         <button class="ql-underline"></button>
-                                        <button class="ql-image"></button>
+                                        <button type="button" class="ql-list" value="ordered">
+                                            <svg viewBox="0 0 18 18">
+                                                <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line>
+                                                <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>
+                                                <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line>
+                                                <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5"
+                                                      y2="5.5"></line>
+                                                <path class="ql-fill"
+                                                      d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>
+                                                <path class="ql-stroke ql-thin"
+                                                      d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>
+                                                <path class="ql-stroke ql-thin"
+                                                      d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>
+                                            </svg>
+                                        </button>
+                                        <button type="button" class="ql-list ql-active" value="bullet">
+                                            <svg viewBox="0 0 18 18">
+                                                <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line>
+                                                <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line>
+                                                <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line>
+                                                <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line>
+                                                <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line>
+                                                <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line>
+                                            </svg>
+                                        </button>
                                         <button class="ql-clean"></button>
-
+                                        <button type="button" class="ql-code-block ql-active">
+                                            <svg viewBox="0 0 18 18">
+                                                <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>
+                                                <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>
+                                                <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>
+                                            </svg>
+                                        </button>
 
                                     </div>
                                     <div class="me-n3">
@@ -640,3 +683,62 @@
 <script src="/assets/js/custom/widgets.js"></script>
 <script src="/assets/js/custom/apps/chat/chat.js"></script>
 <script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+<script>
+    // <pre> 내용 가져오기
+    function decodeEntities(encodedString) {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = encodedString;
+        return textarea.value;
+    }
+
+    // 모든 <pre> 요소 선택하기
+    const preElements = document.querySelectorAll('pre');
+
+    // 각 <pre> 요소에 대해 작업 수행
+    preElements.forEach((preElement) => {
+        // <div> 요소 생성
+        const divElement = document.createElement('div');
+
+        // <div>에 클래스 추가
+        divElement.classList.add('highlight');
+        // divElement.classList.add('highlight-code');
+        // <pre> 요소를 <div> 요소로 감싸기
+        preElement.parentNode.insertBefore(divElement, preElement);
+        divElement.appendChild(preElement);
+
+        // <pre>에 클래스 추가
+        // preElement.classList.add('language-html');
+        preElement.classList.remove('ql-syntax');
+
+        // <button> 요소 생성
+        const buttonElement = document.createElement('button');
+
+        // <button>에 클래스 및 속성 추가
+        buttonElement.classList.add('highlight-copy', 'btn');
+        buttonElement.dataset.bsToggle = 'tooltip';
+        buttonElement.dataset.bsOriginalTitle = 'Copy code';
+        buttonElement.dataset.ktInitialized = '1';
+        buttonElement.textContent = 'copy';
+
+        // <div> 요소에 <button> 요소 추가
+        divElement.appendChild(buttonElement);
+
+        // <pre> 내용 가져오기
+        const codeContent = preElement.innerHTML;
+
+        // <code> 요소 생성
+        const codeElement = document.createElement('code');
+        // codeElement.classList.add('language-html');
+        // HTML 엔티티 디코딩
+        const decodedContent = decodeEntities(codeContent);
+
+        // <pre> 내용을 <code> 요소로 설정
+        codeElement.textContent = decodedContent;
+
+        // <pre> 요소 내용 초기화
+        preElement.innerHTML = '';
+
+        // <pre>에 <code> 추가
+        preElement.appendChild(codeElement);
+    });
+</script>

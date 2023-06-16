@@ -54,7 +54,12 @@ public class MrkService implements KBService<Integer, Mrk> {
     public List<Mrk> getRecent(){
         return mapper.getRecent();
     }
-
+    public List<Mrk> getRating(){
+        return mapper.getRating();
+    }
+    public List<Mrk> getComment(){
+        return mapper.getComment();
+    }
     public List<Mrk> search(MrkSearch ms) throws Exception{
         return mapper.search(ms);
     }

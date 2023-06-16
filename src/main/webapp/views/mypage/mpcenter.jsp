@@ -103,8 +103,7 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8">
-
-                        <span class="fw-bold fs-6 text-gray-800">${mypage.insta} / ${mypage.facebook}</span>
+                        <span class="fw-bold fs-6 text-gray-800">${mypage.insta}  ${mypage.facebook}</span>
                     </div>
                     <!--end::Col-->
                 </div>

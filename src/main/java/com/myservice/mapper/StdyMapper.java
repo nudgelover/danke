@@ -21,4 +21,5 @@ public interface StdyMapper extends KBMapper<Integer, Stdy> {
 
     public Stdy stdyContentsUpdate(String writer) throws Exception;
 
+    public Integer getStudyCountByMonth(String writer, String month) throws Exception;
 }

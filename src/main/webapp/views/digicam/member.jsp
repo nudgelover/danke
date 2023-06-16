@@ -5,9 +5,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--end::Vendor Stylesheets-->
 <script>
-
     $(document).ready(function () {
-        $('#status').change(function () {
+        $('#gradestatus').change(function () {
                 var selectedValue = $(this).val();
 
                 if (selectedValue === 'ALL') {
@@ -25,18 +24,22 @@
                         }
                     });
                 }
-            }
-        )
-        ;
+            });
 
+        $('.send-message-btn').click(function () {
+            const studentId = $(this).data('student-id');
+            // Use the studentId value as needed (e.g., pass it to the modal or perform other operations)
+            // console.log(studentId);
+            document.getElementById("receivetarget").value = studentId;
+        });
         function displaystudents(data) {
             var memberCards = $('.col-md-6.col-xxl-4');
             memberCards.hide();
 
             for (var i = 0; i < data.length; i++) {
                 var member = data[i];
-                console.log(member)
-                console.log(member.id);
+                // console.log(member)
+                // console.log(member.id);
                 var newMemberCard = createMemberCard(member);
                 $('#memberCardContainer').append(newMemberCard);
             }
@@ -57,7 +60,7 @@
                         ),
                         $('<a></a>').attr('href', '/digicam/mypage?id=' + member.id)
                             .addClass('fs-4 text-gray-800 text-hover-primary fw-bold mb-0')
-                            .text(member.name),
+                            .html(member.name + '<span style="color: gray; font-size: 8px;"> @' + member.id + '</span>'),
                         $('<div></div>').addClass('fw-semibold text-gray-400 mb-6').text("DIGI CAMPUS ").append(getDigiCampusBadge(member.digidate)
                         ),
                         $('<div></div>').addClass('d-flex flex-center flex-wrap mb-5').append(
@@ -69,7 +72,7 @@
                                     'data-bs-target': '#' + modalId
                                 }))
                         ),
-                        $('<button></button>').addClass('btn btn-sm btn-light-primary fw-bold')
+                        $('<button></button>').addClass('btn btn-sm btn-light-primary fw-bold send-message-btn')
                             .attr('data-kt-drawer-show', 'true')
                             .attr('data-kt-drawer-target', '#kt_drawer_chat')
                             .text('Send Message')
@@ -136,6 +139,7 @@
         }
 
 
+
     });
 
 
@@ -148,8 +152,8 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Digi Members</h3>
-                <p class="text-muted">Our Digi Campus Members</p>
+                <h3 class="text-dark fw-bold my-1">디지멤버스</h3>
+                <p class="text-muted">열정넘치는 디지캠퍼스 수강생들의 프로필을 확인해보세요.</p>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
 
@@ -158,10 +162,10 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">Notice</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent  fw-bold">Calendar</a>
-                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent active fw-bold ms-3">Digi Members</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">공지사항</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent  fw-bold">캘린더</a>
+                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
+                <a href="/digicam/member" class="btn btn-active-accent active fw-bold ms-3">디지멤버스</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -179,7 +183,7 @@
                 <!--begin::Controls-->
                 <div class="d-flex my-2">
                     <!--begin::Select-->
-                    <select id="status" name="status" data-control="select2" data-hide-search="true"
+                    <select id="gradestatus" name="gradestatus" data-control="select2" data-hide-search="true"
                             class="form-select form-select-sm border-body bg-body w-125px">
                         <option value="ALL" selected="selected">ALL</option>
                         <option value="20220201">DIGI 1TH</option>
@@ -212,7 +216,8 @@
                                 <!--end::Wrapper-->
                                 <!--begin::Name-->
                                 <a href="/mypage?id=${obj.id}"
-                                   class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${obj.name}</a>
+                                   class="fs-4 text-gray-800 text-hover-primary fw-bold mb-0">${obj.name} <span
+                                        style="color: gray; font-size: 8px">@${obj.id}</span></a>
                                 <!--end::Name-->
                                 <!--begin::Position-->
                                 <div class="fw-semibold text-gray-400 mb-6">DIGI CAMPUS
@@ -264,8 +269,8 @@
                                 </div>
                                 <!--end::Info-->
                                 <!--begin::Link-->
-                                <button class="btn btn-sm btn-light-primary fw-bold" data-kt-drawer-show="true"
-                                        data-kt-drawer-target="#kt_drawer_chat">Send Message
+                                <button class="btn btn-sm btn-light-primary fw-bold send-message-btn" data-kt-drawer-show="true"
+                                        data-student-id="${obj.id}" data-kt-drawer-target="#kt_drawer_chat">Send Message
                                 </button>
                                 <!--end::Link-->
                             </div>
@@ -355,9 +360,6 @@
     <!--end::Content-->
 </div>
 <!--end::Main-->
-
-
-
 
 
 <!--begin::Vendors Javascript(used for this page only)-->

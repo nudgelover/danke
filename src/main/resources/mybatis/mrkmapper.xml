@@ -38,6 +38,29 @@
         ]]>
     </select>
 
+    <select id="getRating" resultType="mrk">
+        <![CDATA[
+        SELECT *
+        FROM (SELECT *
+              FROM mrk
+              ORDER BY rating DESC)
+        WHERE ROWNUM <= 5
+        ]]>
+    </select>
+
+
+    <select id="getComment" resultType="mrk">
+        <![CDATA[
+        SELECT *
+        FROM (
+                 SELECT m.*, COUNT(c.id) AS comment_count
+                 FROM mrk m
+                          LEFT JOIN mrk_comm c ON m.id = c.post_id
+                 GROUP BY m.id, m.writer, m.lat, m.lng, m.img, m.rating, m.detail, m.keyword, m.title, m.rdate
+                 ORDER BY comment_count DESC
+             ) WHERE ROWNUM <= 5
+        ]]>
+    </select>
     <insert id="insert" parameterType="mrk">
         INSERT INTO mrk
             (id, writer, lat, lng, img, rating, detail, keyword, title, rdate)

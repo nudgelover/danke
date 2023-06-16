@@ -24,6 +24,8 @@ public class Stdy {
     private String stdnName;
     private String stdnImg;
     private String duration;
+    private String month;
+    private int studyCount;
     private String shortVer;
 
     //Insert
