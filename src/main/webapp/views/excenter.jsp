@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
@@ -621,16 +620,18 @@
 
             <!--end::Header-->
             <!--begin::Body-->
-            <div class="card-body pt-5 pb-5">
+            <div class="card-body pt-5">
                 <c:choose>
                     <c:when test="${sessionScope.loginStdn != null}">
                         <c:if test="${didStdy && !endedStudy}">
                             <div id="chartdiv"></div>
                         </c:if>
                         <c:if test="${didStdy && endedStudy}">
+                            ⚠️잠깐, 스터디 종료 잊지않으셨겠죠⁉️
                             <div id="chartdiv"></div>
                         </c:if>
                         <c:if test="${!didStdy}">
+                            오늘은 아직 스터디를 하지않으셨어요😢
                             <div id="chartdiv"></div>
                         </c:if>
                     </c:when>
@@ -667,75 +668,63 @@
             <div class="card-body pt-0">
                 <div class="d-flex flex-wrap flex-xxl-nowrap justify-content-center justify-content-md-start pt-4">
                     <!--begin::Nav-->
-                    <div class="me-sm-10 me-0">
 
+                    <div class="me-sm-10 me-0">
                         <ul class="nav flex-column nav-pills nav-pills-start">
-                            <c:forEach var="obj" items="${leclist}" varStatus="loop">
-                                <c:if test="${loop.index < 5}">
-                                    <li class="nav-item mb-3">
-                                        <a class="nav-link ${loop.first ? 'active' : ''} w-225px h-60px"
-                                           data-bs-toggle="pill"
-                                           id="kt_stats_widget_2_tab_${obj.id}"
-                                           href="#kt_stats_widget_2_tab_${obj.id}_content">
-                                            <div class="nav-icon me-3">
-                                                <img style="opacity: 60%" alt="" src="https://cdn-icons-png.flaticon.com/512/4185/4185218.png"
-                                                     class="default"/>
-                                                <img alt="" src="https://cdn-icons-png.flaticon.com/512/4185/4185447.png"
-                                                     class="active"/>
-                                            </div>
-                                            <div class="ps-1">
-                                                <span class="nav-text text-gray-600 fw-bold fs-12">${obj.title}</span>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </c:if>
+                            <c:forEach var="obj" items="${leclist}">
+                                <li class="nav-item mb-3">
+                                    <a class="nav-link active w-225px h-70px" data-bs-toggle="pill"
+                                       id="kt_stats_widget_2_tab_1" href="#kt_stats_widget_2_tab_${obj.id}_content">
+                                        <div class="nav-icon me-3">
+                                            <img alt="" src="/assets/media/svg/logo/gray/aven.svg"
+                                                 class="default"/>
+                                            <img alt="" src="/assets/media/svg/logo/colored/aven.svg"
+                                                 class="active"/>
+                                        </div>
+                                        <div class="ps-1">
+                                            <span class="nav-text text-gray-600 fw-bold fs-6">${obj.title}${obj.id}</span>
+                                        </div>
+                                    </a>
+                                </li>
+
                             </c:forEach>
+
                         </ul>
                     </div>
                     <!--end::Nav-->
                     <!--begin::Tab Content-->
                     <div class="tab-content flex-grow-1">
-                        <c:forEach var="obj" items="${leclist}" varStatus="loop">
-                            <c:if test="${loop.index < 5}">
-                                <div class="tab-pane fade ${loop.first ? 'show active' : ''}"
-                                     id="kt_stats_widget_2_tab_${obj.id}_content">
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <div class="text-center d-flex flex-column">
-                                            <img class="h-250px mb-5" src="/uimg/${obj.img}"
-                                                 alt=""
-                                                 class="mw-100 w-170px"/>
-                                            <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}"
-                                               class="fs-4 fw-bold text-gray-800 text-hover-primary mb-1">${obj.title} <span style="font-weight: 200" class="text-muted fs-6">- ${obj.teacher}</span></a>
-                                            <span class="fs-6">
-                                                        <c:choose>
-                                                            <c:when test="${obj.discRate == 0}">
-                                                                <span class="text-gray-800 fw-bold fs-6">
-                                                                <fmt:formatNumber value="${obj.price}" type="number"
-                                                                                  pattern="###,###원"/>
-                                                                    </span>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span style="font-size:smaller;text-decoration: line-through;"><fmt:formatNumber
-                                                                        value="${obj.price}" type="number"
-                                                                        pattern="###,###원"/></span>
-                                                                <span class="text-success fw-bold fs-6"><fmt:formatNumber
-                                                                        value="${obj.price * (100 - obj.discRate)/100}"
-                                                                        type="number" pattern="###,###원"/><span
-                                                                        class="badge badge-light-danger">sale</span></span>
-                                                                    </c:otherwise>
-                                                        </c:choose>
-                                                        <br><span
-                                                        class="badge badge-light-primary">누적수강생 ${obj.hit}명</span>
-                                                            <br><span><img src="/img/rating.png"
-                                                                           style="width:4%; height:4%;"> <fmt:formatNumber
-                                                        value="${obj.rating}" type="number" pattern="0.0"/>(${obj.cnt})</span>
-                                        </div>
-                                        <!--end::Item-->
+                        <!--begin::Tab Pane 1-->
+                        <c:forEach var="obj" items="${leclist}">
+                            <div class="tab-pane fade" id="kt_stats_widget_2_tab_${obj.id}_content">
+                                <!--begin::Content-->
+                                <div class="d-flex justify-content-center mb-10">
+                                    <!--begin::Item-->
+                                    <div class="px-10">
+                                        <span class="text-muted fw-semibold fs-7">${obj.title}${obj.id}</span>
+                                        <span class="text-gray-800 fw-bold fs-3 d-block">$650</span>
                                     </div>
-                                    <!--end::Content-->
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="px-10">
+                                        <span class="text-muted fw-semibold fs-7">Commission</span>
+                                        <span class="text-gray-800 fw-bold fs-3 d-block">$2,040</span>
+                                    </div>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <div class="px-10">
+                                        <span class="text-muted fw-semibold fs-7">Refers</span>
+                                        <span class="text-gray-800 fw-bold fs-3 d-block">8,926</span>
+                                    </div>
+                                    <!--end::Item-->
                                 </div>
-                            </c:if>
+                                <!--end::Content-->
+                                <!--begin::Chart-->
+                                <div id="kt_stats_widget_2_chart_1" style="height: 250px"></div>
+                                <!--end::Chart-->
+                            </div>
                         </c:forEach>
+                        <!--end::Tab Pane 1-->
                     </div>
                     <!--end::Tab Content-->
                 </div>

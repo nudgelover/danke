@@ -31,17 +31,17 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">준비중</h3>
+                <h3 class="text-dark fw-bold my-1">디지캠퍼스</h3>
                 <!--end::Title-->
                 <!--begin::Breadcrumb-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent  fw-bold">Notice</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">Calendar</a>
-                <a href="/digicam/detail" class="btn btn-active-accent active fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi Member</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent  fw-bold">공지사항</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">캘린더</a>
+                <a href="/digicam/detail" class="btn btn-active-accent active fw-bold ms-3">디지캠퍼스</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -59,8 +59,12 @@
                     <!--begin::Card-->
                     <div class="card">
 
-                        <div class="card-body py-10">
-                            연혁 준비 중
+                        <div class="card-body py-10 text-center">
+                            <h1>당케의 유래</h1>
+                            <div class="d-flex">
+                            <img style="width:50%" src="/img/당케1.png">
+                            <img style="width:50%" src="/img/당케2.png">
+                            </div>
                         </div>
                     </div>
                     <!--end::Card-->

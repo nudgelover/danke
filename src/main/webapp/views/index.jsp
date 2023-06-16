@@ -74,6 +74,7 @@ License: For each use you must have a valid license purchased only from above li
         transition: opacity 5s, transform 5s;
     }
 </style>
+
 <html lang="ko" data-bs-theme-mode="light">
 <!--begin::Head-->
 <head>
@@ -103,6 +104,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <script>
         let chatbtn = {
             init:function(){

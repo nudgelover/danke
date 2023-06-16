@@ -325,8 +325,6 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="form-text" style="margin: 12px 0 0 5px">관심분야 <span style="color:darkorange">3가지</span>를 선택해주세요. 강의 추천에 많은 도움이 됩니다.
-                                ${student.sbj1}  ${student.sbj2}  ${student.sbj3}
-<%--                                삭제--%>
                             </div>
                         </div>
                     </div>

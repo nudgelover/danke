@@ -1,4 +1,4 @@
-<!--begin::Vendor Stylesheets(used for this page only)-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 <!--end::Vendor Stylesheets-->
@@ -21,25 +21,16 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">Calendar</h3>
-                <!--end::Title-->
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-line bg-transparent text-muted fw-semibold p-0 my-1 fs-7">
-                    <li class="breadcrumb-item">
-                        <a href="/" class="text-muted text-hover-primary">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">Apps</li>
-                    <li class="breadcrumb-item text-dark">Calendar</li>
-                </ul>
-                <!--end::Breadcrumb-->
+                <h3 class="text-dark fw-bold my-1">캘린더</h3>
+                <p class="text-muted">공휴일, 자격증, 기념일 관련 일정을 확인하실 수 있습니다.<p>
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">Notice</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">Calendar</a>
-                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">Digi Cam</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">Digi Member</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">공지사항</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">캘린더</a>
+                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
+                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -53,7 +44,7 @@
             <div class="card">
                 <!--begin::Card header-->
                 <div class="card-header">
-                    <h2 class="card-title fw-bold">Calendar</h2>
+                    <h2 class="card-title fw-bold">캘린더</h2>
                     <div class="card-toolbar">
                         <button class="btn btn-flex btn-primary" data-kt-calendar="add">
                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->

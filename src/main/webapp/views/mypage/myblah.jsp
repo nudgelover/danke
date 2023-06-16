@@ -2,6 +2,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-light.min.css">
 <style>
     #register_btn {
         margin-right: 10px;
@@ -17,6 +19,10 @@
         color: #20D489; /* Change the color to red on hover */
     }
 
+    .highlight {
+        background-color: #fafafa !important;
+        padding: 10px !important;
+    }
 
 </style>
 <script>
@@ -40,6 +46,13 @@
                 KTApp.hidePageLoading();
                 loadingEl.remove();
             }, 500);
+
+            const preElements = $('pre');
+
+            // 각 <pre> 요소에 대해 코드 하이라이팅 수행
+            preElements.each(function () {
+                hljs.highlightElement(this);
+            });
 
             function checkEditorContent() {
                 const quillContent = $('.ql-editor').html().trim();
@@ -236,8 +249,8 @@
 <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
     <div class="col-xl-12">
         <div style="text-align: right;">
-
-            <a href="/blah" class="btn btn-active-accent active fw-bold">블라블라로 이동하기</a>
+            <a href="/blah">블라블라로 이동하기 <i
+                    class="bi bi-arrow-right-circle text-primary fs-6"></i></a>
         </div>
 
 
@@ -282,8 +295,38 @@
                                 <button class="ql-bold"></button>
                                 <button class="ql-italic"></button>
                                 <button class="ql-underline"></button>
-                                <button class="ql-image"></button>
+                                <button type="button" class="ql-list" value="ordered">
+                                    <svg viewBox="0 0 18 18">
+                                        <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line>
+                                        <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>
+                                        <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line>
+                                        <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line>
+                                        <path class="ql-fill"
+                                              d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>
+                                        <path class="ql-stroke ql-thin"
+                                              d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>
+                                        <path class="ql-stroke ql-thin"
+                                              d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="ql-list ql-active" value="bullet">
+                                    <svg viewBox="0 0 18 18">
+                                        <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line>
+                                        <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line>
+                                        <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line>
+                                        <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line>
+                                        <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line>
+                                        <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line>
+                                    </svg>
+                                </button>
                                 <button class="ql-clean"></button>
+                                <button type="button" class="ql-code-block ql-active">
+                                    <svg viewBox="0 0 18 18">
+                                        <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>
+                                        <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>
+                                        <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>
+                                    </svg>
+                                </button>
 
 
                             </div>
@@ -584,4 +627,63 @@
     }
 
 
+</script>
+<script>
+    // <pre> 내용 가져오기
+    function decodeEntities(encodedString) {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = encodedString;
+        return textarea.value;
+    }
+
+    // 모든 <pre> 요소 선택하기
+    const preElements = document.querySelectorAll('pre');
+
+    // 각 <pre> 요소에 대해 작업 수행
+    preElements.forEach((preElement) => {
+        // <div> 요소 생성
+        const divElement = document.createElement('div');
+
+        // <div>에 클래스 추가
+        divElement.classList.add('highlight');
+        // divElement.classList.add('highlight-code');
+        // <pre> 요소를 <div> 요소로 감싸기
+        preElement.parentNode.insertBefore(divElement, preElement);
+        divElement.appendChild(preElement);
+
+        // <pre>에 클래스 추가
+        // preElement.classList.add('language-html');
+        preElement.classList.remove('ql-syntax');
+
+        // <button> 요소 생성
+        const buttonElement = document.createElement('button');
+
+        // <button>에 클래스 및 속성 추가
+        buttonElement.classList.add('highlight-copy', 'btn');
+        buttonElement.dataset.bsToggle = 'tooltip';
+        buttonElement.dataset.bsOriginalTitle = 'Copy code';
+        buttonElement.dataset.ktInitialized = '1';
+        buttonElement.textContent = 'copy';
+
+        // <div> 요소에 <button> 요소 추가
+        divElement.appendChild(buttonElement);
+
+        // <pre> 내용 가져오기
+        const codeContent = preElement.innerHTML;
+
+        // <code> 요소 생성
+        const codeElement = document.createElement('code');
+        // codeElement.classList.add('language-html');
+        // HTML 엔티티 디코딩
+        const decodedContent = decodeEntities(codeContent);
+
+        // <pre> 내용을 <code> 요소로 설정
+        codeElement.textContent = decodedContent;
+
+        // <pre> 요소 내용 초기화
+        preElement.innerHTML = '';
+
+        // <pre>에 <code> 추가
+        preElement.appendChild(codeElement);
+    });
 </script>

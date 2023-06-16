@@ -39,27 +39,27 @@ public class SettingsController {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-
-    @RequestMapping("/pwd")
-    public String pwd(Model model, String id) throws Exception {
-
-        model.addAttribute("center", dir + "pwd");
-        return "index";
-    }
-
-    @RequestMapping("/pwdimpl")
-    public String pwdimpl(Model model, String id, String pwd) throws Exception {
-        log.info("여기"+ id);
-        log.info("여기"+ pwd);
-        Stdn stdn = (Stdn) stdnService.get(id);
-        log.info("여기"+stdn.toString());
-        log.info("여기"+encoder.encode(pwd));
-        stdn.setPwd(encoder.encode(pwd));
-        stdnService.updatePwd(stdn);
-
-        model.addAttribute("center", dir+"success");
-        return "index";
-    }
+// mypage controller으로 이동.
+//    @RequestMapping("/pwd")
+//    public String pwd(Model model, String id) throws Exception {
+//
+//        model.addAttribute("center", dir + "pwd");
+//        return "index";
+//    }
+//
+//    @RequestMapping("/pwdimpl")
+//    public String pwdimpl(Model model, String id, String pwd) throws Exception {
+//        log.info("여기"+ id);
+//        log.info("여기"+ pwd);
+//        Stdn stdn = (Stdn) stdnService.get(id);
+//        log.info("여기"+stdn.toString());
+//        log.info("여기"+encoder.encode(pwd));
+//        stdn.setPwd(encoder.encode(pwd));
+//        stdnService.updatePwd(stdn);
+//
+//        model.addAttribute("center", dir+"success");
+//        return "index";
+//    }
 
     @RequestMapping("/download/{filename}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable("filename") String filename, HttpServletRequest request) throws IOException {

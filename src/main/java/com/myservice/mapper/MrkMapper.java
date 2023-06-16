@@ -19,6 +19,8 @@ public interface MrkMapper extends KBMapper<Integer, Mrk> {
     public List<Mrk> getKeyword(String keyword);
 
     public List<Mrk> getRecent();
+    public List<Mrk> getRating();
+    public List<Mrk> getComment();
     public List<Mrk> search(MrkSearch ms);
 
     public Page<Mrk> getpage() throws Exception;

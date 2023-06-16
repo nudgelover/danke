@@ -66,20 +66,6 @@ public class DigicamController {
         return "index";
     }
 
-//    @RequestMapping("/anc/all")
-//    public String ancAll(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
-//        PageInfo<Anc> p;
-//        try {
-//            p = new PageInfo<>(ancService.getPage(pageNo), 5); // 5:하단 네비게이션 개수
-//        } catch (Exception e) {
-//            throw new Exception("시스템 장애: ER0001");
-//        }
-//
-//        model.addAttribute("apage", p);
-//        model.addAttribute("center", dir + "ancAll");
-//        return "index";
-//    }
-
 
     @RequestMapping("/anc/all")
     public String ancAll(Model model, Search search, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {

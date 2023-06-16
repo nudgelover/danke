@@ -10,17 +10,21 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 @Configuration
 public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer {
-//    @Value("${serviceserver}")
-//    String serviceServer;
+    @Value("${serviceserver}")
+    String serviceServer;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/onechat").setAllowedOrigins("http://127.0.0.1","http://172.16.20.58").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
+        //채팅하기 위한 서버
+        registry.addEndpoint("/wss").setAllowedOrigins("http://127.0.0.1").withSockJS();
+        //관리자를 위한 서버(dashboard에 나오는 내용)
+        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
     }
 
     /* 어플리케이션 내부에서 사용할 path를 지정할 수 있음 */
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/send");
+        registry.enableSimpleBroker("/send", "/sendadm","/chsend");
     }
 }

@@ -24,6 +24,8 @@ public class Stdy {
     private String stdnName;
     private String stdnImg;
     private String duration;
+    private String month;
+    private int studyCount;
 
     //Insert
     public Stdy(String writer, String startTime, String endTime, String contents, String filename, String filenameOrg) {

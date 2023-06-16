@@ -107,11 +107,9 @@
                     </li>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <li class="nav-item mb-1" title="User Management" data-bs-toggle="tooltip"
-                        data-bs-dismiss="click" data-bs-placement="right">
-                        <a href="#"
-                           class="nav-link h-40px w-40px h-lg-50px w-lg-50px btn btn-custom btn-icon btn-color-white"
-                           data-bs-toggle="tab" data-bs-target="#kt_aside_tab_3" role="tab">
+                    <li class="nav-item mb-1" title="User Management">
+                        <a href="/blah"
+                           class="nav-link h-40px w-40px h-lg-50px w-lg-50px btn btn-custom btn-icon btn-color-white">
                             <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                             <span class="svg-icon svg-icon-2 svg-icon-lg-1">
 												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"

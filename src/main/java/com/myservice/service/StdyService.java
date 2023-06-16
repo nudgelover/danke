@@ -35,6 +35,7 @@ public class StdyService implements KBService<Integer, Stdy> {
         return mapper.select(k);
     }
 
+
     @Override
     public List<Stdy> get() throws Exception {
         return mapper.selectall();
@@ -59,5 +60,9 @@ public class StdyService implements KBService<Integer, Stdy> {
 
     public Stdy stdyContentsUpdate(String writer) throws Exception{
         return mapper.stdyContentsUpdate(writer);
+    }
+
+    public Integer getStudyCountByMonth(String writer, String month) throws Exception {
+        return mapper.getStudyCountByMonth(writer, month);
     }
 }

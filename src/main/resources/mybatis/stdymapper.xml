@@ -95,6 +95,14 @@
         ORDER BY y.id DESC
     </select>
 
+    <select id="getStudyCountByMonth" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) AS studyCount
+        FROM stdy y, stdn n
+        WHERE y.writer = n.id
+          AND y.writer = #{writer}
+          AND y.contents IS NOT NULL
+          AND TO_CHAR(TO_DATE(rdate, 'yyyy.MM.dd'), 'yyyy.MM') = #{month}
+    </select>
 
 
 </mapper>
