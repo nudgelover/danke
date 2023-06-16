@@ -139,7 +139,7 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#"
+                                                <a href="/mypage?id=${marker.writer}"
                                                    class="fw-bold text-dark text-hover-primary">${marker.writer}</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">

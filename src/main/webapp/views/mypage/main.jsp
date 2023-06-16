@@ -164,7 +164,8 @@
                                 <!--end::User-->
                                 <!--begin::Actions-->
                                 <div class="d-flex">
-                                    <a href="/settings/authentication" class="btn-primary"><i class="bi-qr-code fs-2tx"></i></a>
+                                    <a href="/settings/authentication" class="btn-primary"><i
+                                            class="bi-qr-code fs-2tx"></i></a>
                                 </div>
                                 <!--end::Actions-->
                             </div>
@@ -198,45 +199,49 @@
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/myblah?id=${student.id}">마이블라</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <li class="nav-item mt-2">
                             <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                               href="/mypage/settings?id=${student.id}">마이프로필변경</a>
+                               href="/mypage/myblah?id=${student.id}">마이블라</a>
                         </li>
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/pwd?id=${loginStdn.id}">비밀번호변경</a>
-                        </li>
+                        <c:if test="${student.id == loginStdn.id}">
+                            <!--end::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5"
+                                   href="/mypage/settings?id=${student.id}">마이프로필변경</a>
+                            </li>
+                            <!--begin::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5"
+                                   href="/mypage/pwd?id=${loginStdn.id}">비밀번호변경</a>
+                            </li>
+                            <!--end::Nav item-->
+                            <!--begin::Nav item-->
+                            <li class="nav-item mt-2">
+                                <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/settings/authentication">QR발급</a>
+                            </li>
+                        </c:if>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/settings/authentication">QR발급</a>
-                        </li>
+                        <%--                        <li class="nav-item mt-2">--%>
+                        <%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
+                        <%--                               href="/mypage/logs">내가 쓴 게시글</a>--%>
+                        <%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-<%--                        <li class="nav-item mt-2">--%>
-<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
-<%--                               href="/mypage/logs">내가 쓴 게시글</a>--%>
-<%--                        </li>--%>
+                        <%--                        <li class="nav-item mt-2">--%>
+                        <%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
+                        <%--                               href="/mypage/statements">내 블라블라</a>--%>
+                        <%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-<%--                        <li class="nav-item mt-2">--%>
-<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5"--%>
-<%--                               href="/mypage/statements">내 블라블라</a>--%>
-<%--                        </li>--%>
+                        <%--                        <li class="nav-item mt-2">--%>
+                        <%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/api-keys">내 스터디(이건--%>
+                        <%--                                링크만)</a>--%>
+                        <%--                        </li>--%>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
-<%--                        <li class="nav-item mt-2">--%>
-<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/api-keys">내 스터디(이건--%>
-<%--                                링크만)</a>--%>
-<%--                        </li>--%>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-<%--                        <li class="nav-item mt-2">--%>
-<%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/referrals">결제강의(수료증)referrals/billing</a>--%>
-<%--                        </li>--%>
+                        <%--                        <li class="nav-item mt-2">--%>
+                        <%--                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="/mypage/referrals">결제강의(수료증)referrals/billing</a>--%>
+                        <%--                        </li>--%>
                         <!--end::Nav item-->
 
                     </ul>

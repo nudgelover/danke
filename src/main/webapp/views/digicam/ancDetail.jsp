@@ -172,7 +172,7 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="#" class="fw-bold text-dark text-hover-primary">JINHEE</a>
+                                                <a href="#" class="fw-bold text-dark text-hover-primary">당케관리자</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
 																		<svg xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +183,6 @@
 																		</svg>
 																	</span>
                                                 <!--end::Svg Icon-->
-                                                <span class="text-muted fw-bold">2 days ago</span>
                                             </div>
                                             <!--end::Author details-->
                                             <!--begin::Message details-->
@@ -208,7 +207,7 @@
                                             <!--end::Message details-->
                                             <!--begin::Preview message-->
                                             <div class="text-dark fw-semibold mw-450px"
-                                                 data-kt-inbox-message="preview">공지사항은 댓글이 필요할까유??
+                                                 data-kt-inbox-message="preview">공지사항에 대한 문의사항은 관리자에게 문의주시기 바랍니다.
                                             </div>
                                             <!--end::Preview message-->
                                         </div>
@@ -217,7 +216,7 @@
                                     <!--begin::Actions-->
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <!--begin::Date-->
-                                        <span class="fw-semibold text-muted text-end me-3">24 Jun 2023, 5:20 pm</span>
+                                        <span class="fw-semibold text-muted text-end me-3"></span>
                                         <!--end::Date-->
                                     </div>
                                     <!--end::Actions-->
@@ -229,24 +228,24 @@
                             <div class="separator my-6"></div>
 
                             <!--begin::Form-->
-                            <form id="kt_inbox_reply_form">
-                                <!--begin::Body-->
-                                <div class="d-block">
-                                    <!--begin::To-->
-                                    <div class="d-flex align-items-center border-bottom px-8 min-h-50px marigin">
-                                        <!--begin::Input-->
-                                        <img width="30px" src="/uimg/${loginStdn.img}">
-                                        <input type="text" name="id" value="${loginStdn.id}">
-                                        <input type="text" class="form-control border-0" name="compose_to"
-                                               name="contents" placeholder="comment..."/>
-                                        <a href="#" class="btn btn-primary">Send</a>
+<%--                            <form id="kt_inbox_reply_form">--%>
+<%--                                <!--begin::Body-->--%>
+<%--                                <div class="d-block">--%>
+<%--                                    <!--begin::To-->--%>
+<%--                                    <div class="d-flex align-items-center border-bottom px-8 min-h-50px marigin">--%>
+<%--                                        <!--begin::Input-->--%>
+<%--                                        <img width="30px" src="/uimg/${loginStdn.img}">--%>
+<%--                                        <input type="text" name="id" value="${loginStdn.id}">--%>
+<%--                                        <input type="text" class="form-control border-0" name="compose_to"--%>
+<%--                                               name="contents" placeholder="comment..."/>--%>
+<%--                                        <a href="#" class="btn btn-primary">Send</a>--%>
 
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Message-->
-                                </div>
-                                <!--end::Body-->
-                            </form>
+<%--                                        <!--end::Input-->--%>
+<%--                                    </div>--%>
+<%--                                    <!--end::Message-->--%>
+<%--                                </div>--%>
+<%--                                <!--end::Body-->--%>
+<%--                            </form>--%>
                             <!--end::Form-->
                         </div>
                     </div>

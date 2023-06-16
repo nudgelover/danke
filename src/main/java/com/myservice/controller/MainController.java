@@ -179,7 +179,7 @@ public class MainController {
             }
         model.addAttribute("loginStdn", stdn);
         model.addAttribute("center", "center");
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/registerimpl")
