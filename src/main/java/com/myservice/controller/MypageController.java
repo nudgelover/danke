@@ -1,14 +1,9 @@
 package com.myservice.controller;
 
-import com.myservice.dto.Blah;
-import com.myservice.dto.Comm;
-import com.myservice.dto.MyPage;
-import com.myservice.dto.Stdn;
-import com.myservice.service.BlahService;
-import com.myservice.service.CommService;
-import com.myservice.service.MyPageService;
-import com.myservice.service.StdnService;
+import com.myservice.dto.*;
+import com.myservice.service.*;
 import com.myservice.utill.FileUploadUtil;
+import com.myservice.utill.GetTimeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +38,9 @@ public class MypageController {
     BlahService blahService;
     @Autowired
     CommService commService;
+
+    @Autowired
+    StdyService stdyService;
     @Autowired
     private BCryptPasswordEncoder encoder;
 
@@ -143,11 +141,15 @@ public class MypageController {
         Stdn stdn = null;
         MyPage mypage = null;
         List<Blah> blahList = null;
+        Blah myrank = null;
+        int cntblah;
 
         try {
+            myrank = blahService.getMyBlahRank(id);
             mypage = myPageService.get(id);
             stdn = stdnService.get(id);
-            blahList = blahService.getMyBlah(id);  // 모든 Blah 게시글 조회
+            blahList = blahService.getMyBlah(id); // 모든 Blah 게시글 조회
+            cntblah= blahService.cntGetMyBlah(id);
             log.info("blahList: " + blahList.toString());
             for (Blah blah : blahList) {
                 List<Comm> commList = commService.getPostComm(blah.getId());  // 해당 Blah 게시글의 댓글 조회
@@ -164,6 +166,8 @@ public class MypageController {
         model.addAttribute("mypage", mypage);
         model.addAttribute("student", stdn);
         model.addAttribute("blahList", blahList);  // 모든 Blah 게시글 추가
+        model.addAttribute("cntblah", cntblah);
+        model.addAttribute("myrank", myrank);
         model.addAttribute("center", dir + "main");
         model.addAttribute("mpcenter", "myblah");
         return "index";
@@ -228,29 +232,46 @@ public class MypageController {
     }
 
     @RequestMapping("/logs")
-    public String logs(Model model) throws Exception {
-        model.addAttribute("center", dir + "logs");
+    public String logs(Model model, String id) throws Exception {
+        Stdn stdn = null;
+        MyPage mypage = null;
+        List<Stdy> stdy= stdyService.getMyStdy(id);
+
+        try {
+            mypage = myPageService.get(id);
+            stdn = stdnService.get(id);
+
+            for (Stdy one : stdy) {
+                String start = one.getStartTime();
+                String end = one.getEndTime();
+
+                String shortVer = "";
+                int firstIndex = one.getContents().indexOf(">");
+                int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
+
+                if( secondIndex > 30 ){
+                    shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 30))+"...</p>";
+                } else {
+                    shortVer = one.getContents().substring(0,secondIndex+1);
+                };
+
+                one.setShortVer(shortVer);
+                one.setDuration(GetTimeUtil.getTime(end,start));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e.getMessage());
+        }
+
+        model.addAttribute("mypage", mypage);
+        model.addAttribute("student", stdn);
+        model.addAttribute("stdy",stdy);
+        model.addAttribute("center", dir + "main");
+        model.addAttribute("mpcenter", "logs");
         return "index";
     }
 
 
-    @RequestMapping("/referrals")
-    public String referrals(Model model) throws Exception {
-        model.addAttribute("center", dir + "referrals");
-        return "index";
-    }
-
-    @RequestMapping("/security")
-    public String security(Model model) throws Exception {
-        model.addAttribute("center", dir + "security");
-        return "index";
-    }
-
-
-    @RequestMapping("/statements")
-    public String statements(Model model) throws Exception {
-        model.addAttribute("center", dir + "statements");
-        return "index";
-    }
 
 }

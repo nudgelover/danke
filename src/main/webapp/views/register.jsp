@@ -22,7 +22,7 @@
 </style>
 <script>
     let register_form = {
-        init: function () {
+        init            : function () {
             $('#register_btn').attr('disabled', true);
             $('#reg_code_btn').attr('disabled', true);
             $('#register_btn').click(function () {
@@ -39,16 +39,17 @@
                 register_form.code();
             })
 
-            $('#reg_code_send_btn').click( function(){
+            $('#reg_code_send_btn').click(function () {
                 let authModal = $('#auth_modal');
-                if($('#code_real').val()==$('#code_confirm').val()){
+                if ($('#code_real').val() == $('#code_confirm').val()) {
                     let modal = new bootstrap.Modal(authModal);
                     clearInterval(timer);
                     $('#contact_auth').attr('disabled', 'true');
                     $('#contact').val($('#contact_auth').val());
                     $('#auth_msg').html('인증되었습니다.');
                     modal.show();
-                };
+                }
+                ;
             })
 
             $('#sbj3').change(function () {
@@ -78,8 +79,8 @@
                     return;
                 } else {
                     $.ajax({
-                        url: '/checkid',
-                        data: {id: txt_id},
+                        url    : '/checkid',
+                        data   : {id: txt_id},
                         success: function (result) {
                             if (result == 0) {
                                 $("#id").css("border-bottom", "none");
@@ -110,53 +111,53 @@
         },
         count_down_timer: function () {
             let limits = 300;
-            timer = setInterval(function() {
-                    if (limits < 0) {
-                        return;
+            timer = setInterval(function () {
+                if (limits < 0) {
+                    return;
+                } else {
+                    let min = parseInt((limits) / 60);
+                    let sec = limits % 60;
+                    let authModal = $('#auth_modal');
+                    if (limits % 60 < 10) {
+                        sec = "0" + sec;
                     } else {
-                        let min = parseInt((limits) / 60);
-                        let sec = limits % 60;
-                        let authModal = $('#auth_modal');
-                        if (limits % 60 < 10) {
-                            sec = "0" + sec;
-                        } else {
-                            sec = sec;
-                        }
-                        $("#id_span_timer").html(min + ":" + sec);
-                        limits--;
+                        sec = sec;
+                    }
+                    $("#id_span_timer").html(min + ":" + sec);
+                    limits--;
 
-                        if (limits == 0) {
-                            $('#reg_code_send_btn').attr('disabled', 'true');
-                            let modal = new bootstrap.Modal(authModal);
-                            $('#auth_msg').html('인증번호가 만료되었습니다.');
-                            modal.show();
-                            return;
-                        }
+                    if (limits == 0) {
+                        $('#reg_code_send_btn').attr('disabled', 'true');
+                        let modal = new bootstrap.Modal(authModal);
+                        $('#auth_msg').html('인증번호가 만료되었습니다.');
+                        modal.show();
+                        return;
                     }
-                }, 1000);
-            },
-        code: function () {
-                let contact_auth = $('#contact_auth').val();
-                let authModal = $('#auth_modal');
-                $.ajax({
-                    url: '/registercodeimpl',
-                    data: {contact_auth: contact_auth},
-                    success: function (result) {
-                        if (result != 0) {
-                            $('#code_real').val(result);
-                            let modal = new bootstrap.Modal(authModal);
-                            $('#auth_msg').html('인증번호가 발송되었습니다.');
-                            register_form.count_down_timer();
-                            modal.show();
-                        } else {
-                            let modal = new bootstrap.Modal(authModal);
-                            $('#auth_msg').html('발송실패! 잠시 후 다시 시도 부탁드립니다.');
-                            modal.show();
-                        }
+                }
+            }, 1000);
+        },
+        code            : function () {
+            let contact_auth = $('#contact_auth').val();
+            let authModal = $('#auth_modal');
+            $.ajax({
+                url    : '/registercodeimpl',
+                data   : {contact_auth: contact_auth},
+                success: function (result) {
+                    if (result != 0) {
+                        $('#code_real').val(result);
+                        let modal = new bootstrap.Modal(authModal);
+                        $('#auth_msg').html('인증번호가 발송되었습니다.');
+                        register_form.count_down_timer();
+                        modal.show();
+                    } else {
+                        let modal = new bootstrap.Modal(authModal);
+                        $('#auth_msg').html('발송실패! 잠시 후 다시 시도 부탁드립니다.');
+                        modal.show();
                     }
-                })
-            },
-        send: function () {
+                }
+            })
+        },
+        send            : function () {
             let id = $('#id').val();
             let pwd = $('#pwd').val();
             let name = $('#name').val();
@@ -174,50 +175,62 @@
                 $('#check_id').text('ID는 최소 다섯글자 이상이어야 합니다.');
                 $('#id').focus();
                 return;
-            };
+            }
+            ;
             if (id.length > 5) {
                 $('#check_id').text('');
-            };
+            }
+            ;
             if (pwd == '') {
                 $('#pwd').focus();
                 return;
-            };
+            }
+            ;
             if (name == '') {
                 $('#name').focus();
                 return;
-            };
+            }
+            ;
             if (email == '') {
                 $('#email').focus();
                 return;
-            };
+            }
+            ;
             if (contact_auth == '') {
                 $('#contact_auth').focus();
                 return;
-            };
+            }
+            ;
             if (year == '') {
                 $('#year').focus();
                 return;
-            };
+            }
+            ;
             if (month == '') {
                 $('#month').focus();
                 return;
-            };
+            }
+            ;
             if (day == '') {
                 $('#day').focus();
                 return;
-            };
+            }
+            ;
             if (sbj1 == '') {
                 $('#sbj1').focus();
                 return;
-            };
+            }
+            ;
             if (sbj2 == '') {
                 $('#sbj2').focus();
                 return;
-            };
+            }
+            ;
             if (sbj3 == '') {
                 $('#sbj3').focus();
                 return;
-            };
+            }
+            ;
 
             let subject = new Array();
             $('select[name="sbj"]:selected').each(function () {
@@ -237,9 +250,9 @@
                 'method': 'post'
             });
             $('#register_form').submit();
-            }
-        };
-    $(function() {
+        }
+    };
+    $(function () {
         let timer;
         register_form.init();
     });
@@ -261,6 +274,31 @@
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
         <div class="container-xxl">
             <div class="card">
+                <div class="d-flex justify-content-end mt-4 mx-4">
+                    <!--begin::Step 1-->
+                    <div class="mx-8 my-4">
+                        <div class="d-flex align-items-center">
+                            <div style="margin: 0 10px 15px 0">
+                                <i class="bi bi-1-square-fill text-success fs-2hx"></i>
+                            </div>
+                            <div>
+                                <h3>Step 1</h3>
+                                <p>필수정보</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-8 my-4">
+                        <div class="d-flex align-items-center">
+                            <div style="margin: 0 10px 15px 0">
+                                <i class="bi bi-1-square-fill text-gray-300 fs-2hx"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-muted">Step 2</h3>
+                                <p class="text-muted">선택정보</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" id="code_real" value=""/>
                 <form class="form d-flex flex-center" id="register_form">
                     <input type="hidden" id="contact" name="contact" value=""/>
@@ -448,8 +486,9 @@
                             <label class="col-lg-3 col-form-label"></label>
                             <div class="col-lg-9 d-flex align-items-center">
                                 <button class="spinner spinner-primary text-center spinner-sm spinner-right form-control btn bg-light-danger fw-bold px-6 py-3 me-1"
-                                     style="width:20%;">
-                                    <span id="id_span_timer" class="svg-icon svg-icon-muted text-center text-danger fs-6 fw-bolder">유효시간</span>
+                                        style="width:20%;">
+                                    <span id="id_span_timer"
+                                          class="svg-icon svg-icon-muted text-center text-danger fs-6 fw-bolder">유효시간</span>
                                 </button>
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
                                      style="width:55%; margin-right:1%;">
@@ -684,10 +723,10 @@
                         </div>
                         <div class="separator separator-dashed my-10"></div>
                         <div class="row">
-                            <label class="col-lg-3 col-form-label"></label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-5 col-form-label"></label>
+                            <div class="col-lg-7">
                                 <button type="button" class="btn btn-primary fw-bold px-6 py-3 me-3" id="register_btn">
-                                    Join DANKE
+                                   다음
                                 </button>
                             </div>
                         </div>

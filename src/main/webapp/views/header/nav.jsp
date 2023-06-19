@@ -92,21 +92,15 @@
                             <!--begin::Row-->
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">블라블라</h3>
+                                    <h3 class="fw-bold mb-5">디지라운지</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/blah">블라블라</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/mypage/myblah?id=${loginStdn.id}">마이블라</a>
+                                            <a class="menu-link ps-0 py-2" href="/blah/group">디지챗
+                                            </a>
                                         </li>
-<%--                                        <li class="menu-item">--%>
-<%--                                            <a class="menu-link ps-0 py-2" href="/blah/private">Private Chat</a>--%>
-<%--                                        </li>--%>
-<%--                                        <li class="menu-item">--%>
-<%--                                            <a class="menu-link ps-0 py-2" href="/blah/group">Group Chat@--%>
-<%--                                            </a>--%>
-<%--                                        </li>--%>
                                     </ul>
                                 </div>
 
@@ -119,9 +113,6 @@
                                         </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/marker/add">맛집등록</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="#">나의맛집</a>
                                         </li>
                                     </ul>
                                 </div>

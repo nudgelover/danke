@@ -11,17 +11,44 @@
                m.id,
                m.contents,
                m.rdate
---                m.likes
         FROM stdn s
                  JOIN blah m ON s.id = m.stdn_id
-        WHERE stdn_id=#{stdnId}
+        WHERE stdn_id = #{stdnId}
         ORDER BY m.id DESC
+    </select>
+    <!--이거 없어져도됨....-->
+    <select id="cntGetMyBlah" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) AS cnt
+        FROM blah
+        WHERE stdn_id = #{stdnId}
+    </select>
+    <!--이거 없어져도됨....-->
+    <select id="getBlahRank" resultType="Blah">
+        SELECT m.stdn_id AS stdnId,
+               s.name,
+               s.img,
+               COUNT(*) AS postCount,
+               RANK() OVER (ORDER BY COUNT(*) DESC) AS ranking
+        FROM stdn s
+                 JOIN blah m ON s.id = m.stdn_id
+        GROUP BY m.stdn_id, s.name, s.img
+        ORDER BY postCount DESC
+    </select>
+
+    <select id="getMyBlahRank" parameterType="String" resultType="Blah">
+        SELECT *
+        FROM (SELECT m.stdn_id AS stdnId,
+                     COUNT(*)  AS postCount,
+                     RANK()       OVER (ORDER BY COUNT(*) DESC) AS ranking
+              FROM blah m
+              GROUP BY m.stdn_id) rankings
+        WHERE stdnId = #{stdnId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Blah">
         SELECT id, stdn_id AS stdnId, contents, rdate, likes
         FROM blah
-        WHERE id=#{id}
+        WHERE id = #{id}
     </select>
 
     <select id="selectall" resultType="Blah">
@@ -39,25 +66,25 @@
 
     <insert id="insert" parameterType="Blah">
         INSERT INTO blah (id, stdn_id, contents, rdate, likes)
-        VALUES (blah_seq.NEXTVAL,#{stdnId},#{contents},TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss'),0)
+        VALUES (blah_seq.NEXTVAL, #{stdnId}, #{contents}, TO_CHAR(SYSDATE, 'yyyy.MM.dd hh24:mi:ss'), 0)
     </insert>
 
     <update id="update" parameterType="Blah">
         UPDATE blah
         SET contents=#{contents}
-        WHERE id=#{id}
+        WHERE id = #{id}
     </update>
 
     <update id="updateLikes" parameterType="Blah">
         UPDATE blah
-        SET likes=likes+1
-        WHERE id=#{id}
+        SET likes=likes + 1
+        WHERE id = #{id}
     </update>
 
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM blah
-        WHERE id=#{id}
+        WHERE id = #{id}
     </delete>
     <select id="cntLike" parameterType="Integer" resultType="Integer">
         SELECT COUNT(*) AS cnt

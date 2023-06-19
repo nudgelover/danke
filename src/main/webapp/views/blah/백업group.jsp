@@ -2,17 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 <!--end::Vendor Stylesheets-->
-<style>
-    #groupchat_body {
-        overflow-y: scroll;
-        height: 300px; /* 스크롤 높이를 조정해 필요에 맞게 설정하세요 */
-    }
-</style>
 <script>
     let group = {
-        id            : null,
-        stompClient   : null,
-        init          : function () {
+        id          : null,
+        stompClient : null,
+        init        : function () {
             this.id = $('#group_chat_stdn_id').text();//adm_id에서 적힌 글씨를 id로 뿌려줄 예정이다.
             $("#connect_groupchat").click(function () {
                 group.connect();
@@ -24,11 +18,7 @@
                 group.sendgroup();
             });
         },
-        scrollToBottom: function () {
-            const messengerBody = document.getElementById('groupchat_body');
-            messengerBody.scrollTop = messengerBody.scrollHeight;
-        },
-        connect       : function () {
+        connect     : function () {
             var sid = this.id;
             var socket = new SockJS('${serviceserver}/ws');
             // SockJS는 웹소켓을 지원하지 않는 브라우저에서도 웹소켓과 유사한 방식으로 통신할 수 있게 해주는 js라이브러리
@@ -40,77 +30,32 @@
                 //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
                 group.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
                 console.log('Connected: ' + frame);
-                // 상대방 접속 메시지를 전송
-                var joinMessage = JSON.stringify({
-                    'sendid' : sid,
-                    'content':  sid + '님께서 채팅방에 참여하셨습니다.'
-                });
-                this.send("/receiveall", {}, joinMessage);
-                group.scrollToBottom();
-                //스크롤 안먹음...
-
                 this.subscribe('/send', function (msg) {
                     //두번째 매개변수 function(msg)는
                     //메시지가 도착했을 때 호출할 콜백 함수입니다. 이 함수는 서버에서 보낸 메시지를 전달받습니다
                     if (JSON.parse(msg.body).sendid != sid) {
-
-                        $.ajax({
-                            url    : '/getstdnimg',
-                            method : 'GET',
-                            data   : {stdnId: JSON.parse(msg.body).sendid}, // 이미지를 가져올 학생의 ID를 전달합니다.
-                            success: function (response) {
-                                const imgUrl = response.img; // 서버에서 조회한 stdn dto
-                                const stdnName = response.name;
-
-                                $("#groupallmsg").append(
-                                    '<div class="d-flex justify-content-start mb-10"> <div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + stdnName + '<span style="font-size: small" class="text-muted">@' + JSON.parse(msg.body).sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"data-kt-element="message-text">' + JSON.parse(msg.body).content + ' </div> </div> </div>');
-
-                                // 메시지 로컬 스토리지에 추가
-                                onechat.addMessageToStorage(msg);
-                                onechat.scrollToBottom();
-
-                            },
-                            error  : function (xhr, status, error) {
-                                console.log('에러가 발생했습니다.');
-                            }
-                        });
+                        $("#groupallmsg").append(
+                            '<div class="d-flex justify-content-start mb-10"> <div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/assets/media/avatars/300-25.jpg"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + JSON.parse(msg.body).sendid + '</a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"data-kt-element="message-text">' + JSON.parse(msg.body).content + ' </div> </div> </div>');
                     }
-                    group.scrollToBottom();
-
                 });
 
             });
         },
-        disconnect    : function () {
-            var exitMessage = JSON.stringify({
-                'sendid' : this.id,
-                'content':  this.id  + '님께서 채팅방에서 퇴장하셨습니다.',
-            });
-            group.scrollToBottom();
-            //스크롤 안먹음...
-            this.stompClient.send("/receiveall", {}, exitMessage);
-
+        disconnect  : function () {
             if (this.stompClient !== null) {
                 this.stompClient.disconnect();
             }
             group.setConnected(false);
             console.log("Disconnected");
         },
-        setConnected  : function (connected) {
+        setConnected: function (connected) {
             if (connected) {
                 $("#status_group").text("연결됨");
-                $("#groupallmsg").append(
-                    '<h4>' + this.id + '님, 채팅방에 입장되셨습니다.</h4>');
-                group.scrollToBottom();
             } else {
                 $("#status_group").text("연결종료");
-                $("#groupallmsg").append(
-                    '<h4>' + this.id + '님, 채팅방에서 퇴장하셨습니다.</h4>');
-                group.scrollToBottom();
-
             }
         },
-        sendgroup     : function () {
+        sendgroup   : function () {
             var msg = JSON.stringify({
                 'sendid' : this.id,
                 'content': $("#grouptext").val()
@@ -120,7 +65,7 @@
                 '<div class="d-flex justify-content-end mb-10"><div class="d-flex flex-column align-items-end"> <div class="d-flex align-items-center mb-2"> <div class="me-3"> <a href="#"class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">나</a> </div> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/${loginStdn.img}"/> </div> </div> <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"data-kt-element="message-text">' + $('#grouptext').val() + '</div></div></div>'
             );
             //자동으로 스크롤 내려가는 스크립트
-            group.scrollToBottom();
+            chatbot.scrollToBottom();
             $('#grouptext').val('');
         }
     };
@@ -251,28 +196,60 @@
                         <!--begin::Card body-->
                         <div class="card-body" id="kt_chat_messenger_body">
                             <!--begin::Messages-->
-                            <div id="groupchat_body">
+                            <div class="scroll-y me-n5 pe-5 h-300px h-lg-auto" data-kt-element="messages"
+                                 data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_header, #kt_app_header, #kt_app_toolbar, #kt_toolbar, #kt_footer, #kt_app_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer"
+                                 data-kt-scroll-wrappers="#kt_content, #kt_app_content, #kt_chat_messenger_body"
+                                 data-kt-scroll-offset="5px">
                                 <!--begin::Message(in)-->
                                 <div class="d-flex justify-content-start mb-10">
                                     <div class="d-flex flex-column align-items-start">
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="symbol symbol-35px symbol-circle">
-                                                <img alt="Pic" src="/img/logo.png"/>
+                                                <img alt="Pic" src="/assets/media/avatars/300-25.jpg"/>
                                             </div>
                                             <div class="ms-3">
-                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">당케
-                                                    관리자</a>
+                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Brian
+                                                    Cox</a>
+                                                <span class="text-muted fs-7 mb-1">2 mins</span>
                                             </div>
                                         </div>
-                                        <div class="p-5 rounded bg-light-warning text-dark fw-semibold mw-lg-700px text-start"
-                                             data-kt-element="message-text">디지챗에 오신 것을 환영합니다!👏 오른쪽 상단을 확인하시어, <span
-                                                class="text-primary fw-bold">연결</span>이 잘 되어있는지 확인해주세요. <span
-                                                class="text-primary fw-bold">연결 대기</span>로 되어있으시다면, <span
-                                                class="text-primary fw-bold">연결버튼</span>을 눌러주시기 바랍니다.
+                                        <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
+                                             data-kt-element="message-text">How likely are you to recommend our company
+                                            to your friends and family ?
                                         </div>
                                     </div>
                                 </div>
                                 <!--end::Message(in)-->
+                                <!--begin::Message(out)-->
+                                <div class="d-flex justify-content-end mb-10">
+                                    <!--begin::Wrapper-->
+                                    <div class="d-flex flex-column align-items-end">
+                                        <!--begin::User-->
+                                        <div class="d-flex align-items-center mb-2">
+                                            <!--begin::Details-->
+                                            <div class="me-3">
+                                                <span class="text-muted fs-7 mb-1">5 mins</span>
+                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">You</a>
+                                            </div>
+                                            <!--end::Details-->
+                                            <!--begin::Avatar-->
+                                            <div class="symbol symbol-35px symbol-circle">
+                                                <img alt="Pic" src="/assets/media/avatars/300-1.jpg"/>
+                                            </div>
+                                            <!--end::Avatar-->
+                                        </div>
+                                        <!--end::User-->
+                                        <!--begin::Text-->
+                                        <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"
+                                             data-kt-element="message-text">Hey there, we’re just writing to let you
+                                            know that you’ve been subscribed to a repository on GitHub.
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
                                 <!--end::Message(out)-->
                                 <div id="groupallmsg"></div>
                             </div>

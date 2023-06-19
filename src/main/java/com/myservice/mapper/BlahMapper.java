@@ -11,6 +11,10 @@ import java.util.List;
 @Repository
 public interface BlahMapper extends KBMapper<Integer, Blah> {
     public List<Blah> getMyBlah(String stdnId) throws Exception;
+    public List<Blah> getBlahRank() throws Exception;
+    public Blah getMyBlahRank(String stdnId) throws Exception;
     public Integer cntLike(Integer id) throws Exception;
+
+    public Integer cntGetMyBlah(String stdnId) throws Exception;
     public void updateLikes(Blah blah) throws Exception;
 }

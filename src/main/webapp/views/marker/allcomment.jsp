@@ -63,7 +63,6 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/marker/all" class="btn btn-active-accent active fw-bold ms-3">맛집 조회</a>
                 <a href="/marker/add" class="btn btn-active-accent fw-bold ms-3">맛집 등록</a>
-                <a href="#" class="btn btn-active-accent fw-bold ms-3">나의 맛집</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -187,8 +186,6 @@
                                                 <div class="overlay-layer">
                                                     <a href="/marker/detail?id=${obj.id}"
                                                        class="btn fw-bold btn-sm btn-light-primary me-2">상세보기</a>
-                                                    <a href="../dist/apps/shop/product.html"
-                                                       class="btn fw-bold btn-sm btn-light-primary">찜하기</a>
                                                 </div>
                                             </div>
                                             <!--end::Image-->

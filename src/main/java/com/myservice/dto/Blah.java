@@ -21,7 +21,8 @@ public class Blah {
     private List<Comm> commList;
     private int commentCount;
     private int likeCount;
-
+    private int postCount;
+    private int ranking;
     // Getter and Setter methods for other fields
 
     public List<Comm> getCommList() {

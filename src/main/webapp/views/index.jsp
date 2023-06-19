@@ -15,72 +15,14 @@ Like: www.facebook.com/keenthemes
 License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
 -->
 
-<style>
-    #scroll-btn {
-        opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: cornflowerblue;
-        position: fixed;
-        bottom: 12%;
-        right: 5%;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        font: 2px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-
-    #scroll-btn.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-    #scroll-btn2 {
-        opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: cornflowerblue;
-        position: fixed;
-        bottom: 5%;
-        right: 5%;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        font: bold 10px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-
-    #scroll-btn2.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-
-    #scroll-btn3 {
-        opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: cornflowerblue;
-        position: fixed;
-        bottom: 19%;
-        right: 5%;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        font: bold 10px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-    #scroll-btn3.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-</style>
 
 <html lang="ko" data-bs-theme-mode="light">
 <!--begin::Head-->
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Nanum+Gothic&family=Noto+Sans+KR:wght@300&display=swap"
+          rel="stylesheet">
     <base href=""/>
     <title>DIGI CAMPUS</title>
     <meta charset="utf-8"/>
@@ -107,17 +49,16 @@ License: For each use you must have a valid license purchased only from above li
 
     <script>
         let chatbtn = {
-            init:function(){
+            init: function () {
                 const chatbotbox = $('#chatbot_box');
                 const oneononebox = $('#oneonone_box');
                 const toallbox = $('#toall_box');
-
                 const scrollBtn = document.createElement("button");
-                scrollBtn.innerHTML = "chatbot";
+                scrollBtn.innerHTML = "챗봇";
                 scrollBtn.setAttribute("id", "scroll-btn");
                 document.body.appendChild(scrollBtn);
                 scrollBtn.classList.add("show");
-                scrollBtn.addEventListener("click", function(){
+                scrollBtn.addEventListener("click", function () {
                     chatbotbox.toggle();
                 });
                 const scrollBtn2 = document.createElement("button");
@@ -125,7 +66,7 @@ License: For each use you must have a valid license purchased only from above li
                 scrollBtn2.setAttribute("id", "scroll-btn2");
                 document.body.appendChild(scrollBtn2);
                 scrollBtn2.classList.add("show");
-                scrollBtn2.addEventListener("click", function(){
+                scrollBtn2.addEventListener("click", function () {
                     oneononebox.toggle();
                 });
 
@@ -134,13 +75,13 @@ License: For each use you must have a valid license purchased only from above li
                 scrollBtn3.setAttribute("id", "scroll-btn3");
                 document.body.appendChild(scrollBtn3);
                 scrollBtn3.classList.add("show");
-                scrollBtn3.addEventListener("click", function(){
+                scrollBtn3.addEventListener("click", function () {
                     toallbox.toggle();
                 });
             }
         };
 
-        $(function(){
+        $(function () {
             chatbtn.init();
         });
     </script>
@@ -152,22 +93,22 @@ License: For each use you must have a valid license purchased only from above li
 <!--begin::Theme mode setup on page load-->
 <script>
     var defaultThemeMode = "light";
-var themeMode;
-if (document.documentElement) {
-    if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-        themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-    } else {
-        if (localStorage.getItem("data-bs-theme") !== null) {
-            themeMode = localStorage.getItem("data-bs-theme");
+    var themeMode;
+    if (document.documentElement) {
+        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
         } else {
-            themeMode = defaultThemeMode;
+            if (localStorage.getItem("data-bs-theme") !== null) {
+                themeMode = localStorage.getItem("data-bs-theme");
+            } else {
+                themeMode = defaultThemeMode;
+            }
         }
-    }
-    if (themeMode === "system") {
-        themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    document.documentElement.setAttribute("data-bs-theme", themeMode);
-}</script>
+        if (themeMode === "system") {
+            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }</script>
 
 <script>
     function lightDarkMode() {
@@ -183,7 +124,7 @@ if (document.documentElement) {
     }
 
     // 페이지 로드 시 저장된 모드를 적용
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const savedMode = localStorage.getItem('data-bs-theme');
         if (savedMode) {
             const htmlElement = document.querySelector('html');
@@ -192,11 +133,72 @@ if (document.documentElement) {
     });
 </script>
 <style>
-    html body{
+    html body {
         font-family: 'Gothic A1', sans-serif;
         font-family: 'Nanum Gothic', sans-serif;
         font-family: 'Noto Sans KR', sans-serif;
     }
+
+     #scroll-btn {
+         opacity: 0;
+         width: 50px;
+         height: 50px;
+         color: #fff;
+         background-color: #605AA9;
+         position: fixed;
+         bottom: 12%;
+         right: 5%;
+         border: 2px solid #fff;
+         border-radius: 50%;
+         font: bold 2px monospace;
+         transition: opacity 2s, transform 2s;
+     }
+
+    #scroll-btn.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
+    #scroll-btn2 {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: #605AA9;
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: bold 10px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+
+    #scroll-btn2.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
+    #scroll-btn3 {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: #605AA9;
+        position: fixed;
+        bottom: 19%;
+        right: 5%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: bold 10px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+
+    #scroll-btn3.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
 </style>
 <!--end::Theme mode setup on page load-->
 <!--begin::Main-->
@@ -230,7 +232,8 @@ if (document.documentElement) {
                     <!--begin::Copyright-->
                     <div class="text-dark order-2 order-md-1">
                         <span class="text-muted fw-semibold me-2">2023&copy;</span>
-                        <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">DIGICampus Danke</a>
+                        <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">DIGICampus
+                            Danke</a>
                     </div>
                     <!--end::Copyright-->
                     <!--begin::Menu-->

@@ -300,7 +300,6 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/marker/all" class="btn btn-active-accent fw-bold ms-3">맛집 조회</a>
                 <a href="/marker/add" class="btn btn-active-accent active fw-bold ms-3">맛집 등록</a>
-                <a href="#" class="btn btn-active-accent fw-bold ms-3">나의 맛집</a>
             </div>
             <!--end::Nav-->
         </div>

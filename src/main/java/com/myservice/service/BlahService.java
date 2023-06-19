@@ -34,6 +34,16 @@ public class BlahService implements KBService<Integer, Blah> {
         return mapper.select(k);
     }
 
+
+    public Blah getMyBlahRank(String stdnId) throws Exception {
+        return mapper.getMyBlahRank(stdnId);
+    }
+
+
+    public Integer cntGetMyBlah(String stdnId) throws Exception {
+        return mapper.cntGetMyBlah(stdnId);
+    }
+
     @Override
     public List<Blah> get() throws Exception {
         return mapper.selectall();
@@ -41,6 +51,11 @@ public class BlahService implements KBService<Integer, Blah> {
 
     public List<Blah> getMyBlah(String stdnId) throws Exception{
         return mapper.getMyBlah(stdnId);
+    }
+
+
+    public List<Blah> getBlahRank() throws Exception{
+        return mapper.getBlahRank();
     }
 
     public void updateLikes(Blah blah) throws Exception{

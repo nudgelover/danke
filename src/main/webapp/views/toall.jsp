@@ -70,9 +70,9 @@
         },
         setConnected:function(connected){
             if (connected) {
-                $("#status_toall").text("connected");
+                $("#status_toall").text("연결됨");
             } else {
-                $("#status_toall").text("disconnected");
+                $("#status_toall").text("연결종료");
             }
         },
         sendAll:function(){
@@ -94,13 +94,13 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4" id="toall_box">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">To all</h6>
+            <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
         </div>
         <div class="card-body">
             <div id="container"></div>
             <div class="col-sm-12">
                 <h3 id="adm_id_toall">${loginStdn.id}</h3>
-                <H3 id="status_toall">Status</H3>
+                <h3 id="status_toall">연결대기</h3>
                 <div class="btn-group">
                     <button id="connect_toall" class="btn btn-info">Connect</button>
                     <button id="disconnect_toall" class="btn btn-info">Disconnect</button>
