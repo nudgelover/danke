@@ -11,14 +11,14 @@
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#kt_tab_pane_1">
-                            <span class="fs-2x text-gray-800" style="font-weight: 900">나의 주문내역 조회</span></a>
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">수강신청 내역조회</span></a>
                     </li>
                 </ul>
             </div>
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
-                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
+                <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
         </div>
@@ -129,6 +129,13 @@
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                    <div class="col-12 text-center text-gray-700 fs-4 py-15 mt-10">
+                                        <c:choose>
+                                            <c:when test="${ord.size()==0}">
+                                                수강 신청 내역이 존재하지 않습니다.
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
                                 </div>
                             </div>
                         </div>

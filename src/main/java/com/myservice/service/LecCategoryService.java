@@ -38,4 +38,17 @@ public class LecCategoryService implements KBService<Integer, LecCategory> {
     public List<LecCategory> get() throws Exception {
         return mapper.selectall();
     }
+
+    public List<LecCategory> getDistinctAll() throws Exception {
+        return mapper.getdistinctall();
+    }
+
+    public List<LecCategory> getDistinctByTopic(String topic) throws Exception{
+        return mapper.getdistinctbytopic(topic);
+    }
+
+    public List<LecCategory> getDistinctByParent(Integer parent) throws Exception{
+        return mapper.getdistinctbyparent(parent);
+    }
+
 }

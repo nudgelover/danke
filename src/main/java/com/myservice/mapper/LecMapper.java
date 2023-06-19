@@ -15,7 +15,11 @@ import java.util.List;
 public interface LecMapper extends KBMapper<Integer, Lec> {
     Page<Lec> getpage() throws Exception;
 
-    public List<Lec> search(LecSearch ls) throws Exception;
+    Page<Lec> getfindpage(LecSearch lecSearch) throws Exception;
 
     public List<Lec> getRank() throws Exception;
+
+    Page<Lec> gettopicpage(String topic) throws Exception;
+
+    Page<Lec> getsbjcode2page(Integer sbjCode2) throws Exception;
 }

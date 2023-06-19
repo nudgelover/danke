@@ -42,17 +42,39 @@
         SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
              , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
              , n.name AS stdnName, n.img AS stdnImg
-        FROM stdy y, stdn n
-        WHERE y.writer=n.id
-        AND y.writer=#{writer}
-        AND y.contents IS NOT NULL
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S'
+                AND lk.stdn_id = #{writer}) AS isLiked
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S') AS likes
+        FROM stdy y
+            JOIN stdn n ON y.writer = n.id AND y.writer=#{writer}
+        WHERE y.contents IS NOT NULL
+        ORDER BY y.id DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="Stdy">
         SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
              , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
              , n.name AS stdnName, n.img AS stdnImg
-        FROM stdy y, stdn n
+             , COUNT(lk.like_id) AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id
+                 LEFT JOIN likes lk ON y.id=lk.post_id AND lk.board = 'S'
+        WHERE y.writer=n.id
+          AND y.id=#{id}
+          AND y.contents IS NOT NULL
+        GROUP BY y.id, y.writer, y.start_time, y.end_time, y.contents
+               , y.rdate, y.filename, y.filename_org, n.name, n.img
+    </select>
+
+    <select id="getWithLikes" parameterType="map" resultType="Stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S'
+                                                      AND lk.stdn_id = #{stdnId}) AS isLiked
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S') AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id
         WHERE y.writer=n.id
         AND y.id=#{id}
         AND y.contents IS NOT NULL
@@ -62,9 +84,15 @@
         SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
              , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
              , n.name AS stdnName, n.img AS stdnImg
-        FROM stdy y, stdn n
+             , COUNT(lk.like_id) AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id
+                 LEFT JOIN likes lk ON y.id=lk.post_id AND lk.board = 'S'
         WHERE y.writer=n.id
           AND y.contents IS NOT NULL
+        GROUP BY y.id, y.writer, y.start_time, y.end_time, y.contents
+               , y.rdate, y.filename, y.filename_org, n.name, n.img
+        ORDER BY y.id DESC
     </select>
 
     <insert id="insert" parameterType="Stdy">
@@ -85,13 +113,63 @@
         WHERE id=#{id}
     </delete>
 
+    <select id="getRank3" resultType="stdy">
+        SELECT y.writer, n.img AS stdnImg, n.name AS stdnName, n.sbj1, n.sbj2, n.sbj3, monthlyDuration, monthlyCnt, monthlyLikes
+        FROM (
+                 SELECT y.writer, n.img AS stdnImg, n.name AS stdnName, n.sbj1, n.sbj2, n.sbj3,
+                        SUM((SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S')) AS monthlyLikes,
+                        SUM(
+                                        EXTRACT(DAY FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS'))) * 24 * 60
+                                    + EXTRACT(HOUR FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS'))) * 60
+                                    + EXTRACT(MINUTE FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS')))
+                            ) AS monthlyDuration,
+                        COUNT(*) AS monthlyCnt
+                 FROM stdy y
+                          INNER JOIN stdn n ON y.writer = n.id
+                 WHERE TO_CHAR(TO_DATE(y.rdate, 'YYYY.MM.DD'), 'YYYY.MM') = TO_CHAR(SYSDATE, 'YYYY.MM')
+                 GROUP BY y.writer, n.img, n.name, n.sbj1, n.sbj2, n.sbj3
+                 ORDER BY monthlyDuration DESC
+             ) y
+                 INNER JOIN stdn n ON y.writer = n.id
+        WHERE ROWNUM &lt;= 3
+    </select>
+
+
+
     <select id="getpage" resultType="stdy">
         SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
-             , y.contents, y.rdate, y.filename,y.filename_org AS filenameOrg
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
              , n.name AS stdnName, n.img AS stdnImg
-        FROM stdy y, stdn n
+             , COUNT(lk.like_id) AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id
+                 LEFT JOIN likes lk ON y.id=lk.post_id AND lk.board = 'S'
         WHERE y.writer=n.id
-          AND y.contents is not null
+          AND y.contents IS NOT NULL
+        GROUP BY y.id, y.writer, y.start_time, y.end_time, y.contents
+               , y.rdate, y.filename, y.filename_org, n.name, n.img
+        ORDER BY y.id DESC
+    </select>
+
+    <select id="getfindpage" parameterType="stdySearch" resultType="stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+             , COUNT(lk.like_id) AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id
+                 LEFT JOIN likes lk ON y.id=lk.post_id AND lk.board = 'S'
+        WHERE y.writer=n.id
+          AND y.contents IS NOT NULL
+           AND 1=1
+        <if test="keyword == 'writer'">
+            AND y.writer LIKE '%' ||  #{search} || '%'
+        </if>
+        <if test="keyword == 'contents'">
+            AND y.contents LIKE '%' ||  #{search} || '%'
+        </if>
+        GROUP BY y.id, y.writer, y.start_time, y.end_time, y.contents
+               , y.rdate, y.filename, y.filename_org, n.name, n.img
         ORDER BY y.id DESC
     </select>
 

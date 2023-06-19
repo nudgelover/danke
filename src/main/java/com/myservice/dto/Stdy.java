@@ -27,6 +27,16 @@ public class Stdy {
     private String month;
     private int studyCount;
     private String shortVer;
+    private Integer likes;
+    private Integer isLiked;
+    private Integer newly;
+    private Integer monthlyDuration;
+    private Integer monthlyCnt;
+    private Integer monthlyLikes;
+    private String sbj1;
+    private String sbj2;
+    private String sbj3;
+
 
     //Insert
     public Stdy(String writer, String startTime, String endTime, String contents, String filename, String filenameOrg) {

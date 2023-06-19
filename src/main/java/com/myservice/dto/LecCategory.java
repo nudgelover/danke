@@ -14,4 +14,8 @@ public class LecCategory {
     private String sbjCode2;
     private String sbjCode3;
 
+    private String sbjName;
+    private String topic;
+    private Integer parent;
+
 }

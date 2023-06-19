@@ -36,7 +36,7 @@
              , COUNT(lk.like_id) AS likes
         FROM lec_review l
                  JOIN stdn s ON l.stdn_id = s.id
-                 LEFT JOIN likes lk ON l.id = lk.post_id
+                 LEFT JOIN likes lk ON l.id = lk.post_id AND lk.board='R'
         WHERE l.lec_id = #{lec_id}
           AND l.is_delete='0'
         GROUP BY l.id, l.lec_id, l.stdn_id, l.title, l.contents, l.rdate, l.rating, l.img, l.img_org, l.is_delete, l.del_date, l.up_review, s.img

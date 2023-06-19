@@ -2,6 +2,7 @@ package com.myservice.service;
 
 import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Stdy;
+import com.myservice.dto.StdySearch;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.StdyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class StdyService implements KBService<Integer, Stdy> {
         return mapper.select(k);
     }
 
-
     @Override
     public List<Stdy> get() throws Exception {
         return mapper.selectall();
@@ -44,6 +44,19 @@ public class StdyService implements KBService<Integer, Stdy> {
     public List<Stdy> getPage(int pageNo) throws Exception {
         PageHelper.startPage(pageNo, 10); //한화면에 출력되는 개수
         return mapper.getpage();
+    }
+
+    public List<Stdy> getFindPage(int pageNo, StdySearch stdySearch) throws Exception {
+        PageHelper.startPage(pageNo, 10); //한화면에 출력되는 개수
+        return mapper.getfindpage(stdySearch);
+    }
+
+    public List<Stdy> getRank3() throws Exception{
+        return mapper.getRank3();
+    }
+
+    public Stdy getWithLikes (Integer id,String stdnId) throws Exception{
+        return mapper.getWithLikes(id,stdnId);
     }
 
     public List<Stdy> getMyStdy(String writer) throws Exception{

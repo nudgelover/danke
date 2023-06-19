@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +58,9 @@ public class LectureController {
     @Autowired
     SbjDetailService sbjDetailService;
 
+    @Autowired
+    LecCategoryService lecCategoryService;
+
     @RequestMapping("/all")
     public String all(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Lec> p;
@@ -66,7 +70,6 @@ public class LectureController {
             e.printStackTrace();
             throw new Exception();
         }
-        List<Lec> rank = lecService.getRank();
 
         List<SbjDetail> sideBig = sbjDetailService.searchBig();
 
@@ -75,24 +78,331 @@ public class LectureController {
             Integer index = sideBig.get(n).getSbjCode();
             sideMedium.put(index, sbjDetailService.searchMedium(index));
         }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctAll();
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
         log.info("여기"+sideBig.toString());
         log.info("여기"+sideMedium.toString());
         model.addAttribute("sideBig",sideBig);
         model.addAttribute("sideMedium",sideMedium);
-        model.addAttribute("rank", rank);
         model.addAttribute("target", "lecture");
         model.addAttribute("cpage", p);
+        model.addAttribute("cate", cate);
         model.addAttribute("center", dir + "all");
+        return "index";
+    }
+
+    @RequestMapping("/findimpl")
+    public String findimpl(LecSearch lecSearch, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        PageInfo<Lec> p;
+        try {
+            p = new PageInfo<>(lecService.getFindPage(pageNo, lecSearch), 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctAll();
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("cpage", p);
+        model.addAttribute("cate", cate);
+        model.addAttribute("center", dir + "all");
+        model.addAttribute("lecSearch", lecSearch);
+        return "index";
+    }
+
+    @RequestMapping("/{sbjBigCode}/all")
+    public String sbjBigCode(@PathVariable Integer sbjBigCode, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+
+        PageInfo<Lec> p = new PageInfo<>(lecService.getSbjCode2Page(pageNo,sbjBigCode), 5);
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctByParent(sbjBigCode);
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("sbjBigCode",sbjBigCode);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("target2", sbjBigCode);
+        model.addAttribute("cpage", p);
+        model.addAttribute("cate", cate);
+        model.addAttribute("center", dir + "all");
+
+        return "index";
+    }
+
+    @RequestMapping("/{sbjBigCode}/{sbjMediumCode}/all")
+    public String sbjMediumCode(@PathVariable Integer sbjBigCode, @PathVariable Integer sbjMediumCode, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        SbjDetail sbjDetail = sbjDetailService.getThisSbjDetail(sbjMediumCode);
+        String sbjName = sbjDetail.getSbjName();
+        PageInfo<Lec> p = new PageInfo<>(lecService.getTopicPage(pageNo,sbjName), 5);
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctByTopic(sbjName);
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("sbjBigCode",sbjBigCode);
+        model.addAttribute("sbjMediumCode", sbjMediumCode);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("target2", sbjBigCode);
+        model.addAttribute("target3", sbjMediumCode);
+        model.addAttribute("cate", cate);
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "all");
+
+        return "index";
+    }
+
+    @RequestMapping("/spec{spec}/all")
+    public String spec(@PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        PageInfo<Lec> pre = new PageInfo<>(lecService.getPage(pageNo), 5);
+        List<Lec> lecs = pre.getList();
+
+        PageInfo<Lec> p = new PageInfo<>();
+        List<Lec> pLecs = new ArrayList<>();
+
+        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
+        String specName = specDetail.getSbjName();
+
+        try {
+            log.info("여기까지오나");
+            for (Lec lec : lecs) {
+                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
+                    pLecs.add(lec);
+                    log.info("여기피랙스투스트링"+pLecs.toString());
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+        log.info("여기 트라이캐치나옴");
+        p.setList(pLecs);
+
+        log.info("여기+교정된 p"+p.toString());
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctAll();
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("spec",spec);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("target2","spec"+spec);
+        model.addAttribute("cate", cate);
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "all");
+
+        return "index";
+    }
+
+    @RequestMapping("/{sbjBigCode}/spec{spec}/all")
+    public String bigSpec(@PathVariable Integer sbjBigCode, @PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        PageInfo<Lec> pre = new PageInfo<>(lecService.getSbjCode2Page(pageNo,sbjBigCode), 5);
+        List<Lec> lecs = pre.getList();
+
+        PageInfo<Lec> p = new PageInfo<>();
+        List<Lec> pLecs = new ArrayList<>();
+
+        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
+        String specName = specDetail.getSbjName();
+
+        try {
+            log.info("여기까지오나");
+            for (Lec lec : lecs) {
+                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
+                    pLecs.add(lec);
+                    log.info("여기피랙스투스트링"+pLecs.toString());
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+        log.info("여기 트라이캐치나옴");
+        p.setList(pLecs);
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctByParent(sbjBigCode);
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("sbjBigCode",sbjBigCode);
+        model.addAttribute("spec",spec);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("target2", sbjBigCode);
+        model.addAttribute("target3","spec"+spec);
+        model.addAttribute("cpage", p);
+        model.addAttribute("cate", cate);
+        model.addAttribute("center", dir + "all");
+
+        return "index";
+    }
+
+    @RequestMapping("/{sbjBigCode}/{sbjMediumCode}/spec{spec}/all")
+    public String bigMediumSpec(@PathVariable Integer sbjBigCode, @PathVariable Integer sbjMediumCode, @PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        SbjDetail sbjDetail = sbjDetailService.getThisSbjDetail(sbjMediumCode);
+        String sbjName = sbjDetail.getSbjName();
+        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
+        String specName = specDetail.getSbjName();
+        PageInfo<Lec> pre = new PageInfo<>(lecService.getTopicPage(pageNo,sbjName), 5);
+        PageInfo<Lec> p = new PageInfo<>();
+        List<Lec> lecs = pre.getList();
+        log.info("여기pre투스트링"+pre.toString());
+        List<Lec> pLecs = new ArrayList<>();
+
+        try {
+            log.info("여기까지오나");
+            for (Lec lec : lecs) {
+                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
+                    pLecs.add(lec);
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception();
+        }
+        log.info("여기 트라이캐치나옴");
+        p.setList(pLecs);
+
+        log.info("여기+교정된 p"+p.toString());
+
+        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+
+        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+        for(int n = 0; n < sideBig.size(); n++) {
+            Integer index = sideBig.get(n).getSbjCode();
+            sideMedium.put(index, sbjDetailService.searchMedium(index));
+        }
+
+        List<LecCategory> cate = new ArrayList<>();
+        try {
+            cate = lecCategoryService.getDistinctByTopic(sbjName);
+            log.info("여기" + cate.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception();
+        }
+
+        log.info("여기"+sideBig.toString());
+        log.info("여기"+sideMedium.toString());
+        model.addAttribute("sideBig",sideBig);
+        model.addAttribute("sideMedium",sideMedium);
+        model.addAttribute("sbjBigCode",sbjBigCode);
+        model.addAttribute("sbjMediumCode", sbjMediumCode);
+        model.addAttribute("spec",spec);
+        model.addAttribute("target", "lecture");
+        model.addAttribute("target2", sbjBigCode);
+        model.addAttribute("target3", sbjMediumCode);
+        model.addAttribute("target4","spec"+spec);
+        model.addAttribute("cate", cate);
+        model.addAttribute("cpage", p);
+        model.addAttribute("center", dir + "all");
+
         return "index";
     }
 
     @RequestMapping("/detail")
     public String detail(Model model, Integer id, String stdnId) throws Exception {
         List<LecReview> list = new ArrayList<>();
+        LecReview wrote = null;
         if (stdnId == null || stdnId =="") {
             list = lecReviewService.getByLecId(id);
         } else {
             list = lecReviewService.getByLecIdWithLikes(id, stdnId);
+            wrote = lecReviewService.getThisLecReview(stdnId,id);
         }
         Integer bought = 0;
         OrdDetail ordDetail = ordDetailService.boughtOrNot(id,stdnId);
@@ -106,6 +416,7 @@ public class LectureController {
         log.info("여기"+ ratingCnt.toString());
         model.addAttribute("bought", bought);
         model.addAttribute("ratingCnt", ratingCnt);
+        model.addAttribute("wrote",wrote);
         model.addAttribute("list", list);
         model.addAttribute("lec", lec);
         model.addAttribute("center", dir + "detail");

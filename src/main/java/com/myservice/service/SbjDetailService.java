@@ -43,11 +43,15 @@ public class SbjDetailService implements KBService<Integer, SbjDetail> {
         return mapper.searchBig();
     }
 
-    public List<SbjDetail> searchMedium(Integer SbjCode2) throws Exception{
-        return mapper.searchMedium(SbjCode2);
+    public List<SbjDetail> searchMedium(Integer sbjCode2) throws Exception{
+        return mapper.searchMedium(sbjCode2);
     }
 
     public List<SbjDetail> searchMediumAll() throws Exception{
         return mapper.searchMediumAll();
+    }
+
+    public SbjDetail getThisSbjDetail(Integer sbjCode) throws Exception{
+        return mapper.getThisSbjDetail(sbjCode);
     }
 }

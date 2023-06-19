@@ -55,7 +55,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-3">내 학습</a>
-                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 커리큘럼</a>
+                <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
 
@@ -219,7 +219,7 @@
                                 <div class="card h-100">
                                     <div class="card-body d-flex flex-column rounded justify-content-between">
                                         <div class="text-center rounded lecImg_container">
-                                            <img src="/uimg/schedule.jpg" class="lec_img" alt="img"/>
+                                            <img src="/uimg/${ordDetail.img}" class="lec_img" alt="img"/>
                                         </div>
                                         <div class="topic">
                                             <span class="topic badge badge-light-info">${ordDetail.lecTopic}</span>

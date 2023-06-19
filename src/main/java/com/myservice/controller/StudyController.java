@@ -2,8 +2,8 @@ package com.myservice.controller;
 
 
 import com.github.pagehelper.PageInfo;
-import com.myservice.dto.Curri;
 import com.myservice.dto.Stdy;
+import com.myservice.dto.StdySearch;
 import com.myservice.service.StdyService;
 import com.myservice.utill.GetTimeUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -55,27 +58,149 @@ public class StudyController {
         PageInfo<Stdy> p;
         p = new PageInfo<>(stdyService.getPage(pageNo), 5);
         List<Stdy> stdy = p.getList();
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         for (Stdy one : stdy) {
             String start = one.getStartTime();
             String end = one.getEndTime();
+
+            one.setStartTime(start.substring(11));
+            one.setEndTime(end.substring(11));
+
+            one.setDuration(GetTimeUtil.getTime(start, end));
 
             String shortVer = "";
             int firstIndex = one.getContents().indexOf(">");
             int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
 
-            if( secondIndex > 30 ){
-                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 30))+"...</p>";
+            if( secondIndex > 25 ){
+                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 25))+"...</p>";
             } else {
                 shortVer = one.getContents().substring(0,secondIndex+1);
             };
-
+            log.info("여기 shortVer"+shortVer);
+            shortVer = shortVer.substring(3, shortVer.length() - 4);
+            log.info("여기 shorVer"+shortVer);
             one.setShortVer(shortVer);
-            one.setDuration(GetTimeUtil.getTime(end,start));
+
+            LocalDate rdate = LocalDate.parse(one.getRdate(), formatter);
+            Integer newly = (ChronoUnit.DAYS.between(rdate, now) <= 3) ? 1:0;
+            one.setNewly(newly);
         }
+        List<Stdy> rank = stdyService.getRank3();
+        log.info("여기 투스트링"+stdyService.getRank3());
 
         model.addAttribute("target", "study");
         model.addAttribute("cpage", p);
+        model.addAttribute("rank", rank);
         model.addAttribute("center", dir + "all");
+        return "index";
+    }
+
+    @RequestMapping("/findimpl")
+    public String findimpl(Model model, StdySearch stdySearch, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
+        PageInfo<Stdy> p = new PageInfo<>(stdyService.getFindPage(pageNo, stdySearch), 3);
+        List<Stdy> stdy = p.getList();
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        for (Stdy one : stdy) {
+            String start = one.getStartTime();
+            String end = one.getEndTime();
+
+            one.setStartTime(start.substring(11));
+            one.setEndTime(end.substring(11));
+
+            one.setDuration(GetTimeUtil.getTime(start, end));
+
+            String shortVer = "";
+            int firstIndex = one.getContents().indexOf(">");
+            int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
+
+            if( secondIndex > 25 ){
+                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 25))+"...</p>";
+            } else {
+                shortVer = one.getContents().substring(0,secondIndex+1);
+            };
+            log.info("여기 shortVer"+shortVer);
+            shortVer = shortVer.substring(3, shortVer.length() - 4);
+            log.info("여기 shorVer"+shortVer);
+            one.setShortVer(shortVer);
+
+            LocalDate rdate = LocalDate.parse(one.getRdate(), formatter);
+            Integer newly = (ChronoUnit.DAYS.between(rdate, now) <= 3) ? 1:0;
+            one.setNewly(newly);
+
+        }
+        List<Stdy> rank = stdyService.getRank3();
+        log.info("여기 투스트링"+stdyService.getRank3());
+
+        model.addAttribute("target","study");
+        model.addAttribute("cpage",p);
+        model.addAttribute("rank", rank);
+        model.addAttribute("center",dir+"all");
+        model.addAttribute("stdySearch", stdySearch);
+        return "index";
+    }
+
+    @RequestMapping("/mine")
+    public String mine(Model model, String writer) throws Exception {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        String thisMonth = now.format(DateTimeFormatter.ofPattern("yyyy.MM"));
+        log.info("여기 디스만스"+thisMonth);
+        Integer did = 0;
+        Stdy today = stdyService.stdyStartOrNot(writer);
+        if(today!=null&& today.getContents()!=null){
+            did=1;
+        }
+
+        List<Stdy> stdy= stdyService.getMyStdy(writer);
+        Integer cnt = 0;
+        Integer length = 0;
+        Integer cntLikes = 0;
+        for (Stdy one : stdy) {
+            String start = one.getStartTime();
+            String end = one.getEndTime();
+            one.setStartTime(start.substring(11));
+            one.setEndTime(end.substring(11));
+
+            one.setDuration(GetTimeUtil.getTime(start, end));
+            String duration = GetTimeUtil.getTime(start, end).replaceAll("[^0-9]", "");
+            length+= Integer.parseInt(duration);
+
+            LocalDate rdate = LocalDate.parse(one.getRdate(), formatter);
+            Integer newly = (ChronoUnit.DAYS.between(rdate, now) <= 3) ? 1:0;
+            one.setNewly(newly);
+
+            String shortVer = "";
+            int firstIndex = one.getContents().indexOf(">");
+            int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
+
+            if( secondIndex > 25 ){
+                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 25))+"...</p>";
+            } else {
+                shortVer = one.getContents().substring(0,secondIndex+1);
+            };
+            log.info("여기 shortVer"+shortVer);
+            shortVer = shortVer.substring(3, shortVer.length() - 4);
+            log.info("여기 shorVer"+shortVer);
+            one.setShortVer(shortVer);
+
+            String month = one.getRdate();
+            month = month.substring(0,7);
+            log.info("여기month"+month);
+            if(month.equals(thisMonth)){
+                cnt+=1;
+            }
+            cntLikes += one.getLikes();
+        };
+        log.info("여기 cnt"+cnt);
+        model.addAttribute("cnt",cnt);
+        model.addAttribute("length",length);
+        model.addAttribute("cntLikes", cntLikes);
+        model.addAttribute("stdy",stdy);
+        model.addAttribute("did",did);
+        model.addAttribute("center", dir + "mine");
         return "index";
     }
 
@@ -93,11 +218,17 @@ public class StudyController {
     }
 
     @RequestMapping("/detail")
-    public String detail(Model model, Integer id) throws Exception {
-         Stdy stdy = stdyService.get(id);
-         model.addAttribute("stdy", stdy);
-         model.addAttribute("center", dir + "detail");
-         return "index";
+    public String detail(Model model, Integer id, String stdnId) throws Exception {
+        Stdy stdy = new Stdy();
+        if(stdnId == null || stdnId== ""){
+            stdy = stdyService.get(id);
+        } else {
+            stdy = stdyService.getWithLikes(id,stdnId);
+        }
+
+        model.addAttribute("stdy", stdy);
+        model.addAttribute("center", dir + "detail");
+        return "index";
     }
 
     @RequestMapping("/delete")
@@ -113,32 +244,6 @@ public class StudyController {
 
         model.addAttribute("stdy",stdy);
         model.addAttribute("center", dir + "edit");
-        return "index";
-    }
-
-    @RequestMapping("/mine")
-    public String mine(Model model, String writer) throws Exception {
-        List<Stdy> stdy= stdyService.getMyStdy(writer);
-
-        for (Stdy one : stdy) {
-            String start = one.getStartTime();
-            String end = one.getEndTime();
-
-            String shortVer = "";
-            int firstIndex = one.getContents().indexOf(">");
-            int secondIndex = one.getContents().indexOf(">", firstIndex + 1);
-
-            if( secondIndex > 30 ){
-                shortVer =  one.getContents().substring(0, Math.min(one.getContents().length(), 30))+"...</p>";
-            } else {
-                shortVer = one.getContents().substring(0,secondIndex+1);
-            };
-
-            one.setShortVer(shortVer);
-            one.setDuration(GetTimeUtil.getTime(end,start));
-        }
-        model.addAttribute("stdy",stdy);
-        model.addAttribute("center", dir + "mine");
         return "index";
     }
 

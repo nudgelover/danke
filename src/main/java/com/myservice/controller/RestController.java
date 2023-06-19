@@ -85,7 +85,7 @@ public class RestController {
 
     public RestController() {
         // 하 이걸 컨트롤러에서 안 쓰고 어떻게 할 수 잇을까 개빡치네
-        this.messageService = NurigoApp.INSTANCE.initialize("나한테물어", "나한테물어", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSZZYRXWU2OLFTF", "YTAMPJCZUWT8XIOA2EUH59GPWPEM0UJO", "https://api.coolsms.co.kr");
     }
 
 
@@ -207,6 +207,25 @@ public class RestController {
         if (likes == null) {
             result = 1;
             Likes likesAdd = new Likes(postId, stdnId, "R");
+            likesService.register(likesAdd);
+        } else {
+            log.info("여기" + likes.toString());
+            Integer likeId = likes.getLikeId();
+            likesService.remove(likeId);
+        }
+        return result;
+    }
+
+    @RequestMapping("/studylikesaddimpl")
+    public Object studylikesaddimpl(Integer postId, String stdnId) throws Exception {
+
+        int result = 0;
+        log.info("여기" + postId);
+        log.info("여기" + stdnId);
+        Likes likes = (Likes) likesService.getThisLikes(postId, stdnId, "S");
+        if (likes == null) {
+            result = 1;
+            Likes likesAdd = new Likes(postId, stdnId, "S");
             likesService.register(likesAdd);
         } else {
             log.info("여기" + likes.toString());
@@ -444,6 +463,7 @@ public class RestController {
 
     @RequestMapping("/study/editimpl")
     public String editimpl(Stdy stdy) throws Exception {
+        String stdnId = stdy.getWriter();
 
         MultipartFile filenameFile = stdy.getFilenameFile();
         String filenameOrg = "";
@@ -473,7 +493,7 @@ public class RestController {
             log.info("여기잇을때수정완");
 
         }
-        return "/study/detail?id="+id;
+        return "/study/detail?id="+id+"&&stdnId="+stdnId;
     }
 
     @RequestMapping("/registerimpl2")

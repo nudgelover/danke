@@ -12,7 +12,9 @@ import java.util.List;
 public interface SbjDetailMapper extends KBMapper<Integer, SbjDetail> {
     public List<SbjDetail> searchBig() throws Exception;
 
-    public List<SbjDetail> searchMedium(Integer SbjCode2) throws Exception;
+    public List<SbjDetail> searchMedium(Integer sbjCode2) throws Exception;
 
     public List<SbjDetail> searchMediumAll() throws Exception;
+
+    public SbjDetail getThisSbjDetail(Integer sbjCode) throws Exception;
 }

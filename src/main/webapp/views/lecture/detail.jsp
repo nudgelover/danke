@@ -76,6 +76,35 @@
 
 <script>
     $(document).ready(function () {
+
+        $('#edit_img_btn').click( function(){
+            $('#previous').attr('src','/uimg/default.jpg');
+            $(this).hide();
+        });
+
+        <%--let score = ${wrote.rating};--%>
+        <%--$('#'+score+'-edit').prop('checked','true');--%>
+
+        $('.edit_star').change(function() {
+            $(this).prop('checked','true');
+        }),
+
+        document.getElementById('edit_imgfile').addEventListener('change', function(event) {
+            var input = event.target;
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var previous = document.getElementById('previous');
+                    previous.src = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                $('#edit_img_btn').show();
+            }
+        });
+
         $('#cart_btn').on('click', function () {
             let stdnId = '${loginStdn.id}';
             let lecId = '${lec.id}';
@@ -326,16 +355,15 @@
 
         });
 
+
+
     })
 </script>
 
 
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
-    <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
         <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                     <li class="nav-item">
@@ -344,37 +372,22 @@
                     </li>
                 </ul>
             </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
+                <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
-                <a href="/lecture/curri?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">커리큘럼</a>
+                <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
-            <!--end::Nav-->
         </div>
     </div>
-    <!--end::toolbar-->
-    <!--begin::Content-->
     <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-        <!--begin::Container-->
         <div class="container-xxl">
-            <!--begin::Layout-->
             <div class="flex-row-fluid">
-                <!--begin::Section-->
-                <!--begin::Engage Widget 13-->
-                <!--begin::Card-->
                 <div class="card mb-5 mb-xxl-8">
-                    <!--begin::Card Body-->
                     <div class="card-body d-flex p-12 flex-column flex-md-row flex-lg-column flex-xxl-row">
-                        <!--begin::Image-->
                         <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-900px mx-auto"
                              style="background-image: url('/uimg/${lec.img}');  background-size: cover;"></div>
-                        <!--end::Image-->
-                        <!--begin::Card-->
                         <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
-                            <!--begin::Card Body-->
                             <div class="card-body bg-light px-12 py-10">
                                 <h3 class="fw-bold fs-1 mb-1">
                                     <a href="#" class="text-gray-800">${lec.title}</a>
@@ -396,7 +409,6 @@
                             </div>
                             </c:otherwise>
                             </c:choose>
-                            <!--begin::Info-->
                             <table class="table table-borderless align-middle fw-semibold">
                                 <tr>
                                     <td class="text-gray-600 ps-0">강사명</td>
@@ -421,7 +433,6 @@
                                     <td class="text-dark pe-0">${lec.hit}</td>
                                 </tr>
                             </table>
-                            <!--end::Info-->
                             <div class="mb-3">
                                 <c:choose>
                                     <c:when test="${bought==1}">
@@ -431,7 +442,6 @@
                                         <a href="/lecture/playlecture?id=${lec.id}&&stdnId=${loginStdn.id}" class="btn btn-primary fw-bolder hover-scale" style="width: 100%">지금 바로 학습하기</a>
                                     </c:otherwise>
                                 </c:choose>
-
                             </div>
                             <div class="d-flex justify-content-center">
                                 <a href="javascript:void(0)" id="cart_btn" class="btn btn-light-primary fw-bolder" style="margin-right: 4%">
@@ -453,17 +463,9 @@
                                 </a>
                             </div>
                         </div>
-                        <!--end::Card Body-->
                     </div>
-                    <!--end::Card-->
                 </div>
-                <!--end::Card Body-->
             </div>
-            <!--end::Card-->
-            <!--end::Engage Widget 13-->
-            <!--end::Section-->
-            <!--begin::Section-->
-            <!--begin::Table Widget 4-->
             <div class="card">
                 <!--begin::Header-->
                 <div class="card-header border-0 py-5">
@@ -528,17 +530,14 @@
                 </div>
 
 
-                <!--end::Header-->
-                <!--begin::Body-->
                 <div class="card-body py-0">
-                    <!--begin::Table-->
                     <div class="table-responsive">
                         <table class="table align-middle border-gray-100" id="kt_advance_table_widget_4">
                             <tbody>
                             <c:forEach var="lecReview" items="${list}">
                                 <tr class="text-start text-muted fw-bold text-gray-400 text-uppercase fs-7 border-gray-100 border-bottom-1">
                                     <div class="text-dark ps-0 min-w-250px py-5">
-                                        <div class="d-flex">
+                                        <div class="d-flex px-3">
                                             <div class="symbol symbol-35px symbol-circle" style="width: 3%;">
                                                 <img alt="Pic" src="/uimg/${lecReview.stdnImg}"/>
                                             </div>
@@ -580,11 +579,11 @@
                                                     </span>
                                                     <span class="text-success">${lecReview.rdate}</span></div>
                                             </div>
-                                            <div class="pe-0 text-end d-flex" style="width: 12%;">
+                                            <div class="pe-0 d-flex flex-end" style="width: 12%;">
                                                 <c:choose>
                                                     <c:when test="${lecReview.stdnId == loginStdn.id}">
                                                         <div>
-                                                            <a href="#"
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#edit_modal"
                                                                class="btn btn-icon btn-bg-light btn-color-muted btn-active-color-primary btn-sm">
                                                                     <span class="svg-icon svg-icon-4">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -684,6 +683,8 @@
                                     </div>
                                     </td>
                                 </tr>
+
+
                                 <!--Review Delete Modal -->
                                 <div class="modal fade modal_rank" tabindex="-1" id="del_modal_${lecReview.id}">
                                     <div class="modal-dialog">
@@ -737,20 +738,13 @@
                             </tbody>
                         </table>
                     </div>
-                    <!--end::Table-->
                 </div>
-                <!--end::Body-->
             </div>
-            <!--end::Table Widget 4-->
-            <!--end::Section-->
         </div>
-        <!--end::Layout-->
     </div>
-    <!--end::Container-->
 </div>
-<!--end::Content-->
 </div>
-<!--end::Main-->
+
 <!--Review Modal Start-->
 <div class="modal fade modal_rank" tabindex="-1" id="lec_review_modal">
     <div class="modal-dialog">
@@ -771,7 +765,7 @@
 </div>
 <!--End Review Modal-->
 
-
+<!--Review Add Modal-->
 <div class="modal fade" tabindex="-1" id="re_write_modal">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
         <div class="modal-content" style="padding: 3%">
@@ -859,6 +853,114 @@
         </div>
     </div>
 </div>
+<!--End of Review Add Modal-->
+
+
+<!--Review Edit Modal-->
+<div class="modal fade" tabindex="-1" id="edit_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
+        <div class="modal-content" style="padding: 3%">
+            <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x fs-6"
+                style="display: flex; justify-content: space-between">
+                <li class="nav-item">
+                    <a class="nav-link active fs-2qx text-gray-800" data-bs-toggle="tab" href="#kt_tab_pane_4">리뷰 수정</a>
+                </li>
+                <l1>
+                    <div class="text-end">
+                        <img src="/img/close.png" style="width: 8%" data-bs-dismiss="modal" aria-label="Close">
+                    </div>
+                </l1>
+            </ul>
+            <form id="edit_form">
+                <div class="modal-body tab-content">
+                    <div class="tab-pane fade show active" role="tabpanel">
+                        <div>
+                            <input type="hidden" id="contents" name="contents"/>
+                            <input type="hidden" id="stdnId" name="stdnId" value="${loginStdn.id}">
+                            <input type="hidden" id="lecId" name="lecId" value="${lec.id}">
+                            <div class="table-responsive">
+                                <table id="write_table" class="table table-row table-row gs-7">
+                                    <tbody>
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 90%;">
+                                    </colgroup>
+                                    <tr style="vertical-align:middle">
+                                        <th>별점</th>
+                                        <td>
+                                            <c:set var="initialRating" value="${wrote.rating}" />
+                                            <c:set var="selectedRating" value="${param.rating}" />
+                                            <div class="star-rating text-start">
+                                                <input type="radio" id="5-edit" name="rating" class="edit_star" value="5"
+                                                       v-model="ratings" ${empty selectedRating && initialRating == 5 ? 'checked' : ''}/>
+                                                <label for="5-stars" class="star pr-4">⭐</label>
+                                                <input type="radio" id="4-edit" name="rating" class="edit_star" value="4"
+                                                       v-model="ratings" ${empty selectedRating && initialRating == 4 ? 'checked' : ''}/>
+                                                <label for="4-stars" class="star">⭐</label>
+                                                <input type="radio" id="3-edit" name="rating" class="edit_star" value="3"
+                                                       v-model="ratings" ${empty selectedRating && initialRating == 3 ? 'checked' : ''}/>
+                                                <label for="3-stars" class="star">⭐</label>
+                                                <input type="radio" id="2-edit" name="rating" class="edit_star" value="2"
+                                                       v-model="ratings" ${empty selectedRating && initialRating == 2 ? 'checked' : ''}/>
+                                                <label for="2-stars" class="star">⭐</label>
+                                                <input type="radio" id="1-edit" name="rating" class="edit_star" value="1"
+                                                       v-model="ratings" ${empty selectedRating && initialRating == 1 ? 'checked' : ''}/>
+                                                <label for="1-star" class="star">⭐</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>제목</th>
+                                        <td>
+                                            <input spellcheck="false"
+                                                   class="form-control form-control-lg form-control-solid" type="text"
+                                                   id="title" name="title" value="${wrote.title}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="vertical-align: super">내용</th>
+                                        <td><textarea rows="7" spellcheck="false"
+                                                      class="form-control form-control-lg form-control-solid "
+                                                      placeholder="수강평을 남겨주시면 지식공유자와 이후 배우는 수강생에게 큰 도움이 됩니다.(20자 이상)"
+                                                      data-kt-autosize="true" id="content" name="content">${wrote.contents}</textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>사진선택</th>
+                                        <td>
+                                            <input type="file" id="edit_imgfile" name="imgfile"
+                                                   class="form-control form-control-lg form-control-solid">
+                                            <div class="symbol symbol-55px symbol-lg-100px symbol-fixed position-relative mt-3">
+                                                <img src="/uimg/${wrote.img}" id="previous" alt="image"/>
+                                                <div class="position-absolute top-0 start-90">
+                                                    <a href="javascript:void(0)" id="edit_img_btn">
+                                                        <span class="svg-icon svg-icon-white svg-icon-2tx">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="5" fill="currentColor"/>
+                                                                <rect x="7" y="15.3137" width="12" height="2" rx="1" transform="rotate(-45 7 15.3137)" fill="currentColor"/>
+                                                                <rect x="8.41422" y="7" width="12" height="2" rx="1" transform="rotate(45 8.41422 7)" fill="currentColor"/>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center" style="border-top: 1.4px solid #d8d8d8;align-items: center;">
+                    <button type="button" class="btn btn-light fw-bolder" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary fw-bolder" id=edit_btn">리뷰 등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--End of Review Edit Modal-->
 
 
 <!--Submit Modal Start-->

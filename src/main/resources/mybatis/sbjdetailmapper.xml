@@ -59,4 +59,10 @@
         ORDER BY sbj_code ASC
     </select>
 
+    <select id="getThisSbjDetail" parameterType="Integer" resultType="SbjDetail">
+        SELECT sbj_code as sbjCode, sbj_name as sbjName, sbj_code2 as sbjCode2
+        FROM sbj_detail
+        WHERE sbj_code=#{sbjCode}
+    </select>
+
 </mapper>

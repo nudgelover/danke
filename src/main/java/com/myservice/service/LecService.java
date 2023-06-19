@@ -47,8 +47,19 @@ public class LecService implements KBService<Integer, Lec> {
         return mapper.getpage();
     }
 
-    public List<Lec> search(LecSearch ls) throws Exception{
-        return mapper.search(ls);
+    public Page<Lec> getTopicPage(int pageNo, String topic) throws Exception {
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.gettopicpage(topic);
+    }
+
+    public Page<Lec> getSbjCode2Page(int pageNo, Integer sbjCode2) throws Exception {
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.getsbjcode2page(sbjCode2);
+    }
+
+    public List<Lec> getFindPage(int pageNo, LecSearch lecSearch) throws Exception {
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.getfindpage(lecSearch);
     }
 
     public List<Lec> getRank() throws Exception{

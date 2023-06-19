@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @Getter
 @ToString
-public class LecSearch {
+public class StdySearch {
     private String keyword;
     private String search;
 }

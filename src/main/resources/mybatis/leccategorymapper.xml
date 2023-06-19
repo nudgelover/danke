@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myservice.mapper.LecCategoryMapper">
+
+    <select id="getdistinctall" resultType="LecCategory">
+        SELECT DISTINCT lc.sbj_code AS sbjCode, sd.sbj_name AS sbjName
+        FROM lec_category lc
+                 JOIN sbj_detail sd ON lc.sbj_code = sd.sbj_code
+        WHERE lc.sbj_code IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code2, sd.sbj_name
+        FROM lec_category lc
+                 JOIN sbj_detail sd ON lc.sbj_code2 = sd.sbj_code
+        WHERE lc.sbj_code2 IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code3, sd.sbj_name
+        FROM lec_category lc
+                 JOIN sbj_detail sd ON lc.sbj_code3 = sd.sbj_code
+        WHERE lc.sbj_code3 IS NOT NULL
+    </select>
+
+    <select id="getdistinctbytopic" parameterType="String" resultType="LecCategory">
+        SELECT DISTINCT lc.sbj_code AS sbjCode, sd.sbj_name AS sbjName
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code AND l.topic=#{topic}
+                 JOIN sbj_detail sd ON lc.sbj_code = sd.sbj_code
+        WHERE lc.sbj_code IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code2, sd.sbj_name
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code AND l.topic=#{topic}
+                 JOIN sbj_detail sd ON lc.sbj_code2 = sd.sbj_code
+        WHERE lc.sbj_code2 IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code3, sd.sbj_name
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code AND l.topic=#{topic}
+                 JOIN sbj_detail sd ON lc.sbj_code3 = sd.sbj_code
+        WHERE lc.sbj_code3 IS NOT NULL
+    </select>
+
+    <select id="getdistinctbyparent" parameterType="Integer" resultType="LecCategory">
+        SELECT DISTINCT lc.sbj_code AS sbjCode, sd.sbj_name AS sbjName
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code
+                 JOIN sbj_detail sd1 ON l.topic = sd1.sbj_name
+                 JOIN sbj_detail sd2 ON sd1.sbj_code2 = sd2.sbj_code AND sd2.sbj_code=#{parent}
+                 JOIN sbj_detail sd ON lc.sbj_code = sd.sbj_code
+        WHERE lc.sbj_code IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code2, sd.sbj_name
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code
+                 JOIN sbj_detail sd1 ON l.topic = sd1.sbj_name
+                 JOIN sbj_detail sd2 ON sd1.sbj_code2 = sd2.sbj_code AND sd2.sbj_code=#{parent}
+                 JOIN sbj_detail sd ON lc.sbj_code2 = sd.sbj_code
+        WHERE lc.sbj_code2 IS NOT NULL
+        UNION
+        SELECT DISTINCT lc.sbj_code3, sd.sbj_name
+        FROM lec_category lc
+                 JOIN lec l ON lc.lec_code = l.lec_code
+                 JOIN sbj_detail sd1 ON l.topic = sd1.sbj_name
+                 JOIN sbj_detail sd2 ON sd1.sbj_code2 = sd2.sbj_code AND sd2.sbj_code=#{parent}
+                 JOIN sbj_detail sd ON lc.sbj_code3 = sd.sbj_code
+        WHERE lc.sbj_code3 IS NOT NULL
+    </select>
+
+
+</mapper>

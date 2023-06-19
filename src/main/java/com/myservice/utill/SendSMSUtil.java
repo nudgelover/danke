@@ -25,12 +25,12 @@ public class SendSMSUtil {
     final DefaultMessageService messageService;
 
     public SendSMSUtil(DefaultMessageService messageService) {
-        this.messageService = NurigoApp.INSTANCE.initialize("나한테물어", "나한테물어", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSZZYRXWU2OLFTF", "YTAMPJCZUWT8XIOA2EUH59GPWPEM0UJO", "https://api.coolsms.co.kr");
     }
 
     public Integer sendCode(String contact) {
         Message message = new Message();
-        String from = "나한테물어";
+        String from = "01079177197";
         Random r = new Random();
         Integer code = r.nextInt(888888)+111111;
         String text ="[DIGICampus Danke] 1회용인증번호: ["+ code +"] (유효기한 5분내에 입력 바랍니다.)";
@@ -45,7 +45,7 @@ public class SendSMSUtil {
     }
 
     public void sendQr(String contact, String name, String qr_name) throws Exception {
-        String from = "나한테물어";
+        String from = "01079177197";
         File qrFile = ResourceUtils.getFile("file:C:/project/uimg/" + qr_name);
         String imageId = messageService.uploadFile(qrFile, StorageType.MMS, null);
 

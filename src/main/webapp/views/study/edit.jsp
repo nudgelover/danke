@@ -58,7 +58,7 @@
                 contentType: false,
                 success    : function (response) {
                     // console.log(response);
-                    window.location.href = '/study/detail?id=${stdy.id}';
+                    window.location.href = '/study/detail?id=${stdy.id}&&stdnId=${loginStdn.id}';
                 },
                 error      : function (error) {
                     console.error(error);

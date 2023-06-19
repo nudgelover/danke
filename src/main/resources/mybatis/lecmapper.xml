@@ -101,13 +101,95 @@
                l.topic, l.target, l.rdate, l.length, l.price, l.img,
                l.disc_rate AS discRate, l.is_delete AS isDelete,
                l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
-               SUM(lr.rating)/COUNT(lr.id) AS rating
+               SUM(lr.rating)/COUNT(lr.id) AS rating, sd2.sbj_name AS parent,
+               sd_spec1.sbj_name AS spec1, sd_spec2.sbj_name AS spec2, sd_spec3.sbj_name AS spec3
         FROM lec l
-                 LEFT JOIN lec_review lr ON l.id = lr.lec_id
-                 AND lr.is_delete='0'
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id AND lr.is_delete = '0'
+                 LEFT JOIN sbj_detail sd1 ON sd1.sbj_name = l.topic
+                 LEFT JOIN sbj_detail sd2 ON sd2.sbj_code = sd1.sbj_code2
+                 LEFT JOIN lec_category c ON c.lec_code = l.lec_code
+                 LEFT JOIN sbj_detail sd_spec1 ON sd_spec1.sbj_code = c.sbj_code
+                 LEFT JOIN sbj_detail sd_spec2 ON sd_spec2.sbj_code = c.sbj_code2
+                 LEFT JOIN sbj_detail sd_spec3 ON sd_spec3.sbj_code = c.sbj_code3
         GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
                  l.topic, l.target, l.rdate, l.length, l.price, l.img,
-                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id, sd2.sbj_name,
+                 sd_spec1.sbj_name, sd_spec2.sbj_name, sd_spec3.sbj_name
+        ORDER BY l.id DESC
+    </select>
+
+    <select id="getfindpage" parameterType="lecSearch" resultType="lec">
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher,
+               l.topic, l.target, l.rdate, l.length, l.price, l.img,
+               l.disc_rate AS discRate, l.is_delete AS isDelete,
+               l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
+               SUM(lr.rating)/COUNT(lr.id) AS rating, sd2.sbj_name AS parent,
+               sd_spec1.sbj_name AS spec1, sd_spec2.sbj_name AS spec2, sd_spec3.sbj_name AS spec3
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id AND lr.is_delete = '0'
+                 LEFT JOIN sbj_detail sd1 ON sd1.sbj_name = l.topic
+                 LEFT JOIN sbj_detail sd2 ON sd2.sbj_code = sd1.sbj_code2
+                 LEFT JOIN lec_category c ON c.lec_code = l.lec_code
+                 LEFT JOIN sbj_detail sd_spec1 ON sd_spec1.sbj_code = c.sbj_code
+                 LEFT JOIN sbj_detail sd_spec2 ON sd_spec2.sbj_code = c.sbj_code2
+                 LEFT JOIN sbj_detail sd_spec3 ON sd_spec3.sbj_code = c.sbj_code3
+        WHERE 1=1
+            <if test="keyword == 'title'">
+                AND l.title LIKE '%' ||  #{search} || '%'
+            </if>
+            <if test="keyword == 'teacher'">
+                AND l.teacher LIKE '%' ||  #{search} || '%'
+            </if>
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
+                 l.topic, l.target, l.rdate, l.length, l.price, l.img,
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id, sd2.sbj_name,
+                 sd_spec1.sbj_name, sd_spec2.sbj_name, sd_spec3.sbj_name
+        ORDER BY l.id DESC
+    </select>
+
+    <select id="gettopicpage" parameterType="String" resultType="lec">
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher,
+               l.topic, l.target, l.rdate, l.length, l.price, l.img,
+               l.disc_rate AS discRate, l.is_delete AS isDelete,
+               l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
+               SUM(lr.rating)/COUNT(lr.id) AS rating, sd2.sbj_name AS parent,
+               sd_spec1.sbj_name AS spec1, sd_spec2.sbj_name AS spec2, sd_spec3.sbj_name AS spec3
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id AND lr.is_delete='0'
+                 LEFT JOIN sbj_detail sd1 ON sd1.sbj_name = l.topic
+                 LEFT JOIN sbj_detail sd2 ON sd2.sbj_code = sd1.sbj_code2
+                 LEFT JOIN lec_category c ON c.lec_code = l.lec_code
+                 LEFT JOIN sbj_detail sd_spec1 ON sd_spec1.sbj_code = c.sbj_code
+                 LEFT JOIN sbj_detail sd_spec2 ON sd_spec2.sbj_code = c.sbj_code2
+                 LEFT JOIN sbj_detail sd_spec3 ON sd_spec3.sbj_code = c.sbj_code3
+        WHERE l.topic=#{topic}
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
+                 l.topic, l.target, l.rdate, l.length, l.price, l.img,
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id, sd2.sbj_name,
+                 sd_spec1.sbj_name, sd_spec2.sbj_name, sd_spec3.sbj_name
+        ORDER BY l.id DESC
+    </select>
+
+    <select id="getsbjcode2page" parameterType="Integer" resultType="lec">
+        SELECT l.id, l.adm_id AS admId, l.lec_code AS lecCode, l.title, l.teacher,
+               l.topic, l.target, l.rdate, l.length, l.price, l.img,
+               l.disc_rate AS discRate, l.is_delete AS isDelete,
+               l.del_date AS delDate, l.hit, COUNT(lr.id) AS cnt,
+               SUM(lr.rating)/COUNT(lr.id) AS rating, sd2.sbj_name AS parent,
+               sd_spec1.sbj_name AS spec1, sd_spec2.sbj_name AS spec2, sd_spec3.sbj_name AS spec3
+        FROM lec l
+                 LEFT JOIN lec_review lr ON l.id = lr.lec_id AND lr.is_delete = '0'
+                 LEFT JOIN sbj_detail sd1 ON sd1.sbj_name = l.topic
+                 LEFT JOIN sbj_detail sd2 ON sd2.sbj_code = sd1.sbj_code2
+                 LEFT JOIN lec_category c ON c.lec_code = l.lec_code
+                 LEFT JOIN sbj_detail sd_spec1 ON sd_spec1.sbj_code = c.sbj_code
+                 LEFT JOIN sbj_detail sd_spec2 ON sd_spec2.sbj_code = c.sbj_code2
+                 LEFT JOIN sbj_detail sd_spec3 ON sd_spec3.sbj_code = c.sbj_code3
+        WHERE sd1.sbj_code2 = #{sbjCode2}
+        GROUP BY l.id, l.adm_id, l.lec_code, l.title, l.teacher,
+                 l.topic, l.target, l.rdate, l.length, l.price, l.img,
+                 l.disc_rate, l.is_delete, l.del_date, l.hit, lr.lec_id, sd2.sbj_name,
+                 sd_spec1.sbj_name, sd_spec2.sbj_name, sd_spec3.sbj_name
         ORDER BY l.id DESC
     </select>
 

@@ -57,36 +57,33 @@
                                     </ul>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">Lecture</h3>
+                                    <h3 class="fw-bold mb-5">강의페이지</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/lecture/pay">pay</a>
+                                            <a class="menu-link ps-0 py-2" href="/lecture/all">전체 강의</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/lecture/all">all</a>
+                                            <a class="menu-link ps-0 py-2" href="/lecture/mylecture?id=${loginStdn.id}">내 학습</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/lecture/detail">detail</a>
+                                            <a class="menu-link ps-0 py-2" href="/lecture/ordhistory?stdnId=${loginStdn.id}">수강신청 내역조회</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/inbox">Inbox@</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/shop2">Shop 2@</a>
+                                            <a class="menu-link ps-0 py-2" href="/lecture/cart?id=${loginStdn.id}">장바구니</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">STUDY</h3>
+                                    <h3 class="fw-bold mb-5">스터디</h3>
                                     <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/study/add">ADD 더하기</a>
+                                            <a class="menu-link ps-0 py-2" href="/study/add">스터디 작성</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/study/add2">ADD2</a>
+                                            <a class="menu-link ps-0 py-2" href="/study/mine?writer=${loginStdn.id}">나의 스터디</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/study/all">LIST</a>
+                                            <a class="menu-link ps-0 py-2" href="/study/all">스터디 리스트</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -128,47 +125,16 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">ETC</h3>
-                                    <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10"> <li class="menu-item">
-                                        <a class="menu-link ps-0 py-2" href="/mypage?id=${loginStdn.id}">Mypage</a>
-                                    </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/settings">Settings@</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/pricing">Pricing@</a>
-                                        </li>
 
+                                <div class="col-sm-4">
+                                    <h3 class="fw-bold mb-5">커리큘럼</h3>
+
+                                    <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/wizard">Wizard@</a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/all">나의 커리큘럼</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/compose">compose@</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/reply">reply@</a>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/listing">listing@</a>
-                                        </li>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2"
-                                               href="https://preview.keenthemes.com/html/start-html-pro/docs/base/utilities">Components</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2"
-                                               href="https://preview.keenthemes.com/html/start-html-pro/docs">Documentation</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2"
-                                               href="https://preview.keenthemes.com/start-html-pro/layout-builder.html">Layout
-                                                Builder</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2"
-                                               href="https://preview.keenthemes.com/html/start-html-pro/docs/getting-started/changelog">Changelog
-                                                <span class="badge badge-changelog badge-light-danger bg-hover-danger text-hover-white fw-semibold fs-9 px-2 ms-2">v1.1.2</span></a>
+                                            <a class="menu-link ps-0 py-2" href="/marker/add">커리큘럼 엿보기</a>
                                         </li>
                                     </ul>
                                 </div>
