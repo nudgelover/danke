@@ -247,101 +247,180 @@
 </script>
 
 <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
-    <div class="col-xl-12">
-        <div style="text-align: right;">
-            <a href="/blah">블라블라로 이동하기 <i
-                    class="bi bi-arrow-right-circle text-primary fs-6"></i></a>
-        </div>
+    <div class="col-12">
+<%--        <div style="text-align: right;">--%>
+<%--            <a href="/blah">블라블라로 이동하기 <i--%>
+<%--                    class="bi bi-arrow-right-circle text-primary fs-6"></i></a>--%>
+<%--        </div>--%>
 
-
-        <c:if test="${student.id == loginStdn.id}">
-
-            <!--begin::Feeds Widget 1-->
-            <div class="card mb-5 mb-xxl-8">
-                <!--begin::Body-->
-                <div class="card-body pb-0">
-                    <!--begin::Top-->
-                    <div class="d-flex align-items-center">
-                        <!--begin::Symbol-->
-                        <div class="symbol symbol-45px me-5">
-														<span class="symbol-label bg-light align-items-end">
-															<img alt="Logo"
-                                                                 src="/uimg/${loginStdn.img}"
-                                                                 class="mh-40px"/>
-														</span>
+        <div class="row g-xxl-12">
+            <!--begin::Col-->
+            <div class="col-xxl-8">
+                <!--begin::Earnings-->
+                <div class="card card-xxl-stretch mb-5 mb-xxl-10">
+                    <!--begin::Header-->
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3>내가 바로 블라왕🤴</h3>
                         </div>
-                        <!--end::Symbol-->
-                        <!--begin::Description-->
-                        <c:set var="name" value="${loginStdn.name}"/>
-                        <c:set var="substring" value="${name.substring(1)}"/>
-                        <span class="text-muted fw-semibold fs-6">What’s on your mind, ${substring}?</span>
-
-                        <!--end::Description-->
                     </div>
-                    <!--end::Top-->
-                    <!--begin::Form-->
-                    <form id="kt_forms_widget_1_form" class="pt-7 ql-quil ql-quil-plain">
-                        <!--begin::Editor-->
-                        <input type="hidden" name="stdnId" value="${loginStdn.id}">
-                        <div id="kt_forms_widget_1_editor"></div>
-                        <!--end::Editor-->
-                        <div class="border-top mt-5"></div>
-                        <!--begin::Toolbar-->
-                        <div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2">
-                            <div class="me-2">
-															<span class="ql-formats ql-size ms-0">
-																<select class="ql-size w-75px"></select>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body pb-0">
+                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">${myrank.postCount}${myrank.ranking}ㅋㅋㅋLast 30 day earnings calculated. Apart from arranging the order of topics.</span>
+                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">${myrank.postCount}${myrank.ranking}ㅋㅋㅋLast 30 day earnings calculated. Apart from arranging the order of topics.</span>
+
+                        <!--begin::Left Section-->
+                        <div class="d-flex flex-wrap justify-content-between pb-6">
+                            <!--begin::Row-->
+                            <div class="d-flex flex-wrap">
+                                <!--begin::Col-->
+                                <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+															<span class="fs-2x fw-bold text-gray-800 lh-1">
+															<span class="" data-kt-countup="true"
+                                                                  data-kt-countup-value="${myrank.ranking}">0</span>등</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">나의 랭킹</span>
+                                </div>
+                                <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+															<span class="fs-2x fw-bold text-gray-800 lh-1">
+																<span data-kt-countup="true"
+                                                                      data-kt-countup-value="${myrank.postCount}"
+                                                                      data-kt-countup-prefix="Post ">0</span>
 															</span>
-                                <button class="ql-bold"></button>
-                                <button class="ql-italic"></button>
-                                <button class="ql-underline"></button>
-                                <button type="button" class="ql-list" value="ordered">
-                                    <svg viewBox="0 0 18 18">
-                                        <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line>
-                                        <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>
-                                        <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line>
-                                        <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line>
-                                        <path class="ql-fill"
-                                              d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>
-                                        <path class="ql-stroke ql-thin"
-                                              d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>
-                                        <path class="ql-stroke ql-thin"
-                                              d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>
-                                    </svg>
-                                </button>
-                                <button type="button" class="ql-list ql-active" value="bullet">
-                                    <svg viewBox="0 0 18 18">
-                                        <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line>
-                                        <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line>
-                                        <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line>
-                                        <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line>
-                                        <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line>
-                                        <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line>
-                                    </svg>
-                                </button>
-                                <button class="ql-clean"></button>
-                                <button type="button" class="ql-code-block ql-active">
-                                    <svg viewBox="0 0 18 18">
-                                        <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>
-                                        <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>
-                                        <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>
-                                    </svg>
-                                </button>
-
-
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 포스트한 글</span>
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+															<span class="fs-2x fw-bold text-gray-800 lh-1">
+															<span class="" data-kt-countup="true"
+                                                                  data-kt-countup-value="80">0</span>%</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 좋아요 누른 수</span>
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+															<span class="fs-2x fw-bold text-gray-800 lh-1">
+																<span data-kt-countup="true"
+                                                                      data-kt-countup-value="1,240"
+                                                                      data-kt-countup-prefix="$">0</span>
+															</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 단 댓글 수</span>
+                                </div>
+                                <!--end::Col-->
                             </div>
-                            <div class="me-n3">
-                                <span id="register_btn">게시</span>
-                            </div>
+                            <!--end::Row-->
+                            <a href="#" class="btn btn-primary px-6 flex-shrink-0 align-self-center">
+                                Earnings</a>
                         </div>
-                        <!--end::Toolbar-->
-                    </form>
-                    <!--end::Form-->
+                        <!--end::Left Section-->
+                    </div>
+                    <!--end::Body-->
                 </div>
-                <!--end::Body-->
+                <!--end::Earnings-->
             </div>
-            <!--end::Feeds Widget 1-->
-        </c:if>
+            <!--end::Col-->
+            <!--begin::Col-->
+            <div class="col-xxl-4">
+                <!--begin::Invoices-->
+                <div style="position: relative;" class="card card-xxl-stretch mb-5 mb-xxl-10">
+                    <a style="position: absolute; top: 20%; left: 47%; transform: translateX(-50%); font-size: 15px; font-weight: bolder; color: rebeccapurple" href="/blah">블라블라로 이동하기</a>
+                    <img style="border-radius: 15%" src="/img/블라블라2.png">
+                    <!--end::Body-->
+                </div>
+                <!--end::Invoices-->
+            </div>
+
+            <!--end::Col-->
+        </div>
+<%--        <c:if test="${student.id == loginStdn.id}">--%>
+
+<%--            <!--begin::Feeds Widget 1-->--%>
+<%--            <div class="card mb-5 mb-xxl-8">--%>
+<%--                <!--begin::Body-->--%>
+<%--                <div class="card-body pb-0">--%>
+<%--                    <!--begin::Top-->--%>
+<%--                    <div class="d-flex align-items-center">--%>
+<%--                        <!--begin::Symbol-->--%>
+<%--                        <div class="symbol symbol-45px me-5">--%>
+<%--														<span class="symbol-label bg-light align-items-end">--%>
+<%--															<img alt="Logo"--%>
+<%--                                                                 src="/uimg/${loginStdn.img}"--%>
+<%--                                                                 class="mh-40px"/>--%>
+<%--														</span>--%>
+<%--                        </div>--%>
+<%--                        <!--end::Symbol-->--%>
+<%--                        <!--begin::Description-->--%>
+<%--                        <c:set var="name" value="${loginStdn.name}"/>--%>
+<%--                        <c:set var="substring" value="${name.substring(1)}"/>--%>
+<%--                        <span class="text-muted fw-semibold fs-6">What’s on your mind, ${substring}?</span>--%>
+
+<%--                        <!--end::Description-->--%>
+<%--                    </div>--%>
+<%--                    <!--end::Top-->--%>
+<%--                    <!--begin::Form-->--%>
+<%--                    <form id="kt_forms_widget_1_form" class="pt-7 ql-quil ql-quil-plain">--%>
+<%--                        <!--begin::Editor-->--%>
+<%--                        <input type="hidden" name="stdnId" value="${loginStdn.id}">--%>
+<%--                        <div id="kt_forms_widget_1_editor"></div>--%>
+<%--                        <!--end::Editor-->--%>
+<%--                        <div class="border-top mt-5"></div>--%>
+<%--                        <!--begin::Toolbar-->--%>
+<%--                        <div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2">--%>
+<%--                            <div class="me-2">--%>
+<%--															<span class="ql-formats ql-size ms-0">--%>
+<%--																<select class="ql-size w-75px"></select>--%>
+<%--															</span>--%>
+<%--                                <button class="ql-bold"></button>--%>
+<%--                                <button class="ql-italic"></button>--%>
+<%--                                <button class="ql-underline"></button>--%>
+<%--                                <button type="button" class="ql-list" value="ordered">--%>
+<%--                                    <svg viewBox="0 0 18 18">--%>
+<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line>--%>
+<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>--%>
+<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line>--%>
+<%--                                        <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line>--%>
+<%--                                        <path class="ql-fill"--%>
+<%--                                              d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>--%>
+<%--                                        <path class="ql-stroke ql-thin"--%>
+<%--                                              d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>--%>
+<%--                                        <path class="ql-stroke ql-thin"--%>
+<%--                                              d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>--%>
+<%--                                    </svg>--%>
+<%--                                </button>--%>
+<%--                                <button type="button" class="ql-list ql-active" value="bullet">--%>
+<%--                                    <svg viewBox="0 0 18 18">--%>
+<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line>--%>
+<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line>--%>
+<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line>--%>
+<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line>--%>
+<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line>--%>
+<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line>--%>
+<%--                                    </svg>--%>
+<%--                                </button>--%>
+<%--                                <button class="ql-clean"></button>--%>
+<%--                                <button type="button" class="ql-code-block ql-active">--%>
+<%--                                    <svg viewBox="0 0 18 18">--%>
+<%--                                        <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>--%>
+<%--                                        <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>--%>
+<%--                                        <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>--%>
+<%--                                    </svg>--%>
+<%--                                </button>--%>
+
+
+<%--                            </div>--%>
+<%--                            <div class="me-n3">--%>
+<%--                                <span id="register_btn">게시</span>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <!--end::Toolbar-->--%>
+<%--                    </form>--%>
+<%--                    <!--end::Form-->--%>
+<%--                </div>--%>
+<%--                <!--end::Body-->--%>
+<%--            </div>--%>
+<%--            <!--end::Feeds Widget 1-->--%>
+<%--        </c:if>--%>
 
 
         <c:forEach var="obj" items="${blahList}">

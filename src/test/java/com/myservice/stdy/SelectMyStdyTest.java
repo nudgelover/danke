@@ -16,7 +16,7 @@ class SelectMyStdyTest {
     @Test
     void contextLoads() {
         try {
-            service.getMyStdy("id001");
+            service.getMyStdy("rlawls2422");
         } catch (Exception e) {
             log.info("select stdn error-----------------------------");
             e.printStackTrace();

@@ -16,13 +16,13 @@ class InsertTest {
 
     @Test
     void contextLoads() {
-        Stdy obj = new Stdy("id001", "2023.05.27 13:00:00", "2023.05.27 14:00:00", "스터디테스트", "스터디.txt", "스터디.txt");
+        Stdy obj = new Stdy("rlawls2422", "2023.06.14 13:00:00", "2023.06.14 14:00:00", "스터디테스트", "스터디.txt", "스터디.txt");
         Stdy obj2 = new Stdy("id001", "2023.05.27 15:00:00", "2023.05.27 16:00:00", "스터디테스트", "스터디.txt", "스터디.txt");
         Stdy obj3 = new Stdy("id002", "2023.05.27 13:00:00", "2023.05.27 14:00:00", "스터디테스트", "스터디.txt", "스터디.txt");
 
-
+//yyyy.MM.dd HH:mm:ss
         try {
-                service.register(obj3);
+                service.register(obj);
                 log.info("register OK--------------------------------");
             } catch (Exception e)  {
                 e.printStackTrace();

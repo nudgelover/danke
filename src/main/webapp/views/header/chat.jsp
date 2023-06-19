@@ -35,7 +35,7 @@
             // 메시지 로컬 스토리지에 추가하는 함수
             addMessageToStorage: function (msg) {
                 const messages = JSON.parse(localStorage.getItem("messages")) || [];
-                messages.push(msg); // 푸시는 여기서 하는데?????????????????
+                messages.push(msg);
                 localStorage.setItem("messages", JSON.stringify(messages));
 
             },

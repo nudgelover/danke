@@ -35,9 +35,10 @@ public class BlahController {
     @RequestMapping("")
     public String blah(Model model) throws Exception {
         List<Blah> blahList = null;
-
+        List<Blah> rankBlah = null;
         try {
             blahList = blahService.get();  // 모든 Blah 게시글 조회
+            rankBlah = blahService.getBlahRank();
             for (Blah blah : blahList) {
                 List<Comm> commList = commService.getPostComm(blah.getId());  // 해당 Blah 게시글의 댓글 조회
                 blah.setCommList(commList);  // Blah 게시글에 댓글 리스트 추가
@@ -51,6 +52,7 @@ public class BlahController {
             throw new Exception(e.getMessage());
         }
         model.addAttribute("blahList", blahList);  // 모든 Blah 게시글 추가
+        model.addAttribute("rankBlah", rankBlah);
         model.addAttribute("center", dir + "blah");
         return "index";
     }

@@ -66,7 +66,7 @@
     <div class="d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">
         <div class="d-flex flex-column flex-lg-row-auto bg-primary w-lg-600px pt-15 pt-lg-0">
             <div class="d-flex flex-row-fluid flex-center flex-column-auto flex-column text-center mb-5">
-                <a href="../dist/index.html" class="mb-6">
+                <a href="/" class="mb-6">
                     <img alt="Logo" src="assets/media/logos/logo-default.svg" class="h-50px h-lg-75px"/>
                 </a>
                 <h3 class="fw-bold fs-2x text-white lh-lg">Discover Start
@@ -109,11 +109,8 @@
                     </div>
                 </form>
             </div>
-            <div class="d-flex justify-content-lg-start justify-content-center align-items-center py-2 py-lg-7 py-lg-0 fs-5 fw-bold">
-                <a href="https://keenthemes.com" target="_blank" class="text-gray-600 text-hover-primary">About</a>
-                <a href="https://devs.keenthemes.com" target="_blank" class="text-gray-600 text-hover-primary ms-10">Support</a>
-                <a href="https://keenthemes.com/products/start-html-pro" target="_blank"
-                   class="text-gray-600 text-hover-primary ms-10">Purchase</a>
+            <div class="d-flex justify-content-lg-start justify-content-center align-items-center py-2 py-lg-7 py-lg-0 fs-7 text-muted">
+                <p>로그인에 문제가 있으실 시, 02-1234-5678로 문의 부탁드립니다.</p>
             </div>
         </div>
     </div>

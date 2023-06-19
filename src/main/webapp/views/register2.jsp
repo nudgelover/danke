@@ -44,7 +44,7 @@
                     let modal = new bootstrap.Modal(registerModal);
                     $('#register_msg').html('가입완료! 관리자 승인 후, 로그인 가능합니다!(10초 후 로그인 페이지 이동)');
                     modal.show();
-                    setTimeout(function() {
+                    setTimeout(function () {
                         window.location.href = '/login'
                     }, 5000);
                 },
@@ -62,9 +62,6 @@
     });
 
 
-
-
-
 </script>
 
 <!--begin::Main-->
@@ -75,9 +72,12 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">추가 정보</h3>
-                <p>당신에 대해 더 많이 알고 싶어요 😊</p>
-                <!--end::Title-->
+                <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#">
+                            <span class="fs-2x text-gray-800" style="font-weight: 900">선택사항</span></a>
+                    </li>
+                </ul>
             </div>
             <!--end::Info-->
         </div>
@@ -89,107 +89,135 @@
         <div class="container-xxl">
             <!--begin::Profile Account-->
             <div class="card">
+                <div class="d-flex justify-content-end mt-4 mx-4">
+                    <!--begin::Step 1-->
+                    <div class="mx-8 my-4">
+                        <div class="d-flex align-items-center">
+                            <div style="margin: 0 10px 15px 0">
+                                <i class="bi bi-1-square-fill text-gray-300 fs-2hx"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-muted">Step 1</h3>
+                                <p class="text-muted">필수정보</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-8 my-4">
+                        <div class="d-flex align-items-center">
+                            <div style="margin: 0 10px 15px 0">
+                                <i class="bi bi-1-square-fill text-success fs-2hx"></i>
+                            </div>
+                            <div>
+                                <h3>Step 2</h3>
+                                <p>선택사항</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--begin::Form-->
                 <form class="form d-flex flex-center" id="register_form">
-                    <input type="hidden" name="id" id="id" value="${loginStdn.id}">
+                    <input type="text" name="id" id="id" value="${loginStdn.id}">
                     <div class="card-body mw-800px py-20">
                         <!--begin::Form row-->
                         <div class="row mb-8">
-                            <label class="col-lg-3 col-form-label">MBTI</label>
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>MBTI</label>
+                            <div class="col-lg-9 fv-row">
+                                <select id="mbti" name="mbti" class="form-select form-select-solid"
+                                        data-control="select2"
+                                        data-placeholder="Select a MBTI">
+                                    <option></option>
+                                    <option>ISTJ</option>
+                                    <option>ISFJ</option>
+                                    <option>INFJ</option>
+                                    <option>INTJ</option>
+                                    <option>ISTP</option>
+                                    <option>ISFP</option>
+                                    <option>INFP</option>
+                                    <option>INTP</option>
+                                    <option>ESTP</option>
+                                    <option>ESFP</option>
+                                    <option>ENFP</option>
+                                    <option>ENTP</option>
+                                    <option>ESTJ</option>
+                                    <option>ESFJ</option>
+                                    <option>ENFJ</option>
+                                    <option>ENTJ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-8">
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>입행일</label>
+                            <div class="col-lg-9 fv-row">
+                                <input id="comdate" name="comdate"
+                                       class="form-control form-control-lg form-control-solid"
+                                       type="date"/>
+                            </div>
+                        </div>
+                        <div class="row mb-8">
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>입과일</label>
+                            <div class="col-lg-9 fv-row">
+                                <div style="margin-left: 10px;" class="d-flex align-items-center">
+                                    <div class="form-check form-check-custom form-check-solid me-5">
+                                        <input class="form-check-input" type="radio"
+                                               value="20220201" name="digidate" checked/>
+                                        <label class="form-check-label fw-semibold" >Digi
+                                            Campus 1기</label>
+                                    </div>
+                                    <div class="form-check form-check-custom form-check-solid me-5">
+                                        <input class="form-check-input" type="radio"
+                                               value="20230201" name="digidate" />
+                                        <label class="form-check-label fw-semibold">Digi
+                                            Campus 2기</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-8">
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>자기소개</label>
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
-                                    <div class="form-floating">
-                                        <select class="form-control form-control-solid" id="mbti"
-                                                name="mbti" aria-label="Floating label select example">
-                                            <option selected>MBTI</option>
-                                            <option>ISTJ</option>
-                                            <option>ISFJ</option>
-                                            <option>INFJ</option>
-                                            <option>INTJ</option>
-                                            <option>ISTP</option>
-                                            <option>ISFP</option>
-                                            <option>INFP</option>
-                                            <option>INTP</option>
-                                            <option>ESTP</option>
-                                            <option>ESFP</option>
-                                            <option>ENFP</option>
-                                            <option>ENTP</option>
-                                            <option>ESTJ</option>
-                                            <option>ESFJ</option>
-                                            <option>ENFJ</option>
-                                            <option>ENTJ</option>
-                                        </select>
-                                        <label for="MBTI">MBTI</label>
-                                    </div>
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                           id="detail" name="detail"/>
                                 </div>
                             </div>
-
-
-                            <div class="row mb-8">
-                                <label class="col-lg-3 col-form-label">WITH KB : </label>
-                                <div class="col-lg-9">
-                                    <div class="spinner spinner-sm spinner-primary spinner-right">
-                                        <div class="form-floating">
-                                            <input id="comdate" name="comdate"
-                                                   class="form-control form-control-lg form-control-solid" type="date"/>
-                                            <label for="comdate">입행날짜</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-8">
-                                <label class="col-lg-3 col-form-label">WITH DIGI : </label>
-                                <div class="col-lg-9">
-                                    <div class="spinner spinner-sm spinner-primary spinner-right">
-                                        <div class="date_radio">
-                                            <input type="radio" name="digidate" value="20220201">Digi
-                                            Campus 1기
-                                            <input type="radio" name="digidate"  value="20230201">Digi
-                                            Campus 2기
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-8">
-                                <label class="col-lg-3 col-form-label">detail</label>
-                                <div class="col-lg-9">
-                                    <div class="spinner spinner-sm spinner-primary spinner-right">
-                                        <input class="form-control form-control-lg form-control-solid" type="text"
-                                               id="detail" name="detail"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-8">
-                                <label class="col-lg-3 col-form-label">insta</label>
-                                <div class="col-lg-9">
-                                    <div class="spinner spinner-sm spinner-primary spinner-right">
-                                        <input class="form-control form-control-lg form-control-solid" type="text"
-                                               id="insta" name="insta"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-8">
-                                <label class="col-lg-3 col-form-label">facebook</label>
-                                <div class="col-lg-9">
-                                    <div class="spinner spinner-sm spinner-primary spinner-right">
-                                        <input class="form-control form-control-lg form-control-solid" type="text"
-                                               id="facebook" name="facebook"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--begin::Form row-->
-                            <div class="separator separator-dashed my-10"></div>
-                            <div class="row">
-                                <label class="col-lg-3 col-form-label"></label>
-                                <div class="col-lg-9">
-                                    <button type="button" class="btn btn-primary fw-bold px-6 py-3 me-3"
-                                            id="register_btn">
-                                        REGISTER
-                                    </button>
-                                </div>
-                            </div>
-                            <!--end::Form row-->
                         </div>
+                        <div class="row mb-8">
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>인스타그램</label>
+                            <div class="col-lg-9">
+                                <div class="spinner spinner-sm spinner-primary spinner-right">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                           id="insta" name="insta"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-8">
+                            <label class="col-lg-3 col-form-label fw-bolder"><span
+                                    class="bullet bullet-vertical bg-primary me-5"></span>페이스북</label>
+                            <div class="col-lg-9">
+                                <div class="spinner spinner-sm spinner-primary spinner-right">
+                                    <input class="form-control form-control-lg form-control-solid" type="text"
+                                           id="facebook" name="facebook"/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Form row-->
+                        <div class="separator separator-dashed my-10"></div>
+                        <div class="row">
+                            <label class="col-lg-5 col-form-label"></label>
+                            <div class="col-lg-7">
+                                <button type="button" class="btn btn-primary fw-bold px-6 py-3 me-3"
+                                        id="register_btn">
+                                    JOIN DANKE
+                                </button>
+                            </div>
+                        </div>
+                        <!--end::Form row-->
+                    </div>
                 </form>
                 <!--end::Form-->
             </div>
@@ -202,20 +230,19 @@
 <!--end::Main-->
 
 <div class="modal fade" tabindex="-1" id="register_modal">
-<div class="modal-dialog">
-    <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
-        <div class="modal-body" style="display: flex; justify-content: space-between">
-            <div class="text-start text-white" style="width: 90%;">
-                <p id="register_msg" class="text-white" style="font-weight:700"></p>
-            </div>
-            <div class="text-end" style="width: 10%;">
-                <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog">
+        <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
+            <div class="modal-body" style="display: flex; justify-content: space-between">
+                <div class="text-start text-white" style="width: 90%;">
+                    <p id="register_msg" class="text-white" style="font-weight:700"></p>
+                </div>
+                <div class="text-end" style="width: 10%;">
+                    <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
 
 
 <!--begin::Javascript-->
