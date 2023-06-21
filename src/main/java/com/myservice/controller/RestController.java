@@ -9,6 +9,7 @@ import com.myservice.utill.SendSMSUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.apache.catalina.Context;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -237,10 +238,11 @@ public class RestController {
 
     @RequestMapping("/qrimpl")
     public Object qrimpl(@RequestParam String stdnId) throws Exception {
+
         try {
             String result = "";
 
-            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "C:/Users/psm23/myService/src/main/resources/static/img/logo3.png", 150, 35);
+            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "C:/project/uimg/logo3.png", 150, 35);
 
             String imageDir = "C:/project/uimg/";
             String imageName = "qr_" + stdnId + ".jpg";

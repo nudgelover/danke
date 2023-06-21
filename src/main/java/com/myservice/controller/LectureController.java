@@ -4,7 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.myservice.dto.*;
 import com.myservice.service.*;
 import com.myservice.utill.FileUploadUtil;
+import com.myservice.utill.YoutubeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -687,5 +690,43 @@ public class LectureController {
         model.addAttribute("center", dir + "mylecture");
         return "index";
     }
+
+
+    @RequestMapping("/search")
+    public String searchvideo(Model model, String id) throws Exception {
+
+        model.addAttribute("center", dir + "search");
+        return "index";
+    }
+
+    @RequestMapping("/searchimpl")
+    public String searchimpl(Model model, String search) throws Exception {
+        JSONObject obj = (JSONObject) YoutubeUtil.search(search);
+        JSONArray result = (JSONArray) YoutubeUtil.getYoutube(obj);
+
+        model.addAttribute("center", dir + "searchresult");
+        model.addAttribute("result", result);
+        model.addAttribute("search", search);
+        return "index";
+    }
+
+    @RequestMapping("/searchplay")
+    public String searchplay(Model model, String title, String rdate, String description, String channelTitle, String videoId) throws Exception {
+        log.info("타이틀"+title +"알데이트"+ rdate +"디스크립션"+ description +"채널아이디"+ channelTitle +"비디오아이디"+ videoId);
+
+        JSONObject obj = new JSONObject();
+        obj.put("title", title);
+        obj.put("rdate", rdate);
+        obj.put("videoId", videoId);
+        obj.put("channelTitle", channelTitle);
+        obj.put("description", description);
+
+        log.info("여기"+obj.toJSONString());
+
+        model.addAttribute("center", dir + "searchplay");
+        model.addAttribute("video", obj);
+        return "index";
+    }
+
 
 }

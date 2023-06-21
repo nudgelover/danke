@@ -17,6 +17,14 @@
     <properties>
         <java.version>11</java.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>google-api-services</id>
+            <url>https://google-api-client-libraries.appspot.com/mavenrepo</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -157,6 +165,25 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!--Youtube Api-->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-youtube</artifactId>
+            <version>v3-rev20230521-2.0.0</version>
+        </dependency>
+        <!-- Google HTTP Client with Jackson 2 -->
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>1.41.0</version>
+        </dependency>
+
+        <!--Firebase-->
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>8.1.0</version>
         </dependency>
     </dependencies>
 

@@ -189,6 +189,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 조회</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
@@ -321,7 +322,7 @@
                                         </c:forEach>
                                     </div>
                                 <div class="col-md-9 col-xxl-9 col-lg-9" style="width: 85%">
-                                    <div class="d-flex justify-content-start  mb-7">
+                                    <div class="d-flex justify-content-start flex-wrap  mb-7">
                                         <a href="
                                             <c:choose>
                                                 <c:when test="${sbjMediumCode==null && sbjBigCode==null}">
@@ -343,7 +344,7 @@
                                                     btn-light-primary
                                                 </c:otherwise>
                                             </c:choose>
-                                            btn-sm fw-bold" style="margin-right:0.5%">View All</a>
+                                            btn-sm fw-bold mb-2" style="margin-right:0.5%">View All</a>
                                         <c:forEach var="cate" items="${cate}">
                                             <a href="
                                                 <c:choose>
@@ -366,7 +367,7 @@
                                                         btn-light-primary
                                                     </c:otherwise>
                                                 </c:choose>
-                                            btn-sm fw-bold" style="margin-right:0.5%">${cate.sbjName}</a>
+                                            btn-sm fw-bold mb-2" style="margin-right:0.5%">${cate.sbjName}</a>
                                         </c:forEach>
                                     </div>
                                     <div class="row pb-15" >
@@ -375,10 +376,10 @@
                                                 <div class="card shadow-none">
                                                     <div class="card-body p-0 overlay overlay-wrapper">
                                                         <div class="overlay-wrapper overflow-hidden" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                                            <div class="overlay-wrapper bg-light text-center">
+                                                            <div class="overlay-wrapper bg-light text-center mb-3">
                                                                 <img src="/uimg/${obj.img}" alt="" class="mw-100"/>
                                                             </div>
-                                                            <div class="overlay-layer clickable-div" style="border-radius: 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between">
+                                                            <div class="overlay-layer clickable-div mb-3" style="border-radius: 10px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between">
                                                                 <div class="text-start text-white px-5 py-4">
                                                                     <a href="/lecture/detail?id=${obj.id}&&stdnId=${loginStdn.id}" class="fs-4 text-white text-hover-white" style="font-weight: 700;">${obj.title}</a>
                                                                     <p style="margin-top:3%;">

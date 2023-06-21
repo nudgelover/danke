@@ -66,6 +66,9 @@
                                             <a class="menu-link ps-0 py-2" href="/lecture/mylecture?id=${loginStdn.id}">내 학습</a>
                                         </li>
                                         <li class="menu-item">
+                                            <a class="menu-link ps-0 py-2" href="/lecture/search">학습 자료 조회</a>
+                                        </li>
+                                        <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/lecture/ordhistory?stdnId=${loginStdn.id}">수강신청 내역조회</a>
                                         </li>
                                         <li class="menu-item">
