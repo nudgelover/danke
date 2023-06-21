@@ -40,8 +40,12 @@ public class BlahService implements KBService<Integer, Blah> {
     }
 
 
-    public Integer cntGetMyBlah(String stdnId) throws Exception {
-        return mapper.cntGetMyBlah(stdnId);
+    public Integer cntGetMyComm(String stdnId) throws Exception {
+        return mapper.cntGetMyComm(stdnId);
+    }
+
+    public Integer cntGetMylikes(String stdnId) throws Exception {
+        return mapper.cntGetMylikes(stdnId);
     }
 
     @Override

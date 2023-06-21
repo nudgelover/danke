@@ -62,12 +62,17 @@ var KTAppCalendar = function () {
 
         // Init calendar --- more info: https://fullcalendar.io/docs/initialize-globals
         calendar = new FullCalendar.Calendar(calendarEl, {
-            googleCalendarApiKey: "AIzaSyBqlAq7CsSqXl4KBBZl1k6a1eN5utb5_E0",
+            googleCalendarApiKey: "AIzaSyAEQfzhIihXdp0R_8x_yPRs_QSXTsvXuTI",
             eventSources        : [
                 {
                     googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com'
                     , color         : 'white'   // an option!
                     , textColor     : 'red' // an option!
+                }
+                , {
+                    googleCalendarId: '735fe48c23bd2210a44a8e1777fada4bbce25707468b34d22eca04125af709aa@group.calendar.google.com'
+                    , color         : '#20D489'  // 배경색상
+                    , textColor    : 'white'
                 }
             ],
             headerToolbar       : {
@@ -75,11 +80,10 @@ var KTAppCalendar = function () {
                 center: 'title',
                 right : 'dayGridMonth,timeGridWeek,timeGridDay'
             },
-
-            initialDate : TODAY,
-            navLinks    : true, // can click day/week names to navigate views
-            selectable  : true,
-            selectMirror: true,
+            initialDate         : TODAY,
+            navLinks            : true, // can click day/week names to navigate views
+            selectable          : true,
+            selectMirror        : true,
 
             // Select dates action --- more info: https://fullcalendar.io/docs/select-callback
             select: function (arg) {
@@ -133,131 +137,131 @@ var KTAppCalendar = function () {
                     description: '진희생일',
                     className  : "fc-event-danger fc-event-solid-warning",
                     location   : 'Federation Square'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Reporting',
-                    start      : YM + '-14T13:30:00',
-                    description: 'Lorem ipsum dolor incid idunt ut labore',
-                    end        : YM + '-14T14:30:00',
-                    className  : "fc-event-success",
-                    location   : 'Meeting Room 7.03'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Company Trip',
-                    start      : YM + '-02',
-                    description: 'Lorem ipsum dolor sit tempor incid',
-                    end        : YM + '-03',
-                    className  : "fc-event-primary",
-                    location   : 'Seoul, Korea'
-
-                },
-                {
-                    id         : uid(),
-                    title      : 'ICT Expo 2021 - Product Release',
-                    start      : YM + '-03',
-                    description: 'Lorem ipsum dolor sit tempor inci',
-                    end        : YM + '-05',
-                    className  : "fc-event-light fc-event-solid-primary",
-                    location   : 'Melbourne Exhibition Hall'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Dinner',
-                    start      : YM + '-12',
-                    description: 'Lorem ipsum dolor sit amet, conse ctetur',
-                    end        : YM + '-13',
-                    location   : 'Squire\'s Loft'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Repeating Event',
-                    start      : YM + '-09T16:00:00',
-                    end        : YM + '-09T17:00:00',
-                    description: 'Lorem ipsum dolor sit ncididunt ut labore',
-                    className  : "fc-event-danger",
-                    location   : 'General Area'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Repeating Event',
-                    description: 'Lorem ipsum dolor sit amet, labore',
-                    start      : YM + '-16T16:00:00',
-                    end        : YM + '-16T17:00:00',
-                    location   : 'General Area'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Conference',
-                    start      : YESTERDAY,
-                    end        : TOMORROW,
-                    description: 'Lorem ipsum dolor eius mod tempor labore',
-                    className  : "fc-event-primary",
-                    location   : 'Conference Hall A'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Meeting',
-                    start      : TODAY + 'T10:30:00',
-                    end        : TODAY + 'T12:30:00',
-                    description: 'Lorem ipsum dolor eiu idunt ut labore',
-                    location   : 'Meeting Room 11.06'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Lunch',
-                    start      : TODAY + 'T12:00:00',
-                    end        : TODAY + 'T14:00:00',
-                    className  : "fc-event-info",
-                    description: 'Lorem ipsum dolor sit amet, ut labore',
-                    location   : 'Cafeteria'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Meeting',
-                    start      : TODAY + 'T14:30:00',
-                    end        : TODAY + 'T15:30:00',
-                    className  : "fc-event-warning",
-                    description: 'Lorem ipsum conse ctetur adipi scing',
-                    location   : 'Meeting Room 11.10'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Happy Hour',
-                    start      : TODAY + 'T17:30:00',
-                    end        : TODAY + 'T21:30:00',
-                    className  : "fc-event-info",
-                    description: 'Lorem ipsum dolor sit amet, conse ctetur',
-                    location   : 'The English Pub'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Dinner',
-                    start      : TOMORROW + 'T18:00:00',
-                    end        : TOMORROW + 'T21:00:00',
-                    className  : "fc-event-solid-danger fc-event-light",
-                    description: 'Lorem ipsum dolor sit ctetur adipi scing',
-                    location   : 'New York Steakhouse'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Birthday Party',
-                    start      : TOMORROW + 'T12:00:00',
-                    end        : TOMORROW + 'T14:00:00',
-                    className  : "fc-event-primary",
-                    description: 'Lorem ipsum dolor sit amet, scing',
-                    location   : 'The English Pub'
-                },
-                {
-                    id         : uid(),
-                    title      : 'Site visit',
-                    start      : YM + '-28',
-                    end        : YM + '-29',
-                    className  : "fc-event-solid-info fc-event-light",
-                    description: 'Lorem ipsum dolor sit amet, labore',
-                    location   : '271, Spring Street'
                 }
+                // {
+                //     id         : uid(),
+                //     title      : 'Reporting',
+                //     start      : YM + '-14T13:30:00',
+                //     description: 'Lorem ipsum dolor incid idunt ut labore',
+                //     end        : YM + '-14T14:30:00',
+                //     className  : "fc-event-success",
+                //     location   : 'Meeting Room 7.03'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Company Trip',
+                //     start      : YM + '-02',
+                //     description: 'Lorem ipsum dolor sit tempor incid',
+                //     end        : YM + '-03',
+                //     className  : "fc-event-primary",
+                //     location   : 'Seoul, Korea'
+                //
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'ICT Expo 2021 - Product Release',
+                //     start      : YM + '-03',
+                //     description: 'Lorem ipsum dolor sit tempor inci',
+                //     end        : YM + '-05',
+                //     className  : "fc-event-light fc-event-solid-primary",
+                //     location   : 'Melbourne Exhibition Hall'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Dinner',
+                //     start      : YM + '-12',
+                //     description: 'Lorem ipsum dolor sit amet, conse ctetur',
+                //     end        : YM + '-13',
+                //     location   : 'Squire\'s Loft'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Repeating Event',
+                //     start      : YM + '-09T16:00:00',
+                //     end        : YM + '-09T17:00:00',
+                //     description: 'Lorem ipsum dolor sit ncididunt ut labore',
+                //     className  : "fc-event-danger",
+                //     location   : 'General Area'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Repeating Event',
+                //     description: 'Lorem ipsum dolor sit amet, labore',
+                //     start      : YM + '-16T16:00:00',
+                //     end        : YM + '-16T17:00:00',
+                //     location   : 'General Area'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Conference',
+                //     start      : YESTERDAY,
+                //     end        : TOMORROW,
+                //     description: 'Lorem ipsum dolor eius mod tempor labore',
+                //     className  : "fc-event-primary",
+                //     location   : 'Conference Hall A'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Meeting',
+                //     start      : TODAY + 'T10:30:00',
+                //     end        : TODAY + 'T12:30:00',
+                //     description: 'Lorem ipsum dolor eiu idunt ut labore',
+                //     location   : 'Meeting Room 11.06'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Lunch',
+                //     start      : TODAY + 'T12:00:00',
+                //     end        : TODAY + 'T14:00:00',
+                //     className  : "fc-event-info",
+                //     description: 'Lorem ipsum dolor sit amet, ut labore',
+                //     location   : 'Cafeteria'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Meeting',
+                //     start      : TODAY + 'T14:30:00',
+                //     end        : TODAY + 'T15:30:00',
+                //     className  : "fc-event-warning",
+                //     description: 'Lorem ipsum conse ctetur adipi scing',
+                //     location   : 'Meeting Room 11.10'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Happy Hour',
+                //     start      : TODAY + 'T17:30:00',
+                //     end        : TODAY + 'T21:30:00',
+                //     className  : "fc-event-info",
+                //     description: 'Lorem ipsum dolor sit amet, conse ctetur',
+                //     location   : 'The English Pub'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Dinner',
+                //     start      : TOMORROW + 'T18:00:00',
+                //     end        : TOMORROW + 'T21:00:00',
+                //     className  : "fc-event-solid-danger fc-event-light",
+                //     description: 'Lorem ipsum dolor sit ctetur adipi scing',
+                //     location   : 'New York Steakhouse'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Birthday Party',
+                //     start      : TOMORROW + 'T12:00:00',
+                //     end        : TOMORROW + 'T14:00:00',
+                //     className  : "fc-event-primary",
+                //     description: 'Lorem ipsum dolor sit amet, scing',
+                //     location   : 'The English Pub'
+                // },
+                // {
+                //     id         : uid(),
+                //     title      : 'Site visit',
+                //     start      : YM + '-28',
+                //     end        : YM + '-29',
+                //     className  : "fc-event-solid-info fc-event-light",
+                //     description: 'Lorem ipsum dolor sit amet, labore',
+                //     location   : '271, Spring Street'
+                // }
             ],
 
             // Reset popovers when changing calendar views --- more info: https://fullcalendar.io/docs/datesSet
@@ -445,7 +449,7 @@ var KTAppCalendar = function () {
                             // Simulate form submission
                             submitButton.removeAttribute('data-kt-indicator');
 
-                            // Show popup confirmation 
+                            // Show popup confirmation  // 캘린더 저장하기
                             Swal.fire({
                                 text             : "New event added to calendar!",
                                 icon             : "success",
@@ -493,6 +497,12 @@ var KTAppCalendar = function () {
                                         end        : endDateTime,
                                         allDay     : allDayEvent
                                     });
+
+
+                                    // Save event to server using Ajax or other methods
+                                    // ... 서버에 저장하는 부분...
+
+                                    // Reset form for demo purposes on
                                     calendar.render();
 
                                     // Reset form for demo purposes only

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface OrdDetailMapper extends KBMapper<Integer, OrdDetail> {
     public List<OrdDetail> getMyOrdDetail(String stdnId) throws Exception;
-
+    public List<OrdDetail>  getMyPageOrdDetail(String stdnId) throws Exception;
     public List<OrdDetail>getByOrd(Integer ordId) throws Exception;
 
     public List<OrdDetail> getRank() throws Exception;

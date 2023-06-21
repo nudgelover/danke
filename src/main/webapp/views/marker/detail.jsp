@@ -462,8 +462,8 @@
                 // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
                 // 추후 수정예정
 
-                mobileWebUrl: 'http://172.16.20.58/marker/detail?id=${marker.id}',
-                webUrl      : 'http://172.16.20.58/marker/detail?id=${marker.id}',
+                mobileWebUrl: '${serviceserver}/marker/detail?id=${marker.id}',
+                webUrl      : '${serviceserver}/marker/detail?id=${marker.id}',
             },
         },
         social      : {
@@ -475,8 +475,8 @@
             {
                 title: '웹으로 보기',
                 link : {
-                    mobileWebUrl: 'http://172.16.20.58/marker/detail?id=${marker.id}',
-                    webUrl      : 'http://172.16.20.58/marker/detail?id=${marker.id}',
+                    mobileWebUrl: '${serviceserver}/marker/detail?id=${marker.id}',
+                    webUrl      : '${serviceserver}/marker/detail?id=${marker.id}',
                 },
             },
         ],

@@ -17,10 +17,17 @@
         ORDER BY m.id DESC
     </select>
     <!--이거 없어져도됨....-->
-    <select id="cntGetMyBlah" parameterType="String" resultType="Integer">
+    <select id="cntGetMyComm" parameterType="String" resultType="Integer">
         SELECT COUNT(*) AS cnt
-        FROM blah
+        FROM comm
         WHERE stdn_id = #{stdnId}
+    </select>
+
+    <select id="cntGetMylikes" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) AS CNT
+        FROM likes
+        WHERE stdn_id = #{stdnId}
+          AND board = 'B'
     </select>
     <!--이거 없어져도됨....-->
     <select id="getBlahRank" resultType="Blah">

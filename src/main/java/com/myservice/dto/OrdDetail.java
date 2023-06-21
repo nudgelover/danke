@@ -27,7 +27,8 @@ public class OrdDetail {
     private String img;
     private String stdnId;
     private String stdnName;
-
+    private String rdate;
+    
     private MultipartFile imgfile;
 
     //Insert

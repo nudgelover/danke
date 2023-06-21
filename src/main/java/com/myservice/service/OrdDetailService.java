@@ -42,6 +42,10 @@ public class OrdDetailService implements KBService<Integer, OrdDetail> {
     public List<OrdDetail> getMyOrdDetail(String stdnId) throws Exception {
         return mapper.getMyOrdDetail(stdnId);
     }
+    public List<OrdDetail> getMyPageOrdDetail(String stdnId) throws Exception {
+        return mapper.getMyPageOrdDetail(stdnId);
+    }
+
 
     public List<OrdDetail> getRank() throws Exception{
         return mapper.getRank();

@@ -119,7 +119,7 @@
                                 <!--end::Form-->
                             </div>
                             <div class="d-none d-md-flex flex-row-fluid mw-350px ms-auto bgi-no-repeat bgi-position-y-center bgi-position-x-left bgi-size-contain"
-                                 style="background-image: url(/img/jmt3.png);"></div>
+                                 style="background-image: url(/img/jmt4.png);"></div>
                         </div>
                     </div>
                     <!--end::Engage Widget 1-->

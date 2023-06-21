@@ -14,6 +14,7 @@ public class Attd {
     private String startTime;
     private String endTime;
     private String isAttend;
+    private String month;
 
     //Insert
     public Attd(String stdnId, String isAttend) {

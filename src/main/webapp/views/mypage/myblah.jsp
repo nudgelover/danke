@@ -54,80 +54,6 @@
                 hljs.highlightElement(this);
             });
 
-            function checkEditorContent() {
-                const quillContent = $('.ql-editor').html().trim();
-                // console.log(quillContent);
-                if (quillContent === '<p><br></p>') {
-                    // ql-editor is empty
-                    $('#register_btn').css('cursor', 'default');
-                    $('#register_btn').css('transition', 'color 0.3s');
-                    $('#register_btn').css('color', '#6c757d');
-                } else {
-                    // ql-editor has content
-                    $('#register_btn').css('cursor', 'pointer');
-                    $('#register_btn').css('transition', 'color 0.3s');
-                    $('#register_btn').css('color', '#20D489');
-                }
-            }
-
-
-            checkEditorContent();
-
-
-            // Call checkEditorContent when the content changes
-            $('.ql-editor').on('keyup', checkEditorContent);
-
-
-            $('#register_btn').click(function (e) {
-                //content 글자 제한 하기, 아무내용 없을때 게시 버튼 비활성화.    수정 삭제버튼
-                // const contents = document.getElementById('kt_forms_widget_1_editor').innerHTML;
-                // console.log(contents);
-
-
-                // Quill 에디터에서 사용자의 입력 추출
-                const quillContent = document.querySelector('.ql-editor').innerHTML;
-
-                // 출력할 요소 생성 및 설정
-
-                const outputElement = document.createElement('div');
-                outputElement.innerHTML = quillContent;
-                outputElement.classList.add('ql-editor'); // 필요한 CSS 클래스 추가
-                const outerDiv = document.createElement('div');
-                outerDiv.appendChild(outputElement);
-                // console.log(outerDiv.innerHTML);
-
-                if (outerDiv.innerHTML == '<div class="ql-editor"><p><br></p></div>') {
-                    // alert("게시글을 입력해주세요")
-                    $('#kt_modal_1_alert').modal('show');
-                    return;
-                }
-
-                // 폼 데이터 생성
-                const formData = new FormData($('#kt_forms_widget_1_form')[0]);
-                formData.append('contents', outerDiv.innerHTML);
-                // 입력된 값 출력
-                formData.forEach(function (value, key) {
-                    console.log('Input:', key, value);
-                });
-
-
-                // 서버로 데이터 전송
-                $.ajax({
-                    url        : '/blah/addimpl',
-                    method     : 'POST',
-                    data       : formData,
-                    processData: false,
-                    contentType: false,
-                    success    : function (response) {
-                        console.log('Data submitted successfully');
-                        window.location.href = '/mypage/myblah?id=${loginStdn.id}';
-                    },
-                    error      : function (error) {
-                        console.error('Error submitting data:', error);
-                    }
-                });
-            });
-
             $('[id^="add_comm_"]').on('click', function () {
                 const postId = $(this).closest('form').find('input[name="postId"]').val();
                 // console.log(postId+'postid')
@@ -248,11 +174,6 @@
 
 <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
     <div class="col-12">
-<%--        <div style="text-align: right;">--%>
-<%--            <a href="/blah">블라블라로 이동하기 <i--%>
-<%--                    class="bi bi-arrow-right-circle text-primary fs-6"></i></a>--%>
-<%--        </div>--%>
-
         <div class="row g-xxl-12">
             <!--begin::Col-->
             <div class="col-xxl-8">
@@ -267,8 +188,8 @@
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body pb-0">
-                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">${myrank.postCount}${myrank.ranking}ㅋㅋㅋLast 30 day earnings calculated. Apart from arranging the order of topics.</span>
-                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">${myrank.postCount}${myrank.ranking}ㅋㅋㅋLast 30 day earnings calculated. Apart from arranging the order of topics.</span>
+                        <span class="fs-5 fw-semibold text-gray-600 pb-3 d-block"><span class="fw-bold text-gray-700">나의 랭킹</span>(포스팅 기준)과 함께 <span class="fw-bold text-gray-700">포스팅한 수</span>, <span class="fw-bold text-gray-700">좋아요 누른 수</span>, 그리고 <span class="fw-bold text-gray-700">댓글 남긴 수</span>를 한눈에 확인해보세요.</span>
+                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">여러분들의 <span class="text-warning fw-bold">활발한 소통</span>이 더욱 활기찬 <span class="text-primary fw-bold">디지캠라이프</span>🌱를 만듭니다.</span>
 
                         <!--begin::Left Section-->
                         <div class="d-flex flex-wrap justify-content-between pb-6">
@@ -284,34 +205,31 @@
                                 <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
 															<span class="fs-2x fw-bold text-gray-800 lh-1">
 																<span data-kt-countup="true"
-                                                                      data-kt-countup-value="${myrank.postCount}"
-                                                                      data-kt-countup-prefix="Post ">0</span>
-															</span>
-                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 포스트한 글</span>
+                                                                      data-kt-countup-value="${myrank.postCount}">0</span>개</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">게시물 수</span>
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
                                 <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
 															<span class="fs-2x fw-bold text-gray-800 lh-1">
 															<span class="" data-kt-countup="true"
-                                                                  data-kt-countup-value="80">0</span>%</span>
-                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 좋아요 누른 수</span>
+                                                                  data-kt-countup-value="${cntGetMylikes}">0</span>개</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">좋아요 누른 수</span>
                                 </div>
                                 <!--end::Col-->
                                 <!--begin::Col-->
                                 <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
 															<span class="fs-2x fw-bold text-gray-800 lh-1">
 																<span data-kt-countup="true"
-                                                                      data-kt-countup-value="1,240"
-                                                                      data-kt-countup-prefix="$">0</span>
-															</span>
-                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">내가 단 댓글 수</span>
+                                                                      data-kt-countup-value="${cntGetMyComm}">0</span>개</span>
+
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">댓글 남긴 수</span>
                                 </div>
                                 <!--end::Col-->
                             </div>
                             <!--end::Row-->
-                            <a href="#" class="btn btn-primary px-6 flex-shrink-0 align-self-center">
-                                Earnings</a>
+                            <a href="/blah" class="btn btn-primary px-6 flex-shrink-0 align-self-center">
+                                블라블라로 이동하기</a>
                         </div>
                         <!--end::Left Section-->
                     </div>
@@ -324,8 +242,11 @@
             <div class="col-xxl-4">
                 <!--begin::Invoices-->
                 <div style="position: relative;" class="card card-xxl-stretch mb-5 mb-xxl-10">
-                    <a style="position: absolute; top: 20%; left: 47%; transform: translateX(-50%); font-size: 15px; font-weight: bolder; color: rebeccapurple" href="/blah">블라블라로 이동하기</a>
-                    <img style="border-radius: 15%" src="/img/블라블라2.png">
+
+<%--                    <span  class="fs-md-6 fs-sm-10 text-warning"  style="position: absolute; top: 8%; left: 47%; transform: translateX(-50%); font-weight: bold;">${loginStdn.name}님,</br> 좋아요와 댓글 잊지 않으셨죠?</span>--%>
+
+
+                    <img style="border-radius: 15%" src="/img/블라블라3.png">
                     <!--end::Body-->
                 </div>
                 <!--end::Invoices-->
@@ -333,96 +254,6 @@
 
             <!--end::Col-->
         </div>
-<%--        <c:if test="${student.id == loginStdn.id}">--%>
-
-<%--            <!--begin::Feeds Widget 1-->--%>
-<%--            <div class="card mb-5 mb-xxl-8">--%>
-<%--                <!--begin::Body-->--%>
-<%--                <div class="card-body pb-0">--%>
-<%--                    <!--begin::Top-->--%>
-<%--                    <div class="d-flex align-items-center">--%>
-<%--                        <!--begin::Symbol-->--%>
-<%--                        <div class="symbol symbol-45px me-5">--%>
-<%--														<span class="symbol-label bg-light align-items-end">--%>
-<%--															<img alt="Logo"--%>
-<%--                                                                 src="/uimg/${loginStdn.img}"--%>
-<%--                                                                 class="mh-40px"/>--%>
-<%--														</span>--%>
-<%--                        </div>--%>
-<%--                        <!--end::Symbol-->--%>
-<%--                        <!--begin::Description-->--%>
-<%--                        <c:set var="name" value="${loginStdn.name}"/>--%>
-<%--                        <c:set var="substring" value="${name.substring(1)}"/>--%>
-<%--                        <span class="text-muted fw-semibold fs-6">What’s on your mind, ${substring}?</span>--%>
-
-<%--                        <!--end::Description-->--%>
-<%--                    </div>--%>
-<%--                    <!--end::Top-->--%>
-<%--                    <!--begin::Form-->--%>
-<%--                    <form id="kt_forms_widget_1_form" class="pt-7 ql-quil ql-quil-plain">--%>
-<%--                        <!--begin::Editor-->--%>
-<%--                        <input type="hidden" name="stdnId" value="${loginStdn.id}">--%>
-<%--                        <div id="kt_forms_widget_1_editor"></div>--%>
-<%--                        <!--end::Editor-->--%>
-<%--                        <div class="border-top mt-5"></div>--%>
-<%--                        <!--begin::Toolbar-->--%>
-<%--                        <div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2">--%>
-<%--                            <div class="me-2">--%>
-<%--															<span class="ql-formats ql-size ms-0">--%>
-<%--																<select class="ql-size w-75px"></select>--%>
-<%--															</span>--%>
-<%--                                <button class="ql-bold"></button>--%>
-<%--                                <button class="ql-italic"></button>--%>
-<%--                                <button class="ql-underline"></button>--%>
-<%--                                <button type="button" class="ql-list" value="ordered">--%>
-<%--                                    <svg viewBox="0 0 18 18">--%>
-<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="4" y2="4"></line>--%>
-<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="9" y2="9"></line>--%>
-<%--                                        <line class="ql-stroke" x1="7" x2="15" y1="14" y2="14"></line>--%>
-<%--                                        <line class="ql-stroke ql-thin" x1="2.5" x2="4.5" y1="5.5" y2="5.5"></line>--%>
-<%--                                        <path class="ql-fill"--%>
-<%--                                              d="M3.5,6A0.5,0.5,0,0,1,3,5.5V3.085l-0.276.138A0.5,0.5,0,0,1,2.053,3c-0.124-.247-0.023-0.324.224-0.447l1-.5A0.5,0.5,0,0,1,4,2.5v3A0.5,0.5,0,0,1,3.5,6Z"></path>--%>
-<%--                                        <path class="ql-stroke ql-thin"--%>
-<%--                                              d="M4.5,10.5h-2c0-.234,1.85-1.076,1.85-2.234A0.959,0.959,0,0,0,2.5,8.156"></path>--%>
-<%--                                        <path class="ql-stroke ql-thin"--%>
-<%--                                              d="M2.5,14.846a0.959,0.959,0,0,0,1.85-.109A0.7,0.7,0,0,0,3.75,14a0.688,0.688,0,0,0,.6-0.736,0.959,0.959,0,0,0-1.85-.109"></path>--%>
-<%--                                    </svg>--%>
-<%--                                </button>--%>
-<%--                                <button type="button" class="ql-list ql-active" value="bullet">--%>
-<%--                                    <svg viewBox="0 0 18 18">--%>
-<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="4" y2="4"></line>--%>
-<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="9" y2="9"></line>--%>
-<%--                                        <line class="ql-stroke" x1="6" x2="15" y1="14" y2="14"></line>--%>
-<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="4" y2="4"></line>--%>
-<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="9" y2="9"></line>--%>
-<%--                                        <line class="ql-stroke" x1="3" x2="3" y1="14" y2="14"></line>--%>
-<%--                                    </svg>--%>
-<%--                                </button>--%>
-<%--                                <button class="ql-clean"></button>--%>
-<%--                                <button type="button" class="ql-code-block ql-active">--%>
-<%--                                    <svg viewBox="0 0 18 18">--%>
-<%--                                        <polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>--%>
-<%--                                        <polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>--%>
-<%--                                        <line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>--%>
-<%--                                    </svg>--%>
-<%--                                </button>--%>
-
-
-<%--                            </div>--%>
-<%--                            <div class="me-n3">--%>
-<%--                                <span id="register_btn">게시</span>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <!--end::Toolbar-->--%>
-<%--                    </form>--%>
-<%--                    <!--end::Form-->--%>
-<%--                </div>--%>
-<%--                <!--end::Body-->--%>
-<%--            </div>--%>
-<%--            <!--end::Feeds Widget 1-->--%>
-<%--        </c:if>--%>
-
-
         <c:forEach var="obj" items="${blahList}">
             <!--begin::Feeds Widget 2-->
             <div class="card mb-5 mb-xxl-8">

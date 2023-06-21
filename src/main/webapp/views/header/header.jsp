@@ -69,20 +69,20 @@
             <c:choose>
                 <c:when test="${loginStdn!=null}">
                     <!--begin::Search-->
-<%--                    <button class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6" data-bs-toggle="modal"--%>
-<%--                            data-bs-target="#kt_header_search_modal" id="kt_header_search_toggle">--%>
-<%--                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--%>
-<%--                        <span class="svg-icon svg-icon-1 svg-icon-dark">--%>
-<%--										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"--%>
-<%--                                             xmlns="http://www.w3.org/2000/svg">--%>
-<%--											<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"--%>
-<%--                                                  rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"/>--%>
-<%--											<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"--%>
-<%--                                                  fill="currentColor"/>--%>
-<%--										</svg>--%>
-<%--									</span>--%>
-<%--                        <!--end::Svg Icon-->--%>
-<%--                    </button>--%>
+                    <%--                    <button class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6" data-bs-toggle="modal"--%>
+                    <%--                            data-bs-target="#kt_header_search_modal" id="kt_header_search_toggle">--%>
+                    <%--                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->--%>
+                    <%--                        <span class="svg-icon svg-icon-1 svg-icon-dark">--%>
+                    <%--										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"--%>
+                    <%--                                             xmlns="http://www.w3.org/2000/svg">--%>
+                    <%--											<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2"--%>
+                    <%--                                                  rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"/>--%>
+                    <%--											<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"--%>
+                    <%--                                                  fill="currentColor"/>--%>
+                    <%--										</svg>--%>
+                    <%--									</span>--%>
+                    <%--                        <!--end::Svg Icon-->--%>
+                    <%--                    </button>--%>
 
                     <!--begin::Search-->
                     <a href="/attd" class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6">
@@ -100,7 +100,7 @@
                     <!--begin::Message-->
                     <button class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6" id="kt_drawer_chat_toggle">
                         <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
-<%--                        메신저 토글--%>
+                            <%--                        메신저 토글--%>
                         <span class="svg-icon svg-icon-1 svg-icon-dark">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
@@ -183,25 +183,24 @@
 													</svg>
 												</span>
                                     <!--end::Svg Icon-->
-                                    <span class="fw-bold fs-6 d-block pt-3">Settings</span>
+                                    <span class="fw-bold fs-6 d-block pt-3">프로필 변경</span>
                                 </a>
-                                <a href="../dist/profile/settings.html"
+                                <a href="/attd"
                                    class="col text-center border-end py-10 btn btn-active-color-primary rounded-0">
                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin009.svg-->
                                     <span class="svg-icon svg-icon-3x me-n1">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-														<path opacity="0.3"
-                                                              d="M15.8 11.4H6C5.4 11.4 5 11 5 10.4C5 9.80002 5.4 9.40002 6 9.40002H15.8C16.4 9.40002 16.8 9.80002 16.8 10.4C16.8 11 16.3 11.4 15.8 11.4ZM15.7 13.7999C15.7 13.1999 15.3 12.7999 14.7 12.7999H6C5.4 12.7999 5 13.1999 5 13.7999C5 14.3999 5.4 14.7999 6 14.7999H14.8C15.3 14.7999 15.7 14.2999 15.7 13.7999Z"
-                                                              fill="currentColor"/>
-														<path d="M18.8 15.5C18.9 15.7 19 15.9 19.1 16.1C19.2 16.7 18.7 17.2 18.4 17.6C17.9 18.1 17.3 18.4999 16.6 18.7999C15.9 19.0999 15 19.2999 14.1 19.2999C13.4 19.2999 12.7 19.2 12.1 19.1C11.5 19 11 18.7 10.5 18.5C10 18.2 9.60001 17.7999 9.20001 17.2999C8.80001 16.8999 8.49999 16.3999 8.29999 15.7999C8.09999 15.1999 7.80001 14.7 7.70001 14.1C7.60001 13.5 7.5 12.8 7.5 12.2C7.5 11.1 7.7 10.1 8 9.19995C8.3 8.29995 8.79999 7.60002 9.39999 6.90002C9.99999 6.30002 10.7 5.8 11.5 5.5C12.3 5.2 13.2 5 14.1 5C15.2 5 16.2 5.19995 17.1 5.69995C17.8 6.09995 18.7 6.6 18.8 7.5C18.8 7.9 18.6 8.29998 18.3 8.59998C18.2 8.69998 18.1 8.69993 18 8.79993C17.7 8.89993 17.4 8.79995 17.2 8.69995C16.7 8.49995 16.5 7.99995 16 7.69995C15.5 7.39995 14.9 7.19995 14.2 7.19995C13.1 7.19995 12.1 7.6 11.5 8.5C10.9 9.4 10.5 10.6 10.5 12.2C10.5 13.3 10.7 14.2 11 14.9C11.3 15.6 11.7 16.1 12.3 16.5C12.9 16.9 13.5 17 14.2 17C15 17 15.7 16.8 16.2 16.4C16.8 16 17.2 15.2 17.9 15.1C18 15 18.5 15.2 18.8 15.5Z"
-                                                              fill="currentColor"/>
-													</svg>
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
+  <path d="M2 2h2v2H2V2Z"/>
+  <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
+  <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
+  <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
+  <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
+</svg>
 												</span>
                                     <!--end::Svg Icon-->
-                                    <span class="fw-bold fs-6 d-block pt-3">Subscriptions</span>
+                                    <span class="fw-bold fs-6 d-block pt-3">출석체크</span>
                                 </a>
-                                <a href="/logout"
+                                <a href="#" id="logoutBtn"
                                    class="col text-center py-10 btn btn-active-color-primary rounded-0">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr077.svg-->
                                     <span class="svg-icon svg-icon-3x me-n1">
@@ -282,9 +281,20 @@
         badgeDot.style.display = "block";
     }
 
-    checkMsgBtn.addEventListener("click", function() {
+    checkMsgBtn.addEventListener("click", function () {
         badgeDot.style.display = "none";
         // Update the flag in web storage to indicate that the modal was shown
         localStorage.setItem(storageKey, "false");
+    });
+</script>
+<script>
+    document.getElementById('logoutBtn').addEventListener('click', function (event) {
+        event.preventDefault(); // 기본 이벤트 동작 방지
+        // 로컬 스토리지 비우기
+        localStorage.removeItem("messages");
+
+        // 로그아웃 페이지로 이동
+        // 로그아웃 페이지로 이동
+        window.location.href = "/logout";//logout 페이지로 이동하는 로직
     });
 </script>

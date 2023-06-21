@@ -35,37 +35,37 @@
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
-    <div class="toolbar" id="kt_toolbar">
-        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
-            <!--begin::Info-->
-            <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
-                <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">공지사항</h3>
-                <p class="text-muted">주요 공지사항은 반드시 필독해주세요.</p>
-                <!--end::Title-->
-                <!--begin::Breadcrumb-->
-            </div>
-            <!--end::Info-->
-            <!--begin::Nav-->
-            <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">공지사항</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent fw-bold">캘린더</a>
-                <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
-                <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
-            </div>
-            <!--end::Nav-->
+
+    <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <!--begin::Info-->
+        <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
+            <!--begin::Title-->
+            <h3 class="text-dark fw-bold my-1">공지사항</h3>
+            <p class="text-muted">주요 공지사항은 반드시 필독해주세요.</p>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
         </div>
+        <!--end::Info-->
+        <!--begin::Nav-->
+        <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
+            <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">공지사항</a>
+            <a href="/digicam/calendar" class="btn btn-active-accent fw-bold ms-3">캘린더</a>
+            <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
+            <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
+        </div>
+        <!--end::Nav-->
+
     </div>
     <!--end::toolbar-->
     <!--begin::Content-->
-    <div class="content fs-6 d-flex flex-column-fluid" id="kt_content">
+    <div class="content fs-6 d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container-xxl">
             <!--begin::Page Layout-->
             <div class="d-flex flex-column flex-md-row">
 
                 <!--begin::Layout-->
-                <div class="flex-md-row-fluid ms-md-12">
+                <div class="flex-md-row-fluid">
                     <!--begin::Card-->
                     <div class="card">
 

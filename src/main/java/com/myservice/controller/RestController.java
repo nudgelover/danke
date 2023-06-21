@@ -237,24 +237,26 @@ public class RestController {
 
     @RequestMapping("/qrimpl")
     public Object qrimpl(@RequestParam String stdnId) throws Exception {
+        String result = "";
         try {
-            String result = "";
 
-            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "C:/Users/psm23/myService/src/main/resources/static/img/logo3.png", 150, 35);
-
+            log.info("여기시작-------------------------------------");
+            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "C:/project/uimg/logo3.png", 150, 35);
             String imageDir = "C:/project/uimg/";
             String imageName = "qr_" + stdnId + ".jpg";
             String imagePath = imageDir + imageName;
             File qrCodeFile = new File(imagePath);
             ImageIO.write(qrCodeImage, "jpg", qrCodeFile);
-
+            log.info("여기 이미지 끝-------------------------------------");
             result = imageName;
 
             return result;
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception();
         }
+
     }
 
     @RequestMapping("/sendcodeimpl")

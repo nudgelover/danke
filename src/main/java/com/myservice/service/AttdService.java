@@ -42,6 +42,9 @@ public class AttdService implements KBService<Integer, Attd> {
     public List<Attd> getMyAttd(String stdnId) throws Exception {
         return mapper.getMyAttd(stdnId);
     }
+    public List<Attd> getMyAttdByMonth(String stdnId,String month) throws Exception {
+        return mapper.getMyAttdByMonth(stdnId, month);
+    }
 
     public void insertAbsence(Attd attd) throws Exception{
         mapper.insertAbsence(attd);

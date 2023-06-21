@@ -19,13 +19,13 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">NOTICE DETAIL</h3>
+                <h3 class="text-dark fw-bold my-1">공지사항 상세</h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">Back</a>
+                <a href="/digicam/anc/all" class="btn btn-active-accent active fw-bold">뒤로가기</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -317,15 +317,15 @@
             {
                 title: '웹으로 이동',
                 link: {
-                    mobileWebUrl: 'http://127.0.0.1/anc/detail?id=${anc.id}',
-                    webUrl      : 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                    mobileWebUrl: '${serviceserver}/anc/detail?id=${anc.id}',
+                    webUrl      : '${serviceserver}/anc/detail?id=${anc.id}',
                 },
             },
             {
                 title: '앱으로 이동',
                 link: {
-                    mobileWebUrl: 'http://127.0.0.1/anc/detail?id=${anc.id}',
-                    webUrl      : 'http://127.0.0.1/anc/detail?id=${anc.id}',
+                    mobileWebUrl: '${serviceserver}/anc/detail?id=${anc.id}',
+                    webUrl      : '${serviceserver}/anc/detail?id=${anc.id}',
                 },
             },
         ],

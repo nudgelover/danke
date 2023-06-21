@@ -78,4 +78,8 @@ public class StdyService implements KBService<Integer, Stdy> {
     public Integer getStudyCountByMonth(String writer, String month) throws Exception {
         return mapper.getStudyCountByMonth(writer, month);
     }
+
+    public List<Stdy> getStudyByMonth(String writer, String month) throws Exception{
+        return mapper.getStudyByMonth(writer,month);
+    }
 }

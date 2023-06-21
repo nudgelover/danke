@@ -116,7 +116,7 @@
                 </div>
                 <!--begin::Form-->
                 <form class="form d-flex flex-center" id="register_form">
-                    <input type="text" name="id" id="id" value="${loginStdn.id}">
+                    <input type="hidden" name="id" id="id" value="${loginStdn.id}">
                     <div class="card-body mw-800px py-20">
                         <!--begin::Form row-->
                         <div class="row mb-8">

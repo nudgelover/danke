@@ -364,34 +364,34 @@
                     <!--end::Body-->
                 </div>
                 <!--end::Feeds Widget 1-->
-                <h3>🎉소통의 달인, 디지캠의 블라왕🤴을 소개합니다!</h3>
-                <div class="card mb-5 mb-xxl-8 p-10 pb-0 ">
-                    <div style="width: 80%; margin: 0 10%"
+                <h3>🎉소통의 달인, <span style="color:mediumpurple">디지캠의 블라왕</span>🤴을 소개합니다!</h3>
+                <div style="background-color: 	#E6E6FA" class="card mb-5 mb-xxl-8 p-10 pb-0">
+                <div style="width: 80%; margin: 0 10%"
                          class="d-flex flex-wrap align-items-center justify-content-between">
 
                         <c:forEach var="obj" items="${rankBlah}" varStatus="status">
                             <c:if test="${status.index < 5}">
                                 <div class="d-flex flex-column align-items-center symbol symbol-70px me-5 mb-10">
                                     <c:if test="${obj.ranking eq '1'}">
-                                        <h3>${obj.ranking}등🥇</h3>
+                                        <h3 class="text-gray-700">${obj.ranking}등🥇</h3>
                                     </c:if>
                                     <c:if test="${obj.ranking eq '2'}">
-                                        <h3>${obj.ranking}등🥈</h3>
+                                        <h3 class="text-gray-700">${obj.ranking}등🥈</h3>
                                     </c:if>
                                     <c:if test="${obj.ranking eq '3'}">
-                                        <h3>${obj.ranking}등🥉</h3>
+                                        <h3 class="text-gray-700">${obj.ranking}등🥉</h3>
                                     </c:if>
                                     <c:if test="${obj.ranking eq '4'}">
-                                        <h3>${obj.ranking}등</h3>
+                                        <h3 class="text-gray-700">${obj.ranking}등</h3>
                                     </c:if>
                                     <c:if test="${obj.ranking eq '5'}">
-                                        <h3>${obj.ranking}등</h3>
+                                        <h3 class="text-gray-700">${obj.ranking}등</h3>
                                     </c:if>
-                                    <img src="/uimg/${obj.img}" alt="">
+                                    <img src="/uimg/${obj.img}" alt="" style="border: 2px solid white;">
                                     <c:set var="fullname" value="${obj.name}"/>
                                     <c:set var="name" value="${fullname.substring(1)}"/>
                                     <a href="/mypage/myblah?id=${obj.stdnId}"
-                                       class="text-gray-800 text-hover-primary fs-6 fw-bold mt-2">
+                                       class="text-gray-700 text-hover-primary fs-6 fw-bold mt-2">
                                             ${name}님
                                     </a>
                                     <span class="text-muted fw-light">총 포스트 ${obj.postCount}개</span>
