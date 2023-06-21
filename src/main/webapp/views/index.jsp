@@ -59,6 +59,7 @@ License: For each use you must have a valid license purchased only from above li
                 document.body.appendChild(scrollBtn);
                 scrollBtn.classList.add("show");
                 scrollBtn.addEventListener("click", function () {
+                    chatbot.connect();
                     chatbotbox.toggle();
                 });
                 const scrollBtn2 = document.createElement("button");
@@ -67,6 +68,7 @@ License: For each use you must have a valid license purchased only from above li
                 document.body.appendChild(scrollBtn2);
                 scrollBtn2.classList.add("show");
                 scrollBtn2.addEventListener("click", function () {
+                    oneonone.connect();
                     oneononebox.toggle();
                 });
 
@@ -76,6 +78,7 @@ License: For each use you must have a valid license purchased only from above li
                 document.body.appendChild(scrollBtn3);
                 scrollBtn3.classList.add("show");
                 scrollBtn3.addEventListener("click", function () {
+                    toall.connect();
                     toallbox.toggle();
                 });
             }
@@ -239,14 +242,10 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Menu-->
                     <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
                         <li class="menu-item">
-                            <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
+                            <a href="/digicam/detail" target="_blank" class="menu-link px-2">About</a>
                         </li>
                         <li class="menu-item">
-                            <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="https://keenthemes.com/products/start-html-pro" target="_blank"
-                               class="menu-link px-2">Purchase</a>
+                            <a href="javascript:void(0)" class="menu-link px-2">Support</a>
                         </li>
                     </ul>
                     <!--end::Menu-->

@@ -43,7 +43,7 @@
                 // 상대방 접속 메시지를 전송
                 var joinMessage = JSON.stringify({
                     'sendid' : sid,
-                    'content':  sid + '님께서 채팅방에 참여하셨습니다.'
+                    'content': sid + '님께서 채팅방에 참여하셨습니다.'
                 });
                 this.send("/receiveall", {}, joinMessage);
                 group.scrollToBottom();
@@ -66,7 +66,6 @@
                                     '<div class="d-flex justify-content-start mb-10"> <div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + stdnName + '<span style="font-size: small" class="text-muted">@' + JSON.parse(msg.body).sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"data-kt-element="message-text">' + JSON.parse(msg.body).content + ' </div> </div> </div>');
 
                                 // 메시지 로컬 스토리지에 추가
-                                onechat.addMessageToStorage(msg);
                                 onechat.scrollToBottom();
 
                             },
@@ -82,10 +81,11 @@
             });
         },
         disconnect    : function () {
+
             var exitMessage = JSON.stringify({
                 'sendid' : this.id,
-                'content':  this.id  + '님께서 채팅방에서 퇴장하셨습니다.',
-            });
+                'content': this.id + '님께서 채팅방에서 퇴장하셨습니다.',
+            });//로컬스토리지 저장 안되게...
             group.scrollToBottom();
             //스크롤 안먹음...
             this.stompClient.send("/receiveall", {}, exitMessage);
@@ -192,32 +192,32 @@
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem.jpg"/>
+                                        <img alt="Pic" src="/img/digimem.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem6.jpg"/>
+                                        <img alt="Pic" src="/img/digimem6.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem2.jpg"/>
+                                        <img alt="Pic" src="/img/digimem2.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem3.jpg"/>
+                                        <img alt="Pic" src="/img/digimem3.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem4.jpg"/>
+                                        <img alt="Pic" src="/img/digimem4.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::Avatar-->
                                     <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/uimg/digimem5.jpg"/>
+                                        <img alt="Pic" src="/img/digimem5.jpg"/>
                                     </div>
                                     <!--end::Avatar-->
                                     <!--begin::All users-->
@@ -265,10 +265,12 @@
                                             </div>
                                         </div>
                                         <div class="p-5 rounded bg-light-warning text-dark fw-semibold mw-lg-700px text-start"
-                                             data-kt-element="message-text">디지챗에 오신 것을 환영합니다!👏 오른쪽 상단을 확인하시어, <span
-                                                class="text-primary fw-bold">연결</span>이 잘 되어있는지 확인해주세요. <span
-                                                class="text-primary fw-bold">연결 대기</span>로 되어있으시다면, <span
-                                                class="text-primary fw-bold">연결버튼</span>을 눌러주시기 바랍니다.
+                                             data-kt-element="message-text">디지챗에 오신 것을 환영합니다!👏 오른쪽 상단을 <span
+                                                class="text-primary fw-bold">연결버튼</span>을 클릭하시어 채팅방에 참여해주세요. 연결이 끊겨
+                                            <span
+                                                    class="text-primary fw-bold">연결 종료</span> 또는 <span
+                                                    class="text-primary fw-bold">연결 대기</span>로 되어있을 시, <span
+                                                    class="text-primary fw-bold">연결버튼</span>을 다시 눌러주시기 바랍니다. 그럼 즐거운 채팅시간을 보내세요!
                                         </div>
                                     </div>
                                 </div>

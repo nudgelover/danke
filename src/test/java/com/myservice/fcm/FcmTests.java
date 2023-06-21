@@ -15,11 +15,13 @@ class FcmTests {
 
     @Autowired
     private PushNotificationUtil pushNotificationUtil;
-    String userToken = "dAJGkzxUQbWyuKumSJn1G_:APA91bEoqYVd8t8ypcVUkBoZZ46rneBjwZbqAy61xXF4zvNHUyhbVqtSobDXU_60_Pa5wI3JWSghsC7T1Pucn06f40LuTjGLQRANxasrE2tCdXMOCd3bE3A3t9-Z2RStL2al-M9aZiPM";
+    String userToken = "ep1v6XKJSQaFSsxltZrNsX:APA91bGeABICUUAmlNuUC4A950EgkdV_W4X3l_R-oUGmdrkLNdbztz2yEVlM-CkcpzU7p7shHlknJXSmlNJ5L6JD_B4Ux3CCcUKGNAgZQPGOgYpxtLpC0eVW6LSD4_4VLKHG0Rh2_-1n";
     String imgUrl = "https://www.w3schools.com/css/img_5terre.jpg";
     @Test
     void contextLoads() throws IOException {
 
+        pushNotificationUtil.sendCommonMessage("SPRING ", "hello", "/register", imgUrl);
+//        pushNotificationUtil.sendTargetMessage("SPRING title4tti", "hello", "/register", userToken);
         pushNotificationUtil.sendCommonMessage("SPRING ", "hello", "/register", userToken);
         //pushNotificationUtil.sendTargetMessage("SPRING title4tti", "hello", "/register", userToken);
 

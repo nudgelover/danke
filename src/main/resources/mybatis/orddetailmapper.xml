@@ -39,6 +39,30 @@
         ORDER BY od.id DESC
     </select>
 
+    <select id="getMyPageOrdDetail" parameterType="String" resultType="OrdDetail">
+        SELECT od.id
+             , od.lec_id AS lecId
+             , od.ord_id AS ordId
+             , od.price  AS price
+             , l.title   AS lecTitle
+             , l.teacher AS lecTeacher
+             , l.topic   AS lecTopic
+             , l.target  AS lecTarget
+             , o.stdn_id AS stdnId
+             , o.rdate
+             , o.is_done AS isDone
+        FROM ord_detail od
+                 INNER JOIN ord o ON od.ord_id = o.id
+                 INNER JOIN lec l ON od.lec_id = l.id
+                 INNER JOIN stdn s ON o.stdn_id = s.id
+        WHERE o.stdn_id = #{stdnId}
+          AND o.is_done = '1'
+        GROUP BY od.id, od.lec_id, od.ord_id, od.price,
+                 l.title, l.teacher, l.topic, l.target,
+                 o.stdn_id, o.rdate, o.is_done
+        ORDER BY od.id DESC
+
+    </select>
 
     <select id="getThisOrd" parameterType="map" resultType="OrdDetail">
         SELECT od.id, od.lec_id AS lecId, od.ord_id AS ordId, od.stdy_hour AS stdyHour

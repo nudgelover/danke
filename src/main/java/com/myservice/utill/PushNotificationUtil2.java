@@ -1,10 +1,7 @@
 package com.myservice.utill;
 
 
-import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -14,16 +11,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class PushNotificationUtil {
+public class PushNotificationUtil2 {
 
     // Modification Field ---------------------------------------
     private static final String PROJECT_ID = "kbstar-43986";
     public static final String firebaseConfig = "fcm_admin.json";
+    public static final String clientToken ="ev5n2iWEQ_mIncGQFRGMBO:APA91bGfynZjimrZkVeMrNMgy4HUH7bzngYDxZfXg1BE6XhXUdHOV74xIlLuJFjqTYfAojX-i43WYSQujgueZe65BVeFagxFOyeFkvnjupq1b28NkQVMKn_xLlohGcbwc5cd2caQZGBp";
+    public static final String imgUrl = "https://github.com/leejeani/admin/blob/master/src/main/resources/static/img/a.jpg";
     // Modification Field ---------------------------------------
 
     private static final String BASE_URL = "https://fcm.googleapis.com";
@@ -83,7 +81,7 @@ public class PushNotificationUtil {
         }
     }
 
-    private static JsonObject buildNotificationMessage(String title, String body, String next, String imgUrl) {
+    private static JsonObject buildNotificationMessage(String title, String body, String next) {
         JsonObject jNotification = new JsonObject();
         jNotification.addProperty("title", title);
         jNotification.addProperty("body", body);
@@ -104,48 +102,17 @@ public class PushNotificationUtil {
             2. token
             3. condition -> multiple topic
          */
-        jMessage.addProperty("topic", "kb");
+        //jMessage.addProperty("topic", "news");
+        jMessage.addProperty("token",clientToken);
 
         JsonObject jFcm = new JsonObject();
         jFcm.add(MESSAGE_KEY, jMessage);
 
         return jFcm;
     }
-    private static JsonObject buildNotificationTargetMessage(String title, String body, String next, String token) {
-        JsonObject jNotification = new JsonObject();
-        jNotification.addProperty("title", title);
-        jNotification.addProperty("body", body);
-        jNotification.addProperty("image", "");
-
-
-        JsonObject jMessage = new JsonObject();
-        jMessage.add("notification", jNotification);
-
-
-        JsonObject jData = new JsonObject();
-        jData.addProperty("key1", next);
-        jMessage.add("data", jData);
-
-        /*
-            firebase
-            1. topic
-            2. token
-            3. condition -> multiple topic
-         */
-        //jMessage.addProperty("topic", "kbs");
-        jMessage.addProperty("token",token);
-
-        JsonObject jFcm = new JsonObject();
-        jFcm.add(MESSAGE_KEY, jMessage);
-
-        return jFcm;
-    }
-    public static void sendCommonMessage(String title, String body, String next, String imgUrl) throws IOException {
-        JsonObject notificationMessage = buildNotificationMessage(title, body, next, imgUrl);
+    public static void sendCommonMessage(String title, String body, String next) throws IOException {
+        JsonObject notificationMessage = buildNotificationMessage(title, body, next);
         sendMessage(notificationMessage);
     }
-    public static void sendTargetMessage(String title, String body, String next, String token) throws IOException {
-        JsonObject notificationMessage = buildNotificationTargetMessage(title, body, next, token);
-        sendMessage(notificationMessage);
-    }
+
 }

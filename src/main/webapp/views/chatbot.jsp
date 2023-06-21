@@ -100,9 +100,6 @@
     };
     $(function () {
         chatbot.init();
-        setTimeout(function () {
-            chatbot.connect();
-        }, 1000);
     })
 
 </script>

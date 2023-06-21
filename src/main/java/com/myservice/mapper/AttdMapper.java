@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface AttdMapper extends KBMapper<Integer, Attd> {
     public List<Attd> getMyAttd(String stdnId) throws Exception;
-
+    public List<Attd> getMyAttdByMonth(String stdnId, String month) throws Exception;
     public void insertAbsence(Attd attd) throws Exception;
 
     public Attd attdOrNot(String stdnId) throws Exception;

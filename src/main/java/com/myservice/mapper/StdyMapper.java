@@ -1,6 +1,7 @@
 package com.myservice.mapper;
 
 import com.github.pagehelper.Page;
+import com.myservice.dto.Attd;
 import com.myservice.dto.Stdy;
 import com.myservice.dto.StdySearch;
 import com.myservice.frame.KBMapper;
@@ -29,4 +30,6 @@ public interface StdyMapper extends KBMapper<Integer, Stdy> {
     public Stdy stdyContentsUpdate(String writer) throws Exception;
 
     public Integer getStudyCountByMonth(String writer, String month) throws Exception;
+
+    public List<Stdy> getStudyByMonth(String writer, String month) throws Exception;
 }

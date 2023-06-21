@@ -28,7 +28,7 @@
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/digicam/anc/all" class="btn btn-active-accent fw-bold">공지사항</a>
-                <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold">캘린더</a>
+                <a href="/digicam/calendar" class="btn btn-active-accent active fw-bold ms-3">캘린더</a>
                 <a href="/digicam/detail" class="btn btn-active-accent fw-bold ms-3">디지캠퍼스</a>
                 <a href="/digicam/member" class="btn btn-active-accent fw-bold ms-3">디지멤버스</a>
             </div>
