@@ -37,6 +37,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent active active fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>

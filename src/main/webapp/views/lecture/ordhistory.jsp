@@ -18,6 +18,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
@@ -68,15 +69,15 @@
                                                         <c:forEach var="ordDetailByOrd" items="${ordDetailByOrd[ord.id]}" varStatus="status" begin="0" end="0">
                                                             <td>${ordDetailByOrd.id}</td>
                                                             <td class="text-center">
-                                                                <div class="d-flex justify-content-center">
+                                                                <div class="d-flex flex-start">
                                                                     <div class="symbol symbol-100px me-4">
                                                                             <span class="symbol-label bg-light">
                                                                                 <img src="/uimg/${ordDetailByOrd.img}"
                                                                                      class="h-75 align-self-center" alt=""/>
                                                                             </span>
                                                                     </div>
-                                                                    <div class="text-start" style="margin-left: 1%">
-                                                                        <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><br>
+                                                                    <div class="text-start" style="margin-left: 5%;">
+                                                                        <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span><br>
                                                                         <span class="text-muted fs-8 text-start">${ordDetailByOrd.lecTeacher}</span>
                                                                         <p class="text-muted fs-8 text-start">
                                                                             <span style="text-decoration: line-through;">
@@ -86,7 +87,6 @@
                                                                             <span class="text-danger">
                                                                                 <fmt:formatNumber value="${ordDetailByOrd.price * (100-ordDetailByOrd.discRate)/100}" type="number" pattern="###,###원"/>
                                                                             </span>
-                                                                            <br><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -98,26 +98,25 @@
                                                             <c:forEach var="ordDetailByOrd" items="${ordDetailByOrd[ord.id]}" varStatus="status" begin="1">
                                                                 <tr>
                                                                     <td>${ordDetailByOrd.id}</td>
-                                                                    <td class="text-center">
-                                                                        <div class="d-flex justify-content-center">
+                                                                    <td class="text-start">
+                                                                        <div class="d-flex flex-start">
                                                                             <div class="symbol symbol-100px me-4">
-                                                                            <span class="symbol-label bg-light">
-                                                                                <img src="/uimg/${ordDetailByOrd.img}"
-                                                                                     class="h-75 align-self-center" alt=""/>
-                                                                            </span>
+                                                                                <span class="symbol-label bg-light">
+                                                                                    <img src="/uimg/${ordDetailByOrd.img}"
+                                                                                         class="h-75 align-self-center" alt=""/>
+                                                                                </span>
                                                                             </div>
-                                                                            <div class="text-start" style="margin-left: 1%">
-                                                                                <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><br>
+                                                                            <div class="text-start" style="margin-left: 5%">
+                                                                                <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span><br>
                                                                                 <span class="text-muted fs-8 text-start">${ordDetailByOrd.lecTeacher}</span>
                                                                                 <p class="text-muted fs-8 text-start">
-                                                                            <span style="text-decoration: line-through;">
-                                                                                    <fmt:formatNumber value="${ordDetailByOrd.price}" type="number" pattern="###,###원"/>
-                                                                                </span>
-                                                                                    (${ordDetailByOrd.discRate}%할인)<br>
-                                                                                    <span class="text-danger">
-                                                                                <fmt:formatNumber value="${ordDetailByOrd.price * (100-ordDetailByOrd.discRate)/100}" type="number" pattern="###,###원"/>
-                                                                            </span>
-                                                                                    <br><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span>
+                                                                                    <span style="text-decoration: line-through;">
+                                                                                            <fmt:formatNumber value="${ordDetailByOrd.price}" type="number" pattern="###,###원"/>
+                                                                                        </span>
+                                                                                            (${ordDetailByOrd.discRate}%할인)<br>
+                                                                                            <span class="text-danger">
+                                                                                        <fmt:formatNumber value="${ordDetailByOrd.price * (100-ordDetailByOrd.discRate)/100}" type="number" pattern="###,###원"/>
+                                                                                    </span>
                                                                                 </p>
                                                                             </div>
                                                                         </div>

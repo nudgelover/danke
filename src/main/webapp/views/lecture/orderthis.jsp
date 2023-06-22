@@ -89,7 +89,14 @@
 
             //결제 버튼 누르면 수단별 팝업 api
             $('#pay_btn').click(function () {
-                //수단 값 전달 받아서 세팅
+                let lecId=$('#lecId').val();
+                let price=$('#price').val();
+                let discRate=$('#discRate').val();
+                let cpnId=$('#cpnId').val();
+                let useCpn=$('#useCpn').val();
+                let ordPrice=$('#ordPrice').val();
+                //모달 준비시키고
+                let orderthisModal = $('#orderthis_modal');
                 let pg='';
                 let payMethod = $('input[name="payment"]:checked').val();
                 if(payMethod==1){
@@ -97,36 +104,49 @@
                 } else {
                     pg='kakaopay';
                 }
-                //아이엠포트엽니다,,
-                const IMP = window.IMP;
-                IMP.init("imp80384222");
-                //단건은 그냥 상품명에 강의명 넣기,,
-                let name = '${lec.title}';
-                //pg연동 고유값 주기 위해 시간 값으로 할당,,
-                let merchant_uid = 'DIGI'+ new Date().getTime();
-                //모달 준비시키고
-                let orderthisModal = $('#orderthis_modal');
+                let Amount = $('#ordPrice').val();
 
-                //창 열고 주문자 값과 상품명, 결제방법 전달
-                IMP.request_pay({
-                    pg: pg,
-                    pay_method: 'card',
-                    merchant_uid: merchant_uid,
-                    name: name,
-                    amount : $('#final_order').html(),
-                    buyer_email: '${loginStdn.email}',
-                    buyer_name: '${loginStdn.name}',
-                    buyer_tel: '${loginStdn.contact}'
-                }, function (rsp) {
-                    if (rsp.success) {
+
+                if(Amount==0){
+                    let modal = new bootstrap.Modal(orderthisModal);
+                    $('#orderthis_msg').html('100% Free-Pass쿠폰을 사용하시겠습니까? (결제금액 0원)');
+                    modal.show();
+                    $('#use_cpn_btn').click(function(){
                         order_selected.send();
-                    } else {
-                        let modal = new bootstrap.Modal(orderthisModal);
-                        $('#orderthis_msg').html('결제실패: '+ rsp.error_msg);
-                        modal.show();
-                    }
-                });
-            });
+                    })
+                } else {
+                    //수단 값 전달 받아서 세팅
+                    //아이엠포트엽니다,,
+                    const IMP = window.IMP;
+                    IMP.init("imp80384222");
+                    //단건은 그냥 상품명에 강의명 넣기,,
+                    let name = '${lec.title}';
+                    //pg연동 고유값 주기 위해 시간 값으로 할당,,
+                    let merchant_uid = 'DIGI'+ new Date().getTime();
+
+                    //창 열고 주문자 값과 상품명, 결제방법 전달
+                    IMP.request_pay({
+                        pg: pg,
+                        pay_method: 'card',
+                        merchant_uid: merchant_uid,
+                        name: name,
+                        amount : $('#final_order').html(),
+                        buyer_email: '${loginStdn.email}',
+                        buyer_name: '${loginStdn.name}',
+                        buyer_tel: '${loginStdn.contact}',
+                        m_redirect_url : 'http://172.16.20.63/lecture/paythis?lecId='+lecId+'&&price='+price+'&&discRate='+discRate+'&&cpnId='+cpnId+'&&payMethod='+payMethod+'&&cpnId='+cpnId+'&&useCpn='+useCpn+'&&ordPrice='+ordPrice
+                    }, function (rsp) {
+                        if (rsp.success) {
+                            order_selected.send();
+                        } else {
+                            let modal = new bootstrap.Modal(orderthisModal);
+                            $('#use_cpn_btn').hide();
+                            $('#orderthis_msg').html('결제실패: '+ rsp.error_msg);
+                            modal.show();
+                        }
+                    });
+                }
+            })
         },
         send: function () {
 
@@ -159,7 +179,9 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
-                <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
+                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 찾기</a>
+                <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청
+                    내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
         </div>
@@ -282,12 +304,18 @@
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center" style="width: 100%">
-                                                        <input type="radio" class="btn-check" name="payment" value="1" id="card" style="width: 50%;"/>
-                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5" for="card" style="width: 50%;margin-left:10%;margin-right:1%;">
+                                                        <input type="radio" class="btn-check" name="payment" value="1"
+                                                               id="card" style="width: 50%;"/>
+                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5"
+                                                               for="card"
+                                                               style="width: 50%;margin-left:10%;margin-right:1%;">
                                                             <span class="svg-icon svg-icon-4hx me-4 text-dark fs-2hx">
-                                                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <svg width="30" height="30" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                     <path d="M22 7H2V11H22V7Z" fill="currentColor"/>
-                                                                    <path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z" fill="currentColor"/>
+                                                                    <path opacity="0.3"
+                                                                          d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19ZM14 14C14 13.4 13.6 13 13 13H5C4.4 13 4 13.4 4 14C4 14.6 4.4 15 5 15H13C13.6 15 14 14.6 14 14ZM16 15.5C16 16.3 16.7 17 17.5 17H18.5C19.3 17 20 16.3 20 15.5C20 14.7 19.3 14 18.5 14H17.5C16.7 14 16 14.7 16 15.5Z"
+                                                                          fill="currentColor"/>
                                                                 </svg>
                                                             </span>
                                                             <span class="d-block fw-semibold text-start">
@@ -295,8 +323,11 @@
                                                             </span>
                                                         </label>
 
-                                                        <input type="radio" class="btn-check" name="payment" value="2" id="kakaopay" style="width: 50%"/>
-                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5" for="kakaopay" style="width: 50%;margin-left:1%;margin-right:10%;">
+                                                        <input type="radio" class="btn-check" name="payment" value="2"
+                                                               id="kakaopay" style="width: 50%"/>
+                                                        <label class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info p-7 d-flex align-items-center mb-5"
+                                                               for="kakaopay"
+                                                               style="width: 50%;margin-left:1%;margin-right:10%;">
                                                             <img src="/img/kakaopay.png" style="width: 20%">
                                                             <span class="d-block fw-semibold text-start">
                                                                 <span class="text-dark fw-bold d-block fs-3 mx-2">카카오페이</span>
@@ -456,8 +487,11 @@
     <div class="modal-dialog">
         <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
             <div class="modal-body" style="display: flex; justify-content: space-between">
-                <div class="text-start text-white" style="width: 90%;">
+                <div class="text-start text-white" style="width: 70%;">
                     <p id="orderthis_msg" class="text-white" style="font-weight:700"></p>
+                </div>
+                <div class="text-white text-hover-white text-end" style="width: 20%;">
+                    <a href="javascript:void(0)" class="text-white" id="use_cpn_btn" style="font-weight: bold;">사용하기</a>
                 </div>
                 <div class="text-end" style="width: 10%;">
                     <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">

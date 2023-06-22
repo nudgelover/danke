@@ -21,8 +21,6 @@
             </div>
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/attd" class="btn btn-active-accent active fw-bold ms-3">출석체크</a>
-                <a href="/test" class="btn btn-active-accent fw-bold ms-3">테스트</a>
-                <a href="/study" class="btn btn-active-accent fw-bold ms-3">스터디</a>
             </div>
         </div>
     </div>

@@ -494,7 +494,7 @@ public class LectureController {
     }
 
     @RequestMapping("/pay")
-    public String pay(@RequestParam List<Integer> lecId, @RequestParam List<Integer> price, @RequestParam List<Integer> discRate, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
+    public String pay(@RequestParam List<Integer> lecId, @RequestParam List<Integer> price, @RequestParam List<Integer> discRate, Integer cpnId, Integer ordPrice, String payMethod, Integer useCpn, Model model, HttpSession session) throws Exception {
         //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
         // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
         // 2. ord_detail insert ( 각 강의별로 생성 ) : for문을 돌려 (각 강의 lecId 필요) 방금 insert한 ord Id 필요
@@ -510,11 +510,14 @@ public class LectureController {
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
 
-        log.info("여기" + ord.toString());
+        Ord ord = new Ord();
         ord.setStdnId(stdnId);
+        ord.setOrdPrice(ordPrice);
+        ord.setPayMethod(payMethod);
+        ord.setUseCpn(useCpn);
         ordService.register(ord);
+
         Integer ordId = ordService.getLastOrdId();
-        Integer ordPrice = ord.getOrdPrice();
 
         log.info("여기lecId여기" + lecId.toString());
         log.info("discRate여기" + discRate.toString());
@@ -553,7 +556,7 @@ public class LectureController {
     }
 
     @RequestMapping("/paythis")
-    public String paythis(Integer lecId, Integer price, Integer discRate, int cpnId, Ord ord, Model model, HttpSession session) throws Exception {
+    public String paythis(Integer lecId, Integer price, Integer discRate, Integer payMethod, Integer cpnId, Integer useCpn, Integer ordPrice, Model model, HttpSession session) throws Exception {
         //  주문에 필요한 것들 개많아... 주문하지 마 오프라인 구매 해...
         // 1. ord_table insert : ordPrice, payMethod, useCpn(쿠폰적용금액)
         // 2. ord_detail insert ( 각 강의별로 생성 ) : 각 강의 lecId 필요, 방금 insert한 ord Id 필요
@@ -562,12 +565,16 @@ public class LectureController {
 
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
-
-        log.info("여기" + ord.toString());
+        log.info("여기sntdId"+stdnId);
+        Ord ord = new Ord();
         ord.setStdnId(stdnId);
+        ord.setOrdPrice(ordPrice);
+        ord.setPayMethod(payMethod+"");
+        ord.setUseCpn(useCpn);
+        log.info("여기오알디투스트링"+ord.toString());
         ordService.register(ord);
+
         Integer ordId = ordService.getLastOrdId();
-        Integer ordPrice = ord.getOrdPrice();
 
         log.info("여기" + lecId.toString());
         Lec lec = lecService.get(lecId);
@@ -694,7 +701,6 @@ public class LectureController {
 
     @RequestMapping("/search")
     public String searchvideo(Model model, String id) throws Exception {
-
         model.addAttribute("center", dir + "search");
         return "index";
     }
