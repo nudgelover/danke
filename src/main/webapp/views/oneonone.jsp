@@ -56,6 +56,7 @@
                 console.log('Connected: ' + frame);
 
                 this.subscribe('/send/to/' + sid, function (msg) {
+                    $('#oneonone-badge-dot').show();
                     $("#to").append(
                         // "<h4>" + JSON.parse(msg.body).sendid +":"+
                         // JSON.parse(msg.body).content1

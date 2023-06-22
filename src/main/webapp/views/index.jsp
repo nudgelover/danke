@@ -48,38 +48,335 @@ License: For each use you must have a valid license purchased only from above li
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
     <script>
+        let blahalarm = {
+            id: null,
+            stompClient: null,
+
+            init: function () {
+                this.id = $('#loginStdnid').val();
+                var self = this;
+                var sid = this.id;
+                var socket = new SockJS('${serviceserver}/blahalarm');
+                this.stompClient = Stomp.over(socket);
+
+                this.stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+
+                    self.stompClient.subscribe('/blahalarm/to/' + sid, function (msg) {
+                        var sendid = JSON.parse(msg.body).sendid;
+                        var postid = JSON.parse(msg.body).postid;
+                        var content = JSON.parse(msg.body).content;
+
+                        var alarmData = {
+                            sendid: sendid,
+                            postid: postid,
+                            content: content,
+                            isAlerted: true
+                        };
+
+                        self.saveAlarm(alarmData);
+                        self.displayAlarm(alarmData);
+                        self.showAlarm();
+                    });
+                });
+
+                $('[id^="add_comm_"]').click(function (event) {
+                    event.preventDefault();
+
+                    const textarea = $(this).closest('form').find('textarea');
+                    const content = textarea.val();
+                    $(this).data('content', content);
+                    const postid = $(this).data('postid');
+                    const receiveId = $(this).data('receiveid');
+                    blahalarm.sendTo(postid, receiveId, content);
+                });
+
+                this.loadAndDisplayAlarms();
+            },
+
+            disconnect: function () {
+                if (this.stompClient !== null) {
+                    this.stompClient.disconnect();
+                }
+                console.log("Disconnected");
+            },
+
+            sendTo: function (postid, receiveId, content) {
+                var msg = JSON.stringify({
+                    'sendid': this.id,
+                    'postid': postid,
+                    'receiveid': receiveId,
+                    'content': content
+                });
+                console.log(msg);
+                this.stompClient.send('/blahalarmto', {}, msg);
+            },
+
+            saveAlarm: function (alarmData) {
+                var storedAlarms = this.getStoredAlarms();
+                storedAlarms.push(alarmData);
+                localStorage.setItem('blahalarms', JSON.stringify(storedAlarms));
+            },
+
+            loadAndDisplayAlarms: function () {
+                var storedAlarms = this.getStoredAlarms();
+                for (var i = 0; i < storedAlarms.length; i++) {
+                    var alarmData = storedAlarms[i];
+                    this.displayAlarm(alarmData);
+                    if (alarmData.isAlerted) {
+                        this.showAlarm();
+                    }
+                }
+            },
+
+            displayAlarm: function (alarmData) {
+                var sendid = alarmData.sendid;
+                var postid = alarmData.postid;
+                var content = alarmData.content;
+
+                var timelineItem = $("<div>").addClass("timeline-item");
+                var timelineLine = $("<div>").addClass("timeline-line w-40px");
+                var timelineIcon = $("<div>").addClass("timeline-icon symbol symbol-circle symbol-40px me-4")
+                    .append($("<div>").addClass("symbol-label bg-light").html(
+                        "<span class='svg-icon svg-icon-2 svg-icon-gray-500'>" +
+                        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                        "<path opacity='0.3' d='M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z' fill='currentColor' />" +
+                        "<path d='M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z' fill='currentColor' />" +
+                        "</svg></span>"
+                    ));
+                var timelineContent = $("<div>").addClass("timeline-content mb-10 mt-n1");
+                var timelineHeading = $("<div>").addClass("pe-3 mb-5");
+                var title = $("<div>").addClass("fs-5 fw-semibold mb-2").html(sendid + "님이 회원님의 블라블라에 댓글을 남겼습니다: <span class='text-muted'>" + content + "</span>");
+                var description = $("<div>").addClass("d-flex align-items-center mt-1 fs-6");
+                var info = $("<div>").addClass("text-muted me-2 fs-7").html("<a href='/blah'>블라블라로 이동하기</a>");
+
+                timelineHeading.append(title);
+                description.append(info);
+                timelineHeading.append(description);
+                timelineContent.append(timelineHeading);
+                timelineItem.append(timelineLine);
+                timelineItem.append(timelineIcon);
+                timelineItem.append(timelineContent);
+
+                $("#getactivityLogs").append(timelineItem);
+                $(".pulse-ring").show();
+            },
+
+            showAlarm: function () {
+                $(".pulse-ring").show();
+            },
+
+            getStoredAlarms: function () {
+                var storedAlarms = localStorage.getItem('blahalarms');
+                if (storedAlarms) {
+                    return JSON.parse(storedAlarms);
+                } else {
+                    return [];
+                }
+            }
+        };
+
+        $(function () {
+            blahalarm.init();
+        });
+
+    </script>
+    <script>
+        let mrkalarm = {
+            id         : null,
+            stompClient: null,
+            init       : function () {
+                this.id = $('#loginStdnid').val();
+                console.log(this.id + "테스토");
+                var self = this;
+                var sid = this.id;
+                var socket = new SockJS('${serviceserver}/alarm');
+                this.stompClient = Stomp.over(socket);
+
+                this.stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+
+                    self.stompClient.subscribe('/alarm/to/' + sid, function (msg) {
+                        var sendid = JSON.parse(msg.body).sendid;
+                        var postid = JSON.parse(msg.body).postid;
+                        var content = JSON.parse(msg.body).content;
+
+                        var alarmData = {
+                            sendid: sendid,
+                            postid: postid,
+                            content: content,
+                            isAlerted: true
+                        };
+
+                        self.saveAlarm(alarmData);
+                        self.displayAlarm(alarmData);
+                        self.showAlarm();
+
+                    });
+                });
+
+                $("#mrk_add_comm").click(function (event) {
+                    event.preventDefault();
+
+                    const content = $('#mrkcontents').val();
+                    const postid = $('#mrkpostId').val();
+                    const receiveId = $('#mrkreceiver').text();
+                    mrkalarm.sendTo(postid, receiveId, content);
+
+
+                });
+                this.loadAndDisplayAlarms();
+            },
+            disconnect : function () {
+                if (this.stompClient !== null) {
+                    this.stompClient.disconnect();
+                }
+                console.log("Disconnected");
+            },
+            sendTo     : function (postid, receiveId, content) {
+                var msg = JSON.stringify({
+                    'sendid': this.id,
+                    'postid': postid,
+                    'receiveid': receiveId,
+                    'content': content
+                });
+                console.log(msg+"맛집");
+                this.stompClient.send('/alarmto', {}, msg);
+            },
+            saveAlarm: function (alarmData) {
+                var storedAlarms = this.getStoredAlarms();
+                storedAlarms.push(alarmData);
+                localStorage.setItem('alarms', JSON.stringify(storedAlarms));
+            },
+
+            loadAndDisplayAlarms: function () {
+                var storedAlarms = this.getStoredAlarms();
+                for (var i = 0; i < storedAlarms.length; i++) {
+                    var alarmData = storedAlarms[i];
+                    this.displayAlarm(alarmData);
+                    if (alarmData.isAlerted) {
+                        this.showAlarm();
+                    }
+                }
+            },
+
+            displayAlarm: function (alarmData) {
+                var sendid = alarmData.sendid;
+                var postid = alarmData.postid;
+                var content = alarmData.content;
+
+                var timelineItem = $("<div>").addClass("timeline-item");
+                var timelineLine = $("<div>").addClass("timeline-line w-40px");
+                var timelineIcon = $("<div>").addClass("timeline-icon symbol symbol-circle symbol-40px me-4")
+                    .append($("<div>").addClass("symbol-label bg-light").html(
+                        "<span class='svg-icon svg-icon-2 svg-icon-gray-500'>" +
+                        "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>" +
+                        "<path opacity='0.3' d='M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z' fill='currentColor' />" +
+                        "<path d='M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z' fill='currentColor' />" +
+                        "</svg></span>"
+                    ));
+                var timelineContent = $("<div>").addClass("timeline-content mb-10 mt-n1");
+                var timelineHeading = $("<div>").addClass("pe-3 mb-5");
+                var title = $("<div>").addClass("fs-5 fw-semibold mb-2").html(sendid + "님이 회원님의 맛집게시글에 댓글을 남겼습니다: <span class='text-muted'>" + content + "</span>");
+                var description = $("<div>").addClass("d-flex align-items-center mt-1 fs-6");
+                var info = $("<div>").addClass("text-muted me-2 fs-7").html("<a href='/marker/detail?id=" + postid + "'>게시글 보러가기</a>");
+
+                timelineHeading.append(title);
+                description.append(info);
+                timelineHeading.append(description);
+                timelineContent.append(timelineHeading);
+                timelineItem.append(timelineLine);
+                timelineItem.append(timelineIcon);
+                timelineItem.append(timelineContent);
+
+                $("#getactivityLogs").append(timelineItem);
+                $(".pulse-ring").show();
+            },
+
+            showAlarm: function () {
+                $(".pulse-ring").show();
+            },
+
+            getStoredAlarms: function () {
+                var storedAlarms = localStorage.getItem('alarms');
+                if (storedAlarms) {
+                    return JSON.parse(storedAlarms);
+                } else {
+                    return [];
+                }
+            }
+        };
+        $(function () {
+            mrkalarm.init();
+        });
+    </script>
+    <script>
         let chatbtn = {
             init: function () {
                 const chatbotbox = $('#chatbot_box');
                 const oneononebox = $('#oneonone_box');
                 const toallbox = $('#toall_box');
                 const scrollBtn = document.createElement("button");
-                scrollBtn.innerHTML = "챗봇";
+                // scrollBtn.innerHTML = "챗봇";
                 scrollBtn.setAttribute("id", "scroll-btn");
+                scrollBtn.style.backgroundImage = "url('/img/chatbot.png')";
+                scrollBtn.style.backgroundSize = "cover";
+                scrollBtn.style.backgroundPosition = "center";
                 document.body.appendChild(scrollBtn);
                 scrollBtn.classList.add("show");
+
+
+                const chatbotBadgeDot = document.createElement("span");
+                chatbotBadgeDot.classList.add("admin-badge-dot");
+                chatbotBadgeDot.setAttribute("id", "chatbot-badge-dot")
+                scrollBtn.appendChild(chatbotBadgeDot);
+
                 scrollBtn.addEventListener("click", function () {
                     chatbot.connect();
                     chatbotbox.toggle();
+                    chatbotBadgeDot.style.display = "none";
                 });
+
+
                 const scrollBtn2 = document.createElement("button");
-                scrollBtn2.innerHTML = "1:1";
+                // scrollBtn2.innerHTML = "1:1";
                 scrollBtn2.setAttribute("id", "scroll-btn2");
+                scrollBtn2.style.backgroundImage = "url('/img/oneonone.png')";
+                scrollBtn2.style.backgroundSize = "cover";
+                scrollBtn2.style.backgroundPosition = "center";
                 document.body.appendChild(scrollBtn2);
                 scrollBtn2.classList.add("show");
+
+                const oneononeBadgeDot = document.createElement("span");
+                oneononeBadgeDot.classList.add("admin-badge-dot");
+                oneononeBadgeDot.setAttribute("id", "oneonone-badge-dot")
+                scrollBtn2.appendChild(oneononeBadgeDot);
+
+
                 scrollBtn2.addEventListener("click", function () {
                     oneonone.connect();
                     oneononebox.toggle();
+                    oneononeBadgeDot.style.display = "none";
                 });
 
                 const scrollBtn3 = document.createElement("button");
-                scrollBtn3.innerHTML = "공지";
+                // scrollBtn3.innerHTML = "공지";
                 scrollBtn3.setAttribute("id", "scroll-btn3");
+                scrollBtn3.style.backgroundImage = "url('/img/notice.png')";
+                scrollBtn3.style.backgroundSize = "cover";
+                scrollBtn3.style.backgroundPosition = "center";
                 document.body.appendChild(scrollBtn3);
                 scrollBtn3.classList.add("show");
+
+                const noticeBadgeDot = document.createElement("span");
+                noticeBadgeDot.classList.add("admin-badge-dot");
+                noticeBadgeDot.setAttribute("id", "notice-badge-dot")
+                scrollBtn3.appendChild(noticeBadgeDot);
+
                 scrollBtn3.addEventListener("click", function () {
                     toall.connect();
                     toallbox.toggle();
+                    noticeBadgeDot.style.display = "none";
                 });
             }
         };
@@ -142,20 +439,20 @@ License: For each use you must have a valid license purchased only from above li
         font-family: 'Noto Sans KR', sans-serif;
     }
 
-     #scroll-btn {
-         opacity: 0;
-         width: 50px;
-         height: 50px;
-         color: #fff;
-         background-color: #605AA9;
-         position: fixed;
-         bottom: 12%;
-         right: 5%;
-         border: 2px solid #fff;
-         border-radius: 50%;
-         font: bold 2px monospace;
-         transition: opacity 2s, transform 2s;
-     }
+    #scroll-btn {
+        opacity: 0;
+        width: 60px;
+        height: 60px;
+        /*color: #fff;*/
+        background-color: #8681BE;
+        position: fixed;
+        bottom: 13.5%;
+        right: 5%;
+        border: 2px solid #8681BE;
+        border-radius: 50%;
+        font: bold 2px monospace;
+        transition: opacity 2s, transform 2s;
+    }
 
     #scroll-btn.show {
         opacity: 1;
@@ -164,14 +461,14 @@ License: For each use you must have a valid license purchased only from above li
 
     #scroll-btn2 {
         opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: #605AA9;
+        width: 60px;
+        height: 60px;
+        /*color: #fff;*/
+        background-color: #8681BE;
         position: fixed;
         bottom: 5%;
         right: 5%;
-        border: 2px solid #fff;
+        border: 2px solid #8681BE;
         border-radius: 50%;
         font: bold 10px monospace;
         transition: opacity 2s, transform 2s;
@@ -184,14 +481,14 @@ License: For each use you must have a valid license purchased only from above li
 
     #scroll-btn3 {
         opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: #605AA9;
+        width: 60px;
+        height: 60px;
+        /*color: #fff;*/
+        background-color: #8681BE;
         position: fixed;
-        bottom: 19%;
+        bottom: 21.7%;
         right: 5%;
-        border: 2px solid #fff;
+        border: 2px solid #8681BE;
         border-radius: 50%;
         font: bold 10px monospace;
         transition: opacity 2s, transform 2s;
@@ -202,6 +499,32 @@ License: For each use you must have a valid license purchased only from above li
         transition: opacity 5s, transform 5s;
     }
 
+    .admin-badge-dot {
+        position: relative;
+        top: 16px;
+        right: 6px;
+        display: none;
+        width: 8px;
+        height: 8px;
+        background-color: orange;
+        border-radius: 50%;
+        animation: pulsate 1s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.5);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
 </style>
 <!--end::Theme mode setup on page load-->
 <!--begin::Main-->
@@ -258,6 +581,7 @@ License: For each use you must have a valid license purchased only from above li
     </div>
     <!--end::Page-->
 </div>
+<input type="hidden" id="loginStdnid" value="${loginStdn.id}">
 <!--end::Root-->
 <!--begin::Header Search-->
 <jsp:include page="header/headerSearch.jsp"/>

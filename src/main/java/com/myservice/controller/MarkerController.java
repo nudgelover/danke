@@ -32,6 +32,9 @@ public class MarkerController {
     String imgpath;
     String dir = "marker/";
 
+    @Value("${kakaoshare}")
+    private String kakaoshare;
+
 
     @Autowired
     MrkService mrkService;
@@ -165,6 +168,8 @@ public class MarkerController {
 
         mrk.setTimeAgo(timeAgo);
 
+
+        model.addAttribute("kakaoshare", kakaoshare);
         model.addAttribute("marker", mrk);
         model.addAttribute("mrkComm", mrkCommList);
         model.addAttribute("student", stdn);

@@ -290,7 +290,7 @@
                     <div class="mx-8 my-4">
                         <div class="d-flex align-items-center">
                             <div style="margin: 0 10px 15px 0">
-                                <i class="bi bi-1-square-fill text-gray-300 fs-2hx"></i>
+                                <i class="bi bi-2-square-fill text-gray-300 fs-2hx"></i>
                             </div>
                             <div>
                                 <h3 class="text-muted">Step 2</h3>

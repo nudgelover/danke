@@ -66,7 +66,7 @@
                                             <a class="menu-link ps-0 py-2" href="/lecture/mylecture?id=${loginStdn.id}">내 학습</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/lecture/search">학습 자료 조회</a>
+                                            <a class="menu-link ps-0 py-2" href="/lecture/search">학습 자료 찾기</a>
                                         </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/lecture/ordhistory?stdnId=${loginStdn.id}">수강신청 내역조회</a>
@@ -142,26 +142,26 @@
                             <!--begin::Row-->
                             <div class="row g-5">
                                 <div class="col-sm-4">
-                                    <a href="#" class="card bg-light-success hoverable min-h-125px shadow-none mb-5">
+                                    <a href="/mypage?id=${loginStdn.id}" class="card bg-light-success hoverable min-h-125px shadow-none mb-5">
                                         <div class="card-body d-flex flex-column flex-center">
-                                            <h3 class="fs-3 mb-2 text-dark fw-bold">Attendance</h3>
-                                            <p class="mb-0 text-gray-600">$2.99/month</p>
+                                            <h3 class="fs-3 mb-2 text-dark fw-bold">마이페이지</h3>
+                                            <p class="mb-0 text-gray-600">MyPage</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" class="card bg-light-danger hoverable min-h-125px shadow-none mb-5">
+                                    <a href="/attd" class="card bg-light-danger hoverable min-h-125px shadow-none mb-5">
                                         <div class="card-body d-flex flex-column flex-center text-center">
-                                            <h3 class="fs-3 mb-2 text-dark fw-bold">Test</h3>
-                                            <p class="mb-0 text-gray-600">Free Version</p>
+                                            <h3 class="fs-3 mb-2 text-dark fw-bold">출석체크</h3>
+                                            <p class="mb-0 text-gray-600">Attendance</p>
                                         </div>
                                     </a>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" class="card bg-light-warning hoverable min-h-125px shadow-none mb-5">
+                                    <a href="/study/add" class="card bg-light-warning hoverable min-h-125px shadow-none mb-5">
                                         <div class="card-body d-flex flex-column flex-center text-center">
-                                            <h3 class="fs-3 mb-2 text-dark text-hover-primary fw-bold">SSSS</h3>
-                                            <p class="mb-0 text-gray-600">Pro Version</p>
+                                            <h3 class="fs-3 mb-2 text-dark text-hover-primary fw-bold">스터디 등록</h3>
+                                            <p class="mb-0 text-gray-600">Study</p>
                                         </div>
                                     </a>
                                 </div>
@@ -170,29 +170,28 @@
                             <!--begin::Row-->
                             <div class="row g-5">
                                 <div class="col-sm-8">
-                                    <a href="#" class="card bg-light-primary hoverable min-h-125px shadow-none mb-5">
+                                    <a href="/digicam/anc/all" class="card bg-light-primary hoverable min-h-125px shadow-none mb-5">
                                         <div class="card-body d-flex flex-column flex-center text-center">
-                                            <h3 class="fs-3 mb-2 text-dark fw-bold"></h3>
-                                            <p class="mb-0 text-gray-600">Credit Cards/Debit Cards, Paypal,
-                                                <br/>Transferwise & Others</p>
+                                            <h3 class="fs-3 mb-2 text-dark fw-bold">공지사항</h3>
+                                            <p class="mb-0 text-gray-600"> 중요한 공지사항을 바로 확인해보세요!</p>
                                         </div>
                                     </a>
                                     <!--begin::Row-->
                                     <div class="row g-5">
                                         <div class="col-sm-6">
-                                            <a class="card bg-light-warning hoverable shadow-none min-h-125px mb-5">
+                                            <a href="/blah/group" class="card bg-light-warning hoverable shadow-none min-h-125px mb-5">
                                                 <div class="card-body d-flex flex-column flex-center text-center">
-                                                    <h3 class="fs-3 mb-2 text-dark fw-bold">Support</h3>
-                                                    <p class="mb-0 text-gray-600">6 Month Free</p>
+                                                    <h3 class="fs-3 mb-2 text-dark fw-bold">디지라이브</h3>
+                                                    <p class="mb-0 text-gray-600">매월 셋째 주 </br>목요일 오후 5시</p>
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="col-sm-6">
-                                            <a href="#"
+                                            <a href="/lecture/search"
                                                class="card bg-light-success hoverable shadow-none min-h-125px mb-5">
                                                 <div class="card-body d-flex flex-column flex-center text-center">
-                                                    <h3 class="fs-3 mb-2 text-dark fw-bold">Webcam</h3>
-                                                    <p class="mb-0 text-gray-600">$0.99 Per Machine</p>
+                                                    <h3 class="fs-3 mb-2 text-dark fw-bold">유튜브 검색</h3>
+                                                    <p class="mb-0 text-gray-600">유튜브 검색도 여기서 오케이당케!</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -200,12 +199,12 @@
                                     <!--end::Row-->
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#"
+                                    <a href="/lecture/mylecture?id=${loginStdn.id}"
                                        class="card card-stretch mb-5 bg-light-info hoverable shadow-none min-h-250px">
                                         <div class="card-body d-flex flex-column p-0">
                                             <div class="d-flex flex-column flex-grow-1 flex-center text-center px-5 pt-10">
-                                                <h3 class="fs-3 mb-2 text-dark fw-bold">Diagnosis</h3>
-                                                <p class="mb-0 text-gray-600">Single Click Import</p>
+                                                <h3 class="fs-3 mb-2 text-dark fw-bold">강의 학습</h3>
+                                                <p class="mb-0 text-gray-600">오늘도 열공!</p>
                                             </div>
                                             <div class="min-h-125px bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom"
                                                  style="background-image:url('/assets/media/illustrations/sigma-1/2.png')"></div>

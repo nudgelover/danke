@@ -56,6 +56,7 @@
                 toall.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
                 console.log('Connected: ' + frame);
                 this.subscribe('/send', function(msg) {
+                    $('#notice-badge-dot').show();
                     //두번째 매개변수 function(msg)는
                     //메시지가 도착했을 때 호출할 콜백 함수입니다. 이 함수는 서버에서 보낸 메시지를 전달받습니다
                     $("#all").append(
@@ -80,7 +81,7 @@
                 $("#status_toall").text("연결종료");
             }
         }
-        //서비스에서 보내는 기능 삭제예정. 테스트 용도로 우선 남겨둠
+        // 서비스에서 보내는 기능 삭제예정. 테스트 용도로 우선 남겨둠
         // sendAll:function(){
         //     var msg = JSON.stringify({
         //         'sendid' : this.id,

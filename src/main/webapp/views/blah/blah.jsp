@@ -5,7 +5,6 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 <%--<link rel="stylesheet" href="/path/to/styles/default.min.css">--%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-light.min.css">
-
 <script src="/path/to/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 <style>
@@ -28,6 +27,7 @@
         padding: 10px !important;
     }
 </style>
+
 <script>
     $(document).ready(function () {
             const loadingEl = $("<div></div>");
@@ -98,7 +98,6 @@
                 // console.log(outerDiv.innerHTML);
 
                 if (outerDiv.innerHTML == '<div class="ql-editor"><p><br></p></div>') {
-                    // alert("게시글을 입력해주세요")
                     $('#kt_modal_1_alert').modal('show');
                     return;
                 }
@@ -256,7 +255,7 @@
                 <div class="d-flex align-items-center mb-2">
                     <span style="margin-right: 5px">디지캠 수강생분들의 자유로운 이야기, 오늘의 코드조각을 공유해주세요 </span>
                     <i class="fonticon-web-design text-gray-800 align-middle"></i>
-                    <a style="margin-left: 10px; z-index: 999" href="/mypage/myblah?id=${loginStdn.id}">마이블라로 이동하기 <i
+                    <a style="margin-left: 10px; z-index: 1" href="/mypage/myblah?id=${loginStdn.id}">마이블라로 이동하기 <i
                             class="bi bi-arrow-right-circle text-primary fs-8"></i></a>
                 </div>
                 <!--end::Title-->
@@ -366,7 +365,7 @@
                 <!--end::Feeds Widget 1-->
                 <h3>🎉소통의 달인, <span style="color:mediumpurple">디지캠의 블라왕</span>🤴을 소개합니다!</h3>
                 <div style="background-color: 	#E6E6FA" class="card mb-5 mb-xxl-8 p-10 pb-0">
-                <div style="width: 80%; margin: 0 10%"
+                    <div style="width: 80%; margin: 0 10%"
                          class="d-flex flex-wrap align-items-center justify-content-between">
 
                         <c:forEach var="obj" items="${rankBlah}" varStatus="status">
@@ -420,6 +419,7 @@
 
 
                                 <div class="d-flex flex-column flex-grow-1">
+
                                     <a href="/mypage/myblah?id=${obj.stdnId}"
                                        class="text-gray-800 text-hover-primary mb-1 fs-6 fw-bold">
                                             ${obj.name} <span
@@ -622,7 +622,10 @@
                                           placeholder="Reply..." onkeyup="checkTextareaEmpty(${obj.id})"></textarea>
                                 <div class="position-absolute top-0 end-0 mt-2 me-n3">
                                         <span style="color: #6c757d; font-weight: bold"
-                                              id="add_comm_${obj.id}">게시</span>
+                                              id="add_comm_${obj.id}"
+                                              data-receiveid="${obj.stdnId}"
+                                              data-postid="${obj.id}"
+                                              data-content="">게시</span>
                                 </div>
                             </form>
                             <!--edit::Editor-->
@@ -711,6 +714,7 @@
 
 
 </script>
+
 
 <!--begin::Vendors Javascript(used for this page only)-->
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>

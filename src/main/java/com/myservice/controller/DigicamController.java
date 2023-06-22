@@ -31,6 +31,9 @@ public class DigicamController {
     String imgpath;
     String dir = "digicam/";
 
+    @Value("${kakaoshare}")
+    private String kakaoshare;
+
     @Autowired
     AncService ancService;
     @Autowired
@@ -41,6 +44,7 @@ public class DigicamController {
 
     @RequestMapping("/detail")
     public String detail(Model model, Integer id) throws Exception {
+
         model.addAttribute("center", dir + "detail");
         return "index";
     }
@@ -121,18 +125,8 @@ public class DigicamController {
     @RequestMapping("/anc/detail")
     public String ancDetail(Model model, Integer id) throws Exception {
         Anc anc = ancService.get(id);
-//        //최근 1주일 전 게시글 new 배찌
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-//        Date currentDate = new Date();
-//
-//        Date postDate = sdf.parse(anc.getRdate());
-//        long diff = currentDate.getTime() - postDate.getTime();
-//        long diffInDays = TimeUnit.MILLISECONDS.toDays(diff);
-//        if (diffInDays <= 7) {
-//            anc.setNewPost(true);
-//        } else {
-//            anc.setNewPost(false);
-//        }
+        //최근 1주일 전 게시글 new 배찌
+
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
@@ -158,7 +152,7 @@ public class DigicamController {
 
         anc.setTimeAgo(timeAgo);
 
-
+        model.addAttribute("kakaoshare", kakaoshare);
         model.addAttribute("anc", anc);
         model.addAttribute("center", dir + "ancDetail");
         return "index";

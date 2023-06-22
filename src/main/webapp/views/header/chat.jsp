@@ -74,9 +74,9 @@
                         promises.push(promise);
                     } else {
                         const parseMsg2 = JSON.parse(msg);
-                        console.log(parseMsg2.sendid + "@------parseMsg2.sendid")
-                        console.log(parseMsg2.receiveid + "@------parseMsg2.receiveid")
-                        console.log(parseMsg2.content + "@------parseMsg2.content")
+                        // console.log(parseMsg2.sendid + "@------parseMsg2.sendid")
+                        // console.log(parseMsg2.receiveid + "@------parseMsg2.receiveid")
+                        // console.log(parseMsg2.content + "@------parseMsg2.content")
                         const messageHtml =
                             '<div class="d-flex justify-content-end mb-10"><div class="d-flex flex-column align-items-end"> <div class="d-flex align-items-center mb-2"> <div class="me-3"> <a href="#"class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">나</a> </div> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/${loginStdn.img}"/> </div> </div> <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"data-kt-element="message-text">' + parseMsg2.content + '</div></div></div>';
 

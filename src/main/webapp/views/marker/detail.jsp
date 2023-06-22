@@ -15,10 +15,10 @@
 <script>
     $(document).ready(function () {
 
-        $('#add_comm').on('click', function (event) {
+        $('#mrk_add_comm').on('click', function (event) {
             event.preventDefault();
 
-            const contents = $('#contents').val();
+            const contents = $('#mrkcontents').val();
             if (contents == '' || contents == null) {
                 $('#kt_modal_1_alert').modal('show');
                 return;
@@ -52,23 +52,24 @@
             var commentId = $(this).data("comment-id"); // 삭제할 댓글의 ID  mrkComm.id
             var postId = ${marker.id} // 해당 게시글의 ID
 
-            // 댓글 삭제 Ajax 요청
-            $.ajax({
-                url: "/marker/delcomm",
-                type: "GET",
-                data: { id: commentId, postId: postId },
-                success: function() {
-                    // 댓글 삭제 성공 후 상세 페이지 리로드
-                    window.location.href = "/marker/detail?id=" + postId;
-                },
-                error: function() {
-                    // 댓글 삭제 실패 처리
-                    alert("댓글 삭제에 실패했습니다.");
-                }
-            });
+                // 댓글 삭제 Ajax 요청
+                $.ajax({
+                    url    : "/marker/delcomm",
+                    type   : "GET",
+                    data   : {id: commentId, postId: postId},
+                    success: function () {
+                        // 댓글 삭제 성공 후 상세 페이지 리로드
+                        window.location.href = "/marker/detail?id=" + postId;
+                    },
+                    error  : function () {
+                        // 댓글 삭제 실패 처리
+                        alert("댓글 삭제에 실패했습니다.");
+                    }
+                });
         });
     });
 </script>
+
 <!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -77,7 +78,8 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">맛집 상세 <span style="margin-left:10px; color: orange; font-size: 15px">📢 카카오톡</span><span style="color: gray; font-weight: 200; font-size: 15px">으로 공유하시면, 위치를 공유하실 수 있습니다.😉</span></h3>
+                <h3 class="text-dark fw-bold my-1">맛집 상세 <span style="margin-left:10px; color: orange; font-size: 15px">📢 카카오톡</span><span
+                        style="color: gray; font-weight: 200; font-size: 15px">으로 공유하시면, 위치를 공유하실 수 있습니다.😉</span></h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
@@ -139,7 +141,7 @@
                                         <div class="pe-5">
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
-                                                <a href="/mypage?id=${marker.writer}"
+                                                <a id="mrkreceiver" href="/mypage?id=${marker.writer}"
                                                    class="fw-bold text-dark text-hover-primary">${marker.writer}</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
@@ -318,7 +320,7 @@
                                             </div>
 
                                             <div class="modal-body">
-                                                <p>댓글을 정말로 삭제하시겠습니까?${mrkComm.id}</p>
+                                                <p>댓글을 정말로 삭제하시겠습니까?</p>
                                             </div>
 
                                             <div class="modal-footer">
@@ -326,8 +328,8 @@
                                                         data-bs-dismiss="modal">
                                                     Close
                                                 </button>
-                                                <a  id="delete_comm_${mrkComm.id}" href="#"
-                                                    data-comment-id="${mrkComm.id}" class="btn btn-light">Delete</a>
+                                                <a id="delete_comm_${mrkComm.id}" href="#"
+                                                   data-comment-id="${mrkComm.id}" class="btn btn-light">Delete</a>
                                             </div>
                                         </div>
                                     </div>
@@ -342,11 +344,12 @@
                                         <!--begin::Input-->
                                         <img style="width:50px; height: 42px; border-radius: 50px"
                                              src="/uimg/${loginStdn.img}">
-                                        <input type="hidden" name="stdnId" value="${loginStdn.id}">
-                                        <input type="hidden" name="postId" value="${marker.id}">
-                                        <input type="text" id="contents" name="contents" class="form-control border-0"
+                                        <input type="hidden" id="mrkstdnId" name="stdnId" value="${loginStdn.id}">
+                                        <input type="hidden" id="mrkpostId" name="postId" value="${marker.id}">
+                                        <input type="text" id="mrkcontents" name="contents"
+                                               class="form-control border-0"
                                                placeholder="comment..."/>
-                                        <a href="#" id="add_comm" class="btn btn-primary">Send</a>
+                                        <a href="#" id="mrk_add_comm" class="btn btn-primary">Send</a>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Message-->
@@ -444,7 +447,7 @@
         integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
         crossorigin="anonymous"></script>
 <script>
-    Kakao.init('bdeaed76dc8de3e2c25b24d04c468b43'); // 사용하려는 앱의 JavaScript 키 입력
+    Kakao.init('${kakaoshare}'); // 사용하려는 앱의 JavaScript 키 입력
 </script>
 <script>
     Kakao.Share.createDefaultButton({

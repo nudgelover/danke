@@ -31,8 +31,11 @@
     }
 
 </style>
-
-
+<script>
+    $("#kt_activities_toggle").click(function() {
+        $(".pulse-ring").hide();
+    });
+</script>
 <!--begin::Header-->
 <div id="kt_header" class="header" data-kt-sticky="true" data-kt-sticky-name="header"
      data-kt-sticky-offset="{default: '200px', lg: '300px'}">
@@ -58,7 +61,7 @@
             <!--end::Mega Menu Toggler-->
             <!--begin::Logo-->
             <a href="/">
-                <img alt="Logo" src="/img/logo3.png" class="h-60px"/>
+                <img alt="Logo" style="height: 3.5rem;" src="/img/logo3.png"/>
             </a>
             <!--end::Logo-->
         </div>
@@ -230,8 +233,8 @@
                         <button class="btn btn-icon btn-sm btn-light-danger fw-bold pulse pulse-danger"
                                 data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                 id="kt_activities_toggle">
-                            <span class="position-absolute fs-6">3</span>
-                            <span class="pulse-ring"></span>
+                            <span class="position-absolut"><i class="bi bi-bell-fill"></i></span>
+                            <span id="pulse-ring" style="display: none" class="pulse-ring"></span>
                         </button>
                         <!--end::Dropdown-->
                     </div>
