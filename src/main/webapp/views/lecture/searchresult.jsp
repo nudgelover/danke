@@ -45,6 +45,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent active active fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
@@ -56,13 +57,13 @@
                 <div class="card card-stretch bg-light-info">
                     <div class="card-body pb-0" >
                         <div class="d-flex pt-5 pb-20">
-                            <div class="d-flex flex-column text-center pt-5" style="z-index: 9999; align-items: center">
+                            <div class="d-flex flex-column text-center pt-5" style="z-index: 1; align-items: center;width:100%">
                                 <div>
-                                    <img src="/img/logo3.png" alt="logo3" style="width: 35%;">
+                                    <img src="/img/dankesearch.png" alt="logo3" style="width: 35%;">
                                 </div>
                                 <form id="youtube_search" class="d-flex" action="/lecture/searchimpl" method="get">
                                     <input type="text" id="search" name="search"
-                                           <c:if test="${youtube.search!=null}">value="${youtube.search}"</c:if>
+                                           <c:if test="${search!=null}">value="${search}"</c:if>
                                            class="form-control border-0 fw-semibold ps-10 w-md-400px w-lg-400px w-xl-450px w-xxl-500px me-1"
                                            placeholder="이제 DIGICampus 안에서 원큐에 검색하세요!"/>
 
@@ -87,7 +88,7 @@
                             <input type="hidden" id="description" name="description">
                             <input type="hidden" id="rdate" name="rdate">
                         </form>
-                        <div class="py-2 px-2 rounded bg-white">
+                        <div class="py-2 px-2 rounded bg-white mb-10">
                             <div class="table-responsive">
                                 <table class="table table-row-bordered table-row-solid gy-4 gs-9">
                                     <tbody class="fs-6 fw-semibold text-gray-600">

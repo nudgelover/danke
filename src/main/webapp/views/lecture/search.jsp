@@ -19,6 +19,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent active active fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
@@ -29,10 +30,10 @@
             <div class="card">
                 <div class="card card-stretch bg-light-info" >
                     <div class="card-body pb-0" >
-                        <div class="d-flex pt-20" style="position: relative;height:75vh;">
-                            <div class="d-flex flex-column text-center pt-20" style="z-index: 9999; align-items: center">
+                        <div class="d-flex text-center pt-20" style="position: relative;height:75vh;">
+                            <div class="d-flex flex-column text-center pt-20" style="z-index: 1; align-items: center; width: 100%">
                                 <div>
-                                    <img src="/img/dankesearch.png" alt="logo3" style="width: 35%;">
+                                    <img src="/img/dankesearch.png" alt="logo3" style="width: 50%;">
                                 </div>
                                 <form id="youtube_search" class="d-flex" action="/lecture/searchimpl" method="get">
                                         <input type="text" id="search" name="search"

@@ -189,7 +189,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent active active fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
-                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 조회</a>
+                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent  fw-bold ms-3">장바구니</a>
             </div>
@@ -203,10 +203,10 @@
                         <div class="card-body d-flex justify-content-between card-rounded p-0 d-flex bg-light-primary">
                             <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20" style="width: 70%">
                                 <h1 class="text-dark" style="font-weight: 900">누구나 쉬운 입문 강의 여기 다 모였다!</h1>
-                                <div class="fs-3 mb-8">지금 고민인 분야를 입력해주세요</div>
+                                <div class="fs-3 mb-8">DIGICampus는 성장 기회의 평등을 추구합니다</div>
                                     <form class="d-flex" action="/lecture/findimpl" method="get">
                                         <div class="py-2 px-2 bg-white rounded me-1">
-                                            <select class="form-select form-select-solid bg-white w-xxl-150px" data-control="select2"
+                                            <select class="form-select form-select-solid bg-white w-md-80px w-lg-90px w-xl-100px w-xxl-150px" data-control="select2"
                                                     id="keyword" name="keyword" data-placeholder="선택하세요" data-hide-search="true"
                                                     style="width: 30%;">
                                                 <option value=""></option>

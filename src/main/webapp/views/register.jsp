@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <style>
@@ -513,202 +515,33 @@
                                                 data-placeholder="선택하세요" id="sbj1"
                                                 name="sbj" aria-label="Floating label select example">
                                             <option selected value="">선택하세요</option>
-                                            <option value="Spring">Spring</option>
-                                            <option value="Spring boot">Spring boot</option>
-                                            <option value="JavaScript">JavaScript</option>
-                                            <option value="Java">Java</option>
-                                            <option value="JPA">JPA</option>
-                                            <option value="React">React</option>
-                                            <option value="MVC">MVC</option>
-                                            <option value="TypeScript">TypeScript</option>
-                                            <option value="Node.js">Node.js</option>
-                                            <option value="HTML/CSS">HTML/CSS</option>
-                                            <option value="Next.js">Next.js</option>
-                                            <option value="jQuery">jQuery</option>
-                                            <option value="Redux">Redux</option>
-                                            <option value="Docker">Docker</option>
-                                            <option value="C#">C#</option>
-                                            <option value="C++">C++</option>
-                                            <option value="Python">Python</option>
-                                            <option value="Unreal Engine">Unreal Engine</option>
-                                            <option value="Flutter">Flutter</option>
-                                            <option value="Kotlin">Kotlin</option>
-                                            <option value="Django">Django</option>
-                                            <option value="Unity">Unity</option>
-                                            <option value="Firebase">Firebase</option>
-                                            <option value="Swift">Swift</option>
-                                            <option value="AWS">AWS</option>
-                                            <option value="Kubernetes">Kubernetes</option>
-                                            <option value="프로토콜">프로토콜</option>
-                                            <option value="임베디드">임베디드</option>
-                                            <option value="모의해킹">모의해킹</option>
-                                            <option value="Forensic">Forensic</option>
-                                            <option value="Solidity">Solidity</option>
-                                            <option value="Oauth">Oauth</option>
-                                            <option value="머신러닝">머신러닝</option>
-                                            <option value="딥러닝">딥러닝</option>
-                                            <option value="Pandas">Pandas</option>
-                                            <option value="Numpy">Numpy</option>
-                                            <option value="Kafka">Kafka</option>
-                                            <option value="웹크롤링">웹크롤링</option>
-                                            <option value="통계">통계</option>
-                                            <option value="인공신경망">인공신경망</option>
-                                            <option value="Hadoop">Hadoop</option>
-                                            <option value="Tensorflow">Tensorflow</option>
-                                            <option value="Seaborn">Seaborn</option>
-                                            <option value="Tableau">Tableau</option>
-                                            <option value="UE Blueprint">UE Blueprint</option>
-                                            <option value="언리얼C++">언리얼C++</option>
-                                            <option value="캐릭터디자인">캐릭터디자인</option>
-                                            <option value="VR/AR">VR/AR</option>
-                                            <option value="Arduino">Arduino</option>
-                                            <option value="IoT">IoT</option>
-                                            <option value="컴퓨터 구조">컴퓨터 구조</option>
-                                            <option value="운영체제">운영체제</option>
-                                            <option value="네트워크">네트워크</option>
-                                            <option value="Qt">Qt
-                                            <option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MongoDB">MongoDB</option>
-                                            <option value="드론 개발">드론 개발</option>
-                                            <option value="GUI">GUI</option>
-                                            <option value="DBMS/RDBMS">DBMS/RDBMS</option>
+                                            <c:forEach var="smallList" items="${smallList}">
+                                                <option value="${smallList.sbjName}">${smallList.sbjName}</option>
+                                            </c:forEach>
                                         </select>
                                         <label for="sbj1" style="font-size: smaller">관심분야1</label>
                                     </div>
+
                                     <div class="form-floating">
                                         <select class="form-select form-select-solid" data-control="select2"
                                                 data-placeholder="선택하세요" id="sbj2"
                                                 name="sbj" aria-label="Floating label select example">
                                             <option selected value="">선택하세요</option>
-                                            <option value="Spring">Spring</option>
-                                            <option value="Spring boot">Spring boot</option>
-                                            <option value="JavaScript">JavaScript</option>
-                                            <option value="Java">Java</option>
-                                            <option value="JPA">JPA</option>
-                                            <option value="React">React</option>
-                                            <option value="MVC">MVC</option>
-                                            <option value="TypeScript">TypeScript</option>
-                                            <option value="Node.js">Node.js</option>
-                                            <option value="HTML/CSS">HTML/CSS</option>
-                                            <option value="Next.js">Next.js</option>
-                                            <option value="jQuery">jQuery</option>
-                                            <option value="Redux">Redux</option>
-                                            <option value="Docker">Docker</option>
-                                            <option value="C#">C#</option>
-                                            <option value="C++">C++</option>
-                                            <option value="Python">Python</option>
-                                            <option value="Unreal Engine">Unreal Engine</option>
-                                            <option value="Flutter">Flutter</option>
-                                            <option value="Kotlin">Kotlin</option>
-                                            <option value="Django">Django</option>
-                                            <option value="Unity">Unity</option>
-                                            <option value="Firebase">Firebase</option>
-                                            <option value="Swift">Swift</option>
-                                            <option value="AWS">AWS</option>
-                                            <option value="Kubernetes">Kubernetes</option>
-                                            <option value="프로토콜">프로토콜</option>
-                                            <option value="임베디드">임베디드</option>
-                                            <option value="모의해킹">모의해킹</option>
-                                            <option value="Forensic">Forensic</option>
-                                            <option value="Solidity">Solidity</option>
-                                            <option value="Oauth">Oauth</option>
-                                            <option value="머신러닝">머신러닝</option>
-                                            <option value="딥러닝">딥러닝</option>
-                                            <option value="Pandas">Pandas</option>
-                                            <option value="Numpy">Numpy</option>
-                                            <option value="Kafka">Kafka</option>
-                                            <option value="웹크롤링">웹크롤링</option>
-                                            <option value="통계">통계</option>
-                                            <option value="인공신경망">인공신경망</option>
-                                            <option value="Hadoop">Hadoop</option>
-                                            <option value="Tensorflow">Tensorflow</option>
-                                            <option value="Seaborn">Seaborn</option>
-                                            <option value="Tableau">Tableau</option>
-                                            <option value="UE Blueprint">UE Blueprint</option>
-                                            <option value="언리얼C++">언리얼C++</option>
-                                            <option value="캐릭터디자인">캐릭터디자인</option>
-                                            <option value="VR/AR">VR/AR</option>
-                                            <option value="Arduino">Arduino</option>
-                                            <option value="IoT">IoT</option>
-                                            <option value="컴퓨터 구조">컴퓨터 구조</option>
-                                            <option value="운영체제">운영체제</option>
-                                            <option value="네트워크">네트워크</option>
-                                            <option value="Qt">Qt
-                                            <option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MongoDB">MongoDB</option>
-                                            <option value="드론 개발">드론 개발</option>
-                                            <option value="GUI">GUI</option>
-                                            <option value="DBMS/RDBMS">DBMS/RDBMS</option>
+                                            <c:forEach var="small" items="${smallList}">
+                                                <option value="${small.sbjName}">${small.sbjName}</option>
+                                            </c:forEach>
                                         </select>
                                         <label for="sbj2" style="font-size: smaller">관심분야2</label>
                                     </div>
+
                                     <div class="form-floating">
                                         <select class="form-select form-select-solid" data-control="select2"
                                                 data-placeholder="선택하세요" id="sbj3"
                                                 name="sbj" aria-label="Floating label select example">
                                             <option selected value="">선택하세요</option>
-                                            <option value="Spring">Spring</option>
-                                            <option value="Spring boot">Spring boot</option>
-                                            <option value="JavaScript">JavaScript</option>
-                                            <option value="Java">Java</option>
-                                            <option value="JPA">JPA</option>
-                                            <option value="React">React</option>
-                                            <option value="MVC">MVC</option>
-                                            <option value="TypeScript">TypeScript</option>
-                                            <option value="Node.js">Node.js</option>
-                                            <option value="HTML/CSS">HTML/CSS</option>
-                                            <option value="Next.js">Next.js</option>
-                                            <option value="jQuery">jQuery</option>
-                                            <option value="Redux">Redux</option>
-                                            <option value="Docker">Docker</option>
-                                            <option value="C#">C#</option>
-                                            <option value="C++">C++</option>
-                                            <option value="Python">Python</option>
-                                            <option value="Unreal Engine">Unreal Engine</option>
-                                            <option value="Flutter">Flutter</option>
-                                            <option value="Kotlin">Kotlin</option>
-                                            <option value="Django">Django</option>
-                                            <option value="Unity">Unity</option>
-                                            <option value="Firebase">Firebase</option>
-                                            <option value="Swift">Swift</option>
-                                            <option value="AWS">AWS</option>
-                                            <option value="Kubernetes">Kubernetes</option>
-                                            <option value="프로토콜">프로토콜</option>
-                                            <option value="임베디드">임베디드</option>
-                                            <option value="모의해킹">모의해킹</option>
-                                            <option value="Forensic">Forensic</option>
-                                            <option value="Solidity">Solidity</option>
-                                            <option value="Oauth">Oauth</option>
-                                            <option value="머신러닝">머신러닝</option>
-                                            <option value="딥러닝">딥러닝</option>
-                                            <option value="Pandas">Pandas</option>
-                                            <option value="Numpy">Numpy</option>
-                                            <option value="Kafka">Kafka</option>
-                                            <option value="웹크롤링">웹크롤링</option>
-                                            <option value="통계">통계</option>
-                                            <option value="인공신경망">인공신경망</option>
-                                            <option value="Hadoop">Hadoop</option>
-                                            <option value="Tensorflow">Tensorflow</option>
-                                            <option value="Seaborn">Seaborn</option>
-                                            <option value="Tableau">Tableau</option>
-                                            <option value="UE Blueprint">UE Blueprint</option>
-                                            <option value="언리얼C++">언리얼C++</option>
-                                            <option value="캐릭터디자인">캐릭터디자인</option>
-                                            <option value="VR/AR">VR/AR</option>
-                                            <option value="Arduino">Arduino</option>
-                                            <option value="IoT">IoT</option>
-                                            <option value="컴퓨터 구조">컴퓨터 구조</option>
-                                            <option value="운영체제">운영체제</option>
-                                            <option value="네트워크">네트워크</option>
-                                            <option value="Qt">Qt
-                                            <option>
-                                            <option value="Linux">Linux</option>
-                                            <option value="MongoDB">MongoDB</option>
-                                            <option value="드론 개발">드론 개발</option>
-                                            <option value="GUI">GUI</option>
-                                            <option value="DBMS/RDBMS">DBMS/RDBMS</option>
+                                            <c:forEach var="small" items="${smallList}">
+                                                <option value="${small.sbjName}">${small.sbjName}</option>
+                                            </c:forEach>
                                         </select>
                                         <label for="sbj3" style="font-size: smaller">관심분야3</label>
                                     </div>

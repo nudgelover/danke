@@ -125,9 +125,9 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="d-flex my-4">
-                                    <a href="#" class="btn btn-sm btn-primary me-2">Hire Me</a>
-                                </div>
+<%--                                <div class="d-flex my-4">--%>
+<%--                                    <a href="#" class="btn btn-sm btn-primary me-2"></a>--%>
+<%--                                </div>--%>
                             </div>
                             <div class="d-flex flex-wrap flex-stack">
                                 <div class="d-flex flex-column flex-grow-1 pe-8">

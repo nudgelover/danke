@@ -16,5 +16,7 @@ public interface SbjDetailMapper extends KBMapper<Integer, SbjDetail> {
 
     public List<SbjDetail> searchMediumAll() throws Exception;
 
+    public List<SbjDetail> searchSmallAll() throws Exception;
+
     public SbjDetail getThisSbjDetail(Integer sbjCode) throws Exception;
 }

@@ -108,6 +108,10 @@ public class MainController {
 
     @RequestMapping("/register")
     public String register(Model model) throws Exception {
+        List<SbjDetail> smallList = sbjDetailService.searchSmallAll();
+        log.info("여기"+smallList.toString());
+
+        model.addAttribute("smallList", smallList);
         model.addAttribute("center", "register");
         return "index";
     }

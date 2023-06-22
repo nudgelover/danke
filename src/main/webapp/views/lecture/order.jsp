@@ -114,6 +114,41 @@
 
             //결제 버튼 누르면 수단별 팝업 api
             $('#pay_btn').click(function(){
+                let lecIds = new Array();
+                $('input[name="lecIds"]').each(function () {
+                    lecIds.push(this.value);
+                });
+                $('#lecId').val(lecIds);
+
+                let discRates = new Array();
+                $('input[name="discRates"]').each(function () {
+                    discRates.push(this.value);
+                });
+                $('#discRate').val(discRates);
+
+
+                let prices = new Array();
+                $('input[name="prices"]').each(function () {
+                    prices.push(this.value);
+                });
+                $('#price').val(prices);
+
+
+                let lecId=$('#lecId').val();
+                let price=$('#price').val();
+                let discRate=$('#discRate').val();
+                let cpnId=$('#cpnId').val();
+                let useCpn=$('#useCpn').val();
+                let ordPrice=$('#ordPrice').val();
+                let payMethod=$('#payMethod').val();
+                //alert(lecId);
+                //alert(price);
+                //alert(discRate);
+                //모달 준비시키고
+                let Amount = $('#ordPrice').val();
+                //alert(Amount);
+                //모달 준비시키고
+                let orderModal = $('#order_modal');
                 //수단 값 전달 받아서 세팅
                 let pg='';
                 let pay = $('input[name="payment"]:checked').val();
@@ -138,30 +173,40 @@
                     //복수강의 주문일 때는 첫번째 강의 이름 + 외 표출
                     name='${order[0].lecTitle} 외';
                 }
-                //모달 준비시키고
-                let orderModal = $('#order_modal');
 
-                //창 열고 주문자 값과 상품명, 결제방법 전달
-                IMP.request_pay({
-                    pg : pg,
-                    pay_method : 'card',
-                    merchant_uid: merchant_uid,
-                    name : name,
-                    amount : $('#final_order').html(),
-                    buyer_email : '${loginStdn.email}',
-                    buyer_name : '${loginStdn.name}',
-                    buyer_tel: '${loginStdn.contact}'
-                }, function (rsp) {
-                    if (rsp.success) {
-                        //결제 성공 시, 전송~
+                if(Amount==0){
+                    let modal = new bootstrap.Modal(orderModal);
+                    $('#order_msg').html('100% Free-Pass쿠폰을 사용하시겠습니까? (결제금액 0원)');
+                    modal.show();
+                    $('#use_cpn_btn').click(function(){
                         order_selected.send();
-                    } else {
-                        //실패 시, 모달(주문자 본인에 의한 취소도 뜨도록)
-                        let modal = new bootstrap.Modal(orderModal);
-                        $('#order_msg').html('결제실패: '+ rsp.error_msg);
-                        modal.show();
-                    }
-                });
+                    })
+                } else {
+                    //창 열고 주문자 값과 상품명, 결제방법 전달
+                    IMP.request_pay({
+                        pg : pg,
+                        pay_method : 'card',
+                        merchant_uid: merchant_uid,
+                        name : name,
+                        amount : $('#final_order').html(),
+                        buyer_email : '${loginStdn.email}',
+                        buyer_name : '${loginStdn.name}',
+                        buyer_tel: '${loginStdn.contact}',
+                        m_redirect_url : 'http://172.16.20.63/lecture/pay?lecId='+lecId+'&&price='+price+'&&discRate='+discRate+'&&cpnId='+cpnId+'&&payMethod='+payMethod+'&&cpnId='+cpnId+'&&useCpn='+useCpn+'&&ordPrice='+ordPrice
+
+                    }, function (rsp) {
+                        if (rsp.success) {
+                            //결제 성공 시, 전송~
+                            order_selected.send();
+                        } else {
+                            //실패 시, 모달(주문자 본인에 의한 취소도 뜨도록)
+                            let modal = new bootstrap.Modal(orderModal);
+                            $('#use_cpn_btn').hide();
+                            $('#order_msg').html('결제실패: '+ rsp.error_msg);
+                            modal.show();
+                        }
+                    });
+                }
             });
         },
         //주문 관련 정보 전송
@@ -221,6 +266,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/lecture/all" class="btn btn-active-accent  fw-bold ms-3">전체 강의</a>
                 <a href="/lecture/mylecture?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">내 학습</a>
+                <a href="/lecture/search" class="btn btn-active-accent fw-bold ms-3">학습 자료 찾기</a>
                 <a href="/lecture/ordhistory?stdnId=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">수강신청 내역조회</a>
                 <a href="/lecture/cart?id=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">장바구니</a>
             </div>
@@ -496,8 +542,11 @@
     <div class="modal-dialog">
         <div class="modal-content" style="padding: 2% 0% 0% 0%; text-align:center;background-color: #41da9b">
             <div class="modal-body" style="display: flex; justify-content: space-between">
-                <div class="text-start text-white" style="width: 90%;">
+                <div class="text-start text-white" style="width: 70%;">
                     <p id="order_msg" class="text-white" style="font-weight:700"></p>
+                </div>
+                <div class="text-white text-hover-white text-end" style="width: 20%;">
+                    <a href="javascript:void(0)" class="text-white" id="use_cpn_btn" style="font-weight: bold;">사용하기</a>
                 </div>
                 <div class="text-end" style="width: 10%;">
                     <img src="/img/close.png" style="width: 40%" data-bs-dismiss="modal" aria-label="Close">
