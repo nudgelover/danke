@@ -108,7 +108,7 @@
                             <div  class="row g-5 g-xxl-8" style="display: flex; flex-direction: row;">
                                 <div class="col-md-12 col-xxl-12 col-lg-12" style="width:100%">
                                     <div class="video-container">
-                                        <iframe class="rounded"width="100%" height="75%" src="https://www.youtube.com/embed/GA44Lx0gMHw">
+                                        <iframe class="rounded"width="100%" height="75%" src="https://www.youtube.com/embed/${lec.target}">
                                         </iframe>
                                     </div>
                                 </div>

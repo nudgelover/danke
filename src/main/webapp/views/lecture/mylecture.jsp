@@ -242,7 +242,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="text-start">
                                                 <h4 class="fs-4 mt-3">
-                                                    <a href="../dist/apps/shop/product.html"
+                                                    <a href="/lecture/detail?id=${ordDetail.lecId}&&stdnId=${loginStdn.id}"
                                                        class="text-gray-800 text-hover-primary fw-bolder">${ordDetail.lecTitle}</a>
                                                 </h4>
                                                 <span class="fs-6 text-muted fw-bold">${ordDetail.lecTeacher}</span>

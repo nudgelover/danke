@@ -544,9 +544,14 @@ public class LectureController {
             cartService.remove(cartId);
         }
         log.info("여기" + cpnId);
-        if (cpnId != 0) {
-            Cpn cpn = (Cpn) cpnService.get(cpnId);
-            cpnService.modify(cpn);
+        try {
+            if (cpnId != 0) {
+                Cpn cpn = (Cpn) cpnService.get(cpnId);
+                cpnService.modify(cpn);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
 
         model.addAttribute("ordId", ordId);
@@ -590,9 +595,13 @@ public class LectureController {
         ordDetailService.register(ordDetail);
 
         log.info("여기" + cpnId);
-        if (cpnId != 0) {
-            Cpn cpn = (Cpn) cpnService.get(cpnId);
-            cpnService.modify(cpn);
+        try {
+            if (cpnId != null) {
+                Cpn cpn = (Cpn) cpnService.get(cpnId);
+                cpnService.modify(cpn);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
         model.addAttribute("ordId", ordId);
         model.addAttribute("ordPrice", ordPrice);

@@ -290,7 +290,7 @@
                                                 id="keyword" name="keyword" data-placeholder="선택하세요" data-hide-search="true">
                                             <option value=""></option>
                                             <option value="writer"
-                                                    <c:if test="${stdySearch.keyword=='writer'}">selected</c:if>>작성자</option>
+                                                    <c:if test="${stdySearch.keyword=='writer'}">selected</c:if>>작성자ID</option>
                                             <option value="contents"
                                                     <c:if test="${stdySearch.keyword=='contents'}">selected</c:if>>내용</option>
                                         </select>
