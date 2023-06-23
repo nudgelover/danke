@@ -16,11 +16,11 @@ class InsertTest {
 
     @Test
     void contextLoads() {
-        Anc obj2 = new Anc("adm1", "안녕하세요", "안녕하세요","img2.jpg");
-        Anc obj1 = new Anc("adm1", "감사합니다", "감사합니다","img2.jpg");
+        Anc obj2 = new Anc("guava", "스터디 현황 및 만족도 조사", "","open.jpg");
+        Anc obj1 = new Anc("guava", "실습과제 안내", "감사합니다","2차스터디.jpg");
         Anc obj3 = new Anc("adm1", "반갑습니다", "반갑습니다","img2.jpg");
         try {
-            service.register(obj3);
+            service.register(obj1);
             log.info("register OK--------------------------------");
         } catch (Exception e)  {
             e.printStackTrace();

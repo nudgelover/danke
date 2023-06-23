@@ -188,8 +188,8 @@
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body pb-0">
-                        <span class="fs-5 fw-semibold text-gray-600 pb-3 d-block"><span class="fw-bold text-gray-700">나의 랭킹</span>(포스팅 기준)과 함께 <span class="fw-bold text-gray-700">포스팅한 수</span>, <span class="fw-bold text-gray-700">좋아요 누른 수</span>, 그리고 <span class="fw-bold text-gray-700">댓글 남긴 수</span>를 한눈에 확인해보세요.</span>
-                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">여러분들의 <span class="text-warning fw-bold">활발한 소통</span>이 더욱 활기찬 <span class="text-primary fw-bold">디지캠라이프</span>🌱를 만듭니다.</span>
+                        <span class="fs-5 fw-semibold text-gray-600 pb-3 d-block"><span class="fw-bold text-warning">나의 랭킹</span>(포스팅 기준)과 함께 <span class="fw-bold text-primary">포스팅한 수</span>, <span class="fw-bold text-primary">좋아요 누른 수</span>, 그리고 <span class="fw-bold text-primary">댓글 남긴 수</span>를 한눈에 확인해보세요🌱</span>
+<%--                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">여러분들의 <span class="text-warning fw-bold">활발한 소통</span>이 더욱 활기찬 <span class="text-primary fw-bold">디지캠라이프</span>🌱를 만듭니다.</span>--%>
 
                         <!--begin::Left Section-->
                         <div class="d-flex flex-wrap justify-content-between pb-6">

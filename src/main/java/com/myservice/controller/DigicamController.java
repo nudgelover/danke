@@ -34,6 +34,9 @@ public class DigicamController {
     @Value("${kakaoshare}")
     private String kakaoshare;
 
+    @Value("${google.cal-key}")
+    private String googlecalkey;
+
     @Autowired
     AncService ancService;
     @Autowired
@@ -65,7 +68,7 @@ public class DigicamController {
 
     @RequestMapping("/calendar")
     public String calendar(Model model, Integer id) throws Exception {
-
+        model.addAttribute("googlecalkey", googlecalkey);
         model.addAttribute("center", dir + "calendar");
         return "index";
     }

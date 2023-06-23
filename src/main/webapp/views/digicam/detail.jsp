@@ -60,11 +60,12 @@
                     <div class="card">
 
                         <div class="card-body py-10 text-center">
-                            <h1>당케의 유래</h1>
-                            <div class="d-flex">
-                            <img style="width:50%" src="/img/당케1.png">
-                            <img style="width:50%" src="/img/당케2.png">
-                            </div>
+                            <img style="width:100%" src="/img/소개.jpg">
+
+                            <img style="width:100%" src="/img/소개2.jpg">
+
+                            <img style="width:100%" src="/img/로고안내.jpg">
+
                         </div>
                     </div>
                     <!--end::Card-->

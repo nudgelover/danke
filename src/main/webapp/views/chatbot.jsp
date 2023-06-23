@@ -173,7 +173,7 @@
 
             </div>
             <div class="d-flex">
-                <input type="text" class="form-control form-control-flush mb-3" id="metext" placeholder="문의">
+                <input type="text" class="form-control form-control-flush mb-3" id="metext" placeholder="문의하실 내용을 입력해주세요.">
                 <button id="sendme" class="btn btn-sm btn-success">Send</button>
             </div>
 
