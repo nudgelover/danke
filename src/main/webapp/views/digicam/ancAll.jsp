@@ -118,10 +118,10 @@
                                     </colgroup>
                                     <tbody style="text-align: center">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Title</th>
-                                        <th>Writer</th>
-                                        <th>Date</th>
+                                        <th>번호</th>
+                                        <th>제목</th>
+                                        <th>작성자</th>
+                                        <th>작성날짜</th>
                                     </tr>
 
 
@@ -137,7 +137,7 @@
                                                           class="badge badge-warning">New</span>
                                                 </c:if>
                                             </td>
-                                            <td>${obj.writer}</td>
+                                            <td>관리자</td>
                                             <td>${obj.rdate}</td>
                                         </tr>
                                     </c:forEach>

@@ -27,10 +27,8 @@
         justify-content: center;
         color: white;
         font-size: 18px;
-        z-index: 9999;
+        z-index: 1;
     }
-
-
 </style>
 <script>
     am5.ready(function () {

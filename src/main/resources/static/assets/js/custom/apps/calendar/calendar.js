@@ -62,7 +62,7 @@ var KTAppCalendar = function () {
 
         // Init calendar --- more info: https://fullcalendar.io/docs/initialize-globals
         calendar = new FullCalendar.Calendar(calendarEl, {
-            googleCalendarApiKey: "AIzaSyAEQfzhIihXdp0R_8x_yPRs_QSXTsvXuTI",
+            googleCalendarApiKey: "AIzaSyA5USA2URVTu3fuykc0pALpye99OOxE9rc",
             eventSources        : [
                 {
                     googleCalendarId: 'ko.south_korea.official#holiday@group.v.calendar.google.com'
@@ -70,7 +70,7 @@ var KTAppCalendar = function () {
                     , textColor     : 'red' // an option!
                 }
                 , {
-                    googleCalendarId: '735fe48c23bd2210a44a8e1777fada4bbce25707468b34d22eca04125af709aa@group.calendar.google.com'
+                    googleCalendarId: 'digicamjava@gmail.com'
                     , color         : '#20D489'  // 배경색상
                     , textColor    : 'white'
                 }

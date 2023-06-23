@@ -73,7 +73,7 @@
                                             <!--begin::Author details-->
                                             <div class="d-flex align-items-center flex-wrap gap-1">
                                                 <a href="#"
-                                                   class="fw-bold text-dark text-hover-primary">${anc.writer}</a>
+                                                   class="fw-bold text-dark text-hover-primary">관리자</a>
                                                 <!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
                                                 <span class="svg-icon svg-icon-7 svg-icon-success mx-3">
 																		<svg xmlns="http://www.w3.org/2000/svg"

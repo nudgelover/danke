@@ -120,25 +120,25 @@
                                     </ul>
                                 </div>
 
-                                <div class="col-sm-4">
-                                    <h3 class="fw-bold mb-5">Ä¿¸®Å§·³</h3>
+<%--                                <div class="col-sm-4">--%>
+<%--                                    <h3 class="fw-bold mb-5">Ä¿¸®Å§·³</h3>--%>
 
-                                    <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/all">³ªÀÇ Ä¿¸®Å§·³</a>
-                                        </li>
-                                        <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/marker/add">Ä¿¸®Å§·³ ¿³º¸±â</a>
-                                        </li>
-                                    </ul>
-                                </div>
+<%--                                    <ul class="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-semibold fs-6 mb-10">--%>
+<%--                                        <li class="menu-item">--%>
+<%--                                            <a class="menu-link ps-0 py-2" href="/marker/all">³ªÀÇ Ä¿¸®Å§·³</a>--%>
+<%--                                        </li>--%>
+<%--                                        <li class="menu-item">--%>
+<%--                                            <a class="menu-link ps-0 py-2" href="/marker/add">Ä¿¸®Å§·³ ¿³º¸±â</a>--%>
+<%--                                        </li>--%>
+<%--                                    </ul>--%>
+<%--                                </div>--%>
                             </div>
                             <!--end::Row-->
                         </div>
                         <!--end::Column-->
                         <!--begin::Column-->
                         <div class="col-lg-6">
-                            <h3 class="fw-bold mb-8">Quick Links</h3>
+                            <h3 class="fw-bold mb-8">¹Ù·Î°¡±â</h3>
                             <!--begin::Row-->
                             <div class="row g-5">
                                 <div class="col-sm-4">
@@ -207,7 +207,7 @@
                                                 <p class="mb-0 text-gray-600">¿À´Ãµµ ¿­°ø!</p>
                                             </div>
                                             <div class="min-h-125px bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom"
-                                                 style="background-image:url('/assets/media/illustrations/sigma-1/2.png')"></div>
+                                                 style="background-image:url('/img/coding.png')"></div>
                                         </div>
                                     </a>
                                 </div>

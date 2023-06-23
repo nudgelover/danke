@@ -18,10 +18,9 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
         //채팅하기 위한 서버
         registry.addEndpoint("/alarm").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
-        //마커알람
+        //블라블라알람
         registry.addEndpoint("/blahalarm").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
         //마커알람
-        registry.addEndpoint("/chbot").setAllowedOrigins("http://127.0.0.1",serviceServer).withSockJS();
     }
 
     /* 어플리케이션 내부에서 사용할 path를 지정할 수 있음 */

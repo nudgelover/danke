@@ -313,6 +313,9 @@ License: For each use you must have a valid license purchased only from above li
     <script>
         let chatbtn = {
             init: function () {
+                //페이지 로드되면, 연결 자동으로 되도록
+
+
                 const chatbotbox = $('#chatbot_box');
                 const oneononebox = $('#oneonone_box');
                 const toallbox = $('#toall_box');
@@ -332,7 +335,7 @@ License: For each use you must have a valid license purchased only from above li
                 scrollBtn.appendChild(chatbotBadgeDot);
 
                 scrollBtn.addEventListener("click", function () {
-                    chatbot.connect();
+                    // chatbot.connect();
                     chatbotbox.toggle();
                     chatbotBadgeDot.style.display = "none";
                 });
@@ -354,7 +357,7 @@ License: For each use you must have a valid license purchased only from above li
 
 
                 scrollBtn2.addEventListener("click", function () {
-                    oneonone.connect();
+                    // oneonone.connect();
                     oneononebox.toggle();
                     oneononeBadgeDot.style.display = "none";
                 });
@@ -374,7 +377,7 @@ License: For each use you must have a valid license purchased only from above li
                 scrollBtn3.appendChild(noticeBadgeDot);
 
                 scrollBtn3.addEventListener("click", function () {
-                    toall.connect();
+                    // toall.connect();
                     toallbox.toggle();
                     noticeBadgeDot.style.display = "none";
                 });
@@ -383,6 +386,9 @@ License: For each use you must have a valid license purchased only from above li
 
         $(function () {
             chatbtn.init();
+            // chatbot.connect();
+            // oneonone.connect();
+            toall.connect();
         });
     </script>
 </head>
