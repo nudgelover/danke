@@ -129,7 +129,7 @@
                                         <tr style="cursor: pointer" onmouseover="changeColor(this)"
                                             onmouseout="restoreColor(this)"
                                             onclick="window.location.href='/digicam/anc/detail?id=${obj.id}'">
-                                            <td>${status.index + 1 + (apage.getPageNum() - 1) * apage.getPageSize()}</td>
+                                            <td>${totalcount - (apage.getPageSize() * (apage.getPageNum() - 1) + status.index)}</td>
                                             <td style="text-align: left;">
                                                     ${obj.title}
                                                 <c:if test="${obj.newPost}">

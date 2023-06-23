@@ -46,4 +46,8 @@
         </if>
         ORDER BY id DESC
     </select>
+    <select id="getTotalCount" resultType="Integer" >
+        SELECT COUNT(*) AS cnt
+        FROM anc
+    </select>
 </mapper>

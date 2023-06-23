@@ -291,40 +291,49 @@
                     <!--end::Label-->
                     <!--begin::Col-->
                     <div class="col-lg-8 fv-row">
-                        <div style="margin-left: 10px;" class="d-flex align-items-center">
-                            <div class="form-check form-check-custom form-check-solid me-5">
-                                <input class="form-check-input" type="checkbox"
-                                       id="inlineCheckbox1" value="JAVA" name="sbj"/>
-                                <label class="form-check-label fw-semibold" for="inlineCheckbox1">JAVA</label>
-                            </div>
-                            <div class="form-check form-check-custom form-check-solid me-5">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                       value="React" name="sbj"/>
-                                <label class="form-check-label fw-semibold" for="inlineCheckbox2">React</label>
-                            </div>
-                            <div class="form-check form-check-custom form-check-solid"
-                                 style="margin-right:15px;">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
-                                       value="CS" name="sbj"/>
-                                <label class="form-check-label fw-semibold" for="inlineCheckbox3">CS</label>
-                            </div>
-                            <div class="form-check form-check-custom form-check-solid"
-                                 style="margin-right:15px;">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox4"
-                                       value="Algorithm" name="sbj"/>
-                                <label class="form-check-label fw-semibold"
-                                       for="inlineCheckbox4">Algorithm</label>
-                            </div>
-                            <div class="form-check form-check-custom form-check-solid"
-                                 style="margin-right:15px;">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
-                                       value="Machine Learning" name="sbj"/>
-                                <label class="form-check-label fw-semibold" for="inlineCheckbox5">Machine
-                                    Learning</label>
+                        <div class="col-lg-12">
+                            <div class="d-flex justify-content-between spinner spinner-sm spinner-primary spinner-right">
+                                <div class="col-4 form-floating">
+                                    <select class="form-select form-select-solid" data-control="select2"
+                                            data-placeholder="선택하세요" id="sbj1"
+                                            name="sbj" aria-label="Floating label select example">
+                                        <option selected value="">선택하세요</option>
+                                        <c:forEach var="smallList" items="${smallList}">
+                                            <option value="${smallList.sbjName}" ${student.sbj1 eq smallList.sbjName ? 'selected' : ''}>${smallList.sbjName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="sbj1" style="font-size: smaller">관심분야1</label>
+                                </div>
+
+                                <div class="form-floating col-4" >
+                                    <select class="form-select form-select-solid" data-control="select2"
+                                            data-placeholder="선택하세요" id="sbj2"
+                                            name="sbj" aria-label="Floating label select example">
+                                        <option selected value="">선택하세요</option>
+                                        <c:forEach var="smallList" items="${smallList}">
+                                            <option value="${smallList.sbjName}" ${student.sbj2 eq smallList.sbjName ? 'selected' : ''}>${smallList.sbjName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="sbj2" style="font-size: smaller">관심분야2</label>
+                                </div>
+
+                                <div class="form-floating col-4">
+                                    <select class="form-select form-select-solid" data-control="select2"
+                                            data-placeholder="선택하세요" id="sbj3"
+                                            name="sbj" aria-label="Floating label select example">
+                                        <option selected value="">선택하세요</option>
+                                        <c:forEach var="smallList" items="${smallList}">
+                                            <option value="${smallList.sbjName}" ${student.sbj3 eq smallList.sbjName ? 'selected' : ''}>${smallList.sbjName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="sbj3" style="font-size: smaller">관심분야3</label>
+                                </div>
                             </div>
                         </div>
+                        <label class="col-lg-3 col-form-label"></label>
                         <div class="col-lg-9">
-                            <div class="form-text" style="margin: 12px 0 0 5px">관심분야 <span style="color:darkorange">3가지</span>를 선택해주세요. 강의 추천에 많은 도움이 됩니다.
+                            <div class="form-text" style="margin-bottom: 5px">관심있는 분야를 세 가지 선택해주세요. 당신에게 알맞은 강의를
+                                추천해드립니다!
                             </div>
                         </div>
                     </div>
@@ -396,13 +405,12 @@
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
                 <button id="kt_docs_formvalidation_text_submit" type="submit" class="btn btn-primary">
         <span class="indicator-label">
-            Validation Form
+            회원정보 변경
         </span>
                     <span class="indicator-progress">
-            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            잠시만 기다려주세요 <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
         </span>
                 </button>
             </div>
@@ -458,41 +466,41 @@
     }
 
 
-    // 최대 선택 가능한 체크박스 개수
-    const maxCheckboxCount = 3;
+    // // 최대 선택 가능한 체크박스 개수
+    // const maxCheckboxCount = 3;
 
-    // 체크박스 요소들
-    const checkboxes = document.querySelectorAll('input[name="sbj"]');
-    const sbj1Value = "${student.sbj1}";
-    const sbj2Value = "${student.sbj2}";
-    const sbj3Value = "${student.sbj3}";
+    <%--// 체크박스 요소들--%>
+    <%--const checkboxes = document.querySelectorAll('input[name="sbj"]');--%>
+    <%--const sbj1Value = "${student.sbj1}";--%>
+    <%--const sbj2Value = "${student.sbj2}";--%>
+    <%--const sbj3Value = "${student.sbj3}";--%>
 
-    checkboxes.forEach(function(checkbox) {
-        if (checkbox.value === sbj1Value || checkbox.value === sbj2Value || checkbox.value === sbj3Value) {
-            checkbox.checked = true;
-        }
-    });
+    <%--checkboxes.forEach(function(checkbox) {--%>
+    <%--    if (checkbox.value === sbj1Value || checkbox.value === sbj2Value || checkbox.value === sbj3Value) {--%>
+    <%--        checkbox.checked = true;--%>
+    <%--    }--%>
+    <%--});--%>
 
 
-    // 체크박스 개수 체크 함수
-    function checkCheckboxCount() {
-        let checkedCount = 0;
-        checkboxes.forEach(function(checkbox) {
-            if (checkbox.checked) {
-                checkedCount++;
-            }
-        });
+    // // 체크박스 개수 체크 함수
+    // function checkCheckboxCount() {
+    //     let checkedCount = 0;
+    //     checkboxes.forEach(function(checkbox) {
+    //         if (checkbox.checked) {
+    //             checkedCount++;
+    //         }
+    //     });
+    //
+    //     // 최대 개수를 초과하는 경우 추가적인 체크를 방지
+    //     checkboxes.forEach(function(checkbox) {
+    //         checkbox.disabled = (checkedCount >= maxCheckboxCount && !checkbox.checked);
+    //     });
+    // }
 
-        // 최대 개수를 초과하는 경우 추가적인 체크를 방지
-        checkboxes.forEach(function(checkbox) {
-            checkbox.disabled = (checkedCount >= maxCheckboxCount && !checkbox.checked);
-        });
-    }
-
-    // 체크박스 변경 이벤트 핸들러 등록
-    checkboxes.forEach(function(checkbox) {
-        checkbox.addEventListener('change', checkCheckboxCount);
-    });
+    // // 체크박스 변경 이벤트 핸들러 등록
+    // checkboxes.forEach(function(checkbox) {
+    //     checkbox.addEventListener('change', checkCheckboxCount);
+    // });
 </script>
 
 <!--begin::Vendors Javascript(used for this page only)-->

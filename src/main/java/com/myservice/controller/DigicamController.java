@@ -77,6 +77,9 @@ public class DigicamController {
     @RequestMapping("/anc/all")
     public String ancAll(Model model, Search search, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         PageInfo<Anc> p = new PageInfo<>(ancService.getFindPage(pageNo, search), 5);
+        int totalCount = ancService.getTotalCount();
+
+
 
         // 게시글 리스트에 "New" 뱃지를 추가하는 로직을 추가합니다.
 
@@ -92,7 +95,7 @@ public class DigicamController {
                 anc.setNewPost(false);
             }
         }
-
+        model.addAttribute("totalcount", totalCount);
         model.addAttribute("target", "digicam/anc");
         model.addAttribute("apage", p);
         model.addAttribute("center", dir + "ancAll");
@@ -103,6 +106,7 @@ public class DigicamController {
     @RequestMapping("/anc/findimpl")
     public String findimpl(Model model, Search search, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         PageInfo<Anc> p = new PageInfo<>(ancService.getFindPage(pageNo, search), 5);
+        int totalCount = ancService.getTotalCount();
 
         List<Anc> ancList = p.getList();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -116,7 +120,7 @@ public class DigicamController {
                 anc.setNewPost(false);
             }
         }
-
+        model.addAttribute("totalcount", totalCount);
         model.addAttribute("target", "digicam/anc");
         model.addAttribute("apage", p);
         model.addAttribute("center", dir + "ancAll");

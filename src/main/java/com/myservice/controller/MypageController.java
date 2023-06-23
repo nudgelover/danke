@@ -48,6 +48,10 @@ public class MypageController {
     AttdService attdService;
 
     @Autowired
+    SbjDetailService sbjDetailService;
+
+
+    @Autowired
     OrdDetailService ordDetailService;
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -97,7 +101,11 @@ public class MypageController {
     public String settings(Model model, String id) throws Exception {
         Stdn stdn = null;
         MyPage mypage = null;
+        List<SbjDetail> smallList = null;
+//        log.info("여기"+smallList.toString());
         try {
+           smallList = sbjDetailService.searchSmallAll();
+
             mypage = myPageService.get(id);
             stdn = stdnService.get(id);
 
@@ -105,6 +113,9 @@ public class MypageController {
             e.printStackTrace();
             throw new Exception(e.getMessage());
         }
+
+
+        model.addAttribute("smallList", smallList);
         model.addAttribute("mypage", mypage);
         model.addAttribute("student", stdn);
         model.addAttribute("center", dir + "main");

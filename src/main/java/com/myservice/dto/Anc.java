@@ -18,7 +18,7 @@ public class Anc {
     private String rdate;
     private boolean NewPost;
     private String TimeAgo;
-
+    private int cnt;
     private MultipartFile imgfile;
 
     //Without imgfile

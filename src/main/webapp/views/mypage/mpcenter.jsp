@@ -123,83 +123,75 @@
 
             <!--begin::Item-->
 
-            <div style="background-image: url('/img/블라블라.png'); background-size: cover;" class="carousel-item">
-            <c:choose>
+            <div style="background-image: url('/img/mbti.png'); background-size: cover;" class="carousel-item">
+                <c:choose>
                     <c:when test="${empty mypage.mbti}">
                         <h1>${student.name}님의 MBTI를 알려주세요.</h1>
                     </c:when>
                     <c:otherwise>
-                        <h1 style="color: lightgray; margin-bottom: 63px; font-size: 32px; text-align: center;">나는 <span style="color: #20D489; font-weight: bold;"> ${mypage.mbti}</span>입니다.</h1>
+                        <h1 style="text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;color: lightgray; margin-bottom: 53px; font-size: 32px; text-align: center;">I AM
+                            <span style="color: #20D489; font-weight: bold;"> ${mypage.mbti}</span></h1>
                     </c:otherwise>
                 </c:choose>
                 <div style="text-align: center;">
 
-                    <h2 style="font-weight: bold; margin: 20px 0 60px 0; font-size: 32px; color: orange">"
-                    <c:if test="${mypage.mbti == 'ISTJ'}">
-                        실용적, 논리적, 효율적
-                    </c:if>
+                    <h2 style="font-weight: bold; margin: 0 0 60px 0; font-size: 42px;text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black; color: orange">
+                        <c:choose>
+                            <c:when test="${mypage.mbti == 'ISTJ'}">
+                                Practical, Logical, Efficient
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ISFJ'}">
+                                Considerate, Responsible
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'INFJ'}">
+                                Insightful, Creative, Decisive
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'INTJ'}">
+                                Strategic, Innovative, Independent
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ISTP'}">
+                                Adventurous, Logical
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ISFP'}">
+                                Creative, Considerate
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'INFP'}">
+                                Idealistic, Empathetic, Genuine
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'INTP'}">
+                                Logical, Innovative, Independent
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ESTP'}">
+                                Energetic, Practical, Adaptable
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ESFP'}">
+                                Fun, Sociable, Expressive
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ENFP'}">
+                                Passionate, Imaginative, Sociable
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ENTP'}">
+                                Creative, Curious, Logical
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ESTJ'}">
+                                Efficient, Practical, Authoritative
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ESFJ'}">
+                                Kind, Considerate, Sociable
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ENFJ'}">
+                                Charismatic, Empathetic, Decisive, Leader
+                            </c:when>
+                            <c:when test="${mypage.mbti == 'ENTJ'}">
+                                Strategic, Confident, Firm
+                            </c:when>
+                            <c:otherwise>
+                                Unknown MBTI Type
+                            </c:otherwise>
+                        </c:choose>
 
-                    <c:if test="${mypage.mbti == 'ISFJ'}">
-                        배려심, 책임감
-                    </c:if>
 
-                    <c:if test="${mypage.mbti == 'INFJ'}">
-                        통찰력, 창의적, 결단력
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'INTJ'}">
-                        전략적, 혁신적, 독립적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ISTP'}">
-                        모험심,논리적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ISFP'}">
-                        창의적, 배려심
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'INFP'}">
-                        이상적, 공감능력, 진정성
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'INTP'}">
-                        논리적, 혁신적, 독립적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ESTP'}">
-                        에너지, 실용적, 적응력
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ESFP'}">
-                        재미, 사교적, 표현력
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ENFP'}">
-                        열정적, 상상력, 사회적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ENTP'}">
-                        독창적, 호기심, 논리적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ESTJ'}">
-                        효율적, 실용적, 지배력
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ESFJ'}">
-                        친절, 배려심, 사교적
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ENFJ'}">
-                        카리스마, 공감능력, 결단력, 리더
-                    </c:if>
-
-                    <c:if test="${mypage.mbti == 'ENTJ'}">
-                        전략적, 자신감, 단호함
-                    </c:if>"
-
-                </h2>
+                    </h2>
                 </div>
                 <p style="text-align: center; font-size: 18px; font-weight: bold; line-height: 1.5; margin-bottom: 55px;">
                     <c:if test="${mypage.mbti == 'ISTJ'}">
@@ -419,7 +411,8 @@
     <!--begin::Col-->
     <div class="col-xl-4 mb-5 mb-xl-10">
         <!--begin::Engage Widget 1-->
-        <div style="background-image: url('/img/${student.sbj1}.png'); background-size: cover; background-position: center center;" class="card h-md-100">
+        <div style="background-image: url('/img/${student.sbj1}.png'); background-size: cover; background-position: center center;"
+             class="card h-md-100">
             <div class="card-body d-flex justify-content-center align-items-center card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
                     <h1 class="fw-bold text-dark text-center">${student.sbj1}</h1>
@@ -432,7 +425,8 @@
     <!--begin::Col-->
     <div class="col-xl-4 mb-5 mb-xl-10">
         <!--begin::Engage Widget 1-->
-        <div style="background-image: url('/img/${student.sbj2}.png'); background-size: cover; background-position: center center;" class="card h-md-100">
+        <div style="background-image: url('/img/${student.sbj2}.png'); background-size: cover; background-position: center center;"
+             class="card h-md-100">
             <div class="card-body d-flex justify-content-center align-items-center card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
                     <h1 class="fw-bold text-dark text-center">${student.sbj2}</h1>
@@ -445,7 +439,8 @@
     <!--begin::Col-->
     <div class="col-xl-4 mb-5 mb-xl-10">
         <!--begin::Engage Widget 1-->
-        <div style="background-image: url('/img/${student.sbj3}.png'); background-size: cover; background-position: center center;" class="card h-md-100">
+        <div style="background-image: url('/img/${student.sbj3}.png'); background-size: cover; background-position: center center;"
+             class="card h-md-100">
             <div class="card-body d-flex justify-content-center align-items-center card-rounded p-0 d-flex">
                 <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
                     <h1 class="fw-bold text-dark text-center">${student.sbj3}</h1>

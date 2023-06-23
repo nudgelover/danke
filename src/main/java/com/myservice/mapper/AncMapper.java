@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface AncMapper extends KBMapper<Integer, Anc> {
+    public Integer getTotalCount() throws Exception;
     Page<Anc> getpage() throws Exception;
 
     Page<Anc> getfindpage(Search search)throws Exception;
