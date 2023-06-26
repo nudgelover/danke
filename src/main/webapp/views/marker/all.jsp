@@ -80,7 +80,7 @@
                         <div style="background-color: #FDF1E3"
                              class="card-body d-flex justify-content-between card-rounded p-0 d-flex">
                             <div class="d-flex flex-column flex-lg-row-auto p-10 p-md-20">
-                                <h1 class="fw-bold text-dark">성수의 맛집을 둘러보세요👀</h1>
+                                <h1 style="color: black" class="fw-bold">성수의 맛집을 둘러보세요👀</h1>
                                 <!--begin::Form-->
                                 <form action="/marker/findimpl" method="get"
                                       class="d-flex flex-center py-2 bg-white px-6 rounded">

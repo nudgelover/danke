@@ -102,6 +102,7 @@
                     return;
                 }
 
+
                 // 폼 데이터 생성
                 const formData = new FormData($('#kt_forms_widget_1_form')[0]);
                 formData.append('contents', outerDiv.innerHTML);
@@ -393,7 +394,7 @@
                                        class="text-gray-700 text-hover-primary fs-6 fw-bold mt-2">
                                             ${name}님
                                     </a>
-                                    <span class="text-muted fw-light">총 포스트 ${obj.postCount}개</span>
+                                    <span class="text-muted fw-light">총 활동 개수 ${obj.postCount}개</span>
                                 </div>
                             </c:if>
                         </c:forEach>

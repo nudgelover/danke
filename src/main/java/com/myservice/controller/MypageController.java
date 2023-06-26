@@ -160,7 +160,7 @@ public class MypageController {
         Blah myrank = null;
         int cntGetMyComm;
         int cntGetMylikes;
-
+        int cntGetMyBlah;
         try {
             myrank = blahService.getMyBlahRank(id);
             mypage = myPageService.get(id);
@@ -168,6 +168,7 @@ public class MypageController {
             blahList = blahService.getMyBlah(id); // 모든 Blah 게시글 조회
             cntGetMyComm = blahService.cntGetMyComm(id);
             cntGetMylikes = blahService.cntGetMylikes(id);
+            cntGetMyBlah = blahService.cntGetMyBlah(id);
             log.info("blahList: " + blahList.toString());
             for (Blah blah : blahList) {
                 List<Comm> commList = commService.getPostComm(blah.getId());  // 해당 Blah 게시글의 댓글 조회
@@ -186,6 +187,7 @@ public class MypageController {
         model.addAttribute("blahList", blahList);  // 모든 Blah 게시글 추가
         model.addAttribute("cntGetMyComm", cntGetMyComm);
         model.addAttribute("cntGetMylikes", cntGetMylikes);
+        model.addAttribute("cntGetMyBlah", cntGetMyBlah);
         model.addAttribute("myrank", myrank);
         model.addAttribute("center", dir + "main");
         model.addAttribute("mpcenter", "myblah");

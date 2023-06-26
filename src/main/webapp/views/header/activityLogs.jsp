@@ -10,7 +10,7 @@
     <div class="card shadow-none border-0 rounded-0">
         <!--begin::Header-->
         <div class="card-header" id="kt_activities_header">
-            <h3 class="card-title fw-bold text-dark">Activity Logs</h3>
+            <h3 class="card-title fw-bold text-dark">´ñ±Û ¾Ë¸²</h3>
             <div class="card-toolbar">
                 <button type="button" class="btn btn-sm btn-icon btn-active-light-primary mx-4" id="remove_alarms">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->

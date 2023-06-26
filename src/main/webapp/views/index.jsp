@@ -2,20 +2,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: Start
-Product Version: 1.1.2
-Purchase: https://keenthemes.com/products/start-html-pro
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
-
-
 <html lang="ko" data-bs-theme-mode="light">
 <!--begin::Head-->
 <head>
@@ -46,10 +32,9 @@ License: For each use you must have a valid license purchased only from above li
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-
     <script>
         let blahalarm = {
-            id: null,
+            id         : null,
             stompClient: null,
 
             init: function () {
@@ -68,9 +53,9 @@ License: For each use you must have a valid license purchased only from above li
                         var content = JSON.parse(msg.body).content;
 
                         var alarmData = {
-                            sendid: sendid,
-                            postid: postid,
-                            content: content,
+                            sendid   : sendid,
+                            postid   : postid,
+                            content  : content,
                             isAlerted: true
                         };
 
@@ -103,10 +88,10 @@ License: For each use you must have a valid license purchased only from above li
 
             sendTo: function (postid, receiveId, content) {
                 var msg = JSON.stringify({
-                    'sendid': this.id,
-                    'postid': postid,
+                    'sendid'   : this.id,
+                    'postid'   : postid,
                     'receiveid': receiveId,
-                    'content': content
+                    'content'  : content
                 });
                 console.log(msg);
                 this.stompClient.send('/blahalarmto', {}, msg);
@@ -202,9 +187,9 @@ License: For each use you must have a valid license purchased only from above li
                         var content = JSON.parse(msg.body).content;
 
                         var alarmData = {
-                            sendid: sendid,
-                            postid: postid,
-                            content: content,
+                            sendid   : sendid,
+                            postid   : postid,
+                            content  : content,
                             isAlerted: true
                         };
 
@@ -235,15 +220,15 @@ License: For each use you must have a valid license purchased only from above li
             },
             sendTo     : function (postid, receiveId, content) {
                 var msg = JSON.stringify({
-                    'sendid': this.id,
-                    'postid': postid,
+                    'sendid'   : this.id,
+                    'postid'   : postid,
                     'receiveid': receiveId,
-                    'content': content
+                    'content'  : content
                 });
-                console.log(msg+"맛집");
+                console.log(msg + "맛집");
                 this.stompClient.send('/alarmto', {}, msg);
             },
-            saveAlarm: function (alarmData) {
+            saveAlarm  : function (alarmData) {
                 var storedAlarms = this.getStoredAlarms();
                 storedAlarms.push(alarmData);
                 localStorage.setItem('alarms', JSON.stringify(storedAlarms));
@@ -391,147 +376,188 @@ License: For each use you must have a valid license purchased only from above li
             toall.connect();
         });
     </script>
+    <script>
+        var defaultThemeMode = "light";
+        var themeMode;
+        if (document.documentElement) {
+            if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+                themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+            } else {
+                if (localStorage.getItem("data-bs-theme") !== null) {
+                    themeMode = localStorage.getItem("data-bs-theme");
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
+            if (themeMode === "system") {
+                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-bs-theme", themeMode);
+        }
+
+        function toggleTheme() {
+            var currentTheme = document.documentElement.getAttribute("data-bs-theme");
+            var newTheme = (currentTheme === "light") ? "dark" : "light";
+
+            updateTheme(newTheme);
+            toggleIcon(newTheme);
+        }
+
+        function updateTheme(theme) {
+            document.documentElement.setAttribute("data-bs-theme", theme);
+            localStorage.setItem("data-bs-theme", theme);
+        }
+
+        function toggleIcon(theme) {
+            var sunIcon = document.querySelector(".sun-icon");
+            var moonIcon = document.querySelector(".moon-icon");
+
+            if (theme === "dark") {
+                sunIcon.style.display = "none";
+                moonIcon.style.display = "block";
+            } else {
+                sunIcon.style.display = "block";
+                moonIcon.style.display = "none";
+            }
+        }
+
+        function applySavedTheme() {
+            var savedTheme = localStorage.getItem("data-bs-theme");
+            if (savedTheme) {
+                updateTheme(savedTheme);
+                toggleIcon(savedTheme);
+            } else {
+                var prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (prefersDarkScheme) {
+                    updateTheme("dark");
+                    toggleIcon("dark");
+                } else {
+                    updateTheme("light");
+                    toggleIcon("light");
+                }
+            }
+            document.querySelector(".theme-icon").style.visibility = "visible"; // 버튼 아이콘 표시
+        }
+
+        applySavedTheme();
+    </script>
+
+    <style>
+        html body {
+            font-family: 'Gothic A1', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        [data-bs-theme="dark"] #kt_body {
+            background-color: black;
+        }
+
+        [data-bs-theme="dark"] .bg-white {
+            background-color: black !important;
+        }
+
+        [data-bs-theme="dark"] .highlight {
+            background-color: #a9a9a9 !important;
+        }
+
+        [data-bs-theme="dark"] pre {
+            background-color: #a9a9a9 !important;
+        }
+
+        #scroll-btn {
+            opacity: 0;
+            width: 60px;
+            height: 60px;
+            /*color: #fff;*/
+            background-color: #8681BE;
+            position: fixed;
+            bottom: 13.5%;
+            right: 5%;
+            border: 2px solid #8681BE;
+            border-radius: 50%;
+            font: bold 2px monospace;
+            transition: opacity 2s, transform 2s;
+        }
+
+        #scroll-btn.show {
+            opacity: 1;
+            transition: opacity 5s, transform 5s;
+        }
+
+        #scroll-btn2 {
+            opacity: 0;
+            width: 60px;
+            height: 60px;
+            /*color: #fff;*/
+            background-color: #8681BE;
+            position: fixed;
+            bottom: 5%;
+            right: 5%;
+            border: 2px solid #8681BE;
+            border-radius: 50%;
+            font: bold 10px monospace;
+            transition: opacity 2s, transform 2s;
+        }
+
+        #scroll-btn2.show {
+            opacity: 1;
+            transition: opacity 5s, transform 5s;
+        }
+
+        #scroll-btn3 {
+            opacity: 0;
+            width: 60px;
+            height: 60px;
+            /*color: #fff;*/
+            background-color: #8681BE;
+            position: fixed;
+            bottom: 21.7%;
+            right: 5%;
+            border: 2px solid #8681BE;
+            border-radius: 50%;
+            font: bold 10px monospace;
+            transition: opacity 2s, transform 2s;
+        }
+
+        #scroll-btn3.show {
+            opacity: 1;
+            transition: opacity 5s, transform 5s;
+        }
+
+        .admin-badge-dot {
+            position: relative;
+            top: 16px;
+            right: 6px;
+            display: none;
+            width: 8px;
+            height: 8px;
+            background-color: orange;
+            border-radius: 50%;
+            animation: pulsate 1s ease-in-out infinite;
+        }
+
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
 <body id="kt_body"
       class="header-fixed header-tablet-and-mobile-fixed aside-enabled aside-fixed aside-primary-enabled aside-secondary-disabled">
 <!--begin::Theme mode setup on page load-->
-<script>
-    var defaultThemeMode = "light";
-    var themeMode;
-    if (document.documentElement) {
-        if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
-            themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
-        } else {
-            if (localStorage.getItem("data-bs-theme") !== null) {
-                themeMode = localStorage.getItem("data-bs-theme");
-            } else {
-                themeMode = defaultThemeMode;
-            }
-        }
-        if (themeMode === "system") {
-            themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-        document.documentElement.setAttribute("data-bs-theme", themeMode);
-    }</script>
-
-<script>
-    function lightDarkMode() {
-        const htmlElement = document.querySelector('html');
-        const currentMode = htmlElement.getAttribute('data-bs-theme-mode');
-        const newMode = currentMode === 'dark' ? 'light' : 'dark';
-        htmlElement.setAttribute('data-bs-theme-mode', newMode);
-
-        // 저장된 모드를 로컬 스토리지에 업데이트
-        localStorage.setItem('data-bs-theme', newMode);
-
-        console.log(currentMode); // 현재 모드 출력
-    }
-
-    // 페이지 로드 시 저장된 모드를 적용
-    document.addEventListener('DOMContentLoaded', function () {
-        const savedMode = localStorage.getItem('data-bs-theme');
-        if (savedMode) {
-            const htmlElement = document.querySelector('html');
-            htmlElement.setAttribute('data-bs-theme-mode', savedMode);
-        }
-    });
-</script>
-<style>
-    html body {
-        font-family: 'Gothic A1', sans-serif;
-        font-family: 'Nanum Gothic', sans-serif;
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    #scroll-btn {
-        opacity: 0;
-        width: 60px;
-        height: 60px;
-        /*color: #fff;*/
-        background-color: #8681BE;
-        position: fixed;
-        bottom: 13.5%;
-        right: 5%;
-        border: 2px solid #8681BE;
-        border-radius: 50%;
-        font: bold 2px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-
-    #scroll-btn.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-
-    #scroll-btn2 {
-        opacity: 0;
-        width: 60px;
-        height: 60px;
-        /*color: #fff;*/
-        background-color: #8681BE;
-        position: fixed;
-        bottom: 5%;
-        right: 5%;
-        border: 2px solid #8681BE;
-        border-radius: 50%;
-        font: bold 10px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-
-    #scroll-btn2.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-
-    #scroll-btn3 {
-        opacity: 0;
-        width: 60px;
-        height: 60px;
-        /*color: #fff;*/
-        background-color: #8681BE;
-        position: fixed;
-        bottom: 21.7%;
-        right: 5%;
-        border: 2px solid #8681BE;
-        border-radius: 50%;
-        font: bold 10px monospace;
-        transition: opacity 2s, transform 2s;
-    }
-
-    #scroll-btn3.show {
-        opacity: 1;
-        transition: opacity 5s, transform 5s;
-    }
-
-    .admin-badge-dot {
-        position: relative;
-        top: 16px;
-        right: 6px;
-        display: none;
-        width: 8px;
-        height: 8px;
-        background-color: orange;
-        border-radius: 50%;
-        animation: pulsate 1s ease-in-out infinite;
-    }
-
-    @keyframes pulsate {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        50% {
-            transform: scale(1.5);
-            opacity: 0.8;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-</style>
 <!--end::Theme mode setup on page load-->
 <!--begin::Main-->
 <!--begin::Root-->
@@ -1485,6 +1511,40 @@ License: For each use you must have a valid license purchased only from above li
 <script src="/assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
+<script>
+    function toggleIcon(theme) {
+        var sunIcon = document.querySelector(".sun-icon");
+        var moonIcon = document.querySelector(".moon-icon");
+
+        if (theme === "dark") {
+            sunIcon.style.display = "none";
+            moonIcon.style.display = "block";
+        } else {
+            sunIcon.style.display = "block";
+            moonIcon.style.display = "none";
+        }
+    }
+
+    function applySavedTheme() {
+        var savedTheme = localStorage.getItem("data-bs-theme");
+        if (savedTheme) {
+            updateTheme(savedTheme);
+            toggleIcon(savedTheme);
+        } else {
+            var prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            if (prefersDarkScheme) {
+                updateTheme("dark");
+                toggleIcon("dark");
+            } else {
+                updateTheme("light");
+                toggleIcon("light");
+            }
+        }
+        document.querySelector(".theme-icon").style.visibility = "visible"; // 버튼 아이콘 표시
+    }
+
+    applySavedTheme();
+</script>
 </body>
 <!--end::Body-->
 </html>
