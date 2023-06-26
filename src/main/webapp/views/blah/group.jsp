@@ -12,13 +12,19 @@
     let group = {
         id            : null,
         stompClient   : null,
+        connectedUsers: [], // 접속한 사용자의 정보를 저장할 배열
+        connected     : false, // 연결 상태를 저장하는 변수
         init          : function () {
-            this.id = $('#group_chat_stdn_id').text();//adm_id에서 적힌 글씨를 id로 뿌려줄 예정이다.
+            this.id = $('#group_chat_stdn_id').text();
             $("#connect_groupchat").click(function () {
-                group.connect();
+                if (!group.connected) { // 이미 연결된 상태인 경우에는 아무런 동작을 하지 않음
+                    group.connect();
+                }
             });
             $("#disconnect_groupchat").click(function () {
-                group.disconnect();
+                if (group.connected) { // 이미 연결된 상태인 경우에는 아무런 동작을 하지 않음
+                    group.disconnect();
+                }
             });
             $("#sendgroup").click(function () {
                 group.sendgroup();
@@ -34,12 +40,16 @@
             // SockJS는 웹소켓을 지원하지 않는 브라우저에서도 웹소켓과 유사한 방식으로 통신할 수 있게 해주는 js라이브러리
             this.stompClient = Stomp.over(socket);
             // Stomp는 웹소켓 프로토콜을 사용하는 메시징 서비스를 제공.(Simple Text Oriented Messaging Protocol)
-
-            this.stompClient.connect({}, function (frame) {
+            this.stompClient.connect({
+                'websocket-type': 'groupChat',
+                'user-id'       : sid,
+            }, function (frame) {
                 //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
                 //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
+                group.connected = true; // 연결 상태 변경
                 group.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
                 console.log('Connected: ' + frame);
+
                 // 상대방 접속 메시지를 전송
                 var joinMessage = JSON.stringify({
                     'sendid' : sid,
@@ -47,13 +57,12 @@
                 });
                 this.send("/receiveall", {}, joinMessage);
                 group.scrollToBottom();
-                //스크롤 안먹음...
 
-                this.subscribe('/send', function (msg) {
+
+                this.subscribe('/send', (msg) => {
                     //두번째 매개변수 function(msg)는
                     //메시지가 도착했을 때 호출할 콜백 함수입니다. 이 함수는 서버에서 보낸 메시지를 전달받습니다
                     if (JSON.parse(msg.body).sendid != sid) {
-
                         $.ajax({
                             url    : '/getstdnimg',
                             method : 'GET',
@@ -62,11 +71,20 @@
                                 const imgUrl = response.img; // 서버에서 조회한 stdn dto
                                 const stdnName = response.name;
 
+
+                                //상대방에게 내 사진이 뜨는 로직
+                                if (!group.connectedUsers.includes(JSON.parse(msg.body).sendid)) {
+                                    group.connectedUsers.push(JSON.parse(msg.body).sendid);
+                                    $("#participant").append('<div class="symbol symbol-35px symbol-circle">' +
+                                        '<img id="' + JSON.parse(msg.body).sendid + '" alt="Pic" src="/uimg/' + imgUrl + '"/>' +
+                                        '</div>');
+                                }
+
                                 $("#groupallmsg").append(
                                     '<div class="d-flex justify-content-start mb-10"> <div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + stdnName + '<span style="font-size: small" class="text-muted">@' + JSON.parse(msg.body).sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"data-kt-element="message-text">' + JSON.parse(msg.body).content + ' </div> </div> </div>');
 
                                 // 메시지 로컬 스토리지에 추가
-                                onechat.scrollToBottom();
+                                group.scrollToBottom();
 
                             },
                             error  : function (xhr, status, error) {
@@ -76,24 +94,41 @@
                     }
                     group.scrollToBottom();
 
+                    var message = JSON.parse(msg.body);
+
+                    if (message.content.includes('퇴장')) {
+                        $("#" + message.sendid).css("display", "none");
+                    }
+
+                    if (message.content.includes('참여')) {
+                        $("#" + message.sendid).css("display", "inherit");
+                    }
                 });
 
             });
         },
         disconnect    : function () {
-
+            group.connected = false;
             var exitMessage = JSON.stringify({
                 'sendid' : this.id,
                 'content': this.id + '님께서 채팅방에서 퇴장하셨습니다.',
-            });//로컬스토리지 저장 안되게...
-            group.scrollToBottom();
-            //스크롤 안먹음...
+            });
+
             this.stompClient.send("/receiveall", {}, exitMessage);
+
+            group.scrollToBottom();
+
+
+            //연결 해제 했으니 나는 다 끝난거고,,
+            $("#participant").empty();
+            group.connectedUsers = [];
+
 
             if (this.stompClient !== null) {
                 this.stompClient.disconnect();
             }
             group.setConnected(false);
+
             console.log("Disconnected");
         },
         setConnected  : function (connected) {
@@ -101,11 +136,13 @@
                 $("#status_group").text("연결됨");
                 $("#groupallmsg").append(
                     '<h4>' + this.id + '님, 채팅방에 입장되셨습니다.</h4>');
+
                 group.scrollToBottom();
             } else {
                 $("#status_group").text("연결종료");
                 $("#groupallmsg").append(
                     '<h4>' + this.id + '님, 채팅방에서 퇴장하셨습니다.</h4>');
+
                 group.scrollToBottom();
 
             }
@@ -189,43 +226,9 @@
                                     <div class="symbol symbol-35px symbol-circle">
                                         <img alt="Pic" src="/uimg/${loginStdn.img}"/>
                                     </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem.jpg"/>
+                                    <div id="participant">
                                     </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem6.jpg"/>
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem2.jpg"/>
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem3.jpg"/>
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem4.jpg"/>
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::Avatar-->
-                                    <div class="symbol symbol-35px symbol-circle">
-                                        <img alt="Pic" src="/img/digimem5.jpg"/>
-                                    </div>
-                                    <!--end::Avatar-->
-                                    <!--begin::All users-->
-                                    <a href="#" class="symbol symbol-35px symbol-circle" data-bs-toggle="modal"
-                                       data-bs-target="#kt_modal_view_users">
-                                        <span class="symbol-label fs-8 fw-bold">+24</span>
-                                    </a>
-                                    <!--end::All users-->
+
                                 </div>
                                 <!--end::Users-->
                             </div>
@@ -270,7 +273,8 @@
                                             <span
                                                     class="text-primary fw-bold">연결 종료</span> 또는 <span
                                                     class="text-primary fw-bold">연결 대기</span>로 되어있을 시, <span
-                                                    class="text-primary fw-bold">연결버튼</span>을 다시 눌러주시기 바랍니다. 그럼 즐거운 채팅시간을 보내세요!
+                                                    class="text-primary fw-bold">연결버튼</span>을 다시 눌러주시기 바랍니다. 그럼 즐거운
+                                            채팅시간을 보내세요!
                                         </div>
                                     </div>
                                 </div>

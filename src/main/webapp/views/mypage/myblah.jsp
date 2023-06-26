@@ -181,14 +181,16 @@
                 <div class="card card-xxl-stretch mb-5 mb-xxl-10">
                     <!--begin::Header-->
                     <div class="card-header">
-                        <div class="card-title">
+                        <div class="card-title w-100 d-flex justify-content-between">
                             <h3>내가 바로 블라왕🤴</h3>
+                            <a href="/blah" class="btn btn-primary px-6 flex-shrink-0 ">
+                                블라블라로 이동하기</a>
                         </div>
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body pb-0">
-                        <span class="fs-5 fw-semibold text-gray-600 pb-3 d-block"><span class="fw-bold text-warning">나의 랭킹</span>(포스팅 기준)과 함께 <span class="fw-bold text-primary">포스팅한 수</span>, <span class="fw-bold text-primary">좋아요 누른 수</span>, 그리고 <span class="fw-bold text-primary">댓글 남긴 수</span>를 한눈에 확인해보세요🌱</span>
+                        <span class="fs-5 fw-semibold text-gray-600 pb-3 d-block"><span class="fw-bold text-warning">나의 랭킹</span>과 함께 <span class="fw-bold text-primary">포스팅한 수</span>, <span class="fw-bold text-primary">좋아요 누른 수</span>, 그리고 <span class="fw-bold text-primary">댓글 남긴 수</span>를 한눈에 확인해보세요🌱</span>
 <%--                        <span class="fs-5 fw-semibold text-gray-600 pb-5 d-block">여러분들의 <span class="text-warning fw-bold">활발한 소통</span>이 더욱 활기찬 <span class="text-primary fw-bold">디지캠라이프</span>🌱를 만듭니다.</span>--%>
 
                         <!--begin::Left Section-->
@@ -206,6 +208,12 @@
 															<span class="fs-2x fw-bold text-gray-800 lh-1">
 																<span data-kt-countup="true"
                                                                       data-kt-countup-value="${myrank.postCount}">0</span>개</span>
+                                    <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">총 활동 개수</span>
+                                </div>
+                                <div class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6">
+															<span class="fs-2x fw-bold text-gray-800 lh-1">
+																<span data-kt-countup="true"
+                                                                      data-kt-countup-value="${cntGetMyBlah}">0</span>개</span>
                                     <span class="fs-6 fw-semibold text-gray-400 d-block lh-1 pt-2">게시물 수</span>
                                 </div>
                                 <!--end::Col-->
@@ -228,8 +236,7 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Row-->
-                            <a href="/blah" class="btn btn-primary px-6 flex-shrink-0 align-self-center">
-                                블라블라로 이동하기</a>
+
                         </div>
                         <!--end::Left Section-->
                     </div>
@@ -246,7 +253,7 @@
 <%--                    <span  class="fs-md-6 fs-sm-10 text-warning"  style="position: absolute; top: 8%; left: 47%; transform: translateX(-50%); font-weight: bold;">${loginStdn.name}님,</br> 좋아요와 댓글 잊지 않으셨죠?</span>--%>
 
 
-                    <img style="border-radius: 15%" src="/img/블라블라3.png">
+                    <img style="width: 100%; border-radius: 10px 10px" src="/img/블라블라3.png">
                     <!--end::Body-->
                 </div>
                 <!--end::Invoices-->

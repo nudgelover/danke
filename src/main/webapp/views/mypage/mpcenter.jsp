@@ -193,7 +193,7 @@
 
                     </h2>
                 </div>
-                <p style="text-align: center; font-size: 18px; font-weight: bold; line-height: 1.5; margin-bottom: 55px;">
+                <p style="color:black; text-align: center; font-size: 18px; font-weight: bold; line-height: 1.5; margin-bottom: 55px;">
                     <c:if test="${mypage.mbti == 'ISTJ'}">
                         저는 책임감이 있고 체계적으로 일하며 확립된 구조와 틀 안에서 일하는 것을 선호하는 사람입니다.
                     </c:if>

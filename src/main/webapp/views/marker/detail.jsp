@@ -85,7 +85,7 @@
             <!--end::Info-->
             <!--begin::Nav-->
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
-                <a href="/marker/all" class="btn btn-active-accent active fw-bold">Back</a>
+                <a href="/marker/all" class="btn btn-active-accent active fw-bold">뒤로가기</a>
             </div>
             <!--end::Nav-->
         </div>
@@ -117,10 +117,10 @@
                                 <c:if test="${marker.writer eq loginStdn.id}">
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <a href="/marker/edit?id=${marker.id}"
-                                           class="btn btn-active-accent active fw-bold">Edit</a>
+                                           class="btn btn-active-accent active fw-bold">수정</a>
                                         <a href="#" class="btn btn-active-accent active fw-bold"
                                            data-bs-toggle="modal"
-                                           data-bs-target="#kt_modal_1_delete">Delete</a>
+                                           data-bs-target="#kt_modal_1_delete">삭제</a>
                                     </div>
                                 </c:if>
                             </div>

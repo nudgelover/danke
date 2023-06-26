@@ -414,7 +414,6 @@
 
                                         <div id="map"
                                              style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-                                        <p>sfsfsf</p>
                                         <div id="menu_wrap" class="bg_white">
 
                                             <div class="option">
@@ -676,8 +675,8 @@
                     // console.log(placePosition.getLng());
                     // console.log(title);
                     var markerTitle = title; // 충돌을 피하기 위해 변수 이름 변경
-                    var lat = placePosition.getLat().toFixed(2); // 위도 값 가져오기
-                    var lng = placePosition.getLng().toFixed(2); // 경도 값 가져오기
+                    var lat = placePosition.getLat().toFixed(5); // 위도 값 가져오기
+                    var lng = placePosition.getLng().toFixed(5); // 경도 값 가져오기
                     // <input> 요소를 선택하고 값을 설정합니다
                     $('#lat').val(lat);
                     $('#lng').val(lng);
@@ -693,8 +692,8 @@
                 };
                 itemEl.onclick = function () {
                     var markerTitle = title; // 충돌을 피하기 위해 변수 이름 변경
-                    var lat = placePosition.getLat().toFixed(2); // 위도 값 가져오기
-                    var lng = placePosition.getLng().toFixed(2); // 경도 값 가져오기
+                    var lat = placePosition.getLat().toFixed(5); // 위도 값 가져오기
+                    var lng = placePosition.getLng().toFixed(5); // 경도 값 가져오기
                     // <input> 요소를 선택하고 값을 설정합니다
                     $('#lat').val(lat);
                     $('#lng').val(lng);

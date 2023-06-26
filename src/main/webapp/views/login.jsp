@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,6 +32,18 @@
     #kt_body {
         background: white;
     }
+
+    [data-bs-theme="dark"] #kt_body {
+        background-color: black;
+    }
+
+    [data-bs-theme="dark"] .bg-primary {
+        background-color: darkslateblue!important;
+    }
+    [data-bs-theme="dark"] .text-white  {
+        color: lightgray!important;
+    }
+
 </style>
 
 <script>
@@ -67,10 +78,10 @@
         <div class="d-flex flex-column flex-lg-row-auto bg-primary w-lg-600px pt-15 pt-lg-0">
             <div class="d-flex flex-row-fluid flex-center flex-column-auto flex-column text-center mb-5">
                 <a href="/" class="mb-6">
-                    <img alt="Logo" src="assets/media/logos/logo-default.svg" class="h-50px h-lg-75px"/>
+                    <img alt="Logo" src="/img/logo3.png" class="h-50px h-lg-75px"/>
                 </a>
-                <h3 class="fw-bold fs-2x text-white lh-lg">Discover Start
-                    <br/>with great build tools</h3>
+                <h3 class="fw-bold fs-2x text-white lh-lg">디지캠퍼스에 오신 것을
+                    <br/>진심으로 환영합니다.</h3>
             </div>
             <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px"
                  style="background-image: url(/assets/media/illustrations/sigma-1/2.png"></div>

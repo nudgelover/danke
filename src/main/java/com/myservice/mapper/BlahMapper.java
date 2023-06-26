@@ -14,7 +14,7 @@ public interface BlahMapper extends KBMapper<Integer, Blah> {
     public List<Blah> getBlahRank() throws Exception;
     public Blah getMyBlahRank(String stdnId) throws Exception;
     public Integer cntLike(Integer id) throws Exception;
-
+    public Integer cntGetMyBlah(String stdnId) throws Exception;
     public Integer cntGetMyComm(String stdnId) throws Exception;
 
     public Integer cntGetMylikes(String stdnId) throws Exception;

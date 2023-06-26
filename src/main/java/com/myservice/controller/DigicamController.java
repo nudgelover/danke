@@ -79,8 +79,6 @@ public class DigicamController {
         PageInfo<Anc> p = new PageInfo<>(ancService.getFindPage(pageNo, search), 5);
         int totalCount = ancService.getTotalCount();
 
-
-
         // 게시글 리스트에 "New" 뱃지를 추가하는 로직을 추가합니다.
 
         List<Anc> ancList = p.getList();

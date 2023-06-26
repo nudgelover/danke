@@ -39,7 +39,9 @@ public class BlahService implements KBService<Integer, Blah> {
         return mapper.getMyBlahRank(stdnId);
     }
 
-
+    public Integer cntGetMyBlah(String stdnId) throws Exception {
+        return mapper.cntGetMyBlah(stdnId);
+    }
     public Integer cntGetMyComm(String stdnId) throws Exception {
         return mapper.cntGetMyComm(stdnId);
     }

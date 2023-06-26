@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<style>
+
+</style>
 <div class="modal bg-white fade" id="kt_mega_menu_modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content shadow-none">
@@ -9,7 +12,7 @@
                     <div class="d-flex align-items-center">
                         <!--begin::Logo-->
                         <a href="/">
-                            <img alt="Logo" src="/assets/media/logos/logo-default.svg" class="h-30px"/>
+                            <img alt="Logo" src="/img/logo3.png" class="h-30px"/>
                         </a>
                         <!--end::Logo-->
                     </div>

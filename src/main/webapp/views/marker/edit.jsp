@@ -296,7 +296,7 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">JMTGR EDIT</h3>
+                <h3 class="text-dark fw-bold my-1">맛집 수정</h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->
@@ -445,12 +445,12 @@
                                         </div>
 
                                         <div style="padding: 0 10px" class="form-floating mb-7 col-sm-4">
-                                            <input type="number" class="form-control" name="lat" id="lat"
+                                            <input type="text" class="form-control" name="lat" id="lat"
                                                    value="${marker.lat}"/>
                                             <label for="lat">Lat</label>
                                         </div>
                                         <div style="padding-left: 10px" class="form-floating mb-7 col-sm-4">
-                                            <input type="number" class="form-control" name="lng" id="lng"
+                                            <input type="text" class="form-control" name="lng" id="lng"
                                                    value="${marker.lng}"/>
                                             <label for="lat">Lng</label>
                                         </div>
@@ -527,7 +527,7 @@
                                         ${marker.detail}
                                     </div>
                                     <div class="d-flex float-end mt-10">
-                                        <a href="#" id="register_btn" class="btn btn-primary">Register</a>
+                                        <a href="#" id="register_btn" class="btn btn-primary">등록</a>
                                     </div>
 
                                 </form>
@@ -675,8 +675,8 @@
                     // console.log(placePosition.getLng());
                     // console.log(title);
                     var markerTitle = title; // 충돌을 피하기 위해 변수 이름 변경
-                    var lat = placePosition.getLat().toFixed(2); // 위도 값 가져오기
-                    var lng = placePosition.getLng().toFixed(2); // 경도 값 가져오기
+                    var lat = placePosition.getLat().toFixed(5); // 위도 값 가져오기
+                    var lng = placePosition.getLng().toFixed(5); // 경도 값 가져오기
                     // <input> 요소를 선택하고 값을 설정합니다
                     $('#lat').val(lat);
                     $('#lng').val(lng);
@@ -692,8 +692,8 @@
                 };
                 itemEl.onclick = function () {
                     var markerTitle = title; // 충돌을 피하기 위해 변수 이름 변경
-                    var lat = placePosition.getLat().toFixed(2); // 위도 값 가져오기
-                    var lng = placePosition.getLng().toFixed(2); // 경도 값 가져오기
+                    var lat = placePosition.getLat().toFixed(5); // 위도 값 가져오기
+                    var lng = placePosition.getLng().toFixed(5); // 경도 값 가져오기
                     // <input> 요소를 선택하고 값을 설정합니다
                     $('#lat').val(lat);
                     $('#lng').val(lng);

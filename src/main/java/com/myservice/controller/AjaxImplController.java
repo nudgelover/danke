@@ -107,5 +107,4 @@ public class AjaxImplController {
         return ResponseEntity.ok(stdn);
     }
 
-
 }

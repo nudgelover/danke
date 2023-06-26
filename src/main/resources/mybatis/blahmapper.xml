@@ -16,10 +16,16 @@
         WHERE stdn_id = #{stdnId}
         ORDER BY m.id DESC
     </select>
-    <!--이거 없어져도됨....-->
+
     <select id="cntGetMyComm" parameterType="String" resultType="Integer">
         SELECT COUNT(*) AS cnt
         FROM comm
+        WHERE stdn_id = #{stdnId}
+    </select>
+
+    <select id="cntGetMyBlah" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) AS cnt
+        FROM blah
         WHERE stdn_id = #{stdnId}
     </select>
 
@@ -31,25 +37,55 @@
     </select>
     <!--이거 없어져도됨....-->
     <select id="getBlahRank" resultType="Blah">
-        SELECT m.stdn_id AS stdnId,
-               s.name,
-               s.img,
-               COUNT(*) AS postCount,
-               RANK() OVER (ORDER BY COUNT(*) DESC) AS ranking
-        FROM stdn s
-                 JOIN blah m ON s.id = m.stdn_id
-        GROUP BY m.stdn_id, s.name, s.img
-        ORDER BY postCount DESC
+        WITH combined_counts AS (
+            SELECT stdn_id
+            FROM comm
+            UNION ALL
+            SELECT stdn_id
+            FROM likes
+            WHERE board = 'B'
+            UNION ALL
+            SELECT stdn_id
+            FROM blah
+        ),
+             ranked_counts AS (
+                 SELECT stdn_id, postCount,
+                        RANK() OVER (ORDER BY postCount DESC) AS ranking
+                 FROM (
+                          SELECT stdn_id, COUNT(*) AS postCount
+                          FROM combined_counts
+                          GROUP BY stdn_id
+                      )
+             )
+        SELECT stdn_id AS stdnId, postCount, s.name, s.img, ranking
+        FROM ranked_counts
+                 JOIN stdn s ON ranked_counts.stdn_id = s.id
+        ORDER BY ranking ASC
     </select>
 
     <select id="getMyBlahRank" parameterType="String" resultType="Blah">
-        SELECT *
-        FROM (SELECT m.stdn_id AS stdnId,
-                     COUNT(*)  AS postCount,
-                     RANK()       OVER (ORDER BY COUNT(*) DESC) AS ranking
-              FROM blah m
-              GROUP BY m.stdn_id) rankings
-        WHERE stdnId = #{stdnId}
+        -- 게시글 + 댓글 + 좋아요 토탈
+
+
+        WITH combined_counts AS (SELECT stdn_id
+                                 FROM comm
+                                 UNION ALL
+                                 SELECT stdn_id
+                                 FROM likes
+                                 WHERE board = 'B'
+                                 UNION ALL
+                                 SELECT stdn_id
+                                 FROM blah),
+             ranked_counts AS (SELECT stdn_id,
+                                      postCount,
+                                      RANK() OVER (ORDER BY postCount DESC) AS ranking
+                               FROM (SELECT stdn_id, COUNT(*) AS postCount
+                                     FROM combined_counts
+                                     GROUP BY stdn_id))
+        SELECT stdn_id AS stdnId, postCount, s.name, s.img, ranking
+        FROM ranked_counts
+                 JOIN stdn s ON ranked_counts.stdn_id = s.id
+        WHERE stdn_id = #{stdnId}
     </select>
 
     <select id="select" parameterType="Integer" resultType="Blah">
