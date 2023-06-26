@@ -71,13 +71,18 @@
                                                             <td class="text-center">
                                                                 <div class="d-flex flex-start">
                                                                     <div class="symbol symbol-100px me-4">
+                                                                        <a href="/lecture/detail?id=${ordDetailByOrd.lecId}&&stdnId=${loginStdn.id}">
                                                                             <span class="symbol-label bg-light">
                                                                                 <img src="/uimg/${ordDetailByOrd.img}"
                                                                                      class="h-75 align-self-center" alt=""/>
                                                                             </span>
+                                                                        </a>
                                                                     </div>
                                                                     <div class="text-start" style="margin-left: 5%;">
-                                                                        <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span><span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span><br>
+                                                                        <a href="/lecture/detail?id=${ordDetailByOrd.lecId}&&stdnId=${loginStdn.id}" >
+                                                                            <span class="fs-7 text-gray-800 fw-bolder">${ordDetailByOrd.lecTitle}</span>
+                                                                        </a>
+                                                                        <span class="badge badge-light-info fs-8" style="margin-top:1%;">${ordDetailByOrd.lecTopic}</span><br>
                                                                         <span class="text-muted fs-8 text-start">${ordDetailByOrd.lecTeacher}</span>
                                                                         <p class="text-muted fs-8 text-start">
                                                                             <span style="text-decoration: line-through;">

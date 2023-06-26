@@ -3,7 +3,9 @@ package com.myservice.service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Lec;
+import com.myservice.dto.LecCateSearch;
 import com.myservice.dto.LecSearch;
+import com.myservice.dto.LecTopicSearch;
 import com.myservice.frame.KBService;
 import com.myservice.mapper.LecMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,11 @@ public class LecService implements KBService<Integer, Lec> {
         return mapper.getpage();
     }
 
+    public Page<Lec> getSpecPage(int pageNo, Integer spec1) throws Exception{
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.getspecpage(spec1);
+    }
+
     public Page<Lec> getTopicPage(int pageNo, String topic) throws Exception {
         PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
         return mapper.gettopicpage(topic);
@@ -65,4 +72,15 @@ public class LecService implements KBService<Integer, Lec> {
     public List<Lec> getRank() throws Exception{
         return mapper.getRank();
     }
+
+    public List<Lec> getSbjCode2BySpecPage(int pageNo, LecCateSearch lecCateSearch) throws Exception {
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.getsbjcode2byspecpage(lecCateSearch);
+    }
+
+    public List<Lec> getTopicBySpecPage(int pageNo, LecTopicSearch lecTopicSearch) throws Exception{
+        PageHelper.startPage(pageNo, 6); //한화면에 출력되는 개수
+        return mapper.gettopicbyspecpage(lecTopicSearch);
+    }
+
 }

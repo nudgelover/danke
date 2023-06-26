@@ -145,6 +145,7 @@ public class LectureController {
     public String sbjBigCode(@PathVariable Integer sbjBigCode, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
 
         PageInfo<Lec> p = new PageInfo<>(lecService.getSbjCode2Page(pageNo,sbjBigCode), 5);
+        log.info("피투스트링"+p);
 
         List<SbjDetail> sideBig = sbjDetailService.searchBig();
 
@@ -218,29 +219,7 @@ public class LectureController {
 
     @RequestMapping("/spec{spec}/all")
     public String spec(@PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
-        PageInfo<Lec> pre = new PageInfo<>(lecService.getPage(pageNo), 5);
-        List<Lec> lecs = pre.getList();
-
-        PageInfo<Lec> p = new PageInfo<>();
-        List<Lec> pLecs = new ArrayList<>();
-
-        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
-        String specName = specDetail.getSbjName();
-
-        try {
-            log.info("여기까지오나");
-            for (Lec lec : lecs) {
-                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
-                    pLecs.add(lec);
-                    log.info("여기피랙스투스트링"+pLecs.toString());
-                }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new Exception();
-        }
-        log.info("여기 트라이캐치나옴");
-        p.setList(pLecs);
+        PageInfo<Lec> p = new PageInfo<>(lecService.getSpecPage(pageNo, spec), 5);
 
         log.info("여기+교정된 p"+p.toString());
 
@@ -277,29 +256,12 @@ public class LectureController {
 
     @RequestMapping("/{sbjBigCode}/spec{spec}/all")
     public String bigSpec(@PathVariable Integer sbjBigCode, @PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
-        PageInfo<Lec> pre = new PageInfo<>(lecService.getSbjCode2Page(pageNo,sbjBigCode), 5);
-        List<Lec> lecs = pre.getList();
+        log.info("페이지넘"+pageNo);
 
-        PageInfo<Lec> p = new PageInfo<>();
-        List<Lec> pLecs = new ArrayList<>();
+        LecCateSearch lecCateSearch = new LecCateSearch(sbjBigCode, spec);
+        PageInfo<Lec> p = new PageInfo<>(lecService.getSbjCode2BySpecPage(pageNo, lecCateSearch), 5);
 
-        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
-        String specName = specDetail.getSbjName();
-
-        try {
-            log.info("여기까지오나");
-            for (Lec lec : lecs) {
-                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
-                    pLecs.add(lec);
-                    log.info("여기피랙스투스트링"+pLecs.toString());
-                }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new Exception();
-        }
-        log.info("여기 트라이캐치나옴");
-        p.setList(pLecs);
+        log.info("피투스트링"+p.toString());
 
         List<SbjDetail> sideBig = sbjDetailService.searchBig();
 
@@ -334,31 +296,78 @@ public class LectureController {
         return "index";
     }
 
+
+
+
+
+
+
+//    @RequestMapping("/{sbjBigCode}/spec{spec}/all")
+//    public String bigSpec(@PathVariable Integer sbjBigCode, @PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+//        PageInfo<Lec> pre = new PageInfo<>(lecService.getSbjCode2Page(pageNo,sbjBigCode), 5);
+//        List<Lec> lecs = pre.getList();
+//
+//        PageInfo<Lec> p = new PageInfo<>();
+//        List<Lec> pLecs = new ArrayList<>();
+//
+//        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
+//        String specName = specDetail.getSbjName();
+//
+//        try {
+//            log.info("여기까지오나");
+//            for (Lec lec : lecs) {
+//                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
+//                    pLecs.add(lec);
+//                    log.info("여기피랙스투스트링"+pLecs.toString());
+//                }
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//            throw new Exception();
+//        }
+//        log.info("여기 트라이캐치나옴");
+//        p.setList(pLecs);
+//
+//        List<SbjDetail> sideBig = sbjDetailService.searchBig();
+//
+//        Map<Integer, List<SbjDetail>> sideMedium = new HashMap<>();
+//        for(int n = 0; n < sideBig.size(); n++) {
+//            Integer index = sideBig.get(n).getSbjCode();
+//            sideMedium.put(index, sbjDetailService.searchMedium(index));
+//        }
+//
+//        List<LecCategory> cate = new ArrayList<>();
+//        try {
+//            cate = lecCategoryService.getDistinctByParent(sbjBigCode);
+//            log.info("여기" + cate.toString());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new Exception();
+//        }
+//
+//        log.info("여기"+sideBig.toString());
+//        log.info("여기"+sideMedium.toString());
+//        model.addAttribute("sideBig",sideBig);
+//        model.addAttribute("sideMedium",sideMedium);
+//        model.addAttribute("sbjBigCode",sbjBigCode);
+//        model.addAttribute("spec",spec);
+//        model.addAttribute("target", "lecture");
+//        model.addAttribute("target2", sbjBigCode);
+//        model.addAttribute("target3","spec"+spec);
+//        model.addAttribute("cpage", p);
+//        model.addAttribute("cate", cate);
+//        model.addAttribute("center", dir + "all");
+//
+//        return "index";
+//    }
+
     @RequestMapping("/{sbjBigCode}/{sbjMediumCode}/spec{spec}/all")
     public String bigMediumSpec(@PathVariable Integer sbjBigCode, @PathVariable Integer sbjMediumCode, @PathVariable Integer spec, @RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         SbjDetail sbjDetail = sbjDetailService.getThisSbjDetail(sbjMediumCode);
         String sbjName = sbjDetail.getSbjName();
-        SbjDetail specDetail = sbjDetailService.getThisSbjDetail(spec);
-        String specName = specDetail.getSbjName();
-        PageInfo<Lec> pre = new PageInfo<>(lecService.getTopicPage(pageNo,sbjName), 5);
-        PageInfo<Lec> p = new PageInfo<>();
-        List<Lec> lecs = pre.getList();
-        log.info("여기pre투스트링"+pre.toString());
-        List<Lec> pLecs = new ArrayList<>();
+        LecTopicSearch lecTopicSearch = new LecTopicSearch(sbjName, spec);
 
-        try {
-            log.info("여기까지오나");
-            for (Lec lec : lecs) {
-                if (lec.getSpec1().equals(specName) || lec.getSpec2().equals(specName) || lec.getSpec3().equals(specName)) {
-                    pLecs.add(lec);
-                }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new Exception();
-        }
-        log.info("여기 트라이캐치나옴");
-        p.setList(pLecs);
+        PageInfo<Lec> p = new PageInfo<>(lecService.getTopicBySpecPage(pageNo, lecTopicSearch), 5);
 
         log.info("여기+교정된 p"+p.toString());
 
@@ -602,6 +611,12 @@ public class LectureController {
             }
         } catch (Exception e){
             e.printStackTrace();
+        }
+
+        if(cartService.thisCart(lecId,stdnId)!=null){
+            Cart cart = cartService.thisCart(lecId,stdnId);
+            Integer cartId = cart.getId();
+            cartService.remove(cartId);
         }
         model.addAttribute("ordId", ordId);
         model.addAttribute("ordPrice", ordPrice);

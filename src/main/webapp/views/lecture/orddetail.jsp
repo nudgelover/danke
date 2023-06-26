@@ -139,12 +139,14 @@
                                         <td class="border-primary p-2">
                                             <div class="d-flex bg-light rounded flex-nowrap">
                                                 <div class="fw-bold fs-3 py-8 px-9 flex-root d-flex align-items-center min-w-150px">
-                                                    <img src="/uimg/${ordDetail.img}" class="img-fluid rounded">
+                                                    <a href="/lecture/detail?id=${ordDetail.lecId}&&stdnId=${loginStdn.id}" ><img src="/uimg/${ordDetail.img}" class="img-fluid rounded"></a>
                                                 </div>
                                                 <div class="py-8 px-9 flex-root justify-content-center text-left"
                                                      style="flex-direction: column; align-items: center">
                                                     <div class="justify-content-center text-left">
-                                                        <span class="text-gray-800 fw-bold d-block fs-6 text-left">${ordDetail.lecTitle}</span>
+                                                        <a href="/lecture/detail?id=${ordDetail.lecId}&&stdnId=${loginStdn.id}" >
+                                                            <span class="text-gray-800 fw-bold d-block fs-6 text-left">${ordDetail.lecTitle}</span>
+                                                        </a>
                                                     </div>
                                                     <div class="justify-content-center text-left">
                                                         <span class="text-muted fw-semibold text-left">${ordDetail.lecTeacher} | ${ordDetail.lecTopic}</span>

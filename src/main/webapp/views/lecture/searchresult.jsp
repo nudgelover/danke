@@ -7,11 +7,11 @@
     $(document).ready(function () {
         $('.youtube_btn').click(function(){
             let index = $(this).prop('id');
-            alert($('#title_'+index).text());
-            alert($('#rdate_'+index).text());
-            alert($('#channelTitle_'+index).text());
-            alert($('#description_'+index).text());
-            alert($('#'+index).data('value'));
+            //alert($('#title_'+index).text());
+            //alert($('#rdate_'+index).text());
+            //alert($('#channelTitle_'+index).text());
+            //alert($('#description_'+index).text());
+            //alert($('#'+index).data('value'));
             $('#title').val($('#title_'+index).text());
             $('#rdate').val($('#rdate_'+index).text());
             $('#channelTitle').val($('#channelTitle_'+index).text());
