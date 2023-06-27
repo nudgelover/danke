@@ -198,6 +198,7 @@
                         self.showAlarm();
 
                     });
+
                 });
 
                 $("#mrk_add_comm").click(function (event) {
@@ -441,7 +442,6 @@
 
         applySavedTheme();
     </script>
-
     <style>
         html body {
             font-family: 'Gothic A1', sans-serif;

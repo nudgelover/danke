@@ -203,7 +203,6 @@
                  JOIN stdn n ON y.writer = n.id AND y.writer = #{writer}
         WHERE y.contents IS NOT NULL
           AND TO_CHAR(TO_DATE(rdate, 'yyyy.MM.dd'), 'yyyy.MM') = #{month}
-        ORDER BY y.id DESC
+        ORDER BY y.rdate ASC
     </select>
-
 </mapper>

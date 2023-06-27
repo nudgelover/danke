@@ -16,7 +16,7 @@
                  JOIN mrk_comm c ON m.id = c.post_id
                  JOIN stdn s ON c.stdn_id = s.id
         WHERE m.id = #{postId}
-        ORDER BY c.rdate DESC
+        ORDER BY c.rdate asc
     </select>
 
     <select id="select" parameterType="Integer" resultType="MrkComm">

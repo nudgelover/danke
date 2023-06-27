@@ -7,31 +7,30 @@
 <script>
     $(document).ready(function () {
         $('#gradestatus').change(function () {
-                var selectedValue = $(this).val();
+            var selectedValue = $(this).val();
 
-                if (selectedValue === 'ALL') {
-                    window.location.reload(); // 페이지 리로드
-                } else {
-                    $.ajax({
-                        url    : '/getGrade',
-                        type   : 'POST',
-                        data   : {digidate: selectedValue},
-                        success: function (response) {
-                            displaystudents(response);
-                        },
-                        error  : function (xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                }
-            });
+            if (selectedValue === 'ALL') {
+                window.location.reload(); // 페이지 리로드
+            } else {
+                $.ajax({
+                    url    : '/getGrade',
+                    type   : 'POST',
+                    data   : {digidate: selectedValue},
+                    success: function (response) {
+                        displaystudents(response);
+                    },
+                    error  : function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
 
         $('.send-message-btn').click(function () {
             const studentId = $(this).data('student-id');
-            // Use the studentId value as needed (e.g., pass it to the modal or perform other operations)
-            // console.log(studentId);
             document.getElementById("receivetarget").value = studentId;
         });
+
         function displaystudents(data) {
             var memberCards = $('.col-md-6.col-xxl-4');
             memberCards.hide();
@@ -72,10 +71,12 @@
                                     'data-bs-target': '#' + modalId
                                 }))
                         ),
-                        $('<button></button>').addClass('btn btn-sm btn-light-primary fw-bold send-message-btn')
+                        $('<button></button>').addClass('btn btn-sm btn-light-primary fw-bold send-message-btn position-relative')
                             .attr('data-kt-drawer-show', 'true')
                             .attr('data-kt-drawer-target', '#kt_drawer_chat')
                             .text('Send Message')
+                            .append(
+                                $('<span></span>').addClass('position-absolute top-100 start-100 translate-middle badge badge-circle badge-secondary').attr('id', 'page'+member.id))
                     )
                 ));
             var modal = $('<div class="modal fade" tabindex="-1" id="' + modalId + '">')
@@ -134,17 +135,11 @@
             if (additionalAttributes) {
                 button.attr(additionalAttributes);
             }
-
             return button;
         }
-
-
-
     });
 
-
 </script>
-<!--begin::Main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
     <div class="toolbar" id="kt_toolbar">
@@ -269,8 +264,11 @@
                                 </div>
                                 <!--end::Info-->
                                 <!--begin::Link-->
-                                <button class="btn btn-sm btn-light-primary fw-bold send-message-btn" data-kt-drawer-show="true"
+                                <button class="btn btn-sm btn-light-primary fw-bold send-message-btn position-relative"
+                                        data-kt-drawer-show="true"
                                         data-student-id="${obj.id}" data-kt-drawer-target="#kt_drawer_chat">Send Message
+                                    <span id="${obj.id}"
+                                          class="position-absolute top-100 start-100 translate-middle badge badge-circle badge-secondary"></span>
                                 </button>
                                 <!--end::Link-->
                             </div>
@@ -312,48 +310,10 @@
                     </div>
                 </c:forEach>
                 <!--end::Col-->
-
-
                 <!--end::Col-->
             </div>
             <!--end::Contacts-->
-            <!--begin::Pagination-->
-            <%--            <div class="d-flex flex-stack flex-wrap pt-10">--%>
-            <%--                <div class="fs-6 fw-semibold text-gray-700">Showing 1 to 10 of 50 entries</div>--%>
-            <%--                <!--begin::Pages-->--%>
-            <%--                <ul class="pagination">--%>
-            <%--                    <li class="page-item previous">--%>
-            <%--                        <a href="#" class="page-link">--%>
-            <%--                            <i class="previous"></i>--%>
-            <%--                        </a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item active">--%>
-            <%--                        <a href="#" class="page-link">1</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item">--%>
-            <%--                        <a href="#" class="page-link">2</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item">--%>
-            <%--                        <a href="#" class="page-link">3</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item">--%>
-            <%--                        <a href="#" class="page-link">4</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item">--%>
-            <%--                        <a href="#" class="page-link">5</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item">--%>
-            <%--                        <a href="#" class="page-link">6</a>--%>
-            <%--                    </li>--%>
-            <%--                    <li class="page-item next">--%>
-            <%--                        <a href="#" class="page-link">--%>
-            <%--                            <i class="next"></i>--%>
-            <%--                        </a>--%>
-            <%--                    </li>--%>
-            <%--                </ul>--%>
-            <%--                <!--end::Pages-->--%>
-            <%--            </div>--%>
-            <!--end::Pagination-->
+
         </div>
         <!--end::Container-->
     </div>

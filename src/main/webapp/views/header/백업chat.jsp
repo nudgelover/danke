@@ -49,9 +49,9 @@
                     if (msg.body) {
                         const promise = new Promise((resolve, reject) => {
                             const parseMsg = JSON.parse(msg.body);
-                            // console.log(parseMsg.sendid + ": sendid");
-                            // console.log(parseMsg.receiveid + ": receiveid");
-                            // console.log(parseMsg.content + ": content");
+                            console.log(parseMsg.sendid + ": sendid");
+                            console.log(parseMsg.receiveid + ": receiveid");
+                            console.log(parseMsg.content + ": content");
                             $.ajax({
                                 url    : '/getstdnimg',
                                 method : 'GET',
@@ -60,7 +60,7 @@
                                     const imgUrl = response.img; // 서버에서 조회한 stdn dto
                                     const stdnName = response.name;
                                     const messageHtml =
-                                        '<div class="d-flex justify-content-start mb-10"><div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1" onclick="updateReceiver(\''+JSON.parse(msg.body).sendid+'\')">' + stdnName + '<span style="font-weight: 200; font-size: small; color:gray"> @' + parseMsg.sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start">' + parseMsg.content + '</div></div></div>';
+                                        '<div class="d-flex justify-content-start mb-10"><div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + stdnName + '<span style="font-weight: 200; font-size: small; color:gray"> @' + parseMsg.sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start">' + parseMsg.content + '</div></div></div>';
 
                                     resolve(messageHtml);
                                 },
@@ -102,6 +102,7 @@
                     });
             },
             connect                :
+
                 function () {
                     var sid = this.id;
                     var socket = new SockJS('${serviceserver}/ws');
@@ -110,13 +111,13 @@
                     // Stomp는 웹소켓 프로토콜을 사용하는 메시징 서비스를 제공.(Simple Text Oriented Messaging Protocol)
 
                     this.stompClient.connect({
-                        // 'websocket-type': 'chat',
-                        // 'user-id'       : sid,
+                        'websocket-type': 'chat',
+                        'user-id'       : sid,
                     }, function (frame) {
                         //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
                         //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
                         onechat.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
-                        console.log('Connected: frame: ' + frame);
+                        console.log('Connected: ' + frame);
                         onechat.loadMessagesFromStorage();
 
                         this.subscribe('/send/to/' + sid, function (msg) {
@@ -131,9 +132,8 @@
                                     localStorage.setItem("messengerModalShown", "true");
                                     $('.badge-dot').show();
                                     $("#message").append(
-                                        '<div class="d-flex justify-content-start mb-10"><div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1" onclick="updateReceiver(\''+JSON.parse(msg.body).sendid+'\')">' + stdnName + '<span style="font-weight: 200; font-size: small; color:gray"> @' + JSON.parse(msg.body).sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start">' + JSON.parse(msg.body).content + '</div></div></div>'
-                                    )
-                                    ;
+                                        '<div class="d-flex justify-content-start mb-10"><div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/' + imgUrl + '"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + stdnName + '<span style="font-weight: 200; font-size: small; color:gray"> @' + JSON.parse(msg.body).sendid + '</span></a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start">' + JSON.parse(msg.body).content + '</div></div></div>'
+                                    );
                                     // 메시지 로컬 스토리지에 추가
                                     onechat.addMessageToStorage(msg);
                                     onechat.scrollToBottom();
@@ -145,56 +145,11 @@
                             });
                         });
 
-                        // group.jsp 관련 이미지 띄우기. 이 화면이 ws소켓을 자동 연결해논 jsp라 여기에서 작동시켜야 작동됨
-                        this.subscribe('/send/current/user', (msg) => {
-                            //두번째 매개변수 function(msg)는
-                            //메시지가 도착했을 때 호출할 콜백 함수입니다. 이 함수는 서버에서 보낸 메시지를 전달받습니다
-                            JSON.parse(msg.body).forEach(userId => {
-                                if (sid !== userId) {
-                                    // 이미지가 이미 생성되었는지 확인
-                                    if ($('#' + userId).length === 0) {
-                                        $.ajax({
-                                            url    : '/getstdnimg',
-                                            method : 'GET',
-                                            data   : {stdnId: userId}, // 이미지를 가져올 학생의 ID를 전달합니다.
-                                            success: function (response) {
-                                                const imgUrl = response.img; // 서버에서 조회한 stdn dto
-
-                                                // type이 groupChat일 경우에만 이미지 생성
-                                                // if (userSession[sessionId].type === 'groupChat') {
-                                                    // 상대방에게 내 사진이 뜨는 로직
-                                                    $("#participant").append('<div class="symbol symbol-35px symbol-circle">' +
-                                                        '<img id="' + userId + '" alt="Pic" src="/uimg/' + imgUrl + '"/>' +
-                                                        '</div>');
-                                                // }
-                                            },
-                                            error  : function (xhr, status, error) {
-                                                console.log('에러가 발생했습니다.');
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        });
-
-                        // member.jsp에서 접속한 사람 뱃찌 파란색으로 바꾸는 스크립트
-                        // this.subscribe('/send/current/student', (msg) => {
-                        //     var currentStdn = JSON.parse(msg.body);
-                        //
-                        //     currentStdn.forEach(function (userId) {
-                        //         var badge = $('#' + userId);
-                        //         if (badge.length > 0) {
-                        //             badge.removeClass('badge-secondary').addClass('badge-success');
-                        //         }
-                        //         var pagebadge = $('#page' + userId);
-                        //         if (pagebadge.length > 0) {
-                        //             pagebadge.removeClass('badge-secondary').addClass('badge-success');
-                        //         }
-                        //     });
-                        // })
                     });
                 }
+
             ,
+
             disconnect: function () {
                 if (this.stompClient !== null) {
                     this.stompClient.disconnect();
@@ -217,36 +172,28 @@
                     'receiveid': $('#receivetarget').val(),
                     'content'  : $('#sendtext').val()
                 });
-
                 this.stompClient.send('/receiveto', {}, msg);
+
+                this.stompClient.send("/receiveme", {}, msg);
 
                 $('#message').append(
                     '<div class="d-flex justify-content-end mb-10"><div class="d-flex flex-column align-items-end"> <div class="d-flex align-items-center mb-2"> <div class="me-3"> <a href="#"class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">나</a> </div> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/uimg/${loginStdn.img}"/> </div> </div> <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"data-kt-element="message-text">' + $('#sendtext').val() + '</div></div></div>'
                 );
-
                 $('#sendtext').val('');
                 //메세지를 로컬스토리지에 저장
-
-
-                // var badge = $('#' + this.id);
-                // badge.removeClass('badge-secondary').addClass('badge-success');
-                // var pagebadge = $('#page' + this.id);
-                // pagebadge.removeClass('badge-secondary').addClass('badge-success');
-                //
-                // onechat.addMessageToStorage(msg);
-                // onechat.scrollToBottom();
+                onechat.addMessageToStorage(msg);
+                onechat.scrollToBottom();
             }
+
         }
     ;
+
     $(function () {
         onechat.init();
-        onechat.connect();
+        setTimeout(function () {
+            onechat.connect();
+        }, 1000); // 1초 후에 connect 함수 호출, 되간하는데 종료하고 다시 키면 작동안함..
     })
-
-    function updateReceiver(sendid) {
-        $('#receivetarget').val(sendid); // receivetarget 입력란에 sendid 값을 할당
-    }
-
 
 </script>
 

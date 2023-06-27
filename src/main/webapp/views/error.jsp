@@ -19,7 +19,7 @@
         </div>
         <div class="px-10 px-md-20 py-10 py-md-0 d-flex flex-column justify-content-md-center align-items-start flex-root w-md-700px z-index-1">
             <p class="display-6 fw-bold text-gray-800 mb-8">죄송합니다. 페이지를 찾을 수 없습니다.</p>
-            <p class="fs-6 mb-8">죄송합니다. 오류가 발생하였습니다. 오류가 반복적으로 발생할 경우, 관리자에게 문의해주십시오. 다시 한번, 이용에 불편을 드려 죄송합니다. 전화번호: 02-1234-5678</p>
+            <p class="fs-6 mb-8">죄송합니다. 오류가 발생하였습니다. 오류가 반복적으로 발생할 경우, 관리자에게 문의해주십시오. 다시 한번 이용에 불편을 드려 죄송합니다. 전화번호: 02-1234-5678</p>
             <a href="/" class="btn btn-primary fs-6 fw-bold py-4 px-6 me-auto">메인으로 돌아가기</a>
         </div>
         <!--end::Content-->
