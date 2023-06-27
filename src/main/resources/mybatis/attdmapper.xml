@@ -31,6 +31,7 @@
         FROM attd
         WHERE stdn_id = #{stdnId}
           AND TO_CHAR(TO_DATE(rdate, 'yyyy.MM.dd'), 'yyyy.MM') = #{month}
+        ORDER BY rdate ASC
     </select>
 
     <select id="select" parameterType="Integer" resultType="Attd">

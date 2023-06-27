@@ -24,6 +24,7 @@
                m.facebook
         FROM stdn s
                  JOIN my_page m ON s.id = m.id
+        ORDER BY s.name ASC
     </select>
 
     <insert id="insert" parameterType="mypage">
@@ -56,5 +57,6 @@
         FROM stdn s
                  JOIN my_page m ON s.id = m.id
         WHERE m.digidate = #{digidate}
+        ORDER BY s.name ASC
     </select>
 </mapper>

@@ -113,10 +113,12 @@
                     <a href="/attd" class="btn btn-icon btn-sm btn-active-bg-accent ms-1 ms-lg-6">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                         <span class="svg-icon svg-icon-1 svg-icon-dark">
-										<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                             fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-  <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
+  <path d="M2 2h2v2H2V2Z"/>
+  <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
+  <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
+  <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
+  <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
 </svg>
 									</span>
                         <!--end::Svg Icon-->
@@ -211,21 +213,17 @@
                                     <!--end::Svg Icon-->
                                     <span class="fw-bold fs-6 d-block pt-3">프로필 변경</span>
                                 </a>
-                                <a href="/attd"
+                                <a href="/mypage/pwd?id=${loginStdn.id}"
                                    class="col text-center border-end py-10 btn btn-active-color-primary rounded-0">
                                     <!--begin::Svg Icon | path: icons/duotune/finance/fin009.svg-->
                                     <span class="svg-icon svg-icon-3x me-n1">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         fill="currentColor" class="bi bi-qr-code" viewBox="0 0 16 16">
-  <path d="M2 2h2v2H2V2Z"/>
-  <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z"/>
-  <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z"/>
-  <path d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z"/>
-  <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z"/>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+  <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+  <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
 </svg>
 												</span>
                                     <!--end::Svg Icon-->
-                                    <span class="fw-bold fs-6 d-block pt-3">출석체크</span>
+                                    <span class="fw-bold fs-6 d-block pt-3">비밀번호 변경</span>
                                 </a>
                                 <a href="#" id="logoutBtn"
                                    class="col text-center py-10 btn btn-active-color-primary rounded-0">
@@ -322,7 +320,8 @@
         event.preventDefault(); // 기본 이벤트 동작 방지
         // 로컬 스토리지 비우기
         localStorage.removeItem("messages");
-
+        localStorage.removeItem("blahalarms");
+        localStorage.removeItem("alarms");
         // 로그아웃 페이지로 이동
         // 로그아웃 페이지로 이동
         window.location.href = "/logout";//logout 페이지로 이동하는 로직

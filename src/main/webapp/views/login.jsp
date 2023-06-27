@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://keenthemes.com/products/start-html-pro"/>
     <meta property="og:site_name" content="Keenthemes | Start HTML Pro"/>
     <link rel="canonical" href="https://preview.keenthemes.com/start-html-pro"/>
-    <link rel="shortcut icon" href="/assets/media/logos/favicon.ico"/>
+    <link rel="shortcut icon" href="/img/logo.png"/>
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
     <!--end::Fonts-->
@@ -84,7 +84,7 @@
                     <br/>진심으로 환영합니다.</h3>
             </div>
             <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-x-center bgi-size-contain bgi-position-y-bottom min-h-100px min-h-lg-350px"
-                 style="background-image: url(/assets/media/illustrations/sigma-1/2.png"></div>
+                 style="background-image: url(/img/welcome.png)"></div>
         </div>
         <div class="login-content flex-lg-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden py-10 py-lg-20 px-10 p-lg-7 mx-auto mw-450px w-100">
             <div class="d-flex flex-column-fluid flex-center py-10">

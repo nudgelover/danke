@@ -3,6 +3,7 @@ package com.myservice.controller;
 
 import com.myservice.dto.*;
 import com.myservice.service.*;
+import com.myservice.utill.ChatBotUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -107,4 +108,16 @@ public class AjaxImplController {
         return ResponseEntity.ok(stdn);
     }
 
+
+    @RequestMapping("/chatbotSend")
+    public String chatbotSend(@RequestParam("txt") String txt) {
+        String msg = "";
+        try {
+            ChatBotUtil.chat(txt);
+            // 메서드 호출 이후 처리할 내용 추가
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return msg;
+    }
 }

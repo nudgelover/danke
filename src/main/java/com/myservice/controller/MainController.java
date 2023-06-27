@@ -254,5 +254,11 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/clova")
+    public String clova(Model model){
+
+        model.addAttribute("center", "clova");
+        return "index";
+    }
 
 }
