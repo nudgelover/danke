@@ -1,5 +1,6 @@
 package com.myservice.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.myservice.dto.Stdy;
 import com.myservice.dto.StdySearch;
@@ -51,6 +52,12 @@ public class StdyService implements KBService<Integer, Stdy> {
         return mapper.getfindpage(stdySearch);
     }
 
+    public List<Stdy> getMyPage(int pageNo, String writer ) throws Exception {
+        PageHelper.startPage(pageNo, 10);
+        return mapper.getmypage(writer);
+
+    }
+
     public List<Stdy> getRank3() throws Exception{
         return mapper.getRank3();
     }
@@ -82,4 +89,9 @@ public class StdyService implements KBService<Integer, Stdy> {
     public List<Stdy> getStudyByMonth(String writer, String month) throws Exception{
         return mapper.getStudyByMonth(writer,month);
     }
+
+    public Stdy myMonthlyResult(String writer) throws Exception{
+        return mapper.myMonthlyResult(writer);
+    }
+
 }

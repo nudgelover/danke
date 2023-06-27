@@ -29,6 +29,10 @@ public class AttdService implements KBService<Integer, Attd> {
         mapper.update(attd);
     }
 
+    public void late(Integer id) throws Exception{
+        mapper.late(id);
+    }
+
     @Override
     public Attd get(Integer k) throws Exception {
         return mapper.select(k);

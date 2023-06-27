@@ -151,17 +151,17 @@ public class RestController {
     @RequestMapping("/currisettingsimpl")
     public Object currisettingsimpl(String stdnId, Integer curriId, Integer checked) throws Exception {
         int result = 0;
-        log.info("여기 checked"+ checked);
+        log.info("여기 checked" + checked);
         Curri curri = curriService.getMyCurri(curriId);
         log.info("여기" + curri.toString());
         if (checked == 1) {
             curri.setIsOpen("1");
             curriService.modify(curri);
-            log.info("여기 바꾼 이즈 오픈 1나와라"+curri.getIsOpen());
+            log.info("여기 바꾼 이즈 오픈 1나와라" + curri.getIsOpen());
         } else {
             curri.setIsOpen("0");
             curriService.modify(curri);
-            log.info("여기 바꾼 이즈 오픈 0나와라"+curri.getIsOpen());
+            log.info("여기 바꾼 이즈 오픈 0나와라" + curri.getIsOpen());
         }
         return result;
     }
@@ -295,7 +295,7 @@ public class RestController {
 
 
     @RequestMapping("/send-mms")
-    public Object mms(String stdnId, String qr_name) throws Exception{
+    public Object mms(String stdnId, String qr_name) throws Exception {
         Integer result = 0;
         Stdn stdn = stdnService.get(stdnId);
         String contact = stdn.getContact();
@@ -304,7 +304,7 @@ public class RestController {
             SendSMSUtil sendSMSUtil = new SendSMSUtil(messageService);
             sendSMSUtil.sendQr(contact, name, qr_name);
             result = 1;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception();
         }
@@ -315,9 +315,11 @@ public class RestController {
     @RequestMapping("/attdimpl")
     public Object attdimpl(String stdnId, String code_value, Integer on_off) throws Exception {
         String result = "";
+        //코드벨류는 큐알 인식 값
         log.info("여기" + code_value);
         log.info("여기" + on_off);
 
+        //오전 9시랑 비교한다
         Timestamp current = new Timestamp(System.currentTimeMillis());
         String now = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(current);
         String compare = new SimpleDateFormat("yyyy.MM.dd").format(current).concat(" 09:00:00");
@@ -326,40 +328,65 @@ public class RestController {
         LocalDateTime now_str = LocalDateTime.parse(now, formatter);
         LocalDateTime compare_str = LocalDateTime.parse(compare, formatter);
 
+        //출근일 때
         if (on_off == 1) {
-            if (attdService.attdOrNot(stdnId) == null) {
-                if (encoder.matches(stdnId, code_value)) {
-                    if (now_str.isBefore(compare_str)) {
-                        Attd attd = new Attd(stdnId, "1");
-                        attdService.register(attd);
-                        log.info("여기" + attd.toString());
-                        result = stdnId + "님! " + now + " 출석 완료";
+            //큐알값이 일치할 때
+            if (encoder.matches(stdnId, code_value)) {
+                //하 노몰이프,,,
+                //stdnId로 오늘자 row가 없고, 9시 전일 때
+                if (attdService.attdOrNot(stdnId) == null && now_str.isBefore(compare_str)) {
+                    //정상적으로 row insert
+                    Attd attd = new Attd(stdnId, "1");
+                    attdService.register(attd);
+                    log.info("여기" + attd.toString());
+                    result = stdnId + "님! " + now + " 출석 완료";
+                    log.info("여기" + result);
+
+                //9시 전인데 , stdnId로 오늘자 row가 있어! 즉, 제시간에 와서 출석도 이미 찍은 애가 또 찍어
+                } else if (now_str.isBefore(compare_str) && attdService.attdOrNot(stdnId) != null) {
+                    result = "금일 이미 출석 처리되었습니다.";
+                    log.info("여기" + result);
+
+                //9시 지낫고, 일단 지나면 스케줄링이든, 지가 찍든 stdnId로 오늘자 row가 있어
+                } else if (attdService.attdOrNot(stdnId) != null && !(now_str.isBefore(compare_str))) {
+                    Attd late = (Attd) attdService.attdOrNot(stdnId);
+                    log.info("여기 late" + late.toString());
+
+                    //이때 startTime이 있냐 없냐로 갈라서 있으면
+                    if (late.getStartTime() != null) {
+                        result = "금일 이미 출석 처리되었습니다.";
                         log.info("여기" + result);
+
+                    //없으면 지각한 거지 뭐 insert
                     } else {
-                        Attd attd = new Attd(stdnId, "2");
-                        attdService.register(attd);
-                        log.info("여기" + attd.toString());
+                        Integer lateId = late.getId();
+                        log.info("여기 lateId" + lateId);
+                        attdService.late(lateId);
                         Duration term = Duration.between(compare_str, now_str);
                         long minutes = term.toMinutes();
-                        String late = Long.toString(minutes);
-                        result = stdnId + "님! " + now + " 출석(" + late + "분 지각)";
-                    }
-                } else {
-                    result = "수강생 정보와 일치하지 않는 QR입니다";
-                    log.info("여기" + result);
-                }
+                        String lateterm = Long.toString(minutes);
+                        result = stdnId + "님! " + now + " 출석(" + lateterm + "분 지각)";
+                    } //아홉시 지난 데서 열린 이프 닫고
+                }// 시간으로 가른 이프 닫고
+
+            //큐알값이 불일치할 때
             } else {
-                result = "금일 이미 출석 처리되었습니다.";
+                result = "수강생 정보와 일치하지 않는 QR입니다";
                 log.info("여기" + result);
             }
+
+        //on_off가 2일 때, 즉, 퇴근
         } else {
-            if (attdService.attdOrNot(stdnId) == null) {
-                result = "오늘의 출석이력이 존재하지 않습니다.";
-                log.info("여기" + result);
-            } else {
+            //퇴근 누르고 찍었는데 시작 값이 있어 그럼 퇴근 진행시켜
+            if (attdService.attdOrNot(stdnId) != null && attdService.attdOrNot(stdnId).getStartTime()!=null) {
                 Attd attdOrNot = (Attd) attdService.attdOrNot(stdnId);
                 attdService.modify(attdOrNot);
                 result = stdnId + "님! " + now + " 퇴근 완료";
+                log.info("여기" + result);
+
+            //출근도 안 한 놈이 퇴근을 할 순 없어...
+            } else {
+                result = "오늘의 출석이력이 존재하지 않습니다.";
                 log.info("여기" + result);
             }
         }
@@ -416,25 +443,25 @@ public class RestController {
         log.info("여기" + stdnId);
         if (stdyService.stdyStartOrNot(stdnId) == null) {
             result = 1;
-            log.info("오늘날짜로 시작한 적도 없는 애들은 스터디 시작창 "+result);
+            log.info("오늘날짜로 시작한 적도 없는 애들은 스터디 시작창 " + result);
             //오늘날짜로 시작한 적도 없는 애들은 스터디 시작창
         } else if (stdyService.stdyEndOrNot(stdnId) == null) {
             //종료시간이 없는 애들이 없다 => 종료 햇어 컨텐츠잇는지물어
             if (stdyService.stdyContentsUpdate(stdnId) == null) {
                 //컨텐츠가 없는 애들이 없다 => 컨텐츠 썼어 내일하도록
                 result = 2;
-                log.info("컨텐츠가 없는 애들이 없다 => 컨텐츠 썼어 내일하도록 "+result);
+                log.info("컨텐츠가 없는 애들이 없다 => 컨텐츠 썼어 내일하도록 " + result);
                 //내일하도록
             } else {
                 //컨텐츠가 없는애들
                 result = 3;
-                log.info("컨텐츠가 없는애들 카메라띠우지말고 에디터에 컨텐츠 쓰라해 "+result);
+                log.info("컨텐츠가 없는애들 카메라띠우지말고 에디터에 컨텐츠 쓰라해 " + result);
                 //카메라띠우지말고 에디터에 컨텐츠 쓰라해
             }
         } else {
             //이게 맞나 모르겟는데 얘네는 스터디를 종료한 적이 없어
             result = 4;
-            log.info("이게 맞나 모르겟는데 얘네는 스터디를 종료한 적이 없어 "+result);
+            log.info("이게 맞나 모르겟는데 얘네는 스터디를 종료한 적이 없어 " + result);
         }
 
         return result;
@@ -443,16 +470,16 @@ public class RestController {
 
     @RequestMapping("/study/addimpl")
     public String studyaddimpl(Stdy stdy, HttpSession session) throws Exception {
-        log.info("여기"+stdy.toString());
+        log.info("여기" + stdy.toString());
         String contents = stdy.getContents();
         Stdn stdn = (Stdn) session.getAttribute("loginStdn");
         String stdnId = stdn.getId();
-        log.info("여기 stdnId "+stdnId);
+        log.info("여기 stdnId " + stdnId);
         MultipartFile filenameFile = stdy.getFilenameFile();
         String filenameOrg = filenameFile.getOriginalFilename();
-        log.info("여기 오리지날 네임 "+filenameOrg);
+        log.info("여기 오리지날 네임 " + filenameOrg);
         Stdy noContents = stdyService.stdyContentsUpdate(stdnId);
-        log.info("여기 내용없는 애 "+noContents.toString());
+        log.info("여기 내용없는 애 " + noContents.toString());
 
         String filename = FileUploadUtil.uploadFile(filenameFile, uploadPath);
         noContents.setFilename(filename);
@@ -471,16 +498,16 @@ public class RestController {
         String filenameOrg = "";
         if (filenameFile != null) {
             filenameOrg = filenameFile.getOriginalFilename();
-            log.info("여기파일네임오리진추출"+filenameOrg);
+            log.info("여기파일네임오리진추출" + filenameOrg);
         }
         Integer id = stdy.getId();
-        log.info("여기아아디추출"+id);
+        log.info("여기아아디추출" + id);
         Stdy Org = stdyService.get(id);
-        log.info("여기원래스터디추출"+Org.toString());
+        log.info("여기원래스터디추출" + Org.toString());
         String prefilename = Org.getFilename();
-        log.info("여기이전네임추출"+prefilename);
+        log.info("여기이전네임추출" + prefilename);
         String preFilenameOrg = Org.getFilenameOrg();
-        log.info("여기이전오리진추출"+preFilenameOrg);
+        log.info("여기이전오리진추출" + preFilenameOrg);
 
         if (filenameOrg == "" || filenameOrg == null) {
             stdy.setFilename(prefilename);
@@ -495,13 +522,13 @@ public class RestController {
             log.info("여기잇을때수정완");
 
         }
-        return "/study/detail?id="+id+"&&stdnId="+stdnId;
+        return "/study/detail?id=" + id + "&&stdnId=" + stdnId;
     }
 
     @RequestMapping("/registerimpl2")
     public Object registerimpl2(MyPage myPage) throws Exception {
         Integer result = 0;
-        log.info("여기 마이페이지다"+ myPage);
+        log.info("여기 마이페이지다" + myPage);
 
         try {
             myPageService.register(myPage);
@@ -510,19 +537,19 @@ public class RestController {
         } catch (Exception e) {
             throw new Exception("시스템 장애: ER0006");
         }
-        return  result;
+        return result;
     }
 
 
     @RequestMapping("/boughtornot")
     public Object boughtornot(String stdnId, Integer lecId) throws Exception {
         Integer result = 0;
-        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId,stdnId);
-        if(ordDetail==null){
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId, stdnId);
+        if (ordDetail == null) {
             result = 1;
-            log.info("여기 산 적없다 result: "+result);
+            log.info("여기 산 적없다 result: " + result);
         }
-        return  result;
+        return result;
     }
 
     @RequestMapping("/lecture/reviewaddimpl")
@@ -538,7 +565,7 @@ public class RestController {
         log.info("여기" + img);
         lecReview.setImg(img);
         lecReview.setImgOrg(imgOrg);
-        try{
+        try {
             lecReviewService.register(lecReview);
             result = 1;
         } catch (Exception e) {
@@ -552,30 +579,30 @@ public class RestController {
     @RequestMapping("/coldcall")
     public Object coldcall(Integer lecId, String stdnId) throws Exception {
         Integer result = 0;
-        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId,stdnId);
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId, stdnId);
         try {
             ordDetail.setStdyHour("100");
             ordDetailService.modify(ordDetail);
             Cpn cpn = new Cpn(1020, stdnId, "2023.12.31");
             cpnService.register(cpn);
             result = 1;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception();
         }
-        return  result;
+        return result;
     }
 
     @RequestMapping("/coldcallfail")
     public Object coldcallfail(Integer lecId, String stdnId) throws Exception {
-        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId,stdnId);
+        OrdDetail ordDetail = ordDetailService.boughtOrNot(lecId, stdnId);
         Random r = new Random();
-        Integer stdyPercent = r.nextInt(98)+1;
-        String stdyHour = stdyPercent+"";
-        log.info("여기"+stdyHour);
+        Integer stdyPercent = r.nextInt(98) + 1;
+        String stdyHour = stdyPercent + "";
+        log.info("여기" + stdyHour);
         ordDetail.setStdyHour(stdyHour);
         ordDetailService.modify(ordDetail);
-        return  null;
+        return null;
     }
 }
 

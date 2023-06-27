@@ -61,6 +61,12 @@
         WHERE id=#{id}
         </update>
 
+    <update id="late" parameterType="Integer">
+        UPDATE attd
+        SET start_time=TO_CHAR(SYSDATE,'yyyy.MM.dd hh24:mi:ss')
+        WHERE id=#{id}
+    </update>
+
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM attd

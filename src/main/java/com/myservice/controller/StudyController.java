@@ -143,7 +143,7 @@ public class StudyController {
     }
 
     @RequestMapping("/mine")
-    public String mine(Model model, String writer) throws Exception {
+    public String mine(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String writer) throws Exception {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String thisMonth = now.format(DateTimeFormatter.ofPattern("yyyy.MM"));
@@ -154,23 +154,20 @@ public class StudyController {
             did=1;
         }
 
-        List<Stdy> stdy= stdyService.getMyStdy(writer);
-        Integer cnt = 0;
-        Integer length = 0;
-        Integer cntLikes = 0;
+        Stdy myResult = (Stdy) stdyService.myMonthlyResult(writer);
+
+        PageInfo<Stdy> p;
+        p = new PageInfo<>(stdyService.getMyPage(pageNo, writer), 5);
+        List<Stdy> stdy = p.getList();
+
         for (Stdy one : stdy) {
             String start = one.getStartTime();
             String end = one.getEndTime();
+
             one.setStartTime(start.substring(11));
             one.setEndTime(end.substring(11));
 
             one.setDuration(GetTimeUtil.getTime(start, end));
-            String duration = GetTimeUtil.getTime(start, end).replaceAll("[^0-9]", "");
-            length+= Integer.parseInt(duration);
-
-            LocalDate rdate = LocalDate.parse(one.getRdate(), formatter);
-            Integer newly = (ChronoUnit.DAYS.between(rdate, now) <= 3) ? 1:0;
-            one.setNewly(newly);
 
             String shortVer = "";
             int firstIndex = one.getContents().indexOf(">");
@@ -186,19 +183,14 @@ public class StudyController {
             log.info("여기 shorVer"+shortVer);
             one.setShortVer(shortVer);
 
-            String month = one.getRdate();
-            month = month.substring(0,7);
-            log.info("여기month"+month);
-            if(month.equals(thisMonth)){
-                cnt+=1;
-            }
-            cntLikes += one.getLikes();
-        };
-        log.info("여기 cnt"+cnt);
-        model.addAttribute("cnt",cnt);
-        model.addAttribute("length",length);
-        model.addAttribute("cntLikes", cntLikes);
-        model.addAttribute("stdy",stdy);
+            LocalDate rdate = LocalDate.parse(one.getRdate(), formatter);
+            Integer newly = (ChronoUnit.DAYS.between(rdate, now) <= 3) ? 1:0;
+            one.setNewly(newly);
+        }
+
+        model.addAttribute("myResult", myResult);
+        model.addAttribute("target","study");
+        model.addAttribute("cpage",p);
         model.addAttribute("did",did);
         model.addAttribute("center", dir + "mine");
         return "index";

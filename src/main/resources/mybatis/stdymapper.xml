@@ -113,6 +113,24 @@
         WHERE id=#{id}
     </delete>
 
+
+    <select id="myMonthlyResult" parameterType="String" resultType="stdy">
+        SELECT y.writer, n.img AS stdnImg, n.name AS stdnName, n.sbj1, n.sbj2, n.sbj3,
+               SUM((SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S')) AS monthlyLikes,
+               SUM(
+                               EXTRACT(DAY FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS'))) * 24 * 60
+                           + EXTRACT(HOUR FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS'))) * 60
+                           + EXTRACT(MINUTE FROM (TO_TIMESTAMP(y.end_time, 'YYYY.MM.DD HH24:MI:SS') - TO_TIMESTAMP(y.start_time, 'YYYY.MM.DD HH24:MI:SS')))
+                   ) AS monthlyDuration,
+               COUNT(*) AS monthlyCnt
+        FROM stdy y
+                 INNER JOIN stdn n ON y.writer = n.id
+            AND y.writer=#{writer}
+        WHERE TO_CHAR(TO_DATE(y.rdate, 'YYYY.MM.DD'), 'YYYY.MM') = TO_CHAR(SYSDATE, 'YYYY.MM')
+        GROUP BY y.writer, n.img, n.name, n.sbj1, n.sbj2, n.sbj3
+        ORDER BY monthlyDuration DESC
+    </select>
+
     <select id="getRank3" resultType="stdy">
         SELECT y.writer, n.img AS stdnImg, n.name AS stdnName, n.sbj1, n.sbj2, n.sbj3, monthlyDuration, monthlyCnt, monthlyLikes
         FROM (
@@ -148,6 +166,19 @@
           AND y.contents IS NOT NULL
         GROUP BY y.id, y.writer, y.start_time, y.end_time, y.contents
                , y.rdate, y.filename, y.filename_org, n.name, n.img
+        ORDER BY y.id DESC
+    </select>
+
+    <select id="getmypage" parameterType="String" resultType="Stdy">
+        SELECT y.id, y.writer, y.start_time AS startTime, y.end_time AS endTime
+             , y.contents, y.rdate, y.filename, y.filename_org AS filenameOrg
+             , n.name AS stdnName, n.img AS stdnImg
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S'
+                                                AND lk.stdn_id = #{writer}) AS isLiked
+             , (SELECT COUNT(*) FROM likes lk WHERE lk.post_id = y.id AND lk.board = 'S') AS likes
+        FROM stdy y
+                 JOIN stdn n ON y.writer = n.id AND y.writer=#{writer}
+        WHERE y.contents IS NOT NULL
         ORDER BY y.id DESC
     </select>
 

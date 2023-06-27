@@ -57,23 +57,23 @@
 // Data
         var data = [{
             category: "금일스터디",
-            value   : ${didStdy && !endedStudy ? 100 : 0},
+            value   : ${did==1 ? 100 : 0},
             //스터디 완료가 됬으면 100
             full          : 100,
             columnSettings: {
                 fill: chart.get("colors").getIndex(0)
             }
         }, {
-            category      : "이번달스터디(20회)",
-            value         : ${monthStudy*5},
+            category      : "이번달스터디(10회)",
+            value         : ${monthStudy.monthlyCnt * 10},
             full          : 100,
             columnSettings: {
                 fill: chart.get("colors").getIndex(1)
             }
         }, {
-            category      : "이번달스터디(40h)",
-            value         : ${monthStudy*5},
-            full          : 100,
+            category      : "이번달스터디(20H)",
+            value         : ${monthStudy.monthlyDuration / 10},
+            full          : 120,
             columnSettings: {
                 fill: chart.get("colors").getIndex(2)
             }

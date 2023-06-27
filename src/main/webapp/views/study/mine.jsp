@@ -136,7 +136,7 @@
                                             <div class="fw-semibold fs-6 text-gray-800">이번달 스터디 횟수</div>
                                             <div class="d-flex align-items-center">
                                                 <div class="fs-2 fw-bold text-center" data-kt-countup="true"
-                                                     data-kt-countup-value="${cnt}"
+                                                     data-kt-countup-value="${myResult.monthlyCnt }"
                                                      data-kt-countup-suffix="회" data-kt-countup-prefix="총 ">0
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@
                                             <div class="fw-semibold fs-6 text-gray-800">이번달 스터디 시간</div>
                                             <div class="d-flex align-items-center">
                                                 <div class="fs-2 fw-bold" data-kt-countup="true"
-                                                     data-kt-countup-value="${length}"
+                                                     data-kt-countup-value="${myResult.monthlyDuration}"
                                                      data-kt-countup-suffix="분" data-kt-countup-prefix="총 ">0
                                                 </div>
                                             </div>
@@ -166,10 +166,10 @@
                                             </div>
                                         </div>
                                         <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3 bg-light-success">
-                                            <div class="fw-semibold fs-6 text-gray-800">좋아요 수</div>
+                                            <div class="fw-semibold fs-6 text-gray-800">이번달 좋아요 수</div>
                                             <div class="d-flex align-items-center">
                                                 <div id="cntLikes" class="fs-2 fw-bold text-center" data-kt-countup="true"
-                                                     data-kt-countup-value="${cntLikes}"
+                                                     data-kt-countup-value="${monthlyLikes}"
                                                      data-kt-countup-suffix="개" data-kt-countup-prefix="총 ">0
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card mb-5">
                 <div class="card-header card-header-stretch">
                     <div class="card-title">
                         <h3 class="m-0 text-gray-800">나의 스터디 일지</h3>
@@ -203,7 +203,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="fs-6 fw-semibold text-gray-600">
-                                <c:forEach var="stdy" items="${stdy}">
+                                <c:forEach var="stdy" items="${cpage.getList()}">
                                     <tr>
                                         <td class="ps-9 text-center">${stdy.rdate}</td>
                                         <td class="text-center">${stdy.startTime}</td>
@@ -262,6 +262,7 @@
                     </div>
                 </div>
             </div>
+            <jsp:include page="../findpage.jsp"/>
         </div>
     </div>
 </div>

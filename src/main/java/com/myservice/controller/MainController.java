@@ -75,20 +75,25 @@ public class MainController {
 
             if (session != null && session.getAttribute("loginStdn") != null) {
                 Stdn stdn = (Stdn) session.getAttribute("loginStdn");
-                Stdy startStudy = stdyService.stdyStartOrNot(stdn.getId());
-                Stdy endStudy = stdyService.stdyEndOrNot(stdn.getId());
-                int monthStudy = stdyService.getStudyCountByMonth(stdn.getId(), monthFormattedDate);
-                //monthStudy 데이터가 없으면 '0'
+                String writer = stdn.getId();
 
-                boolean didStdy = (startStudy != null); // 스터디 시작한 데이터가 있으면 true, 없으면 false
-                boolean endedStudy = (endStudy != null); // 스터디 종료 데이터가 있으면 false, 없으면 true!
-                model.addAttribute("endedStudy", endedStudy);
-                model.addAttribute("didStdy", didStdy);
-                model.addAttribute("monthStudy", monthStudy);
+                Integer did = 0;
+                Stdy today = stdyService.stdyStartOrNot(writer);
+                if(today!=null&& today.getContents()!=null){
+                    did=1;
+                }
+
+                Stdy stdy = (Stdy) stdyService.myMonthlyResult(writer);
+
+                model.addAttribute("did", did);
+
+                model.addAttribute("monthStudy", stdy);
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw new Exception("시스템 장애: ER0001");
+
         }
 
         model.addAttribute("recent", list);

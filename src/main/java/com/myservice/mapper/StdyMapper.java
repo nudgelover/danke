@@ -15,6 +15,8 @@ import java.util.List;
 public interface StdyMapper extends KBMapper<Integer, Stdy> {
     Page<Stdy> getpage() throws Exception;
 
+    Page<Stdy> getmypage(String writer) throws Exception;
+
     Page<Stdy> getfindpage(StdySearch stdySearch) throws Exception;
 
     public List<Stdy> getRank3() throws Exception;
@@ -32,4 +34,6 @@ public interface StdyMapper extends KBMapper<Integer, Stdy> {
     public Integer getStudyCountByMonth(String writer, String month) throws Exception;
 
     public List<Stdy> getStudyByMonth(String writer, String month) throws Exception;
+
+    public Stdy myMonthlyResult(String writer) throws Exception;
 }
