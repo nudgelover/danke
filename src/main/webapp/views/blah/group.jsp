@@ -97,11 +97,15 @@
                     var message = JSON.parse(msg.body);
 
                     if (message.content.includes('퇴장')) {
-                        $("#" + message.sendid).css("display", "none");
+
+                            $("#" + message.sendid).css("display", "none");
+
                     }
 
                     if (message.content.includes('참여')) {
-                        $("#" + message.sendid).css("display", "inherit");
+                        if ($('#' + message.sendid).length === 0) {
+                            $("#" + message.sendid).css("display", "inherit");
+                        }
                     }
                 });
 

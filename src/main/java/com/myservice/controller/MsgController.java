@@ -25,14 +25,14 @@ public class MsgController {
 
     @MessageMapping("/alarmto") // 특정 Id에게 전송
     public void alarmto(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
-        log.info(msg.toString() + "---------------여기");
+        log.info(msg.toString() + "---------------마커여기");
         String target = msg.getReceiveid();
         template.convertAndSend("/alarm/to/" + target, msg);
     }
 
     @MessageMapping("/blahalarmto") // 특정 Id에게 전송
     public void blahalarmto(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
-        log.info(msg.toString() + "---------------여기");
+        log.info(msg.toString() + "---------------블라알람여기");
         String target = msg.getReceiveid();
         template.convertAndSend("/blahalarm/to/" + target, msg);
     }

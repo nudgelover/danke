@@ -1,24 +1,137 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>chatbotForm</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
+    <script src="/app.js" charset="UTF-8"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        #main-content {
+            max-width: 940px;
+            padding: 2em 3em;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-<!--  채팅 -->
-<h3>채팅 입력</h3>
-<form id="chatForm" enctype="multipart/form-data">
-  내용 : <input type="text" id="txt" name="txt">
-  <input type="submit" value="결과 확인">
-</form>
-<br><br>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">웹소켓 연결:</label>
+                    <button id="connect" class="btn btn-default" type="submit">연결</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">해제
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="msg">문의사항</label>
+                    <input type="text" id="msg" class="form-control" placeholder="내용을 입력하세요....">
+                </div>
+                <button id="send" class="btn btn-default" disabled type="submit">보내기</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>메세지</th>
+                </tr>
+                </thead>
+                <tbody id="communicate">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    var stompClient = null;
 
-<!-- 결과 출력 (텍스트) -->
-<h3>응답 결과</h3>
-<div id="resultDiv"></div>
-<br><br>
+    function setConnected(connected) {
+        $("#connect").prop("disabled", connected);
+        $("#disconnect").prop("disabled", !connected);
+        $("#send").prop("disabled", !connected);
+        if (connected) {
+            $("#conversation").show();
+        } else {
+            $("#conversation").hide();
+        }
+        $("#msg").html("");
+    }
+
+    function connect() {
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            setConnected(true);
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/public', function (message) {
+                showMessage("받은 메시지: " + message.body); //서버에 메시지 전달 후 리턴받는 메시지
+            });
+        });
+    }
+
+    function disconnect() {
+        if (stompClient !== null) {
+            stompClient.disconnect();
+        }
+        setConnected(false);
+        console.log("Disconnected");
+    }
+
+    function sendMessage() {
+        let message = $("#msg").val()
+        showMessage("보낸 메시지: " + message);
+
+        stompClient.send("/sendMessage", {}, JSON.stringify(message)); //서버에 보낼 메시지
+    }
+
+    function showMessage(message) {
+        $("#communicate").append("<tr><td>" + message + "</td></tr>");
+    }
+
+    $(function () {
+        $("form").on('submit', function (e) {
+            e.preventDefault();
+        });
+        $("#connect").click(function () {
+            connect();
+        });
+        $("#disconnect").click(function () {
+            disconnect();
+        });
+        $("#send").click(function () {
+            sendMessage();
+        });
+
+        connect(); // 페이지가 열리면 자동으로 connect() 함수를 호출합니다.
+    });
+
+</script>
 
 </body>
 </html>
-

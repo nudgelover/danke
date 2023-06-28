@@ -1,5 +1,6 @@
 package com.myservice.ncp;
 
+import com.myservice.controller.ChatController;
 import com.myservice.utill.ChatBotUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -12,8 +13,10 @@ import java.io.IOException;
 class ChatBotTest {
 	@Test
 	void contextLoads() throws IOException {
-		String txt = "안녕하세요";
-		String result = ChatBotUtil.chat(txt);
+		String txt = "문의";
+		 String secretKey = "RE1xbWNibVRVQWRoS0xTd1lacG5JSU5NQXJJRXNLc2M=";
+//		String result = ChatBotUtil.chat(txt);
+		String result = ChatController.sendMessage(txt);
 		log.info(result+"------------------------------------test");
 
 	}

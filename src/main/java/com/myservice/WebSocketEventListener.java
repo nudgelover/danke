@@ -42,22 +42,22 @@ public class WebSocketEventListener {
         if (userSession.get(sessionId).get("type").equals("groupChat")) {
             List<String> currentUesrList = new ArrayList<>();
             for (String key : userSession.keySet()) {
-                if (!sessionId.equals(key)) {
+                if (!sessionId.equals(key) && userSession.get(key).get("type").equals("groupChat")) {
                     currentUesrList.add(userSession.get(key).get("userId"));
                 }
             }
             template.convertAndSend("/send/current/user", currentUesrList);
         }
 ////1:1 채팅 가능한 사람
-//        if (userSession.get(sessionId).get("type").equals("chat")) {
-//            List<String> currentStudentList = new ArrayList<>();
-//            for (String key : userSession.keySet()) {
-//                if (!sessionId.equals(key)) {
-//                    currentStudentList.add(userSession.get(key).get("userId"));
-//                }
-//            }
-//            template.convertAndSend("/send/current/student", currentStudentList);
-//        }
+        if (userSession.get(sessionId).get("type").equals("chat")) {
+            List<String> currentStudentList = new ArrayList<>();
+            for (String key : userSession.keySet()) {
+                if (!sessionId.equals(key) && userSession.get(key).get("type").equals("chat")) {
+                    currentStudentList.add(userSession.get(key).get("userId"));
+                }
+            }
+            template.convertAndSend("/send/current/student", currentStudentList);
+        }
 
 
         log.info("Session Count: " + sessionCount);

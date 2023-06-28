@@ -110,8 +110,8 @@
                     // Stomp는 웹소켓 프로토콜을 사용하는 메시징 서비스를 제공.(Simple Text Oriented Messaging Protocol)
 
                     this.stompClient.connect({
-                        // 'websocket-type': 'chat',
-                        // 'user-id'       : sid,
+                        'websocket-type': 'chat',
+                        'user-id'       : sid,
                     }, function (frame) {
                         //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
                         //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
@@ -178,20 +178,20 @@
                         });
 
                         // member.jsp에서 접속한 사람 뱃찌 파란색으로 바꾸는 스크립트
-                        // this.subscribe('/send/current/student', (msg) => {
-                        //     var currentStdn = JSON.parse(msg.body);
-                        //
-                        //     currentStdn.forEach(function (userId) {
-                        //         var badge = $('#' + userId);
-                        //         if (badge.length > 0) {
-                        //             badge.removeClass('badge-secondary').addClass('badge-success');
-                        //         }
-                        //         var pagebadge = $('#page' + userId);
-                        //         if (pagebadge.length > 0) {
-                        //             pagebadge.removeClass('badge-secondary').addClass('badge-success');
-                        //         }
-                        //     });
-                        // })
+                        this.subscribe('/send/current/student', (msg) => {
+                            var currentStdn = JSON.parse(msg.body);
+
+                            currentStdn.forEach(function (userId) {
+                                var badge = $('#' + userId);
+                                if (badge.length > 0) {
+                                    badge.removeClass('badge-secondary').addClass('badge-success');
+                                }
+                                var pagebadge = $('#page' + userId);
+                                if (pagebadge.length > 0) {
+                                    pagebadge.removeClass('badge-secondary').addClass('badge-success');
+                                }
+                            });
+                        })
                     });
                 }
             ,
