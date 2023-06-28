@@ -99,7 +99,7 @@
                                     <div class="card-header align-items-center border-0 mt-5">
                                         <h3 class="card-title align-items-start flex-column">
                                             <span class="fw-bold text-dark fs-3">${loginStdn.name}님의 커리큘럼</span>
-                                            <span class="text-muted mt-2 fw-semibold fs-6">코딩으로 탈큽하는 그날까지 학습 발자취를 남겨주세요</span>
+                                            <span class="text-muted mt-2 fw-semibold fs-6">DIGICampus는 여러분의 도약을 응원하고 있어요</span>
                                         </h3>
                                     </div>
                                     <div class="card-body pt-3">

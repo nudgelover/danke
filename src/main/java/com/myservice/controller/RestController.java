@@ -242,9 +242,9 @@ public class RestController {
         try {
             String result = "";
 
-            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "C:/project/uimg/logo3.png", 150, 35);
+            BufferedImage qrCodeImage = MakeQrUtil.generateQrCodeWithImage(encoder.encode(stdnId), "/root/uimg/logo3.png", 150, 35);
 
-            String imageDir = "C:/project/uimg/";
+            String imageDir = "/root/uimg/";
             String imageName = "qr_" + stdnId + ".jpg";
             String imagePath = imageDir + imageName;
             File qrCodeFile = new File(imagePath);
