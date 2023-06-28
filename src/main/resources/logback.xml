@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOGS_DIR" value="c://project/logs" />
+    <property name="LOGS_DIR" value="/root/logs" />
 <!--    <property name="LOGS_CUSTINFO" value="c://logs" />-->
     <!-- log 폴더가 생성되어 있음을 확인 할수 있음-->
 

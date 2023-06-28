@@ -11,6 +11,7 @@
     let onechat = {
             id            : null,
             stompClient   : null,
+
             init          : function () {
                 this.id = $('#stdn_id').val();
                 $("#connect_onechat").click(function () {
