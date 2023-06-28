@@ -46,7 +46,7 @@ public class SendSMSUtil {
 
     public void sendQr(String contact, String name, String qr_name) throws Exception {
         String from = "01079177197";
-        File qrFile = ResourceUtils.getFile("/root/uimg/" + qr_name);
+        File qrFile = ResourceUtils.getFile("file:/root/uimg/" + qr_name);
         String imageId = messageService.uploadFile(qrFile, StorageType.MMS, null);
 
         Message message = new Message();
