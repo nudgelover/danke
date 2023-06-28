@@ -79,7 +79,7 @@ public class ChatBotUtil {
 			long timestamp = new Date().getTime();
 			System.out.println("##" + timestamp);
 			obj.put("version", "v2");
-			obj.put("userId", "xxxx");
+			obj.put("userId", "xxxxxxx");
 			obj.put("timestamp", timestamp);
 			JSONObject bubbles_obj = new JSONObject();
 			bubbles_obj.put("type", "text");
