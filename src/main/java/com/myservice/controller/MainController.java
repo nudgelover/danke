@@ -61,6 +61,7 @@ public class MainController {
         //댓글순 맛집리스트
         List<Mrk> clist;
         List<Lec> leclist;
+        Integer did = 0;
 
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM");
@@ -77,10 +78,10 @@ public class MainController {
                 Stdn stdn = (Stdn) session.getAttribute("loginStdn");
                 String writer = stdn.getId();
 
-                Integer did = 0;
                 Stdy today = stdyService.stdyStartOrNot(writer);
                 if(today!=null&& today.getContents()!=null){
                     did=1;
+                    log.info("디드값"+did);
                 }
 
                 Stdy stdy = (Stdy) stdyService.myMonthlyResult(writer);

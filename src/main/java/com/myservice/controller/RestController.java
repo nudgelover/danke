@@ -293,6 +293,25 @@ public class RestController {
         return result;
     }
 
+    @RequestMapping("/pwdresetcodeimpl")
+    public Object pwdresetcodeimpl(String stdnId, String contact_auth) throws Exception {
+        Integer result = 0;
+        log.info("여기 정보오나" + contact_auth + stdnId);
+        Stdn stdn = (Stdn) stdnService.get(stdnId);
+        if(stdn.getContact().equals(contact_auth)) {
+            try {
+                SendSMSUtil sendSMSUtil = new SendSMSUtil(messageService);
+                result = sendSMSUtil.sendCode(contact_auth);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new Exception();
+            }
+        } else {
+            result = 1;
+        }
+        return result;
+    }
+
 
     @RequestMapping("/send-mms")
     public Object mms(String stdnId, String qr_name) throws Exception {
@@ -526,13 +545,16 @@ public class RestController {
     }
 
     @RequestMapping("/registerimpl2")
-    public Object registerimpl2(MyPage myPage) throws Exception {
+    public Object registerimpl2(MyPage myPage,  HttpSession session) throws Exception {
         Integer result = 0;
         log.info("여기 마이페이지다" + myPage);
 
         try {
             myPageService.register(myPage);
             result = 1;
+            if (session != null) {
+                session.invalidate();
+            }
 
         } catch (Exception e) {
             throw new Exception("시스템 장애: ER0006");

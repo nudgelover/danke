@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
@@ -35,7 +36,9 @@
                         <div class="d-flex flex-column h-100" style="padding-top: 120px;">
                             <div class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-100px"
                                  style="background-image:url('../img/confirm.png')"></div>
-                            <h3 class="text-primary text-center fs-1 fw-bold pt-15 lh-lg">${loginStdn.name}님 비밀번호 변경 완료</h3>
+                            <h3 class="text-primary text-center fs-1 fw-bold pt-15 lh-lg">
+                                ${name}님 비밀번호 변경 완료! 변경하신 비밀번호로 다시 로그인 하십시오!
+                            </h3>
                             <div class="flex-grow-1 bgi-no-repeat bgi-size-contain bgi-position-x-center bgi-position-y-bottom card-rounded-bottom h-300px"
                                  style="background-image:url('../assets/media/illustrations/sigma-1/3.png')"></div>
                         </div>

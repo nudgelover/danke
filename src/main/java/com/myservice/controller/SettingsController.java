@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,8 +48,15 @@ public class SettingsController {
         return "index";
     }
 
+    @RequestMapping("/pwdreset")
+    public String pwdreset(Model model) throws Exception {
+
+        model.addAttribute("center", dir + "pwdreset");
+        return "index";
+    }
+
     @RequestMapping("/pwdimpl")
-    public String pwdimpl(Model model, String id, String pwd) throws Exception {
+    public String pwdimpl(Model model, String id, String pwd,  HttpSession session) throws Exception {
         log.info("여기"+ id);
         log.info("여기"+ pwd);
         Stdn stdn = (Stdn) stdnService.get(id);
@@ -56,7 +64,12 @@ public class SettingsController {
         log.info("여기"+encoder.encode(pwd));
         stdn.setPwd(encoder.encode(pwd));
         stdnService.updatePwd(stdn);
+        String name = stdn.getName();
+        if (session != null) {
+            session.invalidate();
+        }
 
+        model.addAttribute("name", name);
         model.addAttribute("center", dir+"success");
         return "index";
     }

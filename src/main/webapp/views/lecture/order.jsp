@@ -27,6 +27,10 @@
     let order_selected = {
         init: function(){
 
+            if(${cpn.size()==0}){
+                $('#apply_btn').attr('disabled', true);
+            }
+
             //결제버튼 결제방법 선택 전, 비활성화
             $('#pay_btn').attr('disabled', true);
 
