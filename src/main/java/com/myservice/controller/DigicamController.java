@@ -37,6 +37,10 @@ public class DigicamController {
     @Value("${google.cal-key}")
     private String googlecalkey;
 
+
+    @Value("${serviceserver}")
+    String serviceserver;
+
     @Autowired
     AncService ancService;
     @Autowired
@@ -157,6 +161,7 @@ public class DigicamController {
 
         anc.setTimeAgo(timeAgo);
 
+        model.addAttribute("serviceserver", serviceserver);
         model.addAttribute("kakaoshare", kakaoshare);
         model.addAttribute("anc", anc);
         model.addAttribute("center", dir + "ancDetail");

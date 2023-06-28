@@ -36,6 +36,8 @@ public class MainController {
     @Value("${adminserver}")
     String adminserver;
 
+
+
     @Autowired
     private BCryptPasswordEncoder encoder;
 

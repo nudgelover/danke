@@ -438,7 +438,7 @@
         const pageUrl = 'news.v.daum.net/v/20220319120213003';
         <%--window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);--%>
         <%--        url 바꿔주기   --%>
-        window.open(`http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/marker/detail?${marker.id}`);
+        window.open(`http://www.facebook.com/sharer/sharer.php?u=${serviceserver}/marker/detail?${marker.id}`);
 
     })
 </script>
@@ -462,17 +462,14 @@
                 '/uimg/${marker.img}'
             ,
             link: {
-                // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-                // 추후 수정예정
-
                 mobileWebUrl: '${serviceserver}/marker/detail?id=${marker.id}',
                 webUrl      : '${serviceserver}/marker/detail?id=${marker.id}',
             },
         },
         social      : {
             // 추후 수정 예정. 좋아요, 댓글 개수
-            likeCount   : 286,
-            commentCount: 45,
+            likeCount   : 5,
+            commentCount: 15,
         },
         buttons     : [
             {

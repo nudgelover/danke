@@ -35,6 +35,9 @@ public class MarkerController {
     @Value("${kakaoshare}")
     private String kakaoshare;
 
+    @Value("${serviceserver}")
+    String serviceserver;
+
 
     @Autowired
     MrkService mrkService;
@@ -168,7 +171,7 @@ public class MarkerController {
 
         mrk.setTimeAgo(timeAgo);
 
-
+        model.addAttribute("serviceserver", serviceserver);
         model.addAttribute("kakaoshare", kakaoshare);
         model.addAttribute("marker", mrk);
         model.addAttribute("mrkComm", mrkCommList);

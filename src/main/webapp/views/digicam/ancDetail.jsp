@@ -276,23 +276,11 @@
         const pageUrl = 'news.v.daum.net/v/20220319120213003';
         <%--window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);--%>
         <%--        url 바꿔주기   --%>
-        window.open(`http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/digicam/anc/detail`);
+        window.open(`http://www.facebook.com/sharer/sharer.php?u=${serviceserver}/digicam/anc/detail?id=${anc.id}`);
 
     })
 </script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script>
-    Kakao.init('발급받은 JavaScript 키');
-
-    const btnShareKs = document.querySelector('#shareKt');
-
-    btnShareKs.addEventListener('click', () => {
-        Kakao.Story.share({
-            url : 'www.daum.net',
-            text: '카카오스토리로 공유 합니다.'
-        });
-    })
-</script>
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
         integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
         crossorigin="anonymous"></script>
@@ -317,15 +305,15 @@
             {
                 title: '웹으로 이동',
                 link: {
-                    mobileWebUrl: '${serviceserver}/anc/detail?id=${anc.id}',
-                    webUrl      : '${serviceserver}/anc/detail?id=${anc.id}',
+                    mobileWebUrl: '${serviceserver}/digicam/anc/detail?id=${anc.id}',
+                    webUrl      : '${serviceserver}/digicam/anc/detail?id=${anc.id}',
                 },
             },
             {
                 title: '앱으로 이동',
                 link: {
-                    mobileWebUrl: '${serviceserver}/anc/detail?id=${anc.id}',
-                    webUrl      : '${serviceserver}/anc/detail?id=${anc.id}',
+                    mobileWebUrl: '${serviceserver}/digicam/anc/detail?id=${anc.id}',
+                    webUrl      : '${serviceserver}/digicam/anc/detail?id=${anc.id}',
                 },
             },
         ],
