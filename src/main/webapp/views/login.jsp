@@ -109,7 +109,7 @@
                                placeholder="PASSWORD" autocomplete="off"/>
                         <label for="floatingPwd">PASSWORD</label>
                         <div class="d-flex justify-content-end mt-n5">
-                            <a href="/settings/pwd" class="text-primary fs-8 fw-bold text-hover-primary pt-5"
+                            <a href="/settings/pwdreset" class="text-primary fs-8 fw-bold text-hover-primary pt-5"
                                id="kt_login_signin_form_password_reset_button">비밀번호를 잊으셨나요?</a>
                         </div>
                     </div>

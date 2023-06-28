@@ -57,7 +57,7 @@
 // Data
         var data = [{
             category: "금일스터디",
-            value   : ${did==1 ? 100 : 0},
+            value   : ${did==1 ? 0 : 100},
             //스터디 완료가 됬으면 100
             full          : 100,
             columnSettings: {

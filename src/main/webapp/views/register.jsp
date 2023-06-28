@@ -25,11 +25,19 @@
 <script>
     let register_form = {
         init            : function () {
+            document.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
             $('#register_btn').attr('disabled', true);
             $('#reg_code_btn').attr('disabled', true);
             $('#register_btn').click(function () {
                 register_form.send();
             });
+
             $('#contact_auth').keyup(function () {
                 let contact_auth = $('#contact_auth').val();
                 if (contact_auth.length >= 10) {
@@ -50,8 +58,11 @@
                     $('#contact').val($('#contact_auth').val());
                     $('#auth_msg').html('인증되었습니다.');
                     modal.show();
-                }
-                ;
+                } else {
+                    let modal = new bootstrap.Modal(authModal);
+                    $('#auth_msg').html('인증번호가 일치하지 않습니다.');
+                    modal.show();
+                };
             })
 
             $('#sbj3').change(function () {
@@ -487,11 +498,11 @@
                             </div>
                             <label class="col-lg-3 col-form-label"></label>
                             <div class="col-lg-9 d-flex align-items-center">
-                                <button class="spinner spinner-primary text-center spinner-sm spinner-right form-control btn bg-light-danger fw-bold px-6 py-3 me-1"
+                                <a href="javascript:void(0)" class="spinner spinner-primary text-center spinner-sm spinner-right form-control btn bg-light-danger fw-bold px-6 py-3 me-1"
                                         style="width:20%;">
                                     <span id="id_span_timer"
                                           class="svg-icon svg-icon-muted text-center text-danger fs-6 fw-bolder">유효시간</span>
-                                </button>
+                                </a>
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
                                      style="width:55%; margin-right:1%;">
                                     <input class="form-control form-control-lg form-control-solid" type="number"
