@@ -10,6 +10,12 @@
         padding: 5% 20%;
 
     }
+  /*  비디오 추가하면 이상한 삼각형 나와서 display none 시켜버림...*/
+  .ck-reset_all{
+      display: none;
+  }
+
+
 </style>
 <!--end::Head-->
 <script>
