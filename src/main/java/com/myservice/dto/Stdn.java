@@ -4,13 +4,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Stdn {
+public class Stdn implements Serializable {
     @Size(min=5, max=10, message="ID는 5자리 이상 10자리 이하입니다.")
     @NotEmpty(message="PASSWORD는 5이상 12자리 이하입니다.")
     private String id;
