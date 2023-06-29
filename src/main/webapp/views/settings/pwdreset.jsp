@@ -27,6 +27,7 @@
                     return false;
                 }
             });
+
             //비활성화
             $('#pwd_update_btn').attr('disabled', true);
             $('#reg_code_btn').attr('disabled', true);
@@ -193,12 +194,12 @@
                                     class="bullet bullet-vertical bg-primary me-5"></span>연락처</label>
                             <div class="col-lg-9 d-flex justify mb-3">
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
-                                     style="width:77%; margin-right:1%">
+                                     style="width:76%; margin-right:1%">
                                     <input class="form-control form-control-lg form-control-solid" type="number"
                                            id="contact_auth" name="contact_auth" placeholder="가입 시 등록한 핸드폰번호를 입력하세요"/>
                                 </div>
-                                <div class="spinner spinner-sm spinner-primary spinner-right" style="width:23%">
-                                    <button type="button" class="form-control btn btn-primary fw-bold px-6 py-3 me-3"
+                                <div class="spinner spinner-sm spinner-primary spinner-right" style="width:24%">
+                                    <button type="button" class="form-control btn btn-primary fw-bold px-3 py-3 me-3"
                                             id="reg_code_btn">
                                         인증번호 발송
                                     </button>

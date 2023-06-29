@@ -49,7 +49,7 @@
                     <div class="carousel carousel-custom slide card card-xxl-stretch mb-5 mb-xxl-10" id="kt_carousel_3_carousel" data-bs-ride="carousel" data-bs-interval="8000">
                         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
                             <div class="card-title">
-                                <h3>
+                                <h3 class="min-w-300px">
                                     <span class="svg-icon svg-icon-warning svg-icon-2hx">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor"/>
@@ -93,7 +93,7 @@
                                                     </div>
                                                     <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                                                         <a href="#"
-                                                           class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+                                                           class=ㅇ"d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                                 <span class="svg-icon svg-icon-4 me-1">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M19.4 13.9411L10.7 5.24112C10.4 4.94112 10 4.84104 9.60001 5.04104C9.20001 5.24104 9 5.54107 9 5.94107V18.2411C9 18.6411 9.20001 18.941 9.60001 19.141C9.70001 19.241 9.9 19.2411 10 19.2411C10.2 19.2411 10.4 19.141 10.6 19.041C11.4 18.441 12.1 17.941 12.9 17.541L14.4 21.041C14.6 21.641 15.2 21.9411 15.8 21.9411C16 21.9411 16.2 21.9411 16.4 21.8411C17.2 21.5411 17.5 20.6411 17.2 19.8411L15.7 16.2411C16.7 15.9411 17.7 15.741 18.8 15.541C19.2 15.541 19.5 15.2411 19.6 14.8411C19.8 14.6411 19.7 14.2411 19.4 13.9411Z" fill="currentColor"/>
@@ -267,7 +267,7 @@
                     <div class="card card-xxl-stretch mb-5 mb-xxl-10">
                         <div class="card-header">
                             <div class="card-title">
-                                <h3 class="text-gray-800 mt-3">
+                                <h3 class="text-gray-800 mt-3 min-w-300px">
                                     <span class="svg-icon svg-icon-success svg-icon-2hx">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="currentColor"/>
