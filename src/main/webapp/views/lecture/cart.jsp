@@ -398,7 +398,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex-lg-row-auto col-lg-3" id="kt_inbox_list" style="margin-right:1%">
+                <div class="col-lg-3" id="kt_inbox_list" style="margin-right:1%">
                     <div class="card">
                         <div class="card-header card-header-stretch">
                             <div class="d-flex align-items-center">

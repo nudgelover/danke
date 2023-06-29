@@ -2,6 +2,7 @@ package com.myservice.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.myservice.dto.*;
+import com.myservice.firebase.NotificationService;
 import com.myservice.service.*;
 import com.myservice.dto.Stdn;
 import com.myservice.service.MyPageService;
@@ -40,7 +41,8 @@ public class MainController {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-
+    @Autowired
+    NotificationService notificationService;
     @Autowired
     StdnService stdnService;
     @Autowired
@@ -171,6 +173,7 @@ public class MainController {
 
                 session.setMaxInactiveInterval(12000000);
                 session.setAttribute("loginStdn", stdn);
+                session.setAttribute("isLoggedIn", true);
             } else if (!encoder.matches(pwd, stdn.getPwd())) {
                 int num = Integer.parseInt(stdn.getLoginError());
                 if(num==4){
@@ -224,8 +227,9 @@ public class MainController {
 
 
     @RequestMapping("/logout")
-    public String logout(Model model, HttpSession session) throws Exception {
+    public String logout(Model model, HttpSession session, UserSession userSession) throws Exception {
         if (session != null) {
+            notificationService.deleteToken(userSession.getUserId());
             session.invalidate();
         }
         return "redirect:/";
