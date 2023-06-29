@@ -98,7 +98,7 @@
 
                     if (message.content.includes('퇴장')) {
 
-                            $("#" + message.sendid).css("display", "none");
+                        $("#" + message.sendid).css("display", "none");
 
                     }
 
@@ -110,40 +110,6 @@
                 });
 
             });
-            // // group.jsp 관련 이미지 띄우기. 이 화면이 ws소켓을 자동 연결해논 jsp라 여기에서 작동시켜야 작동됨
-            // this.subscribe('/send/current/user', (msg) => {
-            //     const userIdList = JSON.parse(msg.body);
-            //     const uniqueUserIdList = [...new Set(userIdList)]; // 중복 제거된 유일한 아이디 리스트
-            //
-            //     uniqueUserIdList.forEach(userId => {
-            //         console.log(uniqueUserIdList)
-            //         //["mhheo","rlawls2422","mhheo"] 여기에 이런식으로 동일한 아이디가 여러번 넘어가는데... 동일한 아이디는 작동못하게 하려면...?
-            //         console.log(userId+"-------------아디");
-            //         if (sid !== userId) {
-            //             // 이미지가 이미 생성되었는지 확인
-            //             if ($('#' + userId).length === 0) {
-            //                 $.ajax({
-            //                     url    : '/getstdnimg',
-            //                     method : 'GET',
-            //                     data   : {stdnId: userId}, // 이미지를 가져올 학생의 ID를 전달합니다.
-            //                     success: function (response) {
-            //                         const imgUrl = response.img; // 서버에서 조회한 stdn dto
-            //
-            //
-            //                         // 상대방에게 내 사진이 뜨는 로직
-            //                         $("#participant").append('<div class="symbol symbol-35px symbol-circle">' +
-            //                             '<img id="' + userId + '" alt="Pic" src="/uimg/' + imgUrl + '"/>' +
-            //                             '</div>');
-            //                     },
-            //                     error  : function (xhr, status, error) {
-            //                         console.log('에러가 발생했습니다.');
-            //                     }
-            //                 });
-            //             }
-            //         }
-            //     });
-            // });
-
         },
         disconnect    : function () {
             group.connected = false;
@@ -326,8 +292,10 @@
                         <!--begin::Card footer-->
                         <div class="d-flex card-footer pt-4" id="kt_chat_messenger_footer">
                             <!--begin::Input-->
-                            <textarea id="grouptext" class="form-control form-control-flush mb-3" rows="1"
-                                      placeholder="Type a message"></textarea>
+                            <textarea style=" resize: none;" id="grouptext" class="form-control form-control-flush mb-3"
+                                      rows="1"
+                                      placeholder="메세지를 입력해주세요."></textarea>
+
                             <button id="sendgroup" class="btn btn-primary">Send</button>
                         </div>
                         <!--end::Card footer-->
