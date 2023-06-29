@@ -10,11 +10,46 @@
         padding: 5% 20%;
 
     }
-  /*  비디오 추가하면 이상한 삼각형 나와서 display none 시켜버림...*/
-  .ck-reset_all{
-      display: none;
-  }
 
+    /*  비디오 추가하면 이상한 삼각형 나와서 display none 시켜버림...*/
+    .ck-reset_all {
+        display: none;
+    }
+
+    .text-big {
+        font-size: large;
+    }
+
+    blockquote {
+        margin: 0 0 1rem 1rem !important;
+        padding: 8px 0 1px 10px;
+        border-left: 5px solid gray;
+    }
+
+    .ck-widget__selection-handle {
+        display: none;
+    }
+
+
+    table {
+
+        text-align: center;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .table tbody tr:nth-child(odd) {
+        background-color: #e9e9e9;
+    }
 
 </style>
 <!--end::Head-->
@@ -171,39 +206,6 @@
                                         <span class="fw-semibold text-muted text-end me-3">${marker.rdate}</span>
                                         <!--end::Date-->
                                         <div class="d-flex">
-                                            <!--begin::Star-->
-                                            <a href="#"
-                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                               data-bs-toggle="tooltip" data-bs-placement="top" title="Star">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
-                                                <span class="svg-icon svg-icon-2 m-0">
-																		<svg width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg">
-																			<path d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                                                                  fill="currentColor"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                            <!--end::Star-->
-                                            <!--begin::Mark as important-->
-                                            <a href="#"
-                                               class="btn btn-sm btn-icon btn-clear btn-active-light-primary me-3"
-                                               data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="Mark as important">
-                                                <!--begin::Svg Icon | path: icons/duotune/general/gen056.svg-->
-                                                <span class="svg-icon svg-icon-2 m-0">
-																		<svg width="24" height="24" viewBox="0 0 24 24"
-                                                                             fill="none"
-                                                                             xmlns="http://www.w3.org/2000/svg">
-																			<path d="M16.0077 19.2901L12.9293 17.5311C12.3487 17.1993 11.6407 17.1796 11.0426 17.4787L6.89443 19.5528C5.56462 20.2177 4 19.2507 4 17.7639V5C4 3.89543 4.89543 3 6 3H17C18.1046 3 19 3.89543 19 5V17.5536C19 19.0893 17.341 20.052 16.0077 19.2901Z"
-                                                                                  fill="currentColor"/>
-																		</svg>
-																	</span>
-                                                <!--end::Svg Icon-->
-                                            </a>
-                                            <!--end::Mark as important-->
                                             <a href="#" id="shareFb"
                                                class="btn btn-sm btn-icon btn-light btn-active-light-primary me-2"
                                                data-bs-toggle="tooltip" data-bs-placement="top" title="shareFb">
@@ -226,7 +228,10 @@
                                 <!--begin::Message content-->
                                 <div class="collapse fade show" data-kt-inbox-message="message">
                                     <div class="py-5">
-                                        <img class="markerImg" src="/uimg/${marker.img}">
+
+                                        <img class="markerImg"
+                                             src="/uimg/${marker.img}"
+                                             onerror="this.src='/uimg/default.jpg';"/>
 
                                         ${marker.detail}
                                     </div>
@@ -457,6 +462,7 @@
 </script>
 <script>
     Kakao.Share.createDefaultButton({
+
         container   : '#kakaotalk-sharing-btn',
         objectType  : 'location',
         address     : '${marker.title}',
@@ -464,8 +470,7 @@
         content     : {
             title      : '디지캠퍼스와 함께하는 맛집 공유',
             description: `오늘의 점심은 '${marker.title}' 어때요?`,
-            imageUrl   :
-                '/uimg/${marker.img}'
+            imageUrl   :'https://i.pinimg.com/564x/26/79/b8/2679b890097f2159c2caff3f3fb1df5a.jpg'// 이미지 경로 설정
             ,
             link: {
                 mobileWebUrl: '${serviceserver}/marker/detail?id=${marker.id}',
@@ -474,8 +479,8 @@
         },
         social      : {
             // 추후 수정 예정. 좋아요, 댓글 개수
-            likeCount   : 5,
-            commentCount: 15,
+            // likeCount   : 5,
+            commentCount: ${cntComm},
         },
         buttons     : [
             {
@@ -487,4 +492,19 @@
             },
         ],
     });
+</script>
+<script>
+    function makeTableReadOnly() {
+        var tables = document.getElementsByTagName("table");
+
+        for (var i = 0; i < tables.length; i++) {
+            var cells = tables[i].getElementsByTagName("td");
+
+            for (var j = 0; j < cells.length; j++) {
+                cells[j].contentEditable = false;
+            }
+        }
+    }
+
+    makeTableReadOnly();
 </script>

@@ -21,7 +21,9 @@ import java.util.Date;
 
 @Controller
 public class ChatController {
-    private static String secretKey = "RE1xbWNibVRVQWRoS0xTd1lacG5JSU5NQXJJRXNLc2M=";
+    private static String secretKey = "T1RwTWtVV0tKaU1UVnRhVFpQTUtFRklYdVFtY3BkSFE=";
+
+
     private static String apiUrl = "https://90sh1ps231.apigw.ntruss.com/custom/v1/10921/a470f28dd0d250c50a030b102633e1c3e0f676a7a5ea04d288b8c982752a04ed";
 
 
@@ -121,7 +123,7 @@ public class ChatController {
 
             System.out.println("##" + timestamp);
 
-            obj.put("version", "v2");
+            obj.put("version", "v1");
             obj.put("userId", "U47b00b58c90f8e47428af8b7bddc1231heo2");
             obj.put("timestamp", timestamp);
 

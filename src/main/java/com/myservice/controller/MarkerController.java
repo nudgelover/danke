@@ -147,6 +147,7 @@ public class MarkerController {
         Stdn stdn = stdnService.get(mrk.getWriter());
 
         List<MrkComm> mrkCommList = mrkCommService.getPostComm(mrk.getId());
+        Integer cntComm = mrkCommService.cntComm(mrk.getId());
         //최근 게시글 new 뱃찌
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         LocalDate currentDate = LocalDate.now();
@@ -174,6 +175,7 @@ public class MarkerController {
         model.addAttribute("serviceserver", serviceserver);
         model.addAttribute("kakaoshare", kakaoshare);
         model.addAttribute("marker", mrk);
+        model.addAttribute("cntComm", cntComm);
         model.addAttribute("mrkComm", mrkCommList);
         model.addAttribute("student", stdn);
         model.addAttribute("center", dir + "detail");

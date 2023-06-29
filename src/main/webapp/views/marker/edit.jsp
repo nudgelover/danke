@@ -342,9 +342,7 @@
                                                 <!--begin::Info-->
                                                 <div class="ms-4">
                                                     <h3 class="fs-5 fw-bold text-gray-900 mb-1">
-                                                        Drop files here or
-                                                        click
-                                                        to upload.</h3>
+                                                       업로드 하실 이미지를 선택해주세요.</h3>
                                                     <span class="fs-7 fw-semibold text-gray-400">기존 업로드 하신 파일은 ${marker.img}입니다
                                                 </div>
                                                 <!--end::Info-->

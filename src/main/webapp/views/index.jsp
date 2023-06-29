@@ -76,6 +76,14 @@
                     blahalarm.sendTo(postid, receiveId, content);
                 });
 
+
+                $('[id^="likeButton_"]').click(function (event) {
+                    event.preventDefault();
+
+                    const postid = $(this).data('postid');
+                    const receiveId = $(this).data('receiveid');
+                    blahalarm.sendTo(postid, receiveId);
+                });
                 this.loadAndDisplayAlarms();
             },
 
@@ -131,7 +139,15 @@
                     ));
                 var timelineContent = $("<div>").addClass("timeline-content mb-10 mt-n1");
                 var timelineHeading = $("<div>").addClass("pe-3 mb-5");
-                var title = $("<div>").addClass("fs-5 fw-semibold mb-2").html(sendid + "님이 회원님의 블라블라에 댓글을 남겼습니다: <span class='text-muted'>" + content + "</span>");
+
+
+                if (content) {
+                    var title = $("<div>").addClass("fs-5 fw-semibold mb-2").html(sendid + "님이 회원님의 블라블라에 댓글을 남겼습니다: <span class='text-muted'>" + content + "</span>");
+                } else {
+                    var title = $("<div>").addClass("fs-5 fw-semibold mb-2").html(sendid + "님이 회원님의 블라블라에 좋아요<span style='color: red' '>♥️</span>를 누르셨습니다");
+                }
+
+
                 var description = $("<div>").addClass("d-flex align-items-center mt-1 fs-6");
                 var info = $("<div>").addClass("text-muted me-2 fs-7").html("<a href='/blah'>블라블라로 이동하기</a>");
 

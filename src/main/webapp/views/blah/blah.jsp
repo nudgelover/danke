@@ -465,7 +465,10 @@
                                         <input type="hidden" id="stdnId" name="stdnId" value="${loginStdn.id}">
                                         <input type="hidden" id="board" name="board" value="B">
                                         <a href="#" id="likeButton_${obj.id}"
-                                           class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold">
+                                           class="btn btn-sm btn-color-muted btn-active-light-danger fw-bold"
+                                           data-receiveid="${obj.stdnId}"
+                                           data-postid="${obj.id}"
+                                        >
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen030.svg-->
                                             <span class="svg-icon svg-icon-3 pe-1">
 															<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
