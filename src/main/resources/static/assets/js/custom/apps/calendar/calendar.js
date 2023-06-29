@@ -73,6 +73,16 @@ var KTAppCalendar = function () {
                     googleCalendarId: 'digicamjava@gmail.com'
                     , color         : '#20D489'  // 배경색상
                     , textColor    : 'white'
+                },
+                { //PROJECT
+                    googleCalendarId: '6aed560ddb96902fc3a54594c783535c6b95236888a404c6f2b558d57dab4b26@group.calendar.google.com'
+                    , color: '#D5EABF'   // an option!
+                    , textColor: 'black' // an option!
+                },
+                { //KB
+                    googleCalendarId: 'de30a7b2d591c35198385c519295056696e91166c6e5a09f854b8e3a1498c0a5@group.calendar.google.com'
+                    , color: '#FFF6B7'
+                    , textColor: 'black'
                 }
             ],
             headerToolbar       : {
