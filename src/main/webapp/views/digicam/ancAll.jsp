@@ -102,7 +102,7 @@
                                         </select>
                                         <input type="text" id="search" name="search"
                                                <c:if test="${search.search != null}">value="${search.search}"
-                                               </c:if>class="form-control ps-0 py-4 h-auto" placeholder="Search"/>
+                                               </c:if>class="form-control ps-0 py-4 h-auto" placeholder="검색하실 내용을 입력해주세요. '필독'을 검색해주시면 필독사항만 확인하실 수 있습니다."/>
                                         <button class="btn btn-light-primary" type="submit">검색</button>
                                     </div>
                                 </form>
@@ -133,8 +133,7 @@
                                             <td style="text-align: left;">
                                                     ${obj.title}
                                                 <c:if test="${obj.newPost}">
-                                                    <span style="margin-left: 10px"
-                                                          class="badge badge-warning">New</span>
+                                                    <span style="margin-left: 10px" class="badge badge-warning">New</span>
                                                 </c:if>
                                             </td>
                                             <td>관리자</td>
