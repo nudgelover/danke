@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,11 +41,10 @@ public class MainController {
     @Value("${serviceserver}")
     String serviceserver;
 
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     @Autowired
     StdnService stdnService;
     @Autowired
@@ -202,7 +202,7 @@ public class MainController {
     }
 
     @RequestMapping("/registerimpl")
-    public String registerimpl(@RequestParam List<String> sbj,@RequestParam List<String> date_of_birth, Model model, Stdn stdn, HttpSession session) throws Exception {
+    public String registerimpl(@RequestBody String token, @RequestParam List<String> sbj, @RequestParam List<String> date_of_birth, Model model, Stdn stdn, HttpSession session) throws Exception {
         try {
             String birthday= date_of_birth.get(0)+"."+date_of_birth.get(1)+"."+date_of_birth.get(2);
             stdn.setBirthday(birthday);
@@ -219,6 +219,9 @@ public class MainController {
             throw new Exception("시스템 장애: ER0006");
         }
         model.addAttribute("loginStdn", stdn);
+        String userId = stdn.getId();
+        notificationService.register("stdn_"+userId, token);
+
         return "redirect:/register2";
 
     }
