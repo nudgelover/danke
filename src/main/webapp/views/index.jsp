@@ -82,7 +82,17 @@
 
                     const postid = $(this).data('postid');
                     const receiveId = $(this).data('receiveid');
-                    blahalarm.sendTo(postid, receiveId);
+                    const path = $(this).find('path');
+
+                    if (path.attr('fill') !== 'red') {
+                        // 좋아요를 누르지 않은 상태에서만 알람을 전송
+                        blahalarm.sendTo(postid, receiveId);
+
+                    }
+                    // else{
+                    //     alert('좋아요 취소~')
+                    // }
+                    // blahalarm.sendTo(postid, receiveId);
                 });
                 this.loadAndDisplayAlarms();
             },
