@@ -37,6 +37,8 @@ public class MainController {
     @Value("${adminserver}")
     String adminserver;
 
+    @Value("${serviceserver}")
+    String serviceserver;
 
 
     @Autowired
@@ -105,7 +107,9 @@ public class MainController {
         model.addAttribute("rating", rlist);
         model.addAttribute("comment", clist);
         model.addAttribute("leclist", leclist);
+        model.addAttribute("serviceserver", serviceserver);
         model.addAttribute("adminserver", adminserver);
+
         model.addAttribute("nav", "nav");
         return "index";
     }
