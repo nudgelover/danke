@@ -648,11 +648,13 @@ public class LectureController {
     @RequestMapping("/reviewdelete")
     public String reviewdelete(Integer id) throws Exception {
 
+
         LecReview lecReview = (LecReview) lecReviewService.get(id);
+        String stdnId = lecReview.getStdnId();
         Integer lecId = lecReview.getLecId();
         lecReviewService.updateDelete(id);
 
-        return "redirect:/lecture/detail?id=" + lecId;
+        return "redirect:/lecture/detail?id=" + lecId +"&&stdnId="+ stdnId;
     }
 
     @RequestMapping("/curridel")

@@ -79,17 +79,17 @@ public class MainController {
             if (session != null && session.getAttribute("loginStdn") != null) {
                 Stdn stdn = (Stdn) session.getAttribute("loginStdn");
                 String writer = stdn.getId();
+                log.info("작성자"+writer);
+                Stdy startStudy = stdyService.stdyStartOrNot(stdn.getId());
+                Stdy endStudy = stdyService.stdyEndOrNot(stdn.getId());
 
-                Stdy today = stdyService.stdyStartOrNot(writer);
-                if(today!=null&& today.getContents()!=null){
-                    did=1;
-                    log.info("디드값"+did);
-                }
+                boolean didStdy = (startStudy != null); // 스터디 시작한 데이터가 있으면 true, 없으면 false
+                boolean endedStudy = (endStudy != null); // 스터디 종료 데이터가 있으면 false, 없으면 true!
+                model.addAttribute("endedStudy", endedStudy);
+                model.addAttribute("didStdy", didStdy);
 
                 Stdy stdy = (Stdy) stdyService.myMonthlyResult(writer);
-
                 model.addAttribute("did", did);
-
                 model.addAttribute("monthStudy", stdy);
 
             }
