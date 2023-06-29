@@ -127,7 +127,7 @@
 
             } else {
                 // insta, facebook null 값일 때
-                var button = $('<a></a>').addClass("btn btn-icon me-5").attr('href', "#").css('cursor', 'default');
+                var button = $('<a></a>').addClass("btn btn-icon me-5").attr('href', "javascript:void(0)").css('cursor', 'default');
                 ;
                 button.append($('<i></i>').addClass(iconClass));
             }
@@ -230,9 +230,9 @@
                                     <!--begin::Stats-->
                                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mx-3 mb-3">
                                         <c:if test="${obj.facebook == null || obj.facebook == ' '}">
-                                            <a style="cursor:default" href="#"
+                                            <a style="cursor:default" href="javascript:void(0)"
                                                class="btn btn-icon me-5 "><i
-                                                    class="fab fa-facebook-f fs-4"></i></a>
+                                                    class="fab fa-facebook-f fs-4" ></i></a>
                                         </c:if>
 
                                         <c:if test="${obj.facebook != null && obj.facebook != ' '}">
@@ -243,7 +243,7 @@
 
 
                                         <c:if test="${obj.insta == null || obj.insta == ' '}">
-                                            <a style="cursor: default;" href="#"
+                                            <a style="cursor: default;" href="javascript:void(0)"
                                                class="btn btn-icon me-5 "><i
                                                     class="fab fa-instagram fs-4"></i></a>
                                         </c:if>
