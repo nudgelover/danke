@@ -53,6 +53,7 @@
                     clearInterval(timer);
                     $('#contact_auth').attr('disabled', true);
                     $('#code_confirm').attr('disabled', true);
+                    $('#id').attr('disabled', true);
                     $('#contact').val($('#contact_auth').val());
                     $('#auth_msg').html('인증되었습니다.');
                     modal.show();
@@ -183,7 +184,7 @@
                             <div class="col-lg-9">
                                 <div class="spinner spinner-sm spinner-primary spinner-right">
                                     <input class="form-control form-control-lg form-control-solid" type="text"
-                                           name = "id" id="id" placeholder="아이디를 입력하세요">
+                                           name = "id" id="id" placeholder="아이디를 입력하세요 ">
                                 </div>
                             </div>
                         </div>
