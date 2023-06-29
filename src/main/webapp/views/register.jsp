@@ -485,11 +485,11 @@
                                     class="bullet bullet-vertical bg-primary me-5"></span>연락처</label>
                             <div class="col-lg-9 d-flex justify mb-3">
                                 <div class="spinner spinner-sm spinner-primary spinner-right"
-                                     style="width:77%; margin-right:1%">
+                                     style="width:76%; margin-right:1%">
                                     <input class="form-control form-control-lg form-control-solid" type="number"
                                            id="contact_auth" name="contact_auth"/>
                                 </div>
-                                <div class="spinner spinner-sm spinner-primary spinner-right" style="width:23%">
+                                <div class="spinner spinner-sm spinner-primary spinner-right" style="width:24%">
                                     <button type="button" class="form-control btn btn-primary fw-bold px-6 py-3 me-3"
                                             id="reg_code_btn">
                                         인증번호 발송
