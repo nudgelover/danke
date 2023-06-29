@@ -438,7 +438,7 @@
         const pageUrl = 'news.v.daum.net/v/20220319120213003';
         <%--window.open(`http://www.facebook.com/sharer/sharer.php?u=${pageUrl}`);--%>
         <%--        url 바꿔주기   --%>
-        window.open(`http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1/marker/detail?${marker.id}`);
+        window.open(`http://www.facebook.com/sharer/sharer.php?u=https://101.101.217.220:8443/marker/detail?${marker.id}`);
 
     })
 </script>
