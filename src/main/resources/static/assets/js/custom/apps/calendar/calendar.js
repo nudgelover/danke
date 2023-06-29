@@ -71,18 +71,18 @@ var KTAppCalendar = function () {
                 }
                 ,{ //DIGI CAMPUS
                     googleCalendarId : 'digicamjava@gmail.com'
-                    , color: '#A9D0F5'
-                    , textColor: 'black'
+                    , color: '#E6F8E0'
+                    , textColor: 'gray'
                 },
                 { //PROJECT
                     googleCalendarId: '6aed560ddb96902fc3a54594c783535c6b95236888a404c6f2b558d57dab4b26@group.calendar.google.com'
-                    , color: '#D5EABF'   // an option!
-                    , textColor: 'black' // an option!
+                    , color: '#CEF6F5'   // an option!
+                    , textColor: 'gray' // an option!
                 },
                 { //KB
                     googleCalendarId: 'de30a7b2d591c35198385c519295056696e91166c6e5a09f854b8e3a1498c0a5@group.calendar.google.com'
-                    , color: '#FFF6B7'
-                    , textColor: 'black'
+                    , color: 'lemonchiffon'
+                    , textColor: 'gray'
                 }
             ],
             headerToolbar       : {

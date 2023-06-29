@@ -240,7 +240,7 @@
 													</svg>
 												</span>
                                     <!--end::Svg Icon-->
-                                    <span class="fw-bold fs-6 d-block pt-3">Sign Out</span>
+                                    <span class="fw-bold fs-6 d-block pt-3">·Î±×¾Æ¿ô</span>
                                 </a>
                             </div>
                             <!--end::Row-->
