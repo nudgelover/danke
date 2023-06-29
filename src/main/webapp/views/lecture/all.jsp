@@ -207,7 +207,7 @@
                                     <form class="d-flex" action="/lecture/findimpl" method="get">
                                         <div class="py-2 px-2 bg-white rounded me-1">
                                             <select class="form-select form-select-solid bg-white w-md-80px w-lg-90px w-xl-100px w-xxl-150px" data-control="select2"
-                                                    id="keyword" name="keyword" data-placeholder="선택하세요" data-hide-search="true"
+                                                    id="keyword" name="keyword" data-placeholder="선택" data-hide-search="true"
                                                     style="width: 30%;">
                                                 <option value=""></option>
                                                 <option value="title"
@@ -230,7 +230,7 @@
                                                                 </span>
                                             <input type="text" id="search" name="search"
                                                    <c:if test="${lecSearch.search!=null}">value="${lecSearch.search}"</c:if>
-                                                   class="form-control border-0 fw-semibold ps-2 w-xxl-350px"
+                                                   class="form-control border-0 fw-semibold ps-2 w-xxl-400px w-xl-400px w-lg-400px"
                                                    placeholder="뭘 좋아할 지 몰라 다 준비해봤어 넌 입력만 해" style="width: 70%;"/>
                                         </div>
                                         <div class="py-2 px-2 bg-primary rounded">

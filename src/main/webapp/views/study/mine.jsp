@@ -169,7 +169,7 @@
                                             <div class="fw-semibold fs-6 text-gray-800">이번달 좋아요 수</div>
                                             <div class="d-flex align-items-center">
                                                 <div id="cntLikes" class="fs-2 fw-bold text-center" data-kt-countup="true"
-                                                     data-kt-countup-value="${monthlyLikes}"
+                                                     data-kt-countup-value="${myResult.monthlyLikes}"
                                                      data-kt-countup-suffix="개" data-kt-countup-prefix="총 ">0
                                                 </div>
                                             </div>
