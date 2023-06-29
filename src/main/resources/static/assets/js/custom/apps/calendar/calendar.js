@@ -69,10 +69,10 @@ var KTAppCalendar = function () {
                     , color         : 'white'   // an option!
                     , textColor     : 'red' // an option!
                 }
-                , {
-                    googleCalendarId: 'digicamjava@gmail.com'
-                    , color         : '#20D489'  // 배경색상
-                    , textColor    : 'white'
+                ,{ //DIGI CAMPUS
+                    googleCalendarId : 'digicamjava@gmail.com'
+                    , color: '#A9D0F5'
+                    , textColor: 'black'
                 },
                 { //PROJECT
                     googleCalendarId: '6aed560ddb96902fc3a54594c783535c6b95236888a404c6f2b558d57dab4b26@group.calendar.google.com'
