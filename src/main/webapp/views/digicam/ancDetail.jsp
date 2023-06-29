@@ -19,7 +19,8 @@
             <!--begin::Info-->
             <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
                 <!--begin::Title-->
-                <h3 class="text-dark fw-bold my-1">공지사항 상세</h3>
+                <h3 class="text-dark fw-bold my-1">공지사항 상세 <span style="margin-left:10px; color: orange; font-size: 15px">📢 카카오톡</span><span
+                        style="color: gray; font-weight: 200; font-size: 15px">으로 공유가능하오니, 공지를 확인하지 못한 수강생분들에게 공유해주세요😉</span></h3>
                 <!--end::Title-->
             </div>
             <!--end::Info-->

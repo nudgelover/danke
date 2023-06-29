@@ -1,7 +1,8 @@
 package com.myservice.ncp;
 
+
+//import com.myservice.controller.ChatController;
 import com.myservice.controller.ChatController;
-import com.myservice.utill.ChatBotUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +15,9 @@ class ChatBotTest {
 	@Test
 	void contextLoads() throws IOException {
 		String txt = "문의";
-		 String secretKey = "RE1xbWNibVRVQWRoS0xTd1lacG5JSU5NQXJJRXNLc2M=";
-//		String result = ChatBotUtil.chat(txt);
+		 String secretKey = "T1RwTWtVV0tKaU1UVnRhVFpQTUtFRklYdVFtY3BkSFE=";
 		String result = ChatController.sendMessage(txt);
+//		String result = ChatController.makeSignature(txt, secretKey);
 		log.info(result+"------------------------------------test");
 
 	}

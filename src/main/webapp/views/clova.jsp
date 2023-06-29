@@ -11,6 +11,7 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
     <script src="/app.js" charset="UTF-8"></script>
+
     <style>
         body {
             background-color: #f5f5f5;

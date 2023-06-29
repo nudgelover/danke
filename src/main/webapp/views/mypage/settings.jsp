@@ -127,7 +127,7 @@
          aria-controls="kt_account_profile_details">
         <!--begin::Card title-->
         <div class="card-title m-0">
-            <h3 class="fw-bold m-0">Profile Details</h3>
+            <h3 class="fw-bold m-0">프로필 수정</h3>
         </div>
         <!--end::Card title-->
     </div>

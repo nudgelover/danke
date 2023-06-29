@@ -337,11 +337,8 @@
                                                 <!--begin::Info-->
                                                 <div class="ms-4">
                                                     <h3 class="fs-5 fw-bold text-gray-900 mb-1">
-                                                        Drop files here or
-                                                        click
-                                                        to upload.</h3>
-                                                    <span class="fs-7 fw-semibold text-gray-400">Upload up to 1 files</span>
-                                                    <span class="fs-7 fw-semibold text-gray-400">파일 1개만 올릴 수 있게 변경, 이미지 파일만 올릴 수 있도록 제한, 이미지 없을 시 alert</span>
+                                                        업로드할 이미지 파일을 선택해주세요.</h3>
+                                                    <span class="fs-7 fw-semibold text-gray-400">이미지는 한 장만 업로드 가능합니다.</span>
                                                 </div>
                                                 <!--end::Info-->
                                             </div>
@@ -527,7 +524,7 @@
                                         <h3>2. 추천 이유👏</h3>
                                     </div>
                                     <div class="d-flex float-end mt-10">
-                                        <a href="#" id="register_btn" class="btn btn-primary">Register</a>
+                                        <a href="#" id="register_btn" class="btn btn-primary">등록</a>
                                     </div>
 
                                 </form>
