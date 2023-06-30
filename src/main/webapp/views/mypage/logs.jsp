@@ -202,7 +202,7 @@
                        data-bs-toggle="tab" role="tab" href="#kt_referrals_3">전전월(${twoMonthsAgo}월)</a>
                 </li>
                 <li class="pt-7">
-                    <a class="text-active-gray-800" href="/study/mine?writer=${loginStdn.id}">전체보기<i
+                    <a class="text-active-gray-800" href="/study/mine/${loginStdn.id}/all">전체보기<i
                             class="bi bi-arrow-right-circle text-primary"></i></a>
                 </li>
             </ul>

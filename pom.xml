@@ -180,6 +180,7 @@
         </dependency>
 
         <!--        FCM 충돌해결 버전(해결안됨) -->
+        <!--Firebase-->
         <dependency>
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
