@@ -25,12 +25,12 @@ public class NotificationApiController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody String token, HttpSession httpSession) {
         // Check if the user is logged in
-//        log.info("++++++++++++++++++++++++++++++"+ "regiter start");
-        Boolean isLoggedIn = (Boolean) httpSession.getAttribute("isLoggedIn");
-        if (isLoggedIn == null || !isLoggedIn) {
-            // User is not logged in, skip registration
-            return ResponseEntity.ok().build();
-        }
+        log.info("++++++++++++++++++++++++++++++"+ "register start");
+//        Boolean isLoggedIn = (Boolean) httpSession.getAttribute("isLoggedIn");
+//        if (isLoggedIn == null || !isLoggedIn) {
+//            // User is not logged in, skip registration
+//            return ResponseEntity.ok().build();
+//        }
 
         UserSession userSession = new UserSession();
         Stdn stdn = (Stdn) httpSession.getAttribute("loginStdn");

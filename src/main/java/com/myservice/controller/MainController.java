@@ -202,7 +202,7 @@ public class MainController {
     }
 
     @RequestMapping("/registerimpl")
-    public String registerimpl(@RequestBody String token, @RequestParam List<String> sbj, @RequestParam List<String> date_of_birth, Model model, Stdn stdn, HttpSession session) throws Exception {
+    public String registerimpl(@RequestParam List<String> sbj, @RequestParam List<String> date_of_birth, Model model, Stdn stdn, HttpSession session) throws Exception {
         try {
             String birthday= date_of_birth.get(0)+"."+date_of_birth.get(1)+"."+date_of_birth.get(2);
             stdn.setBirthday(birthday);
@@ -214,14 +214,15 @@ public class MainController {
             stdn.setSbj3(sbj3);
             stdn.setPwd(encoder.encode(stdn.getPwd()));
             stdnService.register(stdn);
+//            log.info("stdn={}", stdn);
             session.setAttribute("loginStdn", stdn);
+//            log.info("loginStdn ={}", session.getAttribute("loginStdn"));
         } catch (Exception e) {
             throw new Exception("시스템 장애: ER0006");
         }
         model.addAttribute("loginStdn", stdn);
-        String userId = stdn.getId();
-        notificationService.register("stdn_"+userId, token);
-
+//        String userId = stdn.getId();
+//        notificationService.register("stdn_"+userId, token);
         return "redirect:/register2";
 
     }

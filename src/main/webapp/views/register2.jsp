@@ -42,10 +42,10 @@
                 contentType: false,
                 success    : function (response) {
                     let modal = new bootstrap.Modal(registerModal);
-                    $('#register_msg').html('가입완료! 관리자 승인 후, 로그인 가능합니다!(10초 후 로그인 페이지 이동)');
+                    $('#register_msg').html('가입완료! 관리자 승인 후, 로그인 가능합니다!(10초 후 메인 페이지 이동)');
                     modal.show();
                     setTimeout(function () {
-                        window.location.href = '/login'
+                        window.location.href = '/'
                     }, 5000);
                 },
                 error      : function (error) {

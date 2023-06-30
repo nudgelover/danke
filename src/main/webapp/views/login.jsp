@@ -27,6 +27,10 @@
     <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-messaging.js"></script>
+    <script src="/notification.js"></script>
 </head>
 <style>
     #kt_body {
