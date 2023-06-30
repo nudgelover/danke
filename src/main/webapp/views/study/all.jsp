@@ -267,7 +267,7 @@
                     <div class="card card-xxl-stretch mb-5 mb-xxl-10">
                         <div class="card-header">
                             <div class="card-title">
-                                <h3 class="text-gray-800 mt-3">
+                                <h3 class="text-gray-800 mt-3 min-w-350px">
                                     <span class="svg-icon svg-icon-success svg-icon-2hx">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="currentColor"/>
