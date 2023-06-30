@@ -24,22 +24,25 @@
     let oneonone = {
         id            : null,
         stompClient   : null,
+        connected     : false,
         init          : function () {
             this.id = $('#adm_id_oneonone').text();//adm_id에서 적힌 글씨를 id로 뿌려줄 예정이다.
             const oneononebox = $('#oneonone_box');
             $("#connect_oneonone").click(function () {
-                oneonone.connect();
-                const statusOneonone = document.getElementById('status_oneonone');
-                if(statusOneonone.innerText == '연결대기'||'연결종료')
-                    $('#to').append(`<p>죄송합니다. 연결이 정상적으로 이루어지지 않았습니다. 상단의 연결버튼을 다시 눌러주세요.</p>`)
-                messengerBody.scrollTop = messengerBody.scrollHeight;
+                if(!oneonone.connected){
+                    oneonone.connect();
+                }
             });
             $("#connect_oneonone2").click(function () {
-                oneonone.connect();
+                if(!oneonone.connected){
+                    oneonone.connect();
+                }
             });
             $("#disconnect_oneonone").click(function () {
                 oneononebox.hide();
-                oneonone.disconnect();
+                if(oneonone.connected){
+                    oneonone.disconnect();
+                }
             });
             $("#sendto").click(function () {
                 oneonone.sendTo();
@@ -59,6 +62,7 @@
             this.stompClient.connect({}, function (frame) {
                 //첫 번째 매개변수는 연결 설정 객체, STOMP 메시지 브로커와의 인증을 위한 정보를 제공합니다.
                 //두 번째 매개변수는 연결이 성공했을 때 실행될 콜백 함수입니다. 서버에서 전송한 메시지를 수신하기 위해 콜백 함수를 등록합니다.
+                oneonone.connected = true;
                 oneonone.setConnected(true);//단순히 connected, disconnected 적히게 하는 함수.
                 console.log('Connected: ' + frame);
 
@@ -72,9 +76,14 @@
                         '<div class="d-flex justify-content-start mb-10"><div class="d-flex flex-column align-items-start"> <div class="d-flex align-items-center mb-2"> <div class="symbol symbol-35px symbol-circle"> <img alt="Pic" src="/img/logo.png"/> </div> <div class="ms-3"> <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">' + "당케관리자" + '</a></div> </div> <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start">' + JSON.parse(msg.body).content1 + '</div></div></div>'
                     );
                 });
+            }, function (error) {
+                $('#to').append(`<p>죄송합니다. 연결이 정상적으로 이루어지지 않았습니다. 상단의 연결버튼을 다시 눌러주세요.</p>`);
+                messengerBody.scrollTop = messengerBody.scrollHeight;
+                console.log('Error: ' + error);
             });
         },
         disconnect    : function () {
+            oneonone.connected = false;
             if (this.stompClient !== null) {
                 this.stompClient.disconnect();
             }
@@ -137,7 +146,7 @@
             <div class="me-2">
                 <button class="btn btn-sm btn-icon btn-active-light-primary" id="connect_oneonone">
                     연결
-                <%--                </button>--%>
+                    <%--                </button>--%>
             </div>
             <!--end::Menu-->
             <!--begin::Close-->
@@ -164,15 +173,15 @@
             <div id="to">
                 <div class="d-flex justify-content-start mb-5">
                     <div class="d-flex flex-column align-items-start">
-<%--                        <div class="d-flex align-items-center mb-2">--%>
-<%--                            <div class="symbol symbol-35px symbol-circle"><img alt="Pic" src="/img/logo.png"/></div>--%>
-<%--                            <div class="ms-3"><a href="#"--%>
-<%--                                                 class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">당케 관리자</a>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"> 안녕하세요, 1:1--%>
-<%--                            고객센터입니다. 무엇을 도와드릴까요?--%>
-<%--                        </div>--%>
+                        <%--                        <div class="d-flex align-items-center mb-2">--%>
+                        <%--                            <div class="symbol symbol-35px symbol-circle"><img alt="Pic" src="/img/logo.png"/></div>--%>
+                        <%--                            <div class="ms-3"><a href="#"--%>
+                        <%--                                                 class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">당케 관리자</a>--%>
+                        <%--                            </div>--%>
+                        <%--                        </div>--%>
+                        <%--                        <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"> 안녕하세요, 1:1--%>
+                        <%--                            고객센터입니다. 무엇을 도와드릴까요?--%>
+                        <%--                        </div>--%>
                         <div>
                             <a href="#" class="btn btn-icon-success btn-text-success" id="faq"><span
                                     class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -234,8 +243,8 @@
                             고객센터입니다. 무엇을 도와드릴까요?
                         </div>
                     `);
-           if(statusOneonone.innerText == '연결대기'||'연결종료')
-            $('#to').append(`<p>죄송합니다. 연결이 정상적으로 이루어지지 않았습니다. 상단의 연결버튼을 다시 눌러주세요.</p>`)
+            // if(statusOneonone.innerText == '연결대기'||'연결종료')
+            //  $('#to').append(`<p>죄송합니다. 연결이 정상적으로 이루어지지 않았습니다. 상단의 연결버튼을 다시 눌러주세요.</p>`)
             messengerBody.scrollTop = messengerBody.scrollHeight;
         });
     });
