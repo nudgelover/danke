@@ -94,7 +94,14 @@
 
                 <div class="mt-10 text-center">
                     <h1 class="text-primary">디지네컷 사용법🎈</h1>
-                    <span class="fw-bold text-muted">클릭하여 이미지를 업로드하세요. 아래 저장 버튼을 누르면 사진이 저장됩니다.</br>그럼 즐거운 포토타임 되세요!📸</span></div>
+                    <span class="fw-bold text-muted">클릭하여 이미지를 업로드하세요. 아래 저장 버튼을 누르면 사진이 저장됩니다.</br>
+                        그럼 즐거운 포토타임 되세요!📸</span></div>
+                <div class="d-flex mt-10">
+                    <button style="background-color: whitesmoke; color: gray" class="btn mx-2" id="changWhite">흰색</button>
+                    <button style="background-color:#E0E6F8; color: gray " class="btn mx-2" id="changPink">연보라</button>
+                    <button style="background-color: #CEF6F5; color: gray" class="btn mx-2" id="changMint">민트</button>
+                    <button style="background-color: #585858; color: gray" class="btn mx-2" id="changBlack">블랙</button>
+                </div>
                 <div class="fourcut_container">
                     <div class="photo">
                         <div id="img1" class="photo_frame" onclick="openFileInput('file1')">
@@ -131,6 +138,34 @@
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
+    const changWhite = document.getElementById('changWhite')
+    const changPink = document.getElementById('changPink');
+    const changMint = document.getElementById('changMint');
+    const changBlack = document.getElementById('changBlack');
+    const fourcutContainer = document.querySelector('.fourcut_container');
+    const photo = document.querySelector('.photo');
+
+    changWhite.addEventListener('click', function () {
+        fourcutContainer.style.backgroundColor = 'white';
+        photo.style.backgroundColor = 'white';
+    });
+
+    changPink.addEventListener('click', function () {
+        fourcutContainer.style.backgroundColor = '#E0E6F8';
+        photo.style.backgroundColor = '#E0E6F8';
+    });
+
+    changMint.addEventListener('click', function () {
+        fourcutContainer.style.backgroundColor = '#CEF6F5';
+        photo.style.backgroundColor = '#CEF6F5';
+    });
+
+    changBlack.addEventListener('click', function () {
+        fourcutContainer.style.backgroundColor = 'black';
+        photo.style.backgroundColor = 'black';
+    });
+
+
     function handleFileSelect(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
