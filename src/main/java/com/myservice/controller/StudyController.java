@@ -142,8 +142,8 @@ public class StudyController {
         return "index";
     }
 
-    @RequestMapping("/mine")
-    public String mine(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String writer) throws Exception {
+    @RequestMapping("/mine/{writer}/all")
+    public String mine(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model,  @PathVariable String writer) throws Exception {
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String thisMonth = now.format(DateTimeFormatter.ofPattern("yyyy.MM"));
@@ -190,6 +190,8 @@ public class StudyController {
 
         model.addAttribute("myResult", myResult);
         model.addAttribute("target","study");
+        model.addAttribute("target2","mine");
+        model.addAttribute("target3",writer);
         model.addAttribute("cpage",p);
         model.addAttribute("did",did);
         model.addAttribute("center", dir + "mine");

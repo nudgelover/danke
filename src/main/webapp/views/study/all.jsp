@@ -35,7 +35,7 @@
                 <a href="/study/all" class="btn btn-active-accent active active fw-bold ms-33">스터디 게시판</a>
                 <c:choose>
                     <c:when test="${loginStdn != null}">
-                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
+                        <a href="/study/mine/${loginStdn.id}/all" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
                         <a href="/study/add" class="btn btn-active-accent fw-bold ms-3">스터디 일지 작성</a>
                     </c:when>
                 </c:choose>
@@ -49,7 +49,7 @@
                     <div class="carousel carousel-custom slide card card-xxl-stretch mb-5 mb-xxl-10" id="kt_carousel_3_carousel" data-bs-ride="carousel" data-bs-interval="8000">
                         <div class="card-header d-flex align-items-center justify-content-between flex-wrap">
                             <div class="card-title">
-                                <h3>
+                                <h3 class="min-w-300px">
                                     <span class="svg-icon svg-icon-warning svg-icon-2hx">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M14 18V16H10V18L9 20H15L14 18Z" fill="currentColor"/>
@@ -267,7 +267,7 @@
                     <div class="card card-xxl-stretch mb-5 mb-xxl-10">
                         <div class="card-header">
                             <div class="card-title">
-                                <h3 class="text-gray-800 mt-3">
+                                <h3 class="text-gray-800 mt-3 min-w-350px">
                                     <span class="svg-icon svg-icon-success svg-icon-2hx">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="currentColor"/>

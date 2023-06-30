@@ -86,7 +86,7 @@
                                             <a class="menu-link ps-0 py-2" href="/study/add">스터디 작성</a>
                                         </li>
                                         <li class="menu-item">
-                                            <a class="menu-link ps-0 py-2" href="/study/mine?writer=${loginStdn.id}">나의 스터디</a>
+                                            <a class="menu-link ps-0 py-2" href="/study/mine/${loginStdn.id}/all">나의 스터디</a>
                                         </li>
                                         <li class="menu-item">
                                             <a class="menu-link ps-0 py-2" href="/study/all">스터디 리스트</a>

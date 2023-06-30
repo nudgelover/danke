@@ -83,7 +83,7 @@
                 <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
                     <c:when test="${loginStdn != null}">
-                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
+                        <a href="/study/mine/${loginStdn.id}/all" class="btn btn-active-accent fw-bold ms-3">나의 스터디 기록</a>
                         <a href="/study/add" class="btn btn-active-accent active active fw-bold ms-33">스터디 일지 작성</a>
                     </c:when>
                 </c:choose>

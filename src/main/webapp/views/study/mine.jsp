@@ -57,7 +57,7 @@
                 <a href="/study/all" class="btn btn-active-accent fw-bold ms-3">스터디 게시판</a>
                 <c:choose>
                     <c:when test="${loginStdn != null}">
-                        <a href="/study/mine?writer=${loginStdn.id}" class="btn btn-active-accent active active fw-bold ms-33">나의 스터디 기록</a>
+                        <a href="/study/mine/${loginStdn.id}/all" class="btn btn-active-accent active active fw-bold ms-33">나의 스터디 기록</a>
                         <a href="/study/add" class="btn btn-active-accent fw-bold ms-3">스터디 일지 작성</a>
                     </c:when>
                 </c:choose>
@@ -169,7 +169,7 @@
                                             <div class="fw-semibold fs-6 text-gray-800">이번달 좋아요 수</div>
                                             <div class="d-flex align-items-center">
                                                 <div id="cntLikes" class="fs-2 fw-bold text-center" data-kt-countup="true"
-                                                     data-kt-countup-value="${monthlyLikes}"
+                                                     data-kt-countup-value="${myResult.monthlyLikes}"
                                                      data-kt-countup-suffix="개" data-kt-countup-prefix="총 ">0
                                                 </div>
                                             </div>
@@ -262,7 +262,7 @@
                     </div>
                 </div>
             </div>
-            <jsp:include page="../findpage.jsp"/>
+            <jsp:include page="../page.jsp"/>
         </div>
     </div>
 </div>

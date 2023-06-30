@@ -178,7 +178,6 @@
             <artifactId>google-http-client-jackson2</artifactId>
             <version>1.41.0</version>
         </dependency>
-
         <!--Firebase-->
         <dependency>
             <groupId>com.google.firebase</groupId>
@@ -203,5 +202,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
