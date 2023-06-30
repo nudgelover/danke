@@ -83,7 +83,7 @@ public class MainController {
             if (session != null && session.getAttribute("loginStdn") != null) {
                 Stdn stdn = (Stdn) session.getAttribute("loginStdn");
                 String writer = stdn.getId();
-                log.info("작성자"+writer);
+                log.info("작성자" + writer);
                 Stdy startStudy = stdyService.stdyStartOrNot(stdn.getId());
                 Stdy endStudy = stdyService.stdyEndOrNot(stdn.getId());
 
@@ -123,7 +123,7 @@ public class MainController {
     @RequestMapping("/register")
     public String register(Model model) throws Exception {
         List<SbjDetail> smallList = sbjDetailService.searchSmallAll();
-        log.info("여기"+smallList.toString());
+        log.info("여기" + smallList.toString());
 
         model.addAttribute("smallList", smallList);
         model.addAttribute("center", "register");
@@ -143,59 +143,59 @@ public class MainController {
         Stdn stdn = null;
         stdn = stdnService.get(id);
 
-            if(stdn==null){
-                model.addAttribute("msg","error");
-                model.addAttribute("contents", "존재하지 않는 ID입니다.");
-                return "login";
-            }
+        if (stdn == null) {
+            model.addAttribute("msg", "error");
+            model.addAttribute("contents", "존재하지 않는 ID입니다.");
+            return "login";
+        }
 
-            if(Integer.parseInt(stdn.getIsJoin())==0){
-                model.addAttribute("msg","error");
-                model.addAttribute("contents", "관리자 승인 후 로그인 가능합니다.");
-                return "login";
-            }
+        if (Integer.parseInt(stdn.getIsJoin()) == 0) {
+            model.addAttribute("msg", "error");
+            model.addAttribute("contents", "관리자 승인 후 로그인 가능합니다.");
+            return "login";
+        }
 
-            if(Integer.parseInt(stdn.getIsJoin())==2){
-                model.addAttribute("msg","error");
+        if (Integer.parseInt(stdn.getIsJoin()) == 2) {
+            model.addAttribute("msg", "error");
+            model.addAttribute("contents", "비밀번호 5회 실패로 로그인이 차단되었습니다.");
+            return "login";
+        }
+
+        if (Integer.parseInt(stdn.getIsJoin()) == 3) {
+            model.addAttribute("msg", "error");
+            model.addAttribute("contents", "관리자에 의하여 차단되었습니다.");
+            return "login";
+        }
+
+        if (stdn != null && encoder.matches(pwd, stdn.getPwd())) {
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+            String lastVisit = now.format(formatter);
+            stdn.setLastVisit(lastVisit);
+            stdn.setLoginError("0");
+            stdnService.updateAdm(stdn);
+
+            session.setMaxInactiveInterval(12000000);
+            session.setAttribute("loginStdn", stdn);
+            session.setAttribute("isLoggedIn", true);
+        } else if (!encoder.matches(pwd, stdn.getPwd())) {
+            int num = Integer.parseInt(stdn.getLoginError());
+            if (num == 4) {
+                num += 1;
+                stdn.setIsJoin("2");
+                stdn.setLoginError(num + "");
+                stdnService.updateAdm(stdn);
+                model.addAttribute("msg", "error");
                 model.addAttribute("contents", "비밀번호 5회 실패로 로그인이 차단되었습니다.");
                 return "login";
             }
-
-            if(Integer.parseInt(stdn.getIsJoin())==3){
-                model.addAttribute("msg","error");
-                model.addAttribute("contents", "관리자에 의하여 차단되었습니다.");
-                return "login";
-            }
-
-            if (stdn != null && encoder.matches(pwd, stdn.getPwd())) {
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
-                String lastVisit = now.format(formatter);
-                stdn.setLastVisit(lastVisit);
-                stdn.setLoginError("0");
-                stdnService.updateAdm(stdn);
-
-                session.setMaxInactiveInterval(12000000);
-                session.setAttribute("loginStdn", stdn);
-                session.setAttribute("isLoggedIn", true);
-            } else if (!encoder.matches(pwd, stdn.getPwd())) {
-                int num = Integer.parseInt(stdn.getLoginError());
-                if(num==4){
-                    num+=1;
-                    stdn.setIsJoin("2");
-                    stdn.setLoginError(num+"");
-                    stdnService.updateAdm(stdn);
-                    model.addAttribute("msg","error");
-                    model.addAttribute("contents", "비밀번호 5회 실패로 로그인이 차단되었습니다.");
-                    return "login";
-                }
-                num+=1;
-                stdn.setLoginError(num+"");
-                stdnService.updateAdm(stdn);
-                model.addAttribute("msg","error");
-                model.addAttribute("contents", "로그인 실패. ("+num+"회 오류)");
-                return "login";
-            }
+            num += 1;
+            stdn.setLoginError(num + "");
+            stdnService.updateAdm(stdn);
+            model.addAttribute("msg", "error");
+            model.addAttribute("contents", "로그인 실패. (" + num + "회 오류)");
+            return "login";
+        }
         model.addAttribute("loginStdn", stdn);
         model.addAttribute("center", "center");
         return "redirect:/";
@@ -204,7 +204,7 @@ public class MainController {
     @RequestMapping("/registerimpl")
     public String registerimpl(@RequestBody String token, @RequestParam List<String> sbj, @RequestParam List<String> date_of_birth, Model model, Stdn stdn, HttpSession session) throws Exception {
         try {
-            String birthday= date_of_birth.get(0)+"."+date_of_birth.get(1)+"."+date_of_birth.get(2);
+            String birthday = date_of_birth.get(0) + "." + date_of_birth.get(1) + "." + date_of_birth.get(2);
             stdn.setBirthday(birthday);
             String sbj1 = sbj.get(0);
             String sbj2 = sbj.get(1);
@@ -220,7 +220,7 @@ public class MainController {
         }
         model.addAttribute("loginStdn", stdn);
         String userId = stdn.getId();
-        notificationService.register("stdn_"+userId, token);
+        notificationService.register("stdn_" + userId, token);
 
         return "redirect:/register2";
 
@@ -249,19 +249,21 @@ public class MainController {
     }
 
     @RequestMapping("/toall")
-    public String websocket(Model model){
+    public String websocket(Model model) {
         model.addAttribute("adminserver", adminserver);
         model.addAttribute("center", "toall");
         return "index";
     }
+
     @RequestMapping("/oneonone")
-    public String oneonone(Model model){
+    public String oneonone(Model model) {
         model.addAttribute("adminserver", adminserver);
         model.addAttribute("center", "oneonone");
         return "index";
     }
+
     @RequestMapping("/chatbot")
-    public String chatbot(Model model){
+    public String chatbot(Model model) {
         model.addAttribute("adminserver", adminserver);
         log.info("adminserver={}", adminserver);
         model.addAttribute("center", "chatbot");
@@ -269,10 +271,11 @@ public class MainController {
     }
 
     @RequestMapping("/clova")
-    public String clova(Model model){
+    public String clova(Model model) {
 
         model.addAttribute("center", "clova");
         return "index";
     }
+
 
 }

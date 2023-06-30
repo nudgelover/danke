@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -143,7 +145,16 @@ public class BlahController {
         return "index";
     }
 
+    @RequestMapping("/fourcut")
+    public String fourcut(Model model) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
 
+        model.addAttribute("now", formattedDateTime);
+        model.addAttribute("center", dir + "fourcut");
+        return "index";
+    }
     @RequestMapping("/private")
     public String privatechat(Model model) throws Exception {
         model.addAttribute("center", dir + "private");

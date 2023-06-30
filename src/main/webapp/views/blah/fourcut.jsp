@@ -1,0 +1,179 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
+<!--end::Vendor Stylesheets-->
+<style>
+    .fourcut_container {
+        margin: 3em 0;
+        width: 400px;
+        height: 1065px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        background-color: white;
+    }
+
+    #img1 {
+        margin-top: 50px;
+    }
+
+    .photo {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+    }
+
+    .photo_frame {
+        margin: 10px 0;
+        width: 350px;
+        height: 200px;
+        background-color: lightgray;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .fourcut_footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer_image {
+        padding: 0 10px;
+        width: 400px;
+        height: 120px;
+    }
+
+    .preview_image {
+        display: none;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .upload_input {
+        display: none;
+    }
+</style>
+<!--end::Head-->
+
+<!--begin::Main-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::toolbar-->
+    <div class="toolbar" id="kt_toolbar">
+        <div class="container-xxl d-flex flex-stack flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex flex-column align-items-start justify-content-center flex-wrap me-1">
+                <!--begin::Title-->
+                <h3 class="text-dark fw-bold my-1">디지네컷</h3>
+                <p class="text-muted"><img style="height: 30px; padding-bottom: 4px"
+                                           src="https://cdn-icons-png.flaticon.com/512/1042/1042339.png"> 당신들의 소중한 순간을
+                    아름답게 간직해드릴게요. 여기서 여러분의 인생네컷을 만들어보세요.</p>
+                <p style="display: none" id="group_chat_stdn_id">${loginStdn.id}</p>
+                <!--end::Title-->
+            </div>
+            <!--end::Info-->
+            <!--begin::Nav-->
+            <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
+                <a href="/blah" class="btn btn-active-accent fw-bold">블라블라</a>
+                <a href="/blah/group" class="btn btn-active-accent fw-bold">디지챗</a>
+                <a href="/blah/fourcut" class="btn btn-active-accent active fw-bold">디지네컷</a>
+            </div>
+            <!--end::Nav-->
+        </div>
+    </div>
+    <!--end::toolbar-->
+    <!--begin::Content-->
+    <div class="content fs-6 d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-xxl">
+            <!--begin::Layout-->
+            <div class="card flex-row-fluid align-items-center">
+
+                <div class="mt-10 text-center">
+                    <h1 class="text-primary">디지네컷 사용법🎈</h1>
+                    <span class="fw-bold text-muted">클릭하여 이미지를 업로드하세요. 아래 저장 버튼을 누르면 사진이 저장됩니다.</br>그럼 즐거운 포토타임 되세요!📸</span></div>
+                <div class="fourcut_container">
+                    <div class="photo">
+                        <div id="img1" class="photo_frame" onclick="openFileInput('file1')">
+                            <img class="preview_image" src="" alt="Preview Image">
+                            <input id="file1" class="upload_input" type="file" onchange="handleFileSelect(event)">
+                        </div>
+                        <div id="img2" class="photo_frame" onclick="openFileInput('file2')">
+                            <img class="preview_image" src="" alt="Preview Image">
+                            <input id="file2" class="upload_input" type="file" onchange="handleFileSelect(event)">
+                        </div>
+                        <div id="img3" class="photo_frame" onclick="openFileInput('file3')">
+                            <img class="preview_image" src="" alt="Preview Image">
+                            <input id="file3" class="upload_input" type="file" onchange="handleFileSelect(event)">
+                        </div>
+                        <div id="img4" class="photo_frame" onclick="openFileInput('file4')">
+                            <img class="preview_image" src="" alt="Preview Image">
+                            <input id="file4" class="upload_input" type="file" onchange="handleFileSelect(event)">
+                        </div>
+                    </div>
+                    <div class="fourcut_footer" style="position: relative;">
+                        <img class="footer_image" src="/img/인생네컷푸터.png">
+                        <span style="position: absolute; top: 110px; right: 28px; font-size: 14px; color: lightblue; z-index: 1;">${now}</span>
+                    </div>
+                </div>
+                <button class="btn btn-warning mb-10" onclick="captureAndSaveImage()">저장</button>
+            </div>
+
+        </div>
+        <!--end::Layout-->
+    </div>
+
+</div>
+<!--end::Main-->
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        const preview = event.target.parentNode.querySelector('.preview_image');
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // Show the preview image
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function openFileInput(inputId) {
+        document.getElementById(inputId).click();
+    }
+
+    function captureAndSaveImage() {
+        const container = document.querySelector('.fourcut_container');
+
+        html2canvas(container).then(function (canvas) {
+            // Convert canvas image to data URL
+            const imageData = canvas.toDataURL('image/jpg');
+
+            // Create a download link for the image
+            const downloadLink = document.createElement('a');
+            downloadLink.href = imageData;
+            downloadLink.download = 'fourcut_image.jpg';
+            downloadLink.click();
+        });
+    }
+</script>
+
+<!-- HTML 코드 생략 -->
+
+<!--begin::Vendors Javascript(used for this page only)-->
+<script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+<!--end::Vendors Javascript-->
+<!--begin::Custom Javascript(used for this page only)-->
+<script src="/assets/js/custom/widgets.js"></script>
+<script src="/assets/js/custom/apps/chat/chat.js"></script>
+<script src="/assets/js/custom/utilities/modals/users-search.js"></script>
+<!--end::Custom Javascript-->
+<!--end::Javascript-->
