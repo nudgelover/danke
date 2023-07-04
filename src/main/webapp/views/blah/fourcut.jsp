@@ -9,7 +9,7 @@
         width: 400px;
         height: 1065px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        background-color: white;
+        /*background-color: white;*/
     }
 
     #img1 {
@@ -22,7 +22,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: white;
+        /*background-color: white;*/
     }
 
     .photo_frame {
@@ -144,25 +144,29 @@
     const changBlack = document.getElementById('changBlack');
     const fourcutContainer = document.querySelector('.fourcut_container');
     const photo = document.querySelector('.photo');
-
+    const fourcutFooter = document.querySelector('.fourcut_footer');
     changWhite.addEventListener('click', function () {
         fourcutContainer.style.backgroundColor = 'white';
         photo.style.backgroundColor = 'white';
+        fourcutFooter.style.backgroundColor = 'white';
     });
 
     changPink.addEventListener('click', function () {
         fourcutContainer.style.backgroundColor = '#E0E6F8';
         photo.style.backgroundColor = '#E0E6F8';
+        fourcutFooter.style.backgroundColor = '#E0E6F8';
     });
 
     changMint.addEventListener('click', function () {
-        fourcutContainer.style.backgroundColor = '#CEF6F5';
-        photo.style.backgroundColor = '#CEF6F5';
+        fourcutContainer.style.backgroundColor = '#EFF5FB';
+        photo.style.backgroundColor = '#EFF5FB';
+        fourcutFooter.style.backgroundColor = '#EFF5FB';
     });
 
     changBlack.addEventListener('click', function () {
         fourcutContainer.style.backgroundColor = 'black';
         photo.style.backgroundColor = 'black';
+        fourcutFooter.style.backgroundColor = 'black';
     });
 
 
