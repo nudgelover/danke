@@ -192,6 +192,7 @@
             <div class="d-flex align-items-center flex-nowrap text-nowrap overflow-auto py-1">
                 <a href="/blah" class="btn btn-active-accent fw-bold">블라블라</a>
                 <a href="/blah/group" class="btn btn-active-accent active fw-bold">디지챗</a>
+                <a href="/blah/fourcut" class="btn btn-active-accent fw-bold">디지네컷</a>
             </div>
             <!--end::Nav-->
         </div>
