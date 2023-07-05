@@ -59,7 +59,7 @@ public class SettingsController {
     public String pwdimpl(Model model, String id, String pwd,  HttpSession session) throws Exception {
         log.info("여기"+ id);
         log.info("여기"+ pwd);
-        Stdn stdn = (Stdn) stdnService.get(id);
+        Stdn stdn = stdnService.get(id);
         log.info("여기"+stdn.toString());
         log.info("여기"+encoder.encode(pwd));
         stdn.setPwd(encoder.encode(pwd));
